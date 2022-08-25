@@ -7,7 +7,7 @@ public class PowSingle {
 
         long startTime = System.nanoTime();
         for(int i = 0; i < data.length; i++){
-            data[i] = Math.pow(data[i], 5);
+            data[i] = Math.pow(data[i], 243);
         }
 
         long endTime = System.nanoTime();

@@ -18,7 +18,7 @@ public class PowRecursiveAction {
 	}
 }
 class Pow extends RecursiveAction {
-    final int threshold = 10000;
+    final int threshold = 1000;
     int start, end;
     double[] data;
     Pow(double[] data, int start, int end) {
@@ -31,7 +31,7 @@ class Pow extends RecursiveAction {
     protected void compute() {
         if((end - start) < threshold){
             for(int i = start; i < end; i++){
-                data[i] = Math.pow(data[i], 5);
+                data[i] = Math.pow(data[i], 243);
             }
         }else {
             int mid = (start + end)/2;
