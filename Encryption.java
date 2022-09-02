@@ -1,69 +1,95 @@
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Encryption {
-    public static void main(String[] args) {
-        // Password creation
-		//String contraseña = "Lorem ipsum dolor sit amet";
-        //char[] password = new char[contraseña.length()];
-        //password = contraseña.toCharArray();
-        //System.out.println(new String(password));
-
-
-        double[] password = new double[10000000];
-        for(int i = 0; i < password.length; i++) {
-            password[i] = 323489;
+    public static void main(String[] args) throws FileNotFoundException {
+        String pwd = "";
+        // Leer archivo local
+        File texto = new File("./Example.txt");
+        Scanner obj = new Scanner(texto);
+        while(obj.hasNextLine()){
+            pwd += obj.nextLine();
         }
+        
+        // Password creation
+        double[] encryptedPwd = new double[pwd.length()];
+        char[] dencryptedPwd = new char[pwd.length()];
 
         // Threaded password encryption
         long startTime = System.nanoTime();
 		ForkJoinPool pool = new ForkJoinPool();
-		Encrypt app = new Encrypt(password, 0, password.length);
-		pool.invoke(app);
-        Dencrypt app2 = new Dencrypt(password, 0, password.length);
+		Encrypter encrypter = new Encrypter(pwd, encryptedPwd, 0, pwd.length());
+		pool.invoke(encrypter);
+       
+        // Threaded password decryption
+        Decryptor app2 = new Decryptor(dencryptedPwd, encryptedPwd, 0, pwd.length()); 
 		pool.invoke(app2);
         long endTime = System.nanoTime();
         System.out.println("Tiempo: " + (endTime - startTime)/100000);
+        /*
+        System.out.println("Contraseña original:"+pwd);
+        System.out.print("Contraseña 'encriptada':");
+        for(int i = 0; i < pwd.length(); i++){
+            System.out.print((char)(encryptedPwd[i]%255)); 
+        }
+        System.out.println();
+        System.out.println("Contraseña desencriptada: "+ new String(dencryptedPwd));
+         */
 
         // Single-threaded password encryption
         startTime = System.nanoTime();
-        for(int i = 0; i < password.length; i++){
-            double j = (f((int)password[i]));
+        for(int i = 0; i < pwd.length(); i++){
+            encryptedPwd[i] = f((double)pwd.charAt(i));
         }
-        for(int i = 0; i < password.length; i++){
-            double j = f2((int)password[i]);
+        for(int i = 0; i < encryptedPwd.length; i++){
+            dencryptedPwd[i] = (char)f2(encryptedPwd[i]);
         }
         endTime = System.nanoTime();
         System.out.println("Tiempo: " + (endTime - startTime)/100000);
+        
+        /* 
+        System.out.println("Contraseña original:"+pwd);
+        System.out.print("Contraseña 'encriptada':");
+        for(int i = 0; i < pwd.length(); i++){
+            System.out.print((char)(encryptedPwd[i]%255)); 
+        }
+        System.out.println();
+        System.out.println("Contraseña desencriptada: "+ new String(dencryptedPwd));
+        */
+        
 	}
-    static int f(int x){
-        return (int)Math.pow(4*x+7,80);
+    static double f(double x){
+        return Math.pow(4*x+7,80);
     }
-    static int f2(int x){
-        return (int)(Math.pow(x,0.0125)-7)/4;
+    static double f2(double x){
+        return (Math.pow(x,0.0125)-7)/4;
     }
-
 }
-class Encrypt extends RecursiveAction {
-    final int threshold = 1000;
+class Encrypter extends RecursiveAction {
+    final int threshold = 10000;
     int start, end;
-    double[] password;
-    Encrypt(double[] password, int start, int end) {
+    double[] encryptedPwd;
+    String pwd;
+
+    Encrypter(String pwd, double[] encryptedPwd, int start, int end) {
         this.start = start;
         this.end = end;
-        this.password = password;
+        this.encryptedPwd = encryptedPwd;
+        this.pwd = pwd;
     }
 
     @Override
     protected void compute() {
         if((end - start) < threshold){
             for(int i = start; i < end; i++){
-                password[i] = f(password[i]);
+                encryptedPwd[i] = f((double)pwd.charAt(i));
             }
         }else {
             int mid = (start + end)/2;
-            invokeAll(new Encrypt(password, start, mid),new Encrypt(password, mid, end));
+            invokeAll(new Encrypter(pwd, encryptedPwd, start, mid), new Encrypter(pwd, encryptedPwd, mid, end));
         }
     }
 
@@ -72,25 +98,31 @@ class Encrypt extends RecursiveAction {
     }
 }
 
-class Dencrypt extends RecursiveAction {
-    final int threshold = 1000;
+class Decryptor extends RecursiveAction {
+    final int threshold = 10000;
     int start, end;
-    double[] password;
-    Dencrypt(double[] password, int start, int end) {
+    double[] encryptedPwd;
+    char[] dencryptedPwd;
+
+    Decryptor(char[] dencryptedPwd, double[] encryptedPwd, int start, int end) {
         this.start = start;
         this.end = end;
-        this.password = password;
+        this.encryptedPwd = encryptedPwd;
+        this.dencryptedPwd = dencryptedPwd;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.RecursiveAction#compute()
+     */
     @Override
     protected void compute() {
         if((end - start) < threshold){
             for(int i = start; i < end; i++){
-                password[i] = f(password[i]);
+                dencryptedPwd[i] = (char)f(encryptedPwd[i]);
             }
         }else {
             int mid = (start + end)/2;
-            invokeAll(new Dencrypt(password, start, mid),new Dencrypt(password, mid, end));
+            invokeAll(new Decryptor(dencryptedPwd, encryptedPwd, start, mid),new Decryptor(dencryptedPwd, encryptedPwd, mid, end));
         }
     }
 
