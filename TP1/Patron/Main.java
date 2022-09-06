@@ -5,12 +5,16 @@ import Patron.Perifericos.*;
 import java.util.ArrayList;
 
 public class Main {
+    // Fabricas
+    static PCFactory PCFactory = new PCFactory();
+    static ConsolaFactory ConsolaFactory = new ConsolaFactory();
+
     public static void main(String[] args) {
-        ArrayList<Periferico> inventario = new ArrayList<Periferico>(); // Create an ArrayList object
+        ArrayList<Periferico> inventario = new ArrayList<Periferico>();
         int opcion = 0;
         String modelo;
         Scanner scanner = new Scanner(System.in); 
-        
+
         do{
             menuPrincipal();
             opcion = scanner.nextInt();
@@ -49,12 +53,13 @@ public class Main {
             System.out.println("| Stock: " + periferico.getCantidad());
             System.out.println("=================================");
         }else{
-            System.out.println("No existe dicho modelo");
+            System.out.println(" -> No existe dicho modelo");
         }
     }
 
+    // ---- Buscar Producto ----
     public static Periferico buscarProducto(ArrayList<Periferico> p, String modelo){
-        Periferico r = new Periferico();
+        Periferico r = null;
         for (int i = 0; i < p.size(); i++) {
             if(p.get(i).getModelo().equalsIgnoreCase(modelo)){
                 r = p.get(i);
@@ -63,55 +68,66 @@ public class Main {
         return r;
     }
 
+    // ---- Mostrar clases de productos ----
     public static void mostrarClases(ArrayList<Periferico> p){
         for (int i = 0; i < p.size(); i++) {
-            System.out.print("-> " + i + ": ");
-            System.out.println(p.get(i).getClass());
+            if(p.get(i) != null){
+                System.out.print("-> " + i + ": ");
+                System.out.println(p.get(i).whoami());
+            }
         }
     }
 
+    // ---- Ingresar Producto ----
     public static Periferico crearProducto(){
+        String tipo;
+        Periferico r = null;
+        Scanner scanner = new Scanner(System.in); 
+
+        System.out.println("Ingrese tipo: ");
+        tipo = scanner.next();
+        switch(tipo.toUpperCase()) {
+            case "CONSOLA" : r = constructorProducto(ConsolaFactory); break;
+            case "PC" : r = constructorProducto(PCFactory); break;
+            default : System.out.println("ERROR! Bersa 380");
+        }
+
+        return r;
+    }
+    public static Periferico constructorProducto(AbstractFactory factory){
         // Variables
         Scanner scanner = new Scanner(System.in); 
         String tipo = "", nombrePeriferico, modelo, marca;
         int precio, cantidad;
-        Periferico periferico;
-
-        // Fabricas
-        PCFactory fabricaPC = new PCFactory();
-        ConsolaFactory fabricaConsola = new ConsolaFactory();
+        Periferico periferico = null;
 
         // Ingreso de Datos
-        System.out.println("Ingrese tipo: ");
-        tipo = scanner.nextLine();
-        System.out.println("Ingrese periferico: ");
-        nombrePeriferico = scanner.nextLine();
-        
-        // Creacion de periferico segun los datos ingresados utilizando las factories correspondientes
-        switch(tipo){
-            case "PC" : periferico = fabricaPC.createPeriferico(nombrePeriferico); break;
-            case "CONSOLA" : periferico = fabricaConsola.createPeriferico(nombrePeriferico); break;
-            default : periferico = null;
+        while(periferico == null){
+            System.out.println("Ingrese periferico: ");
+            nombrePeriferico = scanner.nextLine();
+            
+            // Creacion de periferico segun los datos ingresados utilizando las factories correspondientes
+            periferico = factory.createPeriferico(nombrePeriferico);
+    
+            // Si periferico es null, entonces hubo un error
+            if(periferico == null){
+                System.out.println("ERROR!!! BERSA 380");
+            }
         }
 
-        // Si periferico es null, entonces hubo un error en tipo o el nombrePeriferico
-        if(periferico == null){
-            System.out.println("ERROR!!! BERSA 380");
-        }else{
-            System.out.println("Ingrese modelo: ");
-            modelo = scanner.nextLine();
-            periferico.setModelo(modelo);
-            System.out.println("Ingrese marca: ");
-            marca = scanner.nextLine();
-            periferico.setMarca(marca);
-            System.out.println("Ingrese precio: ");
-            precio = scanner.nextInt();
-            periferico.setPrecio(precio);
-            System.out.println("Ingrese cantidad: ");
-            cantidad = scanner.nextInt();
-            periferico.setCantidad(cantidad);
-            mostrarProducto(periferico);
-        }
+        System.out.println("Ingrese modelo: ");
+        modelo = scanner.nextLine();
+        periferico.setModelo(modelo);
+        System.out.println("Ingrese marca: ");
+        marca = scanner.nextLine();
+        periferico.setMarca(marca);
+        System.out.println("Ingrese precio: ");
+        precio = scanner.nextInt();
+        periferico.setPrecio(precio);
+        System.out.println("Ingrese cantidad: ");
+        cantidad = scanner.nextInt();
+        periferico.setCantidad(cantidad);
+        mostrarProducto(periferico);
 
         return periferico;
     }

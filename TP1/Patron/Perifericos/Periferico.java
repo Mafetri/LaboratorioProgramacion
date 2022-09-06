@@ -37,4 +37,9 @@ public class Periferico {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    // ---- Who am i ----
+    public String whoami(){
+        return null;
+    }
 }
