@@ -1,3 +1,4 @@
+package Ejemplos;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
@@ -14,11 +15,11 @@ public class PowRecursiveAction {
 		pool.invoke(app);
         long endTime = System.nanoTime();
 
-        System.out.println("Tiempo: " + (endTime - startTime)/100000);
+        System.out.println("Tiempo: " + (endTime - startTime)/1000000);
 	}
 }
 class Pow extends RecursiveAction {
-    final int threshold = 1000;
+    final int threshold = 100;
     int start, end;
     double[] data;
     Pow(double[] data, int start, int end) {
@@ -31,7 +32,7 @@ class Pow extends RecursiveAction {
     protected void compute() {
         if((end - start) < threshold){
             for(int i = start; i < end; i++){
-                data[i] = Math.pow(data[i], 243);
+                data[i] = Math.pow(data[i], 25);
             }
         }else {
             int mid = (start + end)/2;

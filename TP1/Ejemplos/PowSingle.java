@@ -1,3 +1,4 @@
+package Ejemplos;
 public class PowSingle {
 	public static void main(String[] args) {
 		double[] data = new double[10000000];
@@ -7,10 +8,10 @@ public class PowSingle {
 
         long startTime = System.nanoTime();
         for(int i = 0; i < data.length; i++){
-            data[i] = Math.pow(data[i], 243);
+            data[i] = Math.pow(data[i], 25);
         }
 
         long endTime = System.nanoTime();
-        System.out.println("Tiempo: " + (endTime - startTime)/100000);
+        System.out.println("Tiempo: " + (endTime - startTime)/1000000);
 	}
 }
