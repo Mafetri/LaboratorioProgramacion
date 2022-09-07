@@ -3,5 +3,7 @@ import Patron.Perifericos.*;
 
 public interface AbstractFactory {
     // Definimos los metodos a heredar
-    abstract Periferico createPeriferico(String periferico);
+    abstract Periferico createMouse();
+    abstract Periferico createTeclado();
+    abstract Periferico createAuriculares();
 }

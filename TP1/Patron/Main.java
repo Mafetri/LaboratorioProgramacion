@@ -97,17 +97,22 @@ public class Main {
     public static Periferico constructorProducto(AbstractFactory factory){
         // Variables
         Scanner scanner = new Scanner(System.in); 
-        String tipo = "", nombrePeriferico, modelo, marca;
+        String tipo, modelo, marca;
         int precio, cantidad;
         Periferico periferico = null;
 
         // Ingreso de Datos
         while(periferico == null){
             System.out.println("Ingrese periferico: ");
-            nombrePeriferico = scanner.nextLine();
+            tipo = scanner.nextLine();
             
-            // Creacion de periferico segun los datos ingresados utilizando las factories correspondientes
-            periferico = factory.createPeriferico(nombrePeriferico);
+            // Creacion de periferico solicitado
+            switch(tipo.toUpperCase()){
+                case "TECLADO" : periferico = factory.createTeclado();
+                case "MOUSE" : periferico = factory.createMouse();
+                case "AURICULAR" : periferico = factory.createAuriculares();
+                case "AURICULARES" : periferico = factory.createAuriculares();
+            }
     
             // Si periferico es null, entonces hubo un error
             if(periferico == null){
@@ -115,18 +120,27 @@ public class Main {
             }
         }
 
+        // Modelo
         System.out.println("Ingrese modelo: ");
         modelo = scanner.nextLine();
         periferico.setModelo(modelo);
+
+        // Marca
         System.out.println("Ingrese marca: ");
         marca = scanner.nextLine();
         periferico.setMarca(marca);
+
+        // Precio
         System.out.println("Ingrese precio: ");
         precio = scanner.nextInt();
         periferico.setPrecio(precio);
+
+        // Cantidad en stock
         System.out.println("Ingrese cantidad: ");
         cantidad = scanner.nextInt();
         periferico.setCantidad(cantidad);
+
+        // Chequeo de producto
         mostrarProducto(periferico);
 
         return periferico;
