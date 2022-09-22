@@ -5,13 +5,13 @@ import Patron.Perifericos.Mouse.*;
 import Patron.Perifericos.Periferico;
 
 public class PCFactory implements AbstractFactory {
-    public Periferico createMouse(){
+    public Periferico crearMouse(){
         return new MousePC();
     }
-    public Periferico createTeclado(){
+    public Periferico crearTeclado(){
         return new TecladoPC();
     }
-    public Periferico createAuriculares(){
+    public Periferico crearAuriculares(){
         return new AuricularesPC();
     }
 }

@@ -1,8 +1,8 @@
 package Patron.Perifericos.Mouse;
 
 public class MouseConsola extends Mouse {
-    // ---- Who am i ----
-    public String whoami(){
+    // ---- Clase Perteneciente ----
+    public String getClase(){
         return "Mouse Consola";
     }
 }

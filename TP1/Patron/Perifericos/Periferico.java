@@ -38,8 +38,8 @@ public class Periferico {
         this.cantidad = cantidad;
     }
 
-    // ---- Who am i ----
-    public String whoami(){
+    // ---- Clase Perteneciente ----
+    public String getClase(){
         return null;
     }
 }

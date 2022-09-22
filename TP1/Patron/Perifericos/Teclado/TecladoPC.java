@@ -1,8 +1,8 @@
 package Patron.Perifericos.Teclado;
 
 public class TecladoPC extends Teclado{
-    // ---- Who am i ----
-    public String whoami(){
+    // ---- Clase Perteneciente ----
+    public String getClase(){
         return "Teclado PC";
     }
 }
