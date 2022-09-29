@@ -1,0 +1,16 @@
+{
+  "cursos": [
+    {
+      "edad": "16 y 9 meses",
+      "duracion minima": "3 meses",
+      "horas de vuelo": "40 horas",
+      "precio/mes": "1000usd"
+    },
+    {
+      "edad": "16 y 9 meses",
+      "duracion minima": "3 meses",
+      "horas de vuelo": "40 horas",
+      "precio/mes": "1000usd"
+    }
+  ]
+}

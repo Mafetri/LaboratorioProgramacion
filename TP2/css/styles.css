@@ -161,6 +161,7 @@ header.pegajoso{
     
     .nav-links.active{
       display: flex;
+      background-color: var(--secundarioOscuro);
     }
 
     header{
@@ -168,7 +169,11 @@ header.pegajoso{
       align-items: flex-start;
       padding: 0rem;
     }
-    
+
+    header.solido{
+      background-color: var(--secundarioOscuro);
+      transition: none;
+    }
 }
 
 /* ==================== Bienvenida ==================== */
