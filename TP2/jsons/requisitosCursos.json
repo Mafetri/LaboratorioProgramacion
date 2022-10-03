@@ -1,16 +1,40 @@
 {
   "cursos": [
     {
+      "clase":"ppa",
       "edad": "16 y 9 meses",
-      "duracion minima": "3 meses",
-      "horas de vuelo": "40 horas",
-      "precio/mes": "1000usd"
+      "duracion": "3 Meses",
+      "horas": "40 Horas",
+      "estudios": "Primario Completo",
+      "psicofisico": "Clase II",
+      "licencias": "Ninguna"
     },
     {
-      "edad": "16 y 9 meses",
-      "duracion minima": "3 meses",
-      "horas de vuelo": "40 horas",
-      "precio/mes": "1000usd"
+      "clase":"comercial",
+      "edad": "20 años",
+      "duracion": "Indefinida",
+      "horas": "200",
+      "estudios": "Secundario Completo",
+      "psicofisico":"Clase III",
+      "licencias":"PPA"
+    },
+    {
+      "clase":"instructor",
+      "edad": "21 años",
+      "duracion": "Indefinida",
+      "horas": "500",
+      "estudios": "Secundario Completo",
+      "psicofisico":"Clase III",
+      "licencias":"Comercial"
+    },
+    {
+      "clase":"primera",
+      "edad": "24 años",
+      "duracion": "Indefinida",
+      "horas": "900",
+      "estudios": "Secundario Completo",
+      "psicofisico":"Clase III",
+      "licencias":"Comercial"
     }
   ]
 }

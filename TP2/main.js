@@ -24,13 +24,29 @@ document.querySelector('.socios p').textContent = trayectoria.socios;
 document.querySelector('.aeronaves p').textContent = trayectoria.aeronaves;
 document.querySelector('.annos p').textContent = trayectoria.annos;
 
+
+
 // Info cursos
-var requisitosCursos = document.querySelector('.edad');
-console.log(cursos.cursos[1]?.edad);
-requisitosCursos.textContent = cursos.cursos[1]?.edad;
-//var requisitosCursos = JSON.parse(cursos);
-//const edad = document.querySelector("edad");
-//edad.textContent= alert(requisitosCursos[0].edad);
+for (var i = 0; i < cursos.cursos.length; i++) {
+  var clase = cursos.cursos[i].clase;
+  document.querySelector("."+clase+".edad").textContent += cursos.cursos[i].edad;
+  document.querySelector("."+clase+".duracion").textContent += cursos.cursos[i].duracion;
+  document.querySelector("."+clase+".horas").textContent += cursos.cursos[i].horas;
+  document.querySelector("."+clase+".estudios").textContent += cursos.cursos[i].estudios;
+  document.querySelector("."+clase+".psicofisico").textContent += cursos.cursos[i].psicofisico;
+  document.querySelector("."+clase+".licencias").textContent += cursos.cursos[i].licencias;
+}
+
+/*
+document.querySelector('.ppa #boton-dorso').onclick = function() {
+  console.log("hola");
+  document.querySelector('#boton-dorso').id = 'boton-frente';
+  document.querySelector('.ppa img').style.display = '';
+  document.querySelector('.ppa div').style.display = 'none';
+}
+
+*/
+
 
 // Carrusel flota
 document.addEventListener("DOMContentLoaded", () => {
