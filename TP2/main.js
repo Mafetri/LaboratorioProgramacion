@@ -47,6 +47,12 @@ document.querySelector('.ppa #boton-dorso').onclick = function() {
 
 */
 
+//
+
+
+
+
+
 
 // Carrusel flota
 document.addEventListener("DOMContentLoaded", () => {

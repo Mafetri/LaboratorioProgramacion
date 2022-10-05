@@ -93,12 +93,19 @@
           <img src="https://www.flyone.com.ar/wp-content/uploads/2020/12/cta1.jpg" alt="" />
           <h2>Piloto Privado de Avión</h2>
           <div class = "requisitos" style="display: none;">
-            <p class="ppa edad">Edad minima: </p>
-            <p class="ppa duracion">Duracion: </p>
-            <p class="ppa horas">Horas de vuelo: </p>
-            <p class="ppa estudios">Estudios minimos: </p>
-            <p class="ppa psicofisico">Examen Psicofisico: </p>
-            <p class="ppa licencias">Licencias previas: </p>
+            <hr>
+            <h3>Edad minima:</h3>
+            <p class="ppa edad"></p>
+            <h3>Duracion: </h3>
+            <p class="ppa duracion"></p>
+            <h3>Horas de vuelo: </h3>
+            <p class="ppa horas"></p>
+            <h3>Estudios minimos: </h3>
+            <p class="ppa estudios"></p>
+            <h3>Examen Psicofisico: </h3>
+            <p class="ppa psicofisico"></p>
+            <h3>Licencias previas: </h3>
+            <p class="ppa licencias"></p>
           </div>
           <button type="button" onclick = "masInfo('ppa')">Mas Info</button>
         </div>
@@ -263,18 +270,22 @@
       document.querySelector('.'+clase+' div').style.display = '';
       document.querySelector('.'+clase+' button').setAttribute( "onClick", "volver('"+clase+"')");
       document.querySelector('.'+clase+' button').textContent="Volver";
-      document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(1rem)';
-      document.querySelector('.cursos-tarjeta.'+clase).style.transition = 'transform 0.4s';
-      //transition: ease-in .4s;
+      document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(20px)';
+      document.querySelector('.cursos-tarjeta.'+clase).style.transition = 'transform 0.3s';
+      setTimeout(function (){
+        document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(0px)';
+      }, 150);
     }
     function volver(clase){
       document.querySelector('.'+clase+' img').style.display = '';
       document.querySelector('.'+clase+' div').style.display = 'none';
       document.querySelector('.'+clase+' button').setAttribute("onClick", "masInfo('"+clase+"')" );
       document.querySelector('.'+clase+' button').textContent="Mas Info";
-      document.querySelector('.cursos-tarjeta.'+clase).style.transition = 'width 5s, height 4s';
-      document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(-1rem)';
-      document.querySelector('.cursos-tarjeta.'+clase).style.transition = 'transform 0.4s';
+      document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(20px)';
+      document.querySelector('.cursos-tarjeta.'+clase).style.transition = 'transform 0.3s';
+      setTimeout(function (){
+        document.querySelector('.cursos-tarjeta.'+clase).style.transform = 'translateY(0px)';
+      }, 150);
     }
   </script>
 </body>
