@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 
 :root {
   --primario: #effbff;
@@ -9,8 +9,8 @@
   --blanco: #fff;
   --negro: #000;
   --hover: #1397df;
-  --headerFijo: rgba(0,0,0,0);
-  --headerPegajoso: rgba(0, 0, 0, 0.603);
+  --headerFijo: rgba(0, 0, 0, 0);
+  --headerPegajoso: rgba(236, 236, 236, 0.842);
   --fuentePrincipal: "Montserrat", sans-serif;
   --fuenteSecundaria: "Open Sans", sans-serif;
 }
@@ -84,7 +84,7 @@ header {
   position: fixed;
   width: 100%;
   transition: 0.5s ease;
-  transition-property: height, background; 
+  transition-property: height, background;
   z-index: 2;
 }
 .header__logo {
@@ -92,7 +92,7 @@ header {
   height: 5rem;
   border-radius: 50%;
 }
-header.pegajoso{
+header.pegajoso {
   height: 5rem;
   background: var(--headerPegajoso);
   backdrop-filter: blur(20px);
@@ -100,17 +100,17 @@ header.pegajoso{
 }
 
 @media (max-width: 768px) {
-  header{
+  header {
     flex-direction: column;
     align-items: flex-start;
     padding: 0rem;
   }
 
-  header.solido{
+  header.solido {
     background-color: var(--secundarioOscuro);
   }
 
-  header.pegajoso{
+  header.pegajoso {
     height: auto;
   }
 }
@@ -135,9 +135,9 @@ header.pegajoso{
   color: var(--hover);
 }
 
-.nav-button{
+.nav-button {
   position: absolute;
-  top: .75rem;
+  top: 0.75rem;
   right: 1rem;
   display: none;
   flex-direction: column;
@@ -146,7 +146,7 @@ header.pegajoso{
   height: 21px;
 }
 
-.nav-button .nav-bar{
+.nav-button .nav-bar {
   height: 3px;
   width: 100%;
   background-color: white;
@@ -154,445 +154,45 @@ header.pegajoso{
 }
 
 @media (max-width: 768px) {
-    .nav-button{
-      display: flex;
-      margin: 1rem;
-    }
-    
-    .nav ul{
-      display: none;
-      flex-direction: column;
-      margin: 0;
-    }
-
-    .nav{
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: center;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .nav-links a{
-      padding: 0.5rem 1rem;
-    }
-    
-    .nav-links.active{
-      display: flex;
-      background-color: var(--secundarioOscuro);
-    }
-}
-
-/* ==================== Bienvenida ==================== */
-.bienvenida {
-  display: flex;
-  background-color: var(--negro);
-}
-.bienvenida__titulo {
-  z-index: 1;
-  vertical-align: middle;
-  color: white;
-  text-shadow: 2px 2px #000000;
-  position: absolute;
-  margin-top: 20%;
-  margin-left: 15%;
-  width: 70%;
-}
-.bienvenida__titulo h1 {
-  justify-content: center;
-  font-size: 5em;
-  color: white;
-  text-shadow: 2px 5px #000000;
-  margin: 0px;
-}
-.bienvenida__titulo h2 {
-  font-size: 3rem;
-  font-style: italic;
-  background-color: white;
-  margin: 0px;
-  box-shadow: 2px 4px #000000;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-.bienvenida div {
-  display: inline-block;
-}
-
-.bienvenida__carrusel {
-  width: 100%;
-  height: 100% !important;
-  margin: 0 auto 0;
-  overflow: hidden;
-  height: 60em;
-}
-.bienvenida__carrusel ul {
-  margin: 0%;
-  display: flex;
-  padding: 0;
-  width: 300%;
-  animation: slide 20s infinite alternate ease-in-out;
-}
-.bienvenida__carrusel li {
-  list-style: none;
-  width: 100%;
-}
-.bienvenida__carrusel img {
-  width: 100%;
-  height: 100%;
-}
-@keyframes slide {
-  0% {
-    margin-left: 0%;
-  }
-  20% {
-    margin-left: 0%;
+  .nav-button {
+    display: flex;
+    margin: 1rem;
   }
 
-  25% {
-    margin-left: -100%;
-  }
-  45% {
-    margin-left: -100%;
-  }
-
-  50% {
-    margin-left: -200%;
-  }
-  70% {
-    margin-left: -200%;
+  .nav ul {
+    display: none;
+    flex-direction: column;
+    margin: 0;
   }
 
-  75% {
-    margin-left: -300%;
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
   }
-  100% {
-    margin-left: -300%;
+
+  .nav-links a {
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+    background-color: var(--secundarioOscuro);
   }
 }
 
-@media (max-width: 768px) {
-  .bienvenida__titulo h1 {
-    font-size: 2em;
-  }
-  .bienvenida__titulo h2 {
-    font-size: 1em;
-
-  }
-}
-
-/* ==================== Seccion =======================
-.seccion{
-  height: 0.1em;
-  scroll-snap-align: start;
-}
-
-#seccionCalidad{
-  margin-bottom: 2em;
-}
-*/
-#calidad{
-  margin-top: 0 !important;
-}
-
-/* ==================== Trayectoria ==================== */
-
-.grid-informacion {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 2rem;
-}
-
-.informacion-contenedor {
-  text-align: center;
-}
-
-.informacion-contenedor p{
-  font-size: 2em;
-  color:black;
-}
-
-.informacion-contenedor img{
-  width: 8.5rem;
-  height: 8.5rem;
-}
-
-.informacion{
-  background-color: white;
-}
-
-@media (max-width: 768px){
-  .grid-informacion {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    
-  }
-  .informacion-contenedor p{
-    font-size: 1em;
-  }
-  .informacion-contenedor img{
-    width: 4.5rem;
-    height: 4.5rem;
-  }
-}
-
-/* ============================= Flota ======================================= */
-.flota{
-  background-image: url("../assets/nubes.jpg");
-  height: 100rem;
-  padding-top: 2em;
-}
-
-.flota h2{
-  background-color: white;
-  color: #000 !important;
-  margin-left: 1.2em;
-  margin-right: 1.2em;
-  border-radius: 7px;
-}
-.carousel {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 400px;
-  -webkit-perspective: 500px;
-  perspective: 500px;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transform-origin: 0% 50%;
-  transform-origin: 0% 50%;
-  min-height: 70rem;
-  margin-top: 5rem;
-  margin-bottom: 10rem;
-}
-.carousel .carousel-item {
-  visibility: hidden;
-  width: 70vh;
-  height: 700px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-.carousel .carousel-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: 5%;
-  box-shadow: 0 3px 10px #000;
-}
-
-/*Indicador de posicion*/
-.carousel .indicators {
-  position: absolute;
-  text-align: center;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-}
-.carousel .indicators .indicator-item {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  height: 8px;
-  width: 8px;
-  margin: 24px 4px;
-  background-color: rgba(255, 255, 255, 0.5);
-  -webkit-transition: background-color 0.3s;
-  transition: background-color 0.3s;
-  border-radius: 50%;
-}
-
-.nombreAvion{
-  font-size: 10rem;
-  color: black;
-  background-color: white;
-  text-shadow: 2px 1px #000000;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 0;
-}
-.infoAvion{
-  font-size: 8rem;
-  text-shadow: 2px 2px #000000;
-  font-style: italic;
-  padding: 1rem;
-  margin-top: 0;
-  color: white;
-}
-linea{
-  color: white;
-}
-
-@media (max-width: 768px){
-  .carousel .carousel-item {
-    width: 80%;
-  }
-  .nombreAvion{
-    font-size: 6rem;
-  }
-  .infoAvion{
-    font-size: 4rem;
-  }
-
-}
-
-/* =========================== Titulo Seccion ==========================*/
-
-.tituloSeccion{
-  font-size: 6rem;
-  margin: 0rem;
-}
-
-@media (max-width: 768px){
-  .tituloSeccion{
-    font-size: 2em;
-  }
-}
-
-/* ============================ Cursos ==========================*/
-.cursos{
-  padding-top: 2em;
-  background-image: url("https://w0.peakpx.com/wallpaper/945/1008/HD-wallpaper-cockpit-panel-display-buttons-airplane-evening.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-color: var(--secundarioOscuro);
-  border-style: solid none solid none;
-  border-width: 0.5em;
-}
-.cursos h1{
-  background-color: white;
-  color: #000 !important;
-  margin-left: 1.2em;
-  margin-right: 1.2em;
-  border-radius: 7px;
-  color: var(--blanco);
-}
-.cursos-tarjeta{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-  border-radius: 20px;
-  background-color: white;
-  box-shadow: 0 2px 8px #000;
-  transition: ease-in .4s;
-}
-.cursos-tarjeta img{
-  padding: 1em;
-  border-radius: 2em;
-  border-bottom-color: #000;
-  border-bottom-width: 3px;
-  padding-bottom: 0;
-}
-.cursos-tarjeta h2{
-  margin-top: -0.2em;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-size: 3em;
-  padding-top: 0.6em;
-  color: var(--secundarioOscuro);
-  animation: 3s ease-in 1s 2 reverse both paused slidein;
-}
-
-.cursos-tarjeta:hover{
-  box-shadow: 0 5px 20px #000;
-}
-.cursos-tarjeta button {
-  background-image: linear-gradient(to right, #314755 0%, #26a0da  51%, #314755  100%);
-  padding: 15px 45px;
-  width: 50%;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;            
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  border-color: transparent;
-  display: block;
-  margin:auto;
-  margin-top:1em;
-  margin-bottom: 1em;
-}
-.cursos-tarjeta button:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-
-.grid-cursos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10rem;
-  padding: 15rem;
-  padding-top: 5rem;
-  padding-bottom: 2em;
-}
-.requisitos h3{
-  transition: all 2s ease;
-  transition-property: opacity;
-  opacity: 0;
-}
-.requisitos p{
-  font-size: 2.5rem;
-  text-align: center;
-  padding: 0.8rem;
-  transition: all 1.5s ease;
-  transition-property: opacity;
-  opacity: 0;
-}
 .opacidad-1{
   opacity: 1 !important;
 }
 .opacidad-0{
   opacity: 0;
 }
-.requisitos h3{
-  font-size: 2em;
-  margin: 0;
-  color: var(--secundarioOscuro);
-}
-.requisitos hr{
-  margin:0;
-  margin-bottom: 1em;
-  height: 10px;
-  background-color: var(--secundarioOscuro);
-}
-@media (max-width: 768px){
-  .cursos-tarjeta h2{
-    font-size: 1.8em;
-  }
-  .requisitos h3{
-    font-size: 1.3em;
-  }
-  .requisitos p{
-    font-size: 1.2em;
-  }
-  .cursos-tarjeta button {
-    font-size: 0.8em;
-    padding: 0;
-    min-height: 3em;
-  }
-  .grid-cursos {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 4em;
-    padding-top: 1.5em;
-    gap: 1.5em;
-  }
-}
-
 
 /* ==================== Footer ==================== */
 
-.footer-top{
+.footer-top {
   background-color: var(--secundarioOscuro);
   margin: 0;
   display: grid;
@@ -602,7 +202,7 @@ linea{
   padding: 3rem;
 }
 @media (max-width: 768px) {
-  .footer-top{
+  .footer-top {
     background-color: var(--secundarioOscuro);
     margin: 0;
     display: grid;
@@ -613,18 +213,17 @@ linea{
   }
 }
 
-.footer-top p{
+.footer-top p {
   color: var(--negro);
   text-align: center;
 }
 
-
-.footer-top-element img{
+.footer-top-element img {
   width: 4.5rem;
   height: 4.5rem;
 }
 
-.footer-bottom{
+.footer-bottom {
   background-color: var(--hover);
   margin: 0;
   padding: 0.3%;
@@ -632,80 +231,4 @@ linea{
 .texto__footer {
   color: var(--negro);
   text-align: center;
-}
-
-
-/*
-====================================================
-                      FLOTA
-====================================================
-*/
-.flota {
-  align-items: center;
-  background-color: var(--primarioOscuro);
-}
-.aeronave-tarjeta{
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  border-radius: 20px;
-  background-color: white;
-  box-shadow: 0 2px 8px #000;
-  transition: ease-in .4s;
-}
-.aeronave-tarjeta img{
-  padding: 1em;
-  border-radius: 2em;
-  border-bottom-color: #000;
-  border-bottom-width: 3px;
-  height: 100%;
-  width: 100%;
-}
-.aeronave-tarjeta h2{
-  text-align: center;
-  font-size: 3em;
-  color: var(--secundarioOscuro);
-}
-.aeronave-tarjeta:hover{
-  box-shadow: 0 5px 20px #000;
-}
-.aeronave-info{
-  align-items: center;
-  margin-top: 1em;
-  padding: 2em;
-  margin: auto;
-}
-.aeronave-info h2, h3{
-  padding: 0;
-  margin: 0;
-}
-.aeronave-info hr{
-  margin:0;
-  margin-bottom: 1em;
-  height: 10px;
-  background-color: var(--secundarioOscuro);
-}
-.aeronave-info p{
-  text-align: center;
-}
-.flota h1{
-  width: 80%;
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 1px 5px #000;
-  color: #000 !important;
-  margin-left: 1.2em;
-  margin-right: 1.2em;
-  border-radius: 7px;
-  color: var(--blanco);
-  margin-bottom: 1em;
-}
-
-@media (max-width: 1280px){
-  .aeronave-tarjeta{
-    max-width: 90%;
-    flex-direction: column;
-  }
-  .aeronave-info{
-    padding-top:0;
-  }
 }

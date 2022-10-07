@@ -1,6 +1,6 @@
 import flota from './jsons/flota.json' assert {type: 'json'};
 
-// Flota
+// Info Flota
 for (var i = 0; i < flota.aeronaves.length; i++) {
     var aeronave = flota.aeronaves[i].nombre;
     document.querySelector("."+aeronave+".matricula").textContent += flota.aeronaves[i].matricula;
