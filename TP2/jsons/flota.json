@@ -1,0 +1,29 @@
+{
+    "aeronaves": [
+        {
+            "nombre":"petrel",
+            "matricula":"LV-FVA",
+            "motor":"Rotex 912i",
+            "marca":"Petrel",
+            "modelo":"P912",
+            "velocidad":"60knots",
+            "consumo":"Como una gorda"
+        },
+        {
+            "nombre":"c150",
+            "matricula":"LV-FVA",
+            "motor":"Rotex 912i",
+            "marca":"Petrel",
+            "modelo":"P912",
+            "velocidad":"60knots"
+        },
+        {
+            "nombre":"archer",
+            "matricula":"LV-FVA",
+            "motor":"Rotex 912i",
+            "marca":"Petrel",
+            "modelo":"P912",
+            "velocidad":"60knots"
+        }
+    ]
+}
