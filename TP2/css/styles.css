@@ -5,7 +5,7 @@
   --primario: #effbff;
   --primarioOscuro: #ccecfd;
   --secundarioOscuro: #00547a;
-  --secundario: rgb(233, 287, 2);
+  --secundario: #0075ac;
   --blanco: #fff;
   --negro: #000;
   --hover: #1397df;
@@ -75,6 +75,7 @@ h3 {
 
 /* ==================== Header ==================== */
 header {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,7 +119,7 @@ header.pegajoso {
 /* ==================== NavBar ==================== */
 .nav {
   margin: 0;
-  font-family: var(--fuenteSecundaria);
+  font-family: var(--fuentePrincipal);
   font-style: bold;
 }
 .nav li {

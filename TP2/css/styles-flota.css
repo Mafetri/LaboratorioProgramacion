@@ -2,7 +2,10 @@
 .aeronaves {
   align-items: center;
   background-image: url("../assets/nubes.jpg");
-  background-size: cover;
+  background-size: auto;
+  background-attachment:fixed;
+  background-position: center;
+  margin-bottom: 2em;
 }
 .aeronave-tarjeta {
   display: flex;
@@ -48,8 +51,12 @@ h3 {
   height: 10px;
   background-color: var(--secundarioOscuro);
 }
-.aeronave-info p {
+.aeronave-info p{
   text-align: center;
+  font-size: 1em;
+}
+.aeronave-info h3{
+  font-size: 1.5em;
 }
 .titulo-flota {
   background-color: rgba(255, 255, 255, 0.3);
@@ -64,25 +71,36 @@ h3 {
 .aeronave-tarjeta.invertida {
   flex-direction: row-reverse;
 }
+@media (max-width: 1500px){
+  .aeronave-tarjeta img{
+    max-width: 760px;
+  }
+}
 @media (max-width: 1280px) {
   .aeronave-tarjeta {
     margin-left: 5em;
     margin-right: 5em;
-    flex-direction: column;
+    flex-direction: column !important;
   }
   .aeronave-info {
     padding-top: 0;
     width: 100%;
+  }
+  .aeronave-tarjeta img{
+    max-width: 100%;
   }
 }
 @media (max-width: 768px) {
   .aeronave-tarjeta {
     margin-left: 1em;
     margin-right: 1em;
-    flex-direction: column;
+    flex-direction: column !important;
   }
   .aeronave-info {
     width: 100%;
     padding-top: 0;
+  }
+  .aeronave-tarjeta img{
+    max-width: 100%;
   }
 }

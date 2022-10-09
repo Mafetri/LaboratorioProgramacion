@@ -48,3 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
     numVisible: 3
   });
 });
+
+// Clima
+const climaApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
+async function getClima(){
+  const buscar = await fetch(climaApi);
+  const clima = await buscar.json();
+  document.querySelector(".viento").textContent = clima.current_weather.winddirection + " / " + clima.current_weather.windspeed + "kt";
+  document.querySelector(".qnh").textContent = clima.hourly.surface_pressure[0] + "hpa";
+  document.querySelector(".temp").textContent = clima.current_weather.temperature + "°C";
+  document.querySelector(".punto-rocio").textContent = clima.hourly.dewpoint_2m[0] + "°C";
+  document.querySelector(".nubes").textContent = clima.hourly.cloudcover[0] + "%";
+}
+
+getClima();
+
+

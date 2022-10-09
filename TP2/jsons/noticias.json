@@ -1,0 +1,28 @@
+{
+    "noticias": [
+        {
+            "titulo": "¡MEGA SORTEO POR EL DÍA DEL NIÑO!",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        },
+        {
+            "titulo": "¡Show Aereo!",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        },
+        {
+            "titulo": "San Valentin",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        },
+        {
+            "titulo": "¡DIA DEL PADRE!",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        },
+        {
+            "titulo": "¡Allen Vuela 2022!",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        },
+        {
+            "titulo": "¡MEGA SORTEO POR EL DÍA DEL NIÑO!",
+            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+        }
+    ]
+}

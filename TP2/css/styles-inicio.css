@@ -1,3 +1,7 @@
+.main{
+  --noticias-tarjeta-ancho: 30em;
+}
+
 /* ==================== Bienvenida ==================== */
 .bienvenida {
   display: flex;
@@ -45,7 +49,7 @@
   display: flex;
   padding: 0;
   width: 300%;
-  animation: slide 20s infinite alternate ease-in-out;
+  animation: slide 20s infinite ease-in-out;
 }
 .bienvenida__carrusel li {
   list-style: none;
@@ -53,7 +57,6 @@
 }
 .bienvenida__carrusel img {
   width: 100%;
-  height: 100%;
 }
 @keyframes slide {
   0% {
@@ -76,13 +79,6 @@
   70% {
     margin-left: -200%;
   }
-
-  75% {
-    margin-left: -300%;
-  }
-  100% {
-    margin-left: -300%;
-  }
 }
 
 @media (max-width: 768px) {
@@ -94,26 +90,19 @@
   }
 }
 
-/* ==================== Seccion =======================
-  .seccion{
-    height: 0.1em;
-    scroll-snap-align: start;
-  }
-  
-  #seccionCalidad{
-    margin-bottom: 2em;
-  }
-  */
-#calidad {
-  margin-top: 0 !important;
-}
 
 /* ==================== Trayectoria ==================== */
-
+.seccion-informacion{
+  border-color: var(--secundarioOscuro);
+  border-width: 0.5em;
+  border-style: solid none none none;
+}
 .grid-informacion {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 2rem;
+  border-color: var(--secundarioOscuro);
+  border-width: 0.5em;
 }
 
 .informacion-contenedor {
@@ -149,11 +138,171 @@
   }
 }
 
+
+/* ======================= Extras ======================= */
+.boton-gradiante {
+  background-image: linear-gradient(
+    to right,
+    #314755 0%,
+    #26a0da 51%,
+    #314755 100%
+  );
+  padding: 15px 45px;
+  width: 80%;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  border-color: transparent;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.boton-gradiante:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.titulo-seccion {
+  background-color: white;
+  color: var(--secundarioOscuro) !important;
+  margin-left: 1.2em;
+  margin-right: 1.2em;
+  border-radius: 7px;
+  font-size: 6rem;
+  margin: 0;
+  margin-left: 2em;
+  margin-right: 2em;
+  box-shadow: 0 2px 8px #000;
+}
+@media (max-width: 768px) {
+  .titulo-seccion{
+    font-size: 2em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+}
+/* ============================= Noticias ======================================= */
+
+.seccion-noticias{
+  background-color: var(--secundario);
+  padding:1em;
+  border-color: var(--secundarioOscuro);
+  border-width: 0.5em;
+  border-style: solid none none none;
+}
+.noticias{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly !important;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2em;
+  margin: 2em;
+}
+.noticias-tarjeta{
+  padding: 0em;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 2px 8px #000;
+  transition: ease-in 0.4s;
+  align-items: center;
+  width: 30em;
+}
+.noticias-tarjeta-info{
+  padding: 0.5em;
+  width: 30em;
+}
+.noticias-tarjeta hr {
+  width: 80%;
+  height: 5px;
+  background-color: var(--secundarioOscuro);
+}
+.noticias-tarjeta img {
+  width: auto;
+  height: 30em;
+  padding: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.noticias-tarjeta p {
+  padding: 1em;
+  font-size: 1.5em;
+  font-family: var(--fuentePrincipal);
+  overflow-wrap: break-word;
+}
+.noticias-tarjeta h2{
+  color: var(--secundarioOscuro);
+  font-size: 3em;
+  margin: 0;
+}
+.seccion-noticias button{
+  background-image: linear-gradient(
+    to right,
+    #314755 0%,
+    #26a0da 51%,
+    #314755 100%
+  );
+  padding: 15px 45px;
+  width: 80%;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  border-color: transparent;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.seccion-noticias button:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .noticias{
+    margin-top: 1em;
+  }
+  .noticias-tarjeta img {
+    width: auto;
+    height: 20em;
+    padding: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .noticias-tarjeta-info{
+    padding: 0.5em;
+    width: 20em;
+  }
+  .noticias-tarjeta p {
+    font-size: 0.8em;
+  }
+  .noticias-tarjeta h2{
+    font-size: 2em;
+  }
+}
+
 /* ============================= Flota ======================================= */
 .flota {
   background-image: url("../assets/nubes.jpg");
   height: 100rem;
   padding-top: 2em;
+  border-width: 0.5em;
+  border-color: var(--secundarioOscuro);
+  border-style: solid none none none;
 }
 
 .flota h2 {
@@ -176,7 +325,7 @@
   transform-origin: 0% 50%;
   min-height: 70rem;
   margin-top: 5rem;
-  margin-bottom: 10rem;
+  margin-bottom: 2em;
 }
 .carousel .carousel-item {
   visibility: hidden;
@@ -273,20 +422,13 @@ linea {
 /* ============================ Cursos ==========================*/
 .cursos {
   padding-top: 2em;
-  background-image: url("https://w0.peakpx.com/wallpaper/945/1008/HD-wallpaper-cockpit-panel-display-buttons-airplane-evening.jpg");
+  background-image: url("https://images.pexels.com/photos/3678749/pexels-photo-3678749.jpeg?cs=srgb&dl=pexels-darli-donizete-3678749.jpg&fm=jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-position: center;
   border-color: var(--secundarioOscuro);
-  border-style: solid none solid none;
+  border-style: solid none none none;
   border-width: 0.5em;
-}
-.cursos h1 {
-  background-color: white;
-  color: #000 !important;
-  margin-left: 1.2em;
-  margin-right: 1.2em;
-  border-radius: 7px;
-  color: var(--blanco);
 }
 .cursos-tarjeta {
   display: flex;
@@ -402,6 +544,12 @@ linea {
 }
 
 /* ========================= Clima ========================= */
+.seccion-clima{
+  border-color: var(--secundarioOscuro);
+  border-style: solid none none none;
+  border-width: 0.5em;
+  background-color: var(--secundario);
+}
 .clima {
   display: flex;
   flex-wrap: wrap;
@@ -433,14 +581,11 @@ linea {
   padding: 0.5em;
 }
 .clima-tarjeta p {
-    padding: 1em;
-    
+  padding: 1em;
   font-size: 2em;
 }
 
 @media (max-width: 700px){
     .clima {
         display: flex;
-        flex-direction: column;
-    }
-}
+        

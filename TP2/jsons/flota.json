@@ -6,24 +6,53 @@
             "motor":"Rotex 912i",
             "marca":"Petrel",
             "modelo":"P912",
-            "velocidad":"60knots",
-            "consumo":"Como una gorda"
+            "velocidad":"60 kt",
+            "consumo":"14lt/h"
         },
         {
             "nombre":"c150",
-            "matricula":"LV-FVA",
-            "motor":"Rotex 912i",
-            "marca":"Petrel",
-            "modelo":"P912",
-            "velocidad":"60knots"
+            "matricula":"LV-IDE",
+            "motor":"Continental O-200-A",
+            "marca":"Cessna",
+            "modelo":"C150",
+            "velocidad":"80kt",
+            "consumo":"22lt/h"
         },
         {
             "nombre":"archer",
-            "matricula":"LV-FVA",
-            "motor":"Rotex 912i",
-            "marca":"Petrel",
-            "modelo":"P912",
-            "velocidad":"60knots"
+            "matricula":"LV-ARN",
+            "motor":"Lycoming Model O-360-A4A",
+            "marca":"Piper",
+            "modelo":"Archer",
+            "velocidad":"120kt",
+            "consumo":"32lt/h"
+        },
+        {
+            "nombre":"c172",
+            "matricula":"LV-CXF",
+            "motor":"Continental O-300",
+            "marca":"Cessna",
+            "modelo":"C172",
+            "velocidad":"120kt",
+            "consumo":"22lt/h"
+        },
+        {
+            "nombre":"p92",
+            "matricula":"LV-S037",
+            "motor":"Rotax 912 ULS",
+            "marca":"Tecnam",
+            "modelo":"P92",
+            "velocidad":"80kt",
+            "consumo":"16lt/h"
+        },
+        {
+            "nombre":"pa22",
+            "matricula":"LV-HZS",
+            "motor":"Lycoming O-235-C1B",
+            "marca":"Piper",
+            "modelo":"PA-22",
+            "velocidad":"60kt",
+            "consumo":"21lt/h"
         }
     ]
 }
