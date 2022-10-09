@@ -11,7 +11,6 @@
   z-index: 1;
   vertical-align: middle;
   color: white;
-  text-shadow: 2px 2px #000000;
   position: absolute;
   margin-top: 20%;
   margin-left: 15%;
@@ -29,7 +28,7 @@
   font-style: italic;
   background-color: white;
   margin: 0px;
-  box-shadow: 2px 4px #000000;
+  box-shadow: 0 2px 4px #000;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -549,6 +548,7 @@ linea {
   border-style: solid none none none;
   border-width: 0.5em;
   background-color: var(--secundario);
+  padding: 1em;
 }
 .clima {
   display: flex;
@@ -584,8 +584,38 @@ linea {
   padding: 1em;
   font-size: 2em;
 }
+.metar{
+  align-content: center;
+  padding: 1em;
+}
+.clima-titulo{
+  font-size: 2.5em;
+  margin: 0;
+  padding-bottom: 0em;
+  color: white;
+  text-shadow: 2px 3px #000000;
+}
+.metar-codificado{
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px #000;
+  font-size: 2em;
+  color: var(--secundarioOscuro);
+  text-align: center;
+  margin-left: 2em;
+  margin-right: 2em;
+}
 
 @media (max-width: 700px){
+  .seccion-clima{
+    padding-bottom: 0.5em;
+  }
     .clima {
-        display: flex;
-        
+      display: block;
+    }
+    .clima-tarjeta {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      font-size: 0.8em;
+    }
+  }

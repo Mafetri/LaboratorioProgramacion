@@ -25,7 +25,7 @@ for (let i = 0; i < noticias.noticias.length; i++) {
   imagen.src =
     "https://www.fi.uncoma.edu.ar/wp-content/uploads/2022/10/WhatsApp-Image-2022-10-06-at-09.11.06-1024x723.jpeg";
   imagen.alt = "imagen-noticia";
-  //agregamos noticias-info y la imagen como hijo de noticias-grid
+  //agregamos noticias-info y la imagen como hijo de noticias-tarjeta
   newListItem.appendChild(imagen);
   newListItem.appendChild(newDiv);
   //agregamos los hijos de noticias-info

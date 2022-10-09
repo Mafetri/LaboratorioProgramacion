@@ -108,7 +108,9 @@ header.pegajoso {
   }
 
   header.solido {
-    background-color: var(--secundarioOscuro);
+    background-color: var(--headerPegajoso);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 1px 5px #000;
   }
 
   header.pegajoso {
@@ -131,6 +133,7 @@ header.pegajoso {
   transition: all 0.3s ease 0s;
   font-size: 1.7em;
   text-shadow: 1px 2px #000000;
+  background-color: transparent;
 }
 .nav li a:hover {
   color: var(--hover);
@@ -164,6 +167,8 @@ header.pegajoso {
     display: none;
     flex-direction: column;
     margin: 0;
+    text-align: center;
+    padding: 0;
   }
 
   .nav {
@@ -180,7 +185,11 @@ header.pegajoso {
 
   .nav-links.active {
     display: flex;
-    background-color: var(--secundarioOscuro);
+    padding-bottom: 1em;
+  }
+
+  .nav-bar{
+    transition: .2s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
   }
 }
 

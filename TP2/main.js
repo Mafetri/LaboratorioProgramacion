@@ -8,14 +8,26 @@ window.addEventListener("scroll", function(){
 });
 
 // Header responsive
-const toggleButton = document.getElementsByClassName('nav-button')[0]
-const navbarLinks = document.getElementsByClassName('nav-links')[0]
+const toggleButton = document.querySelector('.nav-button');
+const navbarLinks = document.querySelector('.nav-links');
 const header = document.querySelector("header");
-
-// Navbar responsive
+var toggle = true;
 toggleButton.addEventListener('click', () => {
-  navbarLinks.classList.toggle('active')
+  navbarLinks.classList.toggle('active');
   header.classList.toggle("solido");
+  const lineas = document.querySelectorAll(".nav-bar");
+  if(toggle){
+    lineas[0].style = 'transform: rotate(45deg) translate(5px, 8px);'
+    lineas[1].style = 'transform: translate(50px);'
+    lineas[2].style = 'transform: rotate(-45deg) translate(5px, -8px);'
+    toggle = false;
+  }else{
+    lineas[0].style = ''
+    lineas[1].style = ''
+    lineas[2].style = ''
+    toggle = true;
+  }
+  
 })
 
 // Trayectoria
@@ -51,14 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Clima
 const climaApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
+const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=d1b8e067265a43a4859df77708";
 async function getClima(){
   const buscar = await fetch(climaApi);
   const clima = await buscar.json();
-  document.querySelector(".viento").textContent = clima.current_weather.winddirection + " / " + clima.current_weather.windspeed + "kt";
+  document.querySelector(".viento").textContent = clima.current_weather.winddirection + "° " + clima.current_weather.windspeed + "kt";
   document.querySelector(".qnh").textContent = clima.hourly.surface_pressure[0] + "hpa";
   document.querySelector(".temp").textContent = clima.current_weather.temperature + "°C";
   document.querySelector(".punto-rocio").textContent = clima.hourly.dewpoint_2m[0] + "°C";
   document.querySelector(".nubes").textContent = clima.hourly.cloudcover[0] + "%";
+
+  const metarFetch = await fetch(metarApi);
+  const metar = await metarFetch.json();
+  document.querySelector(".metar-codificado").textContent = metar.data;
 }
 
 getClima();
