@@ -5,7 +5,7 @@
   background-size: auto;
   background-attachment:fixed;
   background-position: center;
-  margin-bottom: 2em;
+  padding-bottom: 1em;
 }
 .aeronave-tarjeta {
   display: flex;
@@ -91,6 +91,9 @@ h3 {
   }
 }
 @media (max-width: 768px) {
+  .aeronaves{
+    padding-top: 3em !important;
+  }
   .aeronave-tarjeta {
     margin-left: 1em;
     margin-right: 1em;

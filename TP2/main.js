@@ -1,7 +1,7 @@
 import cursos from './jsons/requisitosCursos.json' assert {type: 'json'};
 import trayectoria from './jsons/trayectoria.json' assert {type: 'json'};
 
-// Header pegajoso
+// =====================  Header pegajoso =====================
 window.addEventListener("scroll", function(){
     const header = document.querySelector("header");
     header.classList.toggle("pegajoso", window.scrollY > 0);
@@ -30,13 +30,16 @@ toggleButton.addEventListener('click', () => {
   
 })
 
-// Trayectoria
+
+// ===================== Trayectoria =====================
 document.querySelector('.alumnos p').textContent = trayectoria.alumnos;
 document.querySelector('.socios p').textContent = trayectoria.socios;
 document.querySelector('.aeronaves p').textContent = trayectoria.aeronaves;
 document.querySelector('.annos p').textContent = trayectoria.annos;
 
-// Info cursos
+
+// ===================== Cursos =====================
+// Lectura de json y modificacion de datos de curso
 for (var i = 0; i < cursos.cursos.length; i++) {
   var clase = cursos.cursos[i].clase;
   document.querySelector("."+clase+".edad").textContent += cursos.cursos[i].edad;
