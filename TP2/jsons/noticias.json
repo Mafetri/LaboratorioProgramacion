@@ -1,26 +1,32 @@
 {
     "noticias": [
         {
-            "titulo": "¡MEGA SORTEO POR EL DÍA DEL NIÑO!",
-            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+            "fecha": "10/08/2022",
+            "titulo": "SORTEO POR EL DÍA DEL NIÑO",
+            "descripcion":"Estaremos sorteando 90 vuelos junto a: @anallenweb, @RadioLiderFm94.1Mhz. @CarreteraMedios, @eldiariodeallen, facebook.com/fmgabrielag, facebook.com/fmlibra Cada medio dispondrá de 15 vuelos para sortear 🍀¡Suerte para todos!"
         },
         {
+            "fecha": "23/03/2022",
             "titulo": "¡Show Aereo!",
-            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+            "descripcion":"¡ESTE 23 Y 24 DE ABRIL #ALLEN VUELA! 🛩️ 🔵 Show de Acrobacia Aérea 🔵 Paracaidismo 🔵 Globo Aerostático 🔵 Vuelos de Bautismo 🔵 Parque Gastronómico ⏰ Te esperamos este 9 y 10 de Abril de 9 a 20:30hs!"
         },
         {
+            "fecha": "05/02/2022",
             "titulo": "San Valentin",
-            "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
+            "descripcion":"En el mes del #amor y la amistad vení a volar a Allen ! ❤️🛩️⁣ Celebrá con tu pareja y amigos viviendo una experiencia única!!! Reservá tu paseo aéreo por whatsapp al 2984 76-0545!"
         },
         {
+            "fecha": "29/05/2021",
             "titulo": "¡DIA DEL PADRE!",
             "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
         },
         {
-            "titulo": "¡Allen Vuela 2022!",
+            "fecha": "15/03/2021",
+            "titulo": "¡Allen Vuela 2021!",
             "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
         },
         {
+            "fecha": "10/08/2021",
             "titulo": "¡MEGA SORTEO POR EL DÍA DEL NIÑO!",
             "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?"
         }

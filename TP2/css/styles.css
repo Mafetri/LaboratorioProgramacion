@@ -189,10 +189,12 @@ header.pegajoso {
   }
 
   .nav-bar{
-    transition: .2s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    transition: .4s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
   }
 }
 
+
+/* ==================== Opacidad ==================== */
 .opacidad-1{
   opacity: 1 !important;
 }
@@ -200,8 +202,8 @@ header.pegajoso {
   opacity: 0;
 }
 
-/* ==================== Footer ==================== */
 
+/* ==================== Footer ==================== */
 .footer-top {
   background-color: var(--secundarioOscuro);
   margin: 0;
@@ -222,17 +224,14 @@ header.pegajoso {
     padding: 5rem;
   }
 }
-
 .footer-top p {
   color: var(--negro);
   text-align: center;
 }
-
 .footer-top-element img {
   width: 4.5rem;
   height: 4.5rem;
 }
-
 .footer-bottom {
   background-color: var(--hover);
   margin: 0;

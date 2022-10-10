@@ -1,5 +1,6 @@
 import cursos from './jsons/requisitosCursos.json' assert {type: 'json'};
 import trayectoria from './jsons/trayectoria.json' assert {type: 'json'};
+import noticias from './jsons/noticias.json' assert {type: 'json'};
 
 // =====================  Header pegajoso =====================
 window.addEventListener("scroll", function(){
@@ -11,21 +12,23 @@ window.addEventListener("scroll", function(){
 const toggleButton = document.querySelector('.nav-button');
 const navbarLinks = document.querySelector('.nav-links');
 const header = document.querySelector("header");
-var toggle = true;
+var hamburguesa = true;
 toggleButton.addEventListener('click', () => {
   navbarLinks.classList.toggle('active');
   header.classList.toggle("solido");
   const lineas = document.querySelectorAll(".nav-bar");
-  if(toggle){
+
+  // Si esta en modo hamburguesa, hace la transicion
+  if(hamburguesa){
     lineas[0].style = 'transform: rotate(45deg) translate(5px, 8px);'
     lineas[1].style = 'transform: translate(50px);'
     lineas[2].style = 'transform: rotate(-45deg) translate(5px, -8px);'
-    toggle = false;
+    hamburguesa = false;
   }else{
     lineas[0].style = ''
     lineas[1].style = ''
     lineas[2].style = ''
-    toggle = true;
+    hamburguesa = true;
   }
   
 })
@@ -36,6 +39,14 @@ document.querySelector('.alumnos p').textContent = trayectoria.alumnos;
 document.querySelector('.socios p').textContent = trayectoria.socios;
 document.querySelector('.aeronaves p').textContent = trayectoria.aeronaves;
 document.querySelector('.annos p').textContent = trayectoria.annos;
+
+
+// ===================== Noticias =====================
+for(var i = 0; i < 3; i++){
+  document.querySelector(".noticias-tarjeta.tarjeta-"+i+" h2").textContent = noticias.noticias[i].titulo;
+  document.querySelector(".noticias-tarjeta.tarjeta-"+i+" h3").textContent = noticias.noticias[i].fecha;
+  document.querySelector(".noticias-tarjeta.tarjeta-"+i+" p").textContent = noticias.noticias[i].descripcion;
+}
 
 
 // ===================== Cursos =====================
@@ -50,6 +61,8 @@ for (var i = 0; i < cursos.cursos.length; i++) {
   document.querySelector("."+clase+".licencias").textContent += cursos.cursos[i].licencias;
 }
 
+
+// ===================== Flota =====================
 // Carrusel flota
 document.addEventListener("DOMContentLoaded", () => {
   const elementosCarrusel = document.querySelectorAll(".carousel");
@@ -64,12 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Clima
+// ===================== Clima =====================
 const climaApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
 const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=d1b8e067265a43a4859df77708";
 async function getClima(){
-  const buscar = await fetch(climaApi);
-  const clima = await buscar.json();
+  const climaFetch = await fetch(climaApi);
+  const clima = await climaFetch.json();
   document.querySelector(".viento").textContent = clima.current_weather.winddirection + "° " + clima.current_weather.windspeed + "kt";
   document.querySelector(".qnh").textContent = clima.hourly.surface_pressure[0] + "hpa";
   document.querySelector(".temp").textContent = clima.current_weather.temperature + "°C";
@@ -80,7 +93,6 @@ async function getClima(){
   const metar = await metarFetch.json();
   document.querySelector(".metar-codificado").textContent = metar.data;
 }
-
 getClima();
 
 
