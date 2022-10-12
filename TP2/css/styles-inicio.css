@@ -1,7 +1,3 @@
-.main{
-  --noticias-tarjeta-ancho: 30em;
-}
-
 /* ==================== Bienvenida ==================== */
 .bienvenida {
   display: flex;
@@ -93,16 +89,27 @@
 
 /* ==================== Trayectoria ==================== */
 .seccion-informacion{
+  background-color: white;
   border-color: var(--secundarioOscuro);
   border-width: 0.5em;
   border-style: solid none none none;
 }
+.seccion-informacion .titulo-seccion{
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: #000 !important;
+  
+}
 .grid-informacion {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 2rem;
+  padding: 5rem;
+  padding-top: 0.3em;
+  padding-bottom: 0.5em;
   border-color: var(--secundarioOscuro);
   border-width: 0.5em;
+  gap: .1em;
 }
 
 .informacion-contenedor {
@@ -110,7 +117,7 @@
 }
 
 .informacion-contenedor p {
-  font-size: 2em;
+  font-size: 1.3em;
   color: black;
 }
 
@@ -127,7 +134,7 @@
   .grid-informacion {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: .1rem;
   }
   .informacion-contenedor p {
     font-size: 1em;
@@ -140,41 +147,9 @@
 
 
 /* ======================= Extras ======================= */
-.boton-gradiante {
-  background-image: linear-gradient(
-    to right,
-    #314755 0%,
-    #26a0da 51%,
-    #314755 100%
-  );
-  padding: 15px 45px;
-  width: 80%;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  border-color: transparent;
-  display: block;
-  margin: auto;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-.boton-gradiante:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-
 .titulo-seccion {
-  background-color: white;
-  color: var(--secundarioOscuro) !important;
-  margin-left: 1.2em;
-  margin-right: 1.2em;
   border-radius: 7px;
-  font-size: 6rem;
+  font-size: 2.5em;
   margin: 0;
   margin-left: 2em;
   margin-right: 2em;
@@ -203,85 +178,32 @@
   justify-content:space-evenly !important;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 2em;
   margin: 2em;
+  margin-top: 0.5em;
   margin-bottom: 0;
 }
-.noticias-tarjeta{
-  padding: 0em;
-  margin: 1em;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  background-color: white;
-  box-shadow: 0 2px 8px #000;
-  transition: ease-in 0.4s;
-  align-items: center;
-  width: 30em;
-}
-.noticias-tarjeta-info{
-  width: 30em;
-}
-.noticias-tarjeta hr {
-  width: 80%;
-  height: 5px;
-  background-color: var(--secundarioOscuro);
-}
-.noticias-tarjeta img {
-  width: 100%;
-  height: auto;
-  padding: 0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-.noticias-tarjeta p {
-  padding: 1em;
-  font-size: 1.5em;
-  font-family: var(--fuentePrincipal);
-  overflow-wrap: break-word;
-}
-.noticias-tarjeta h2{
-  color: var(--secundarioOscuro);
-  font-size: 3em;
-  margin: 0;
-}
-.noticias-tarjeta h3{
-  color: white;
-  background-color: var(--secundarioOscuro);
-  font-size: 2em;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  margin: 0;
-  padding: 0.2em;
-  width: 100%;
-  margin-top: auto;
-}
+
 .seccion-noticias button{
-  background-image: linear-gradient(
-    to right,
-    #314755 0%,
-    #26a0da 51%,
-    #314755 100%
-  );
-  padding: 15px 45px;
+  font-family: var(--fuentePrincipal);
+  font-size: 1em;
+  cursor: pointer;
+  background-color: white;
+  padding: 10px 45px;
   width: 80%;
-  text-align: center;
-  text-transform: uppercase;
+  box-shadow: 0 2px 8px #000;
   transition: 0.5s;
+  text-align: center;
   background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
+  color: var(--secundarioOscuro);
+  border-radius: var(--radius);
   border-color: transparent;
   display: block;
   margin: auto;
   margin-top: 1em;
   margin-bottom: 1em;
 }
-.seccion-noticias button:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+.seccion-noticias button:hover{
+  background-color: var(--gris);
 }
 
 @media (max-width: 768px) {
@@ -292,8 +214,8 @@
     width: 100%;
     height: auto;
     padding: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
   }
   .noticias-tarjeta-info{
     width: 20em;
@@ -310,9 +232,11 @@
 }
 
 /* ============================= Flota ======================================= */
-.flota {
+.flota-fondo{
   background-image: url("../assets/nubes.jpg");
-  height: 100rem;
+}
+.flota {
+  background-color: rgba(189, 189, 189, 0.5);
   padding-top: 2em;
   border-width: 0.5em;
   border-color: var(--secundarioOscuro);
@@ -324,7 +248,7 @@
   color: #000 !important;
   margin-left: 1.2em;
   margin-right: 1.2em;
-  border-radius: 7px;
+  border-radius: var(--radius);
 }
 .carousel {
   overflow: hidden;
@@ -339,7 +263,6 @@
   transform-origin: 0% 50%;
   min-height: 70rem;
   margin-top: 5rem;
-  margin-bottom: 2em;
 }
 .carousel .carousel-item {
   visibility: hidden;
@@ -362,7 +285,7 @@
   top: 0;
   left: 0;
   z-index: -1;
-  border-radius: 5%;
+  border-radius: var(--radius);
   box-shadow: 0 3px 10px #000;
 }
 .carousel .indicators {
@@ -370,7 +293,7 @@
 }
 
 .nombreAvion {
-  font-size: 10rem;
+  font-size: 4em;
   color: black;
   background-color: white;
   text-shadow: 2px 1px #000000;
@@ -378,7 +301,7 @@
   margin-bottom: 0;
 }
 .infoAvion {
-  font-size: 8rem;
+  font-size: 3em;
   text-shadow: 2px 2px #000000;
   font-style: italic;
   padding: 1rem;
@@ -389,7 +312,16 @@ linea {
   color: white;
 }
 
-@media (max-width: 768px) {
+.flota .boton-sec-oscuro{
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 60%;
+  font-size: 1em;
+}
+
+@media (max-width: 900px) {
   .flota{
     margin-bottom: -18em;
   }
@@ -406,6 +338,9 @@ linea {
   }
   .infoAvion {
     font-size: 4rem;
+  }
+  .flota .boton-sec-oscuro{
+    margin-top: 1em;
   }
 }
 
@@ -424,6 +359,8 @@ linea {
 
 /* ============================ Cursos ==========================*/
 .cursos {
+  padding-left: 15%;
+  padding-right: 15%;
   padding-top: 2em;
   background-image: url("https://images.pexels.com/photos/3678749/pexels-photo-3678749.jpeg?cs=srgb&dl=pexels-darli-donizete-3678749.jpg&fm=jpg");
   background-size: cover;
@@ -437,14 +374,14 @@ linea {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
-  border-radius: 20px;
+  border-radius: var(--radius);
   background-color: white;
   box-shadow: 0 2px 8px #000;
   transition: ease-in 0.4s;
 }
 .cursos-tarjeta img {
   padding: 1em;
-  border-radius: 2em;
+  border-radius: var(--radius);
   border-bottom-color: #000;
   border-bottom-width: 3px;
   padding-bottom: 0;
@@ -453,47 +390,26 @@ linea {
   margin-top: -0.2em;
   margin-bottom: 1rem;
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   padding-top: 0.6em;
   color: var(--secundarioOscuro);
   animation: 3s ease-in 1s 2 reverse both paused slidein;
 }
-
 .cursos-tarjeta:hover {
   box-shadow: 0 5px 20px #000;
 }
-.cursos-tarjeta button {
-  background-image: linear-gradient(
-    to right,
-    #314755 0%,
-    #26a0da 51%,
-    #314755 100%
-  );
-  padding: 15px 45px;
-  width: 50%;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  border-color: transparent;
+
+.cursos .boton-sec-oscuro {
   display: block;
   margin: auto;
-  margin-top: 1em;
   margin-bottom: 1em;
 }
-.cursos-tarjeta button:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
+
 
 .grid-cursos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10rem;
+  gap: 5rem;
   padding: 5%;
   padding-top: 5rem;
   padding-bottom: 2em;
@@ -501,10 +417,12 @@ linea {
 .requisitos h3 {
   transition: all 2s ease;
   transition-property: opacity;
-  opacity: 0;
+  font-size: 1.5em;
+  margin: 0;
+  color: var(--secundarioOscuro);
 }
 .requisitos p {
-  font-size: 2.5rem;
+  font-size: 1.2em;
   text-align: center;
   padding: 0.8rem;
   transition: all 1.5s ease;
@@ -512,18 +430,17 @@ linea {
   opacity: 0;
 }
 
-.requisitos h3 {
-  font-size: 2em;
-  margin: 0;
-  color: var(--secundarioOscuro);
-}
 .requisitos hr {
   margin: 0;
   margin-bottom: 1em;
-  height: 10px;
+  height: 5px;
   background-color: var(--secundarioOscuro);
 }
 @media (max-width: 768px) {
+  .cursos {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
   .cursos-tarjeta h2 {
     font-size: 1.8em;
   }
@@ -533,11 +450,7 @@ linea {
   .requisitos p {
     font-size: 1.2em;
   }
-  .cursos-tarjeta button {
-    font-size: 0.8em;
-    padding: 0;
-    min-height: 3em;
-  }
+  
   .grid-cursos {
     grid-template-columns: repeat(1, 1fr);
     padding: 10%;
@@ -551,8 +464,13 @@ linea {
   border-color: var(--secundarioOscuro);
   border-style: solid none none none;
   border-width: 0.5em;
-  background-color: var(--secundario);
+  background-color: rgba(0, 0, 0, .5);
   padding: 1em;
+}
+.clima-fondo{
+  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .clima {
   display: flex;
@@ -566,7 +484,7 @@ linea {
   margin: 1em;
   display: flex;
   flex-direction: row;
-  border-radius: 20px;
+  border-radius: var(--radius);
   background-color: white;
   box-shadow: 0 2px 8px #000;
   transition: ease-in 0.4s;
@@ -601,7 +519,7 @@ linea {
 }
 .metar-codificado{
   background-color: white;
-  border-radius: 20px;
+  border-radius: var(--radius);
   box-shadow: 0 2px 8px #000;
   font-size: 2em;
   color: var(--secundarioOscuro);

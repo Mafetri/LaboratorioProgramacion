@@ -13,6 +13,12 @@
   --headerPegajoso: rgba(236, 236, 236, 0.842);
   --fuentePrincipal: "Montserrat", sans-serif;
   --fuenteSecundaria: "Open Sans", sans-serif;
+  --gris: rgb(230, 227, 227);
+  --grisClaro: rgb(240, 240, 240);
+  --grisOscuro: rgb(156, 156, 156);
+  --radius: 8px;
+  --azulOscuro: #0c3b5a;
+  --azulOscuroSecundario: #000519;
 }
 
 html {
@@ -202,10 +208,132 @@ header.pegajoso {
   opacity: 0;
 }
 
+/* ==================== Boton Gradiante ==================== */
+.boton-gradiante {
+  background-image: linear-gradient(
+    to right,
+    #314755 0%,
+    #26a0da 51%,
+    #314755 100%
+  );
+  padding: 15px 45px;
+  width: 80%;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: var(--radius);
+  border-color: transparent;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.boton-gradiante:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ==================== Titulo Seccion ==================== */
+.titulo-seccion {
+  background-color: white;
+  color: var(--secundarioOscuro) !important;
+  border-radius: var(--radius);
+  font-size: 2em;
+  margin: 0;
+  margin-left: 2em;
+  margin-right: 2em;
+  box-shadow: 0 2px 8px #000;
+}
+@media (max-width: 768px) {
+  .titulo-seccion{
+    font-size: 2em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+}
+
+/* ==================== Boton Secundario Oscuro ==================== */
+.boton-sec-oscuro {
+  font-family: var(--fuentePrincipal);
+  cursor: pointer;
+  background-color: var(--secundarioOscuro);
+  padding: 10px 20px;
+  text-align: center;
+  transition: 0.5s;
+  color: white;
+  box-shadow: 0 1px 5px #000;
+  border-radius: var(--radius);
+  border-color: transparent;
+}
+.boton-sec-oscuro:hover{
+  background-color: var(--grisOscuro) !important;
+}
+@media (max-width: 768px) {
+  .boton-sec-oscuro {
+    font-size: 0.8em;
+    width: auto;
+    min-height: 3em;
+  }
+}
+
+/* ==================== Tarjeta Nocias ==================== */
+.noticias-tarjeta{
+  padding: 0em;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 8px #000;
+  transition: ease-in 0.4s;
+  align-items: center;
+  width: 23em;
+}
+.noticias-tarjeta-info{
+  width: 23em;
+}
+.noticias-tarjeta hr {
+  width: 80%;
+  height: 5px;
+  background-color: var(--secundarioOscuro);
+}
+.noticias-tarjeta img {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.noticias-tarjeta p {
+  padding: 1em;
+  font-size: 1.2em;
+  font-family: var(--fuentePrincipal);
+  overflow-wrap: break-word;
+}
+.noticias-tarjeta h2{
+  color: var(--secundarioOscuro);
+  font-size: 2em;
+  margin: 0;
+}
+.noticias-tarjeta h3{
+  color: var(--secundarioOscuro);
+  background-color: var(--gris);
+  font-size: 1.2em;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  margin: 0;
+  padding: 0.2em;
+  width: 100%;
+  margin-top: auto;
+}
 
 /* ==================== Footer ==================== */
 .footer-top {
-  background-color: var(--secundarioOscuro);
+  background-color: var(--azulOscuro);
   margin: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -233,11 +361,21 @@ header.pegajoso {
   height: 4.5rem;
 }
 .footer-bottom {
-  background-color: var(--hover);
+  background-color: var(--azulOscuroSecundario);
   margin: 0;
   padding: 0.3%;
+  width: 100%;
 }
-.texto__footer {
-  color: var(--negro);
-  text-align: center;
+.footer-bottom h3{
+  color: white;
+  font-size: 1em;
+  margin: auto;
+  margin-left: 1em;
+}
+.footer-bottom a{
+  margin: 0;
+  color: var(--secundario);
+}
+.footer-bottom a:hover{
+  color: var(--primarioOscuro);
 }

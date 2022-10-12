@@ -1,78 +1,24 @@
+body {
+    background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
+    background-size: auto;
+  background-attachment:fixed;
+  background-position: center;
+}
+
 .noticias {
     padding-top: 6em;
     align-items: center;
-    background-color: var(--secundario);
+    background-color: rgba(0, 0, 0, .7);
 }
 
-@media (max-width: 1260px) {
-    .noticias-grid{
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+.noticias-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
+
 @media (max-width: 768px) {
-    .noticias-grid{
-        grid-template-columns: repeat(1, 1fr) !important;
-    }
-    .noticias{
+    .noticias {
         padding-top: 4em;
     }
 }
-
-.noticias-grid{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.noticias-tarjeta {
-    position: static;
-    border-radius: 20px;
-    background-color: white;
-    box-shadow: 0 2px 8px #000;
-    transition: ease-in 0.4s;
-    align-items: center;
-    margin: 2rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.noticias-tarjeta img {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-.noticias-info {
-    text-align: center;
-}
-.noticias-info h2 {
-    color: var(--secundarioOscuro);
-    text-align: center;
-    margin: 0;
-}
-.noticias-tarjeta h3{
-    color: white;
-    background-color: var(--secundarioOscuro);
-    font-size: 2em;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin: 0;
-    padding: 0.2em;
-    width: 100%;
-    margin-top: auto;
-}
-.noticias-info hr{
-    width: 80%;
-  height: 5px;
-  background-color: var(--secundarioOscuro);
-}
-.noticias p{
-   padding: 1em;
-}
-.titulo-seccion {
-    background-color: white;
-    color: var(--secundarioOscuro) !important;
-    border-radius: 7px;
-    font-size: 4rem;
-    width: 80%;
-    box-shadow: 0 2px 8px #000;
-    margin: auto;
-  }
