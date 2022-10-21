@@ -1,58 +1,64 @@
 {
-    "aeronaves": [
+    "airplanes": [
         {
-            "nombre":"petrel",
-            "matricula":"LV-FVA",
-            "motor":"Rotex 912i",
-            "marca":"Petrel",
-            "modelo":"P912",
-            "velocidad":"60 kt",
-            "consumo":"14lt/h"
+            "name":"Petrel",
+            "plate":"LV-FVA",
+            "engine":"Rotex 912i",
+            "brand":"Petrel",
+            "model":"P912",
+            "speed":"60 kt",
+            "consumption":"14lt/h",
+            "img" : "/TP2/assets/fleet/Petrel/petrel-3.jpg"
         },
         {
-            "nombre":"c150",
-            "matricula":"LV-IDE",
-            "motor":"Continental O-200-A",
-            "marca":"Cessna",
-            "modelo":"C150",
-            "velocidad":"80kt",
-            "consumo":"22lt/h"
+            "name":"C150",
+            "plate":"LV-IDE",
+            "engine":"Continental O-200-A",
+            "brand":"Cessna",
+            "model":"C150",
+            "speed":"80kt",
+            "consumption":"22lt/h",
+            "img" : "/TP2/assets/fleet/C150/c150-2.jpeg"
         },
         {
-            "nombre":"archer",
-            "matricula":"LV-ARN",
-            "motor":"Lycoming Model O-360-A4A",
-            "marca":"Piper",
-            "modelo":"Archer",
-            "velocidad":"120kt",
-            "consumo":"32lt/h"
+            "name":"Archer",
+            "plate":"LV-ARN",
+            "engine":"Lycoming Model O-360-A4A",
+            "brand":"Piper",
+            "model":"Archer",
+            "speed":"120kt",
+            "consumption":"32lt/h",
+            "img" : "/TP2/assets/fleet/Archer/archer-2.jpeg"
         },
         {
-            "nombre":"c172",
-            "matricula":"LV-CXF",
-            "motor":"Continental O-300",
-            "marca":"Cessna",
-            "modelo":"C172",
-            "velocidad":"120kt",
-            "consumo":"22lt/h"
+            "name":"C172",
+            "plate":"LV-CXF",
+            "engine":"Continental O-300",
+            "brand":"Cessna",
+            "model":"C172",
+            "speed":"120kt",
+            "consumption":"22lt/h",
+            "img" : "/TP2/assets/fleet/C172/c172-2.jpeg"
         },
         {
-            "nombre":"p92",
-            "matricula":"LV-S037",
-            "motor":"Rotax 912 ULS",
-            "marca":"Tecnam",
-            "modelo":"P92",
-            "velocidad":"80kt",
-            "consumo":"16lt/h"
+            "name":"P92",
+            "plate":"LV-S037",
+            "engine":"Rotax 912 ULS",
+            "brand":"Tecnam",
+            "model":"P92",
+            "speed":"80kt",
+            "consumption":"16lt/h",
+            "img" : "/TP2/assets/fleet/P92/p92-1.jpg"
         },
         {
-            "nombre":"pa22",
-            "matricula":"LV-HZS",
-            "motor":"Lycoming O-235-C1B",
-            "marca":"Piper",
-            "modelo":"PA-22",
-            "velocidad":"60kt",
-            "consumo":"21lt/h"
+            "name":"PA22",
+            "plate":"LV-HZS",
+            "engine":"Lycoming O-235-C1B",
+            "brand":"Piper",
+            "model":"PA-22",
+            "speed":"60kt",
+            "consumption":"21lt/h",
+            "img" : "/TP2/assets/fleet/PA22/pa22-2.jpg"
         }
     ]
 }
