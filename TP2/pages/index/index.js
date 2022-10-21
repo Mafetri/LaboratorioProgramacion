@@ -1,6 +1,6 @@
-import cursos from './jsons/requisitosCursos.json' assert {type: 'json'};
-import trayectoria from './jsons/trayectoria.json' assert {type: 'json'};
-import noticias from './jsons/noticias.json' assert {type: 'json'};
+import cursos from '../index/requirements-curses.json' assert {type: 'json'};
+import trayectoria from '../index/trajectory.json' assert {type: 'json'};
+import noticias from '../news/news.json' assert {type: 'json'};
 
 // ===================== Trayectoria =====================
 document.querySelector('.alumnos p').textContent = trayectoria.alumnos;
@@ -14,6 +14,7 @@ for(var i = 0; i < 3; i++){
   document.querySelector(".noticias-tarjeta.tarjeta-"+i+" h2").textContent = noticias.noticias[i].titulo;
   document.querySelector(".noticias-tarjeta.tarjeta-"+i+" h3").textContent = noticias.noticias[i].fecha;
   document.querySelector(".noticias-tarjeta.tarjeta-"+i+" p").textContent = noticias.noticias[i].descripcion;
+  document.querySelector(".noticias-tarjeta.tarjeta-"+i+" img").src = noticias.noticias[i].img;
 }
 
 

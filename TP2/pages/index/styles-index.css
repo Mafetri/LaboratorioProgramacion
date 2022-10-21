@@ -233,7 +233,7 @@
 
 /* ============================= Flota ======================================= */
 .flota-fondo{
-  background-image: url("../assets/nubes.jpg");
+  background-image: url("/TP2/assets/nubes.jpg");
 }
 .flota {
   background-color: rgba(189, 189, 189, 0.5);

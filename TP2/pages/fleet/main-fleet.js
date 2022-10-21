@@ -1,4 +1,4 @@
-import flota from './jsons/flota.json' assert {type: 'json'};
+import flota from './fleet.json' assert {type: 'json'};
 
 // Info Flota
 for (var i = 0; i < flota.aeronaves.length; i++) {
