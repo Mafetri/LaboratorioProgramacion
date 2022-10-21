@@ -1,36 +1,38 @@
-import noticias from "./news.json" assert { type: "json" };
+import news from "./news.json" assert { type: "json" };
 
-const grid = document.querySelector(".noticias-grid");
+const grid = document.querySelector(".news-grid");
 
-for (let i = 0; i < noticias.noticias.length; i++) {
-  // <div> </div>
+for (let i = 0; i < news.news.length; i++) {
+  // Div
   var newListItem = document.createElement("div");
-  //<div Class="noticias-tarjeta"> </div>
-  newListItem.classList.add("noticias-tarjeta");
+
+  //<div Class="news-card"> </div>
+  newListItem.classList.add("news-card");
   grid.appendChild(newListItem);
-  // Creamos la imagen
-  var imagen = document.createElement("img");
-  // Creamos el nuevo div
-  var divNuevo = document.createElement("div");
-  // Agregamos Clase al div
-  divNuevo.classList.add("noticias-info");
-  // Creamos titulo, descripcion y fecha
-  var titulo = document.createElement("h2");
-  var descripcion = document.createElement("p");
-  var fecha = document.createElement("h3");
-  // Seteamos el contenido con los datos leidos del json
-  titulo.textContent = noticias.noticias[i].titulo;
-  descripcion.textContent = noticias.noticias[i].descripcion;
-  fecha.textContent = noticias.noticias[i].fecha;
-  // Seteamos el contenido de la imagen
-  imagen.src = noticias.noticias[i].img;
-  imagen.alt = "imagen-noticia";
-  // Agregamos noticias-info, la imagen y la fecha como hijo de noticias-tarjeta
-  newListItem.appendChild(imagen);
-  newListItem.appendChild(divNuevo);
-  newListItem.appendChild(fecha);
-  // Agregamos los hijos de noticias-info
-  divNuevo.appendChild(titulo);
-  divNuevo.appendChild(document.createElement("hr"));
-  divNuevo.appendChild(descripcion);
+
+  // News img
+  var img = document.createElement("img");
+  img.src = news.news[i].img;
+  img.alt = "news-img";
+
+  // News Info
+  var divInfo = document.createElement("div");
+  divInfo.classList.add("news-info");
+
+  // Create title, description and date of the news-info
+  var title = document.createElement("h2");
+  var description = document.createElement("p");
+  var date = document.createElement("h3");
+  title.textContent = news.news[i].title;
+  description.textContent = news.news[i].description;
+  date.textContent = news.news[i].date;
+  
+  // Append news-info, the img and the date as child of news-card
+  newListItem.appendChild(img);
+  newListItem.appendChild(divInfo);
+  newListItem.appendChild(date);
+  // Agregamos los hijos de news-info
+  divInfo.appendChild(title);
+  divInfo.appendChild(document.createElement("hr"));
+  divInfo.appendChild(description);
 }

@@ -5,13 +5,13 @@ body{
   background-attachment:fixed;
   background-position: center;
 }
-.aeronaves {
+.airplanes {
   align-items: center;
   background-color: rgba(0, 0, 0, .3);
   padding-bottom: 1em;
   padding-top: 6em;
 }
-.aeronave-tarjeta {
+.airplane-card {
   display: flex;
   flex-direction: row;
   border-radius: 20px;
@@ -22,91 +22,91 @@ body{
   margin-right: 10em;
   margin-bottom: 2em;
 }
-.aeronave-tarjeta img {
+.airplane-card img {
   padding: 1em;
   border-radius: 2em;
   border-bottom-color: #000;
   border-bottom-width: 3px;
   width: 100%;
 }
-.aeronave-tarjeta h2 {
+.airplane-card h2 {
   text-align: center;
   font-size: 3em;
   color: var(--secundarioOscuro);
 }
-.aeronave-tarjeta:hover {
+.airplane-card:hover {
   box-shadow: 0 5px 20px #000;
 }
-.aeronave-info {
+.airplane-info {
   align-items: center;
   margin-top: 1em;
   padding: 2em;
   margin: auto;
   width: 50%;
 }
-.aeronave-info h2,
+.airplane-info h2,
 h3 {
   padding: 0;
   margin: 0;
 }
-.aeronave-info hr {
+.airplane-info hr {
   margin: 0;
   margin-bottom: 1em;
   height: 10px;
   background-color: var(--secundarioOscuro);
 }
-.aeronave-info p{
+.airplane-info p{
   text-align: center;
   font-size: 1em;
 }
-.aeronave-info h3{
+.airplane-info h3{
   font-size: 1.5em;
 }
-.titulo-seccion {
+.section-title {
   margin-left: 2em;
   margin-right: 2em;
   border-radius: 7px;
   margin-bottom: 0.5em;
 }
-.aeronave-tarjeta.invertida {
+.airplane-card.inverted {
   flex-direction: row-reverse;
 }
 @media (max-width: 1800px){
-  .aeronave-tarjeta img{
+  .airplane-card img{
     max-width: 760px;
   }
 }
 @media (max-width: 1280px) {
-  .aeronave-tarjeta {
+  .airplane-card {
     margin-left: 5em;
     margin-right: 5em;
     flex-direction: column !important;
   }
-  .aeronave-info {
+  .airplane-info {
     padding-top: 0;
     width: 100%;
   }
-  .aeronave-tarjeta img{
+  .airplane-card img{
     max-width: 100%;
   }
 }
 @media (max-width: 768px) {
-  .aeronaves{
+  .airplanes{
     padding-top: 4em !important;
   }
-  .aeronave-tarjeta {
+  .airplane-card {
     margin-left: 1em;
     margin-right: 1em;
     flex-direction: column !important;
   }
-  .aeronave-info {
+  .airplane-info {
     width: 100%;
     padding-top: 0;
   }
-  .aeronave-tarjeta img{
+  .airplane-card img{
     max-width: 100%;
   }
-  .titulo-seccion{
+  .section-title{
     font-size: 3em;
     margin-left: 1em;
     margin-right: 1em;

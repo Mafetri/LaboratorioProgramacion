@@ -1,9 +1,9 @@
 /* ==================== Bienvenida ==================== */
-.bienvenida {
+.welcome {
   display: flex;
   background-color: var(--negro);
 }
-.bienvenida__titulo {
+.welcome-title {
   z-index: 1;
   vertical-align: middle;
   color: white;
@@ -12,7 +12,7 @@
   margin-left: 15%;
   width: 70%;
 }
-.bienvenida__titulo h1 {
+.welcome-title h1 {
   justify-content: center;
   font-size: 5em;
   color: white;
@@ -20,7 +20,7 @@
   margin: 0px;
   white-space: nowrap;
 }
-.bienvenida__titulo h2 {
+.welcome-title h2 {
   font-size: 3rem;
   font-style: italic;
   background-color: white;
@@ -29,29 +29,29 @@
   margin-left: 10%;
   margin-right: 10%;
 }
-.bienvenida div {
+.welcome div {
   display: inline-block;
 }
 
-.bienvenida__carrusel {
+.welcome-carousel {
   width: 100%;
   height: 100% !important;
   margin: 0 auto 0;
   overflow: hidden;
   height: 60em;
 }
-.bienvenida__carrusel ul {
+.welcome-carousel ul {
   margin: 0%;
   display: flex;
   padding: 0;
   width: 300%;
   animation: slide 20s infinite ease-in-out;
 }
-.bienvenida__carrusel li {
+.welcome-carousel li {
   list-style: none;
   width: 100%;
 }
-.bienvenida__carrusel img {
+.welcome-carousel img {
   width: 100%;
 }
 @keyframes slide {
@@ -78,30 +78,30 @@
 }
 
 @media (max-width: 768px) {
-  .bienvenida__titulo h1 {
+  .welcome-title h1 {
     font-size: 2em;
   }
-  .bienvenida__titulo h2 {
+  .welcome-title h2 {
     font-size: 1em;
   }
 }
 
 
-/* ==================== Trayectoria ==================== */
-.seccion-informacion{
+/* ==================== Trajectory ==================== */
+.trajectory-section{
   background-color: white;
   border-color: var(--secundarioOscuro);
   border-width: 0.5em;
   border-style: solid none none none;
 }
-.seccion-informacion .titulo-seccion{
+.trajectory-section .section-title{
   background: none;
   border-radius: 0;
   box-shadow: none;
   color: #000 !important;
   
 }
-.grid-informacion {
+.trajectory-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 5rem;
@@ -112,34 +112,30 @@
   gap: .1em;
 }
 
-.informacion-contenedor {
+.trajectory-container {
   text-align: center;
 }
 
-.informacion-contenedor p {
+.trajectory-container p {
   font-size: 1.3em;
   color: black;
 }
 
-.informacion-contenedor img {
+.trajectory-container img {
   width: 8.5rem;
   height: 8.5rem;
 }
 
-.informacion {
-  background-color: white;
-}
-
 @media (max-width: 768px) {
-  .grid-informacion {
+  .trajectory-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: .1rem;
   }
-  .informacion-contenedor p {
+  .trajectory-container p {
     font-size: 1em;
   }
-  .informacion-contenedor img {
+  .trajectory-container img {
     width: 4.5rem;
     height: 4.5rem;
   }
@@ -164,15 +160,15 @@
 }
 
 
-/* ============================= Noticias ======================================= */
-.seccion-noticias{
+/* ============================= News ======================================= */
+.news-section{
   background-color: var(--secundario);
   padding:1em;
   border-color: var(--secundarioOscuro);
   border-width: 0.5em;
   border-style: solid none none none;
 }
-.noticias{
+.news{
   display: flex;
   flex-wrap: wrap;
   justify-content:space-evenly !important;
@@ -183,7 +179,7 @@
   margin-bottom: 0;
 }
 
-.seccion-noticias button{
+.news-section button{
   font-family: var(--fuentePrincipal);
   font-size: 1em;
   cursor: pointer;
@@ -202,40 +198,40 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
-.seccion-noticias button:hover{
+.news-section button:hover{
   background-color: var(--gris);
 }
 
 @media (max-width: 768px) {
-  .noticias{
+  .news{
     margin-top: 1em;
   }
-  .noticias-tarjeta img {
+  .news-card img {
     width: 100%;
     height: auto;
     padding: 0;
     border-top-left-radius: var(--radius);
     border-top-right-radius: var(--radius);
   }
-  .noticias-tarjeta-info{
+  .news-card-info{
     width: 20em;
   }
-  .noticias-tarjeta p {
+  .news-card p {
     font-size: 0.8em;
   }
-  .noticias-tarjeta h2{
+  .news-card h2{
     font-size: 2em;
   }
-  .noticias-tarjeta h3{
+  .news-card h3{
     font-size: 1em;
   }
 }
 
 /* ============================= Flota ======================================= */
-.flota-fondo{
+.fleet-backgroud{
   background-image: url("/TP2/assets/nubes.jpg");
 }
-.flota {
+.fleet {
   background-color: rgba(189, 189, 189, 0.5);
   padding-top: 2em;
   border-width: 0.5em;
@@ -243,7 +239,7 @@
   border-style: solid none none none;
 }
 
-.flota h2 {
+.fleet h2 {
   background-color: white;
   color: #000 !important;
   margin-left: 1.2em;
@@ -292,7 +288,7 @@
   display: none;
 }
 
-.nombreAvion {
+.airplane-name {
   font-size: 4em;
   color: black;
   background-color: white;
@@ -300,7 +296,7 @@
   padding: 0 1rem 0 1rem;
   margin-bottom: 0;
 }
-.infoAvion {
+.airplane-info {
   font-size: 3em;
   text-shadow: 2px 2px #000000;
   font-style: italic;
@@ -308,11 +304,8 @@
   margin-top: 0;
   color: white;
 }
-linea {
-  color: white;
-}
 
-.flota .boton-sec-oscuro{
+.fleet .boton-sec-oscuro{
   margin-left: 20%;
   margin-right: 20%;
   margin-top: 2em;
@@ -322,7 +315,7 @@ linea {
 }
 
 @media (max-width: 900px) {
-  .flota{
+  .fleet{
     margin-bottom: -18em;
   }
   .carousel{
@@ -333,32 +326,20 @@ linea {
     width: 80%;
     height: 70%;
   }
-  .nombreAvion {
+  .airplane-name {
     font-size: 6rem;
   }
-  .infoAvion {
+  .airplane-info {
     font-size: 4rem;
   }
-  .flota .boton-sec-oscuro{
+  .fleet .boton-sec-oscuro{
     margin-top: 1em;
   }
 }
 
-/* =========================== Titulo Seccion ==========================*/
 
-.tituloSeccion {
-  font-size: 6rem;
-  margin: 0rem;
-}
-
-@media (max-width: 768px) {
-  .tituloSeccion {
-    font-size: 2em;
-  }
-}
-
-/* ============================ Cursos ==========================*/
-.cursos {
+/* ============================ Courses ==========================*/
+.courses {
   padding-left: 15%;
   padding-right: 15%;
   padding-top: 2em;
@@ -370,7 +351,7 @@ linea {
   border-style: solid none none none;
   border-width: 0.5em;
 }
-.cursos-tarjeta {
+.courses-card {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
@@ -379,14 +360,14 @@ linea {
   box-shadow: 0 2px 8px #000;
   transition: ease-in 0.4s;
 }
-.cursos-tarjeta img {
+.courses-card img {
   padding: 1em;
   border-radius: var(--radius);
   border-bottom-color: #000;
   border-bottom-width: 3px;
   padding-bottom: 0;
 }
-.cursos-tarjeta h2 {
+.courses-card h2 {
   margin-top: -0.2em;
   margin-bottom: 1rem;
   text-align: center;
@@ -395,18 +376,18 @@ linea {
   color: var(--secundarioOscuro);
   animation: 3s ease-in 1s 2 reverse both paused slidein;
 }
-.cursos-tarjeta:hover {
+.courses-card:hover {
   box-shadow: 0 5px 20px #000;
 }
 
-.cursos .boton-sec-oscuro {
+.courses .boton-sec-oscuro {
   display: block;
   margin: auto;
   margin-bottom: 1em;
 }
 
 
-.grid-cursos {
+.courses-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5rem;
@@ -414,14 +395,14 @@ linea {
   padding-top: 5rem;
   padding-bottom: 2em;
 }
-.requisitos h3 {
+.courses-requirements h3 {
   transition: all 2s ease;
   transition-property: opacity;
   font-size: 1.5em;
   margin: 0;
   color: var(--secundarioOscuro);
 }
-.requisitos p {
+.courses-requirements p {
   font-size: 1.2em;
   text-align: center;
   padding: 0.8rem;
@@ -430,28 +411,28 @@ linea {
   opacity: 0;
 }
 
-.requisitos hr {
+.courses-requirements hr {
   margin: 0;
   margin-bottom: 1em;
   height: 5px;
   background-color: var(--secundarioOscuro);
 }
 @media (max-width: 768px) {
-  .cursos {
+  .courses {
     padding-left: 2em;
     padding-right: 2em;
   }
-  .cursos-tarjeta h2 {
+  .courses-card h2 {
     font-size: 1.8em;
   }
-  .requisitos h3 {
+  .courses-requirements h3 {
     font-size: 1.3em;
   }
-  .requisitos p {
+  .courses-requirements p {
     font-size: 1.2em;
   }
   
-  .grid-cursos {
+  .courses-grid {
     grid-template-columns: repeat(1, 1fr);
     padding: 10%;
     padding-top: 1.5em;
@@ -460,26 +441,28 @@ linea {
 }
 
 /* ========================= Clima ========================= */
-.seccion-clima{
+.weather-backgroud{
+  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.weather-section{
   border-color: var(--secundarioOscuro);
   border-style: solid none none none;
   border-width: 0.5em;
   background-color: rgba(0, 0, 0, .5);
   padding: 1em;
 }
-.clima-fondo{
-  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.clima {
+
+.weather {
   display: flex;
   flex-wrap: wrap;
   justify-content:space-around;
   margin-left: 2em;
   margin-right: 2em;
 }
-.clima-tarjeta {
+.weather-card {
   padding: 0.5em;
   margin: 1em;
   display: flex;
@@ -490,19 +473,19 @@ linea {
   transition: ease-in 0.4s;
   align-items: center;
 }
-.clima-tarjeta hr {
+.weather-card hr {
     margin-left: 1em;
   margin-bottom: 1em;
   height: 80px;
   background-color: var(--secundarioOscuro);
   width: 5px;
 }
-.clima-tarjeta img {
+.weather-card img {
   height: 5em;
   width: 5em;
   padding: 0.5em;
 }
-.clima-tarjeta p {
+.weather-card p {
   padding: 1em;
   font-size: 2em;
 }
@@ -510,14 +493,14 @@ linea {
   align-content: center;
   padding: 1em;
 }
-.clima-titulo{
+.weather-title{
   font-size: 2.5em;
   margin: 0;
   padding-bottom: 0em;
   color: white;
   text-shadow: 2px 3px #000000;
 }
-.metar-codificado{
+.metar-codified{
   background-color: white;
   border-radius: var(--radius);
   box-shadow: 0 2px 8px #000;
@@ -529,20 +512,20 @@ linea {
 }
 
 @media (max-width: 700px){
-  .seccion-clima{
+  .weather-section{
     padding-bottom: 0.5em;
   }
-    .clima {
+  .weather {
       display: block;
       margin: 1em;
-    }
-    .clima-tarjeta {
+  }
+  .weather-card {
       margin-left: 0.5em;
       margin-right: 0.5em;
       font-size: 0.8em;
-    }
-    .metar-codificado{
+  }
+  .metar-codified{
       margin: 0.5em;
       padding: 0.5em;
-    }
   }
+}

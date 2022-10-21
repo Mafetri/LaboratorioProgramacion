@@ -1,24 +1,24 @@
 body {
-    background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
-    background-size: auto;
-  background-attachment:fixed;
+  background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
+  background-size: auto;
+  background-attachment: fixed;
   background-position: center;
 }
 
-.noticias {
-    padding-top: 6em;
-    align-items: center;
-    background-color: rgba(0, 0, 0, .7);
+.news {
+  padding-top: 6em;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.noticias-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.news-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 @media (max-width: 768px) {
-    .noticias {
-        padding-top: 4em;
-    }
+  .news {
+    padding-top: 4em;
+  }
 }

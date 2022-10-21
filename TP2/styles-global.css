@@ -94,12 +94,12 @@ header {
   transition-property: height, background;
   z-index: 2;
 }
-.header__logo {
+.header-logo {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
 }
-header.pegajoso {
+header.sticky {
   height: 5rem;
   background: var(--headerPegajoso);
   backdrop-filter: blur(20px);
@@ -113,13 +113,13 @@ header.pegajoso {
     padding: 0rem;
   }
 
-  header.solido {
+  header.solid {
     background-color: var(--headerPegajoso);
     backdrop-filter: blur(20px);
     box-shadow: 0 1px 5px #000;
   }
 
-  header.pegajoso {
+  header.sticky {
     height: auto;
   }
 }
@@ -201,10 +201,10 @@ header.pegajoso {
 
 
 /* ==================== Opacidad ==================== */
-.opacidad-1{
+.opacity-1{
   opacity: 1 !important;
 }
-.opacidad-0{
+.opacity-0{
   opacity: 0;
 }
 
@@ -237,8 +237,8 @@ header.pegajoso {
   text-decoration: none;
 }
 
-/* ==================== Titulo Seccion ==================== */
-.titulo-seccion {
+/* ==================== Section Title ==================== */
+.section-title {
   background-color: white;
   color: var(--secundarioOscuro) !important;
   border-radius: var(--radius);
@@ -249,7 +249,7 @@ header.pegajoso {
   box-shadow: 0 2px 8px #000;
 }
 @media (max-width: 768px) {
-  .titulo-seccion{
+  .section-title{
     font-size: 2em;
     margin-left: 0.5em;
     margin-right: 0.5em;
@@ -280,8 +280,8 @@ header.pegajoso {
   }
 }
 
-/* ==================== Tarjeta Nocias ==================== */
-.noticias-tarjeta{
+/* ==================== News Card ==================== */
+.news-card{
   padding: 0em;
   margin: 1em;
   display: flex;
@@ -293,33 +293,33 @@ header.pegajoso {
   align-items: center;
   width: 23em;
 }
-.noticias-tarjeta-info{
+.news-card-info{
   width: 23em;
 }
-.noticias-tarjeta hr {
+.news-card hr {
   width: 80%;
   height: 5px;
   background-color: var(--secundarioOscuro);
 }
-.noticias-tarjeta img {
+.news-card img {
   width: 100%;
   height: auto;
   padding: 0;
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
 }
-.noticias-tarjeta p {
+.news-card p {
   padding: 1em;
   font-size: 1.2em;
   font-family: var(--fuentePrincipal);
   overflow-wrap: break-word;
 }
-.noticias-tarjeta h2{
+.news-card h2{
   color: var(--secundarioOscuro);
   font-size: 2em;
   margin: 0;
 }
-.noticias-tarjeta h3{
+.news-card h3{
   color: var(--secundarioOscuro);
   background-color: var(--gris);
   font-size: 1.2em;
