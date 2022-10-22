@@ -227,12 +227,11 @@
   }
 }
 
-/* ============================= Flota ======================================= */
-.fleet-backgroud{
-  background-image: url("/TP2/assets/nubes.jpg");
-}
+/* ============================= Fleet ======================================= */
 .fleet {
-  background-color: rgba(189, 189, 189, 0.5);
+  background-color: rgba(145, 145, 145, 0.5);
+  background-image: url("/TP2/assets/nubes.jpg");
+  background-blend-mode: soft-light;
   padding-top: 2em;
   border-width: 0.5em;
   border-color: var(--secundarioOscuro);
@@ -339,7 +338,7 @@
 
 
 /* ============================ Courses ==========================*/
-.courses {
+.courses-section {
   padding-left: 15%;
   padding-right: 15%;
   padding-top: 2em;
@@ -380,7 +379,7 @@
   box-shadow: 0 5px 20px #000;
 }
 
-.courses .boton-sec-oscuro {
+.courses-section .boton-sec-oscuro {
   display: block;
   margin: auto;
   margin-bottom: 1em;
@@ -441,17 +440,15 @@
 }
 
 /* ========================= Clima ========================= */
-.weather-backgroud{
-  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .weather-section{
   border-color: var(--secundarioOscuro);
   border-style: solid none none none;
   border-width: 0.5em;
   background-color: rgba(0, 0, 0, .5);
+  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
+  background-blend-mode: soft-light;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 1em;
 }
 

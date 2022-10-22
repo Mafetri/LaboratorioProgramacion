@@ -1,14 +1,12 @@
-body {
-  background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
-  background-size: auto;
-  background-attachment: fixed;
-  background-position: center;
-}
-
 .news {
   padding-top: 6em;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
+  background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
+  background-size: auto;
+  background-attachment: fixed;
+  background-position: center;
+  background-blend-mode: soft-light;
 }
 
 .news-grid {
