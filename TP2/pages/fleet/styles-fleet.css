@@ -1,7 +1,7 @@
 .airplanes {
   align-items: center;
   background-color: rgba(0, 0, 0, .3);
-  background-image: url("/TP2/assets/nubes.jpg");
+  background-image: url("../../assets/nubes.jpg");
   background-size: auto;
   background-attachment:fixed;
   background-position: center;
