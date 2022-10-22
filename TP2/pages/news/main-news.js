@@ -12,7 +12,7 @@ for (let i = 0; i < news.news.length; i++) {
 
   // News img
   var img = document.createElement("img");
-  img.src = news.news[i].img;
+  img.src = "../.." + news.news[i].img;
   img.alt = "news-img";
 
   // News Info

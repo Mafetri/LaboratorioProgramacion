@@ -19,11 +19,11 @@ toggleButton.addEventListener('click', () => {
     lineas[0].style = 'transform: rotate(45deg) translate(5px, 8px);'
     lineas[1].style = 'transform: translate(50px);'
     lineas[2].style = 'transform: rotate(-45deg) translate(5px, -8px);'
-    burger = false;
+    notBurger = false;
   }else{
     lineas[0].style = ''
     lineas[1].style = ''
     lineas[2].style = ''
-    burger = true;
+    notBurger = true;
   }
 })

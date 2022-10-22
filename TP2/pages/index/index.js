@@ -16,13 +16,14 @@ document.querySelector('.annos p').textContent = trajectory.annos;
 
 // ===================== News =====================
 for(var i = newsCards-1; i >= 0; i--){
+  var thisNews = news.news[i];
   // Son of news
   var newsCard = document.createElement("div");
   newsCard.classList.add("news-card");
 
   // Son of newsCard
   var cardImg = document.createElement("img");
-  cardImg.src = news.news[i].img;
+  cardImg.src = "."+thisNews.img;
   cardImg.alt = "Imagen de Noticia";
 
   // Son of newsCard
@@ -31,14 +32,14 @@ for(var i = newsCards-1; i >= 0; i--){
 
   // Sons of cardInfo
   var title = document.createElement("h2");
-  title.textContent = news.news[i].title;
+  title.textContent = thisNews.title;
   var line = document.createElement("hr");
   var description = document.createElement("p");
-  description.textContent = news.news[i].description;
+  description.textContent = thisNews.description;
 
   // Son of newsCard
   var date = document.createElement("h3");
-  date.textContent = news.news[i].date;
+  date.textContent = thisNews.date;
 
   document.querySelector(".news").prepend(newsCard);
   newsCard.appendChild(cardImg);
@@ -80,7 +81,7 @@ for(var i = 0; i < fleet.airplanes.length; i++){
   airplaneInfo.classList.add("airplane-info");
 
   var airplaneImg = document.createElement("img");
-  airplaneImg.src = airplane.img;
+  airplaneImg.src = "."+airplane.img;
   airplaneImg.alt = "Imagen del " + airplane.name;
 
   document.querySelector("#fleet-carousel").appendChild(comment);

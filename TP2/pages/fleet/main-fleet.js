@@ -2,8 +2,9 @@ import fleet from './fleet.json' assert {type: 'json'};
 
 // Info fleet
 for (var i = 0; i < fleet.airplanes.length; i++) {
+    var airplane = fleet.airplanes[i];
     //  ---  Card  ---
-    var nameComment = document.createComment(fleet.airplanes[i].name);
+    var nameComment = document.createComment(airplane.name);
     var card = document.createElement("div");
     card.classList.add("airplane-card");
     if(i % 2 == 0){
@@ -12,8 +13,8 @@ for (var i = 0; i < fleet.airplanes.length; i++) {
 
     //  ---  Airplane Img  ---
     var img = document.createElement("img");
-    img.src = fleet.airplanes[i].img;
-    img.alt = "Imagen del "+fleet.airplanes[i].name;
+    img.src = "../.."+airplane.img;
+    img.alt = "Imagen del "+airplane.name;
 
     //  ---  Airplane Info  --- 
     var airplaneInfo = document.createElement("div");
@@ -21,7 +22,7 @@ for (var i = 0; i < fleet.airplanes.length; i++) {
 
     // Name
     var name = document.createElement("h2");
-    name.textContent = fleet.airplanes[i].name;
+    name.textContent = airplane.name;
 
     // Line
     var hr = document.createElement("hr");
@@ -30,37 +31,37 @@ for (var i = 0; i < fleet.airplanes.length; i++) {
     var plateTitle = document.createElement("h3");
     plateTitle.textContent = "Matricula:";
     var plate = document.createElement("p");
-    plate.textContent = fleet.airplanes[i].plate;
+    plate.textContent = airplane.plate;
 
     // Engine
     var engineTitle = document.createElement("h3");
     engineTitle.textContent = "Motor:";
     var engine = document.createElement("p");
-    engine.textContent = fleet.airplanes[i].engine;
+    engine.textContent = airplane.engine;
 
     // Brand
     var brandTitle = document.createElement("h3");
     brandTitle.textContent = "Marca:";
     var brand = document.createElement("p");
-    brand.textContent = fleet.airplanes[i].brand;
+    brand.textContent = airplane.brand;
 
     // Model
     var modelTitle = document.createElement("h3");
     modelTitle.textContent = "Modelo:";
     var model = document.createElement("p");
-    model.textContent = fleet.airplanes[i].model;
+    model.textContent = airplane.model;
 
     // Speed
     var speedTitle = document.createElement("h3");
     speedTitle.textContent = "Velocidad Curcero:";
     var speed = document.createElement("p");
-    speed.textContent = fleet.airplanes[i].speed;
+    speed.textContent = airplane.speed;
 
     // Consumption
     var consumptionTitle = document.createElement("h3");
     consumptionTitle.textContent = "Consumo:";
     var consumption = document.createElement("p");
-    consumption.textContent = fleet.airplanes[i].consumption;
+    consumption.textContent = airplane.consumption;
 
     // ---  Appends  ---
     document.querySelector(".airplanes").appendChild(nameComment);

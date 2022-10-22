@@ -8,7 +8,7 @@
             "model":"P912",
             "speed":"60 kt",
             "consumption":"14lt/h",
-            "img" : "/TP2/assets/fleet/Petrel/petrel-3.jpg"
+            "img" : "/assets/fleet/Petrel/petrel-3.jpg"
         },
         {
             "name":"C150",
@@ -18,7 +18,7 @@
             "model":"C150",
             "speed":"80kt",
             "consumption":"22lt/h",
-            "img" : "/TP2/assets/fleet/C150/c150-2.jpeg"
+            "img" : "/assets/fleet/C150/c150-2.jpeg"
         },
         {
             "name":"Archer",
@@ -28,7 +28,7 @@
             "model":"Archer",
             "speed":"120kt",
             "consumption":"32lt/h",
-            "img" : "/TP2/assets/fleet/Archer/archer-2.jpeg"
+            "img" : "/assets/fleet/Archer/archer-2.jpeg"
         },
         {
             "name":"C172",
@@ -38,7 +38,7 @@
             "model":"C172",
             "speed":"120kt",
             "consumption":"22lt/h",
-            "img" : "/TP2/assets/fleet/C172/c172-2.jpeg"
+            "img" : "/assets/fleet/C172/c172-2.jpeg"
         },
         {
             "name":"P92",
@@ -48,7 +48,7 @@
             "model":"P92",
             "speed":"80kt",
             "consumption":"16lt/h",
-            "img" : "/TP2/assets/fleet/P92/p92-1.jpg"
+            "img" : "/assets/fleet/P92/p92-1.jpg"
         },
         {
             "name":"PA22",
@@ -58,7 +58,7 @@
             "model":"PA-22",
             "speed":"60kt",
             "consumption":"21lt/h",
-            "img" : "/TP2/assets/fleet/PA22/pa22-2.jpg"
+            "img" : "/assets/fleet/PA22/pa22-2.jpg"
         }
     ]
 }
