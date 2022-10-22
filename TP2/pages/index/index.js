@@ -1,15 +1,17 @@
 import cursos from '../index/requirements-curses.json' assert {type: 'json'};
-import trayectoria from '../index/trajectory.json' assert {type: 'json'};
+import trajectory from '../index/trajectory.json' assert {type: 'json'};
 import news from '../news/news.json' assert {type: 'json'};
+import fleet from '../fleet/fleet.json' assert {type: 'json'};
 
 // ===================== Constants =====================
 const newsCards = 3;
 
+
 // ===================== Trajectory =====================
-document.querySelector('.alumnos p').textContent = trayectoria.alumnos;
-document.querySelector('.socios p').textContent = trayectoria.socios;
-document.querySelector('.aeronaves p').textContent = trayectoria.aeronaves;
-document.querySelector('.annos p').textContent = trayectoria.annos;
+document.querySelector('.alumnos p').textContent = trajectory.alumnos;
+document.querySelector('.socios p').textContent = trajectory.socios;
+document.querySelector('.aeronaves p').textContent = trajectory.aeronaves;
+document.querySelector('.annos p').textContent = trajectory.annos;
 
 
 // ===================== News =====================
@@ -47,25 +49,6 @@ for(var i = newsCards-1; i >= 0; i--){
   cardInfo.appendChild(description);
 }
 
-/*
-for(var i = 0; i < 3; i++){
-  document.querySelector(".news-card.card-"+i+" h2").textContent = news.news[i].title;
-  document.querySelector(".news-card.card-"+i+" h3").textContent = news.news[i].date;
-  document.querySelector(".news-card.card-"+i+" p").textContent = news.news[i].description;
-  document.querySelector(".news-card.card-"+i+" img").src = news.news[i].img;
-}
-
-<div class="news-card card-0">
-          <img src="" alt="noticias-imagen">
-          <div class="news-card-info">
-            <h2></h2>
-            <hr>
-            <p></p>
-          </div>
-          <h3></h3>
-        </div>
-*/
-
 
 // ===================== Courses =====================
 // Json read and courses data modification
@@ -81,6 +64,31 @@ for (var i = 0; i < cursos.cursos.length; i++) {
 
 
 // ===================== Fleet =====================
+for(var i = 0; i < fleet.airplanes.length; i++){
+  var airplane = fleet.airplanes[i];
+  var comment = document.createComment(airplane.name);
+
+  var airplaneCard = document.createElement("div");
+  airplaneCard.classList.add("carousel-item");
+
+  var airplaneName = document.createElement("h2");
+  airplaneName.textContent = airplane.name;
+  airplaneName.classList.add("airplane-name");
+
+  var airplaneInfo = document.createElement("p");
+  airplaneInfo.textContent = airplane.plate;
+  airplaneInfo.classList.add("airplane-info");
+
+  var airplaneImg = document.createElement("img");
+  airplaneImg.src = airplane.img;
+  airplaneImg.alt = "Imagen del " + airplane.name;
+
+  document.querySelector("#fleet-carousel").appendChild(comment);
+  document.querySelector("#fleet-carousel").appendChild(airplaneCard);
+  airplaneCard.appendChild(airplaneName);
+  airplaneCard.appendChild(airplaneInfo);
+  airplaneCard.appendChild(airplaneImg);
+}
 // Fleet carousel
 document.addEventListener("DOMContentLoaded", () => {
   const elementosCarrusel = document.querySelectorAll(".carousel");

@@ -228,7 +228,7 @@
 }
 
 /* ============================= Fleet ======================================= */
-.fleet {
+.fleet-section {
   background-color: rgba(145, 145, 145, 0.5);
   background-image: url("/TP2/assets/nubes.jpg");
   background-blend-mode: soft-light;
@@ -238,7 +238,7 @@
   border-style: solid none none none;
 }
 
-.fleet h2 {
+.fleet-section h2 {
   background-color: white;
   color: #000 !important;
   margin-left: 1.2em;
@@ -304,7 +304,7 @@
   color: white;
 }
 
-.fleet .boton-sec-oscuro{
+.fleet-section .boton-sec-oscuro{
   margin-left: 20%;
   margin-right: 20%;
   margin-top: 2em;
