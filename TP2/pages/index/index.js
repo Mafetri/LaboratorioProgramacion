@@ -2,6 +2,8 @@ import cursos from '../index/requirements-curses.json' assert {type: 'json'};
 import trayectoria from '../index/trajectory.json' assert {type: 'json'};
 import news from '../news/news.json' assert {type: 'json'};
 
+// ===================== Constants =====================
+const newsCards = 3;
 
 // ===================== Trajectory =====================
 document.querySelector('.alumnos p').textContent = trayectoria.alumnos;
@@ -11,12 +13,58 @@ document.querySelector('.annos p').textContent = trayectoria.annos;
 
 
 // ===================== News =====================
+for(var i = newsCards-1; i >= 0; i--){
+  // Son of news
+  var newsCard = document.createElement("div");
+  newsCard.classList.add("news-card");
+
+  // Son of newsCard
+  var cardImg = document.createElement("img");
+  cardImg.src = news.news[i].img;
+  cardImg.alt = "Imagen de Noticia";
+
+  // Son of newsCard
+  var cardInfo = document.createElement("div");
+  cardInfo.classList.add("news-card-info");
+
+  // Sons of cardInfo
+  var title = document.createElement("h2");
+  title.textContent = news.news[i].title;
+  var line = document.createElement("hr");
+  var description = document.createElement("p");
+  description.textContent = news.news[i].description;
+
+  // Son of newsCard
+  var date = document.createElement("h3");
+  date.textContent = news.news[i].date;
+
+  document.querySelector(".news").prepend(newsCard);
+  newsCard.appendChild(cardImg);
+  newsCard.appendChild(cardInfo);
+  newsCard.appendChild(date);
+  cardInfo.appendChild(title);
+  cardInfo.appendChild(line);
+  cardInfo.appendChild(description);
+}
+
+/*
 for(var i = 0; i < 3; i++){
   document.querySelector(".news-card.card-"+i+" h2").textContent = news.news[i].title;
   document.querySelector(".news-card.card-"+i+" h3").textContent = news.news[i].date;
   document.querySelector(".news-card.card-"+i+" p").textContent = news.news[i].description;
   document.querySelector(".news-card.card-"+i+" img").src = news.news[i].img;
 }
+
+<div class="news-card card-0">
+          <img src="" alt="noticias-imagen">
+          <div class="news-card-info">
+            <h2></h2>
+            <hr>
+            <p></p>
+          </div>
+          <h3></h3>
+        </div>
+*/
 
 
 // ===================== Courses =====================
