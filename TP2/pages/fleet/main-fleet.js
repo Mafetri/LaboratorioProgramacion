@@ -5,7 +5,7 @@ for (var i = 0; i < fleet.airplanes.length; i++) {
     var airplane = fleet.airplanes[i];
     //  ---  Card  ---
     var nameComment = document.createComment(airplane.name);
-    var card = document.createElement("div");
+    var card = document.createElement("article");
     card.classList.add("airplane-card");
     if(i % 2 == 0){
         card.classList.add("inverted");

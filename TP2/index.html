@@ -43,7 +43,7 @@
     <!-- ========================= Main ========================= -->
     <main>
       <!-- ========================= Welcome ========================= -->
-      <div class="welcome">
+      <section class="welcome">
         <div class="welcome-title">
           <h1>Aeroclub Allen</h1>
           <h2>El cielo no tiene limites</h2>
@@ -66,10 +66,10 @@
             </li>
           </ul>
         </div>
-      </div>
+      </section>
 
       <!-- =========================  Trajectory  ========================= -->
-      <div class="trajectory-section">
+      <section class="trajectory-section">
         <h2 class="section-title" id="calidad">Trayectoria</h2>
         <div class="trajectory-grid">
           <!-- Numero Alumnos -->
@@ -105,21 +105,21 @@
             <p>Mas de 70 años</p>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- =========================  News  ========================= -->
-      <div class="news-section">
+      <section class="news-section">
         <h1 class="section-title">Noticias</h1>
         <div class="news"></div>
         <a href="./pages/news/news.html"><button>Mostrar Mas</button></a>
-      </div>
+      </section>
 
       <!-- =========================  Courses  ========================= -->
-      <div class="courses-section" id = "courses">
+      <section class="courses-section" id = "courses">
         <h1 class="section-title">Nuestros Cursos</h1>
         <div class="courses-grid">
           <!-- Plito Privado de Avion -->
-          <div class="courses-card ppa">
+          <article class="courses-card ppa">
             <img src="./assets/courses/ppa.jpg" alt="ppa-imagen" />
             <h2>Piloto Privado de Avión</h2>
             <div class="courses-requirements" style="display: none">
@@ -144,10 +144,10 @@
             >
               Mas Info
             </button>
-          </div>
+          </article>
 
           <!-- Plito Comercial -->
-          <div class="courses-card comercial">
+          <article class="courses-card comercial">
             <img
               src="https://www.flyone.com.ar/wp-content/uploads/2020/12/cta2.jpg"
               alt="pc-imagen"
@@ -175,10 +175,10 @@
             >
               Mas Info
             </button>
-          </div>
+          </article>
 
           <!-- Instructor -->
-          <div class="courses-card instructor">
+          <article class="courses-card instructor">
             <img
               src="./assets/courses/instructor.jpg"
               alt="instructor-imagen"
@@ -206,10 +206,10 @@
             >
               Mas Info
             </button>
-          </div>
+          </article>
 
           <!-- Primera -->
-          <div class="courses-card primera">
+          <article class="courses-card primera">
             <img src="./assets/courses/primera.jpg" alt="primera-imagen" />
             <h2>Piloto Primera Clase</h2>
             <div class="courses-requirements" style="display: none">
@@ -234,12 +234,12 @@
             >
               Mas Info
             </button>
-          </div>
+          </article>
         </div>
-      </div>
+      </section>
 
       <!-- =========================  Fleet  ========================= -->
-      <div class="fleet-section">
+      <section class="fleet-section">
         <h1 class="section-title">Nuestra Flota</h1>
         <div class="carousel center-align" id = "fleet-carousel">
           
@@ -247,10 +247,10 @@
         <a href="./pages/fleet/fleet.html"
           ><button class="boton-sec-oscuro">Mas Informacion</button></a
         >
-      </div>
+      </section>
 
       <!-- ========================= Weather ========================= -->
-      <div class="weather-section">
+      <section class="weather-section">
         <h2 class="weather-title">CLIMA ALLEN</h2>
         <div class="weather">
           <div class="weather-card">
@@ -283,80 +283,83 @@
           <h2 class="weather-title">METAR SAZN(NEU)</h2>
           <p class="metar-codified"></p>
         </div>
-      </div>
+      </section>
     </main>
 
     <!-- ========================= Footer ========================= -->
-    <div class="footer-top">
-      <a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
-        <!-- Ubicacion -->
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
-            alt="imagen-ubicacion"
-          />
-          <p>Bardas Norte s/n, R8328 Allen, Río Negro</p>
-        </div>
-      </a>
-
-      <!-- Whatsapp -->
-      <a
-        href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0" target="_blank"
-      >
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
-            alt="imagen-whatsapp"
-          />
-          <p>+549-298-5450-9555</p>
-        </div>
-      </a>
-
-      <!-- Mail -->
-      <a href="mailto:allenaeroclub@gmail.com" target="_blank">
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
-            alt="imagen-mail"
-          />
-          <p>allenaeroclub@gmail.com</p>
-        </div>
-      </a>
-
-      <!-- Redes Sociales -->
-      <div class="footer-top-element">
-        <a href="https://www.facebook.com/aerocluballen/" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/665/665209.png"
-            alt="imagen-twiter"
-          />
+    <footer>
+      <div class="footer-top">
+        <a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
+          <!-- Ubicacion -->
+          <div class="footer-top-element">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+              alt="imagen-ubicacion"
+            />
+            <p>Bardas Norte s/n, R8328 Allen, Río Negro</p>
+          </div>
         </a>
-        <!--Facebook-->
-        <a href="https://www.instagram.com/aerocluballen/?hl=es" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png"
-            alt="imagen-facebook"
-          />
+  
+        <!-- Whatsapp -->
+        <a
+          href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0" target="_blank"
+        >
+          <div class="footer-top-element">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
+              alt="imagen-whatsapp"
+            />
+            <p>+549-298-5450-9555</p>
+          </div>
         </a>
-        <!--Instagram-->
-        <a href="https://twitter.com/aerocluballen?lang=es" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/739/739257.png"
-            alt="imagen-instagram"
-          />
+  
+        <!-- Mail -->
+        <a href="mailto:allenaeroclub@gmail.com" target="_blank">
+          <div class="footer-top-element">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
+              alt="imagen-mail"
+            />
+            <p>allenaeroclub@gmail.com</p>
+          </div>
         </a>
-        <!--Twitter-->
-        <p>Visitanos en nuestras Redes Sociales</p>
+  
+        <!-- Redes Sociales -->
+        <div class="footer-top-element">
+          <a href="https://www.facebook.com/aerocluballen/" target="_blank">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/665/665209.png"
+              alt="imagen-twiter"
+            />
+          </a>
+          <!--Facebook-->
+          <a href="https://www.instagram.com/aerocluballen/?hl=es" target="_blank">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png"
+              alt="imagen-facebook"
+            />
+          </a>
+          <!--Instagram-->
+          <a href="https://twitter.com/aerocluballen?lang=es" target="_blank">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/739/739257.png"
+              alt="imagen-instagram"
+            />
+          </a>
+          <!--Twitter-->
+          <p>Visitanos en nuestras Redes Sociales</p>
+        </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <h3>
-        Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
-        <a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
-        y
-        <a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
-      </h3>
-    </div>
+      <div class="footer-bottom">
+        <h3>
+          Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
+          <a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
+          y
+          <a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
+        </h3>
+      </div>
+    </footer>
+
 
     <!-- ========================= Scripts ========================= -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

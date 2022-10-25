@@ -4,7 +4,7 @@ const grid = document.querySelector(".news-grid");
 
 for (let i = 0; i < news.news.length; i++) {
   // Div
-  var newListItem = document.createElement("div");
+  var newListItem = document.createElement("article");
 
   //<div Class="news-card"> </div>
   newListItem.classList.add("news-card");
