@@ -1,8 +1,8 @@
-import news from "./news.json" assert { type: "json" };
+import news from "/api/news?x0=0&n=20" assert { type: "json" };
 
 const grid = document.querySelector(".news-grid");
 
-for (let i = 0; i < news.news.length; i++) {
+for (let i = 0; i < news.length; i++) {
   // Div
   var newListItem = document.createElement("article");
 
@@ -12,7 +12,7 @@ for (let i = 0; i < news.news.length; i++) {
 
   // News img
   var img = document.createElement("img");
-  img.src = "../.." + news.news[i].img;
+  img.src = "../.." + news[i].img;
   img.alt = "news-img";
 
   // News Info
@@ -23,9 +23,9 @@ for (let i = 0; i < news.news.length; i++) {
   var title = document.createElement("h2");
   var description = document.createElement("p");
   var date = document.createElement("h3");
-  title.textContent = news.news[i].title;
-  description.textContent = news.news[i].description;
-  date.textContent = news.news[i].date;
+  title.textContent = news[i].title;
+  description.textContent = news[i].description;
+  date.textContent = news[i].date;
   
   // Append news-info, the img and the date as child of news-card
   newListItem.appendChild(img);

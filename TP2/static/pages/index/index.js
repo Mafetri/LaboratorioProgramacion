@@ -1,11 +1,7 @@
-import cursos from '../index/requirements-curses.json' assert {type: 'json'};
-import trajectory from '../index/trajectory.json' assert {type: 'json'};
-import news from '../news/news.json' assert {type: 'json'};
+import cursos from './requirements-curses.json' assert {type: 'json'};
+import trajectory from './trajectory.json' assert {type: 'json'};
 import fleet from '../fleet/fleet.json' assert {type: 'json'};
-
-// ===================== Constants =====================
-const newsCards = 3;
-
+import news from '/api/news?x0=0&n=3' assert {type: 'json'};
 
 // ===================== Trajectory =====================
 document.querySelector('.alumnos p').textContent = trajectory.alumnos;
@@ -15,8 +11,8 @@ document.querySelector('.annos p').textContent = trajectory.annos;
 
 
 // ===================== News =====================
-for(var i = newsCards-1; i >= 0; i--){
-  var thisNews = news.news[i];
+for(var i = news.length-1; i >= 0; i--){
+  var thisNews = news[i];
   // Son of news
   var newsCard = document.createElement("div");
   newsCard.classList.add("news-card");
