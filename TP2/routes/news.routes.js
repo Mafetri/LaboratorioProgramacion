@@ -3,7 +3,7 @@ import { getNews, createNew, updateNew, deleteNew } from "../controllers/news.co
 
 const router=Router();
 
-router.get('/api/news', getNews);
+router.get('/api/news', getNews); 
 
 router.post('/api/news', createNew);
 
