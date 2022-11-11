@@ -1,9 +1,5 @@
 import express from "express";
-import path from "path";
-import {fileURLToPath} from 'url';
 import newsRoutes from "./routes/news.routes.js";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app= express();
 

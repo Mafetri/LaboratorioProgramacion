@@ -2,6 +2,8 @@ import news from "/api/news?x0=0&n=20" assert { type: "json" };
 
 const grid = document.querySelector(".news-grid");
 
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
+
 for (let i = 0; i < news.length; i++) {
   // Div
   var newListItem = document.createElement("article");
@@ -25,7 +27,8 @@ for (let i = 0; i < news.length; i++) {
   var date = document.createElement("h3");
   title.textContent = news[i].title;
   description.textContent = news[i].description;
-  date.textContent = news[i].date;
+  let dateArray = news[i].date.split('-');
+  date.textContent = dateArray[2].split('T')[0] + " " + months[dateArray[1]-1] + ", " + dateArray[0];
   
   // Append news-info, the img and the date as child of news-card
   newListItem.appendChild(img);

@@ -9,6 +9,7 @@ document.querySelector('.socios p').textContent = trajectory.socios;
 document.querySelector('.aeronaves p').textContent = trajectory.aeronaves;
 document.querySelector('.annos p').textContent = trajectory.annos;
 
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
 
 // ===================== News =====================
 for(var i = news.length-1; i >= 0; i--){
@@ -35,7 +36,8 @@ for(var i = news.length-1; i >= 0; i--){
 
   // Son of newsCard
   var date = document.createElement("h3");
-  date.textContent = thisNews.date;
+  let dateArray = thisNews.date.split('-');
+  date.textContent = dateArray[2].split('T')[0] + " " + months[dateArray[1]-1] + ", " + dateArray[0];
 
   document.querySelector(".news").prepend(newsCard);
   newsCard.appendChild(cardImg);
