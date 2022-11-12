@@ -48,12 +48,13 @@ export const updateNews = async (req, res) => {
 			[date, title, description, img, id],
 		);
 
-		if (dbRes.affectedRows === 0)
+		if (dbRes.affectedRows === 0){
 			return res.status(404).json({
 				message: "New not found",
 			});
-
-		res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
+		} else{
+			res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
+		}
 	} catch (e) {
 		return res.status(500).json({
 			message: "Something went wrong",
