@@ -1,8 +1,8 @@
-import fleet from './fleet.json' assert {type: 'json'};
+import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 
 // Info fleet
-for (var i = 0; i < fleet.airplanes.length; i++) {
-    var airplane = fleet.airplanes[i];
+for (var i = 0; i < fleet.length; i++) {
+    var airplane = fleet[i];
     //  ---  Card  ---
     var nameComment = document.createComment(airplane.name);
     var card = document.createElement("article");
@@ -55,13 +55,13 @@ for (var i = 0; i < fleet.airplanes.length; i++) {
     var speedTitle = document.createElement("h3");
     speedTitle.textContent = "Velocidad Curcero:";
     var speed = document.createElement("p");
-    speed.textContent = airplane.speed;
+    speed.textContent = airplane.speed + "kt";
 
     // Consumption
     var consumptionTitle = document.createElement("h3");
     consumptionTitle.textContent = "Consumo:";
     var consumption = document.createElement("p");
-    consumption.textContent = airplane.consumption;
+    consumption.textContent = airplane.consumption + "lt/h";
 
     // ---  Appends  ---
     document.querySelector(".airplanes").appendChild(nameComment);

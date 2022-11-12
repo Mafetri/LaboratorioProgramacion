@@ -9,18 +9,35 @@ export const getNews = async (req, res) => {
 }
 
 // Create news
-export const createNew = (req, res) => {
-    res.send('POST crear noticia')
+export const createNews = async (req, res) => {
+    let { date, title, description, img } = req.body;
+    await pool.query('INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)', [date, title, description, img])
+    res.send('Post Success')
 };
 
 // Update news
-export const updateNew = (req, res) => {
-    const { id, name, description } = req.body;
-    res.send(`Name ${id} ${name}, desc ${description}`);
+export const updateNews = async (req, res) => {
+    const { id } = req.params;
+    const { date, title, description, img } = req.body;
+    const [ dbRes ] = await pool.query('UPDATE news SET date = IFNULL(?, date), title = IFNULL(?, title), description = IFNULL(?, description), img = IFNULL(?, img) WHERE id = ?', [date, title, description, img, id]);
+    
+    if(dbRes.affectedRows === 0) return res.status(404).json({
+        message: "New not found"
+    })
+    
+    res.json((await pool.query('SELECT * FROM news WHERE id = ?', [id]))[0]);
 };
 
 // Delete news
-export const deleteNew = (req, res) => {
+export const deleteNews = async (req, res) => {
     const { id } = req.params;
-    res.send(`Delete record with id ${id}`);
+    const [ dbRes ] = await pool.query('DELETE FROM news WHERE id=?',[id]);
+
+    if(dbRes.affectedRows === 0){
+        return res.status(404).json({
+            message: "New not found"
+        })
+    }else{
+        res.send("News Deleted");
+    }
 };

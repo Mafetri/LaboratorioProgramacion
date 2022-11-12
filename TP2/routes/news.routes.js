@@ -1,14 +1,14 @@
 import { Router } from "express";
-import { getNews, createNew, updateNew, deleteNew } from "../controllers/news.controller.js";
+import { getNews, createNews, updateNews, deleteNews } from "../controllers/news.controller.js";
 
-const router=Router();
+const router = Router();
 
 router.get('/api/news', getNews); 
 
-router.post('/api/news', createNew);
+router.post('/api/news', createNews);
 
-router.put('/api/news', updateNew);
+router.patch('/api/news/:id', updateNews);
 
-router.delete('/api/news/:id', deleteNew);
+router.delete('/api/news/:id', deleteNews);
 
 export default router;

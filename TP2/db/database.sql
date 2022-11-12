@@ -17,3 +17,22 @@ INSERT INTO news VALUES
     (NULL, '2021-05-29','¡DIA DEL PADRE!','Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?','/assets/news/dia-del-niño.jpg'),
     (NULL, '2021-03-15','¡Allen Vuela 2021!','Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?','/assets/news/festival.jpg'),
     (NULL, '2021-08-10','¡MEGA SORTEO POR EL DÍA DEL NIÑO!','Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?','/assets/news/dia-del-niño.jpg');
+
+create table fleet(
+    plate VARCHAR(255) NOT NULL PRIMARY KEY,
+    name VARCHAR(255),
+    engine VARCHAR(255),
+    brand VARCHAR(255),
+    model VARCHAR(255),
+    speed INT(12),
+    consumption INT(12),
+    img VARCHAR(255)
+)
+
+INSERT INTO fleet VALUES
+    ('LV-FVA','Petrel','Rotex 912i','Petrel','P912','60','14','/assets/fleet/Petrel/petrel-3.jpg'),
+    ('LV-IDE','C150','Continental O-200-A','Cessna','C150','80','22','/assets/fleet/C150/c150-2.jpeg'),
+    ('LV-ARN','Archer','Lycoming Model O-360-A4A','Piper','Archer','120','32','/assets/fleet/Archer/archer-2.jpeg'),
+    ('LV-CXF','C172','LV-CXF','Continental O-300','Cessna','C172','120','22','/assets/fleet/C172/c172-2.jpeg'),
+    ('LV-S037','P92','LV-S037','Rotax 912 ULS','Tecnam','P92','80','16','/assets/fleet/P92/p92-1.jpg'),
+    ('LV-HZS','PA22','Lycoming O-235-C1B','Piper','PA-22','60','21','/assets/fleet/PA22/pa22-2.jpg');

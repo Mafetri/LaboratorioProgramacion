@@ -15,7 +15,7 @@ export const getWeather = async (req, res) => {
     })
 }
 
-// GetMetar uses an externar metar api of SAZN (nearest airport)
+// GetMetar uses an external metar api of SAZN (nearest airport)
 export const getMetar = async (req, res) => {
     const metarFetch = await fetch(metarApi);
     const metar = await metarFetch.json();

@@ -1,6 +1,6 @@
 import cursos from './requirements-curses.json' assert {type: 'json'};
 import trajectory from './trajectory.json' assert {type: 'json'};
-import fleet from '../fleet/fleet.json' assert {type: 'json'};
+import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 import news from '/api/news?x0=0&n=3' assert {type: 'json'};
 import weather from '/api/weather' assert {type: 'json'};
 import metar from '/api/metar' assert {type: 'json'}
@@ -65,8 +65,8 @@ for (var i = 0; i < cursos.cursos.length; i++) {
 
 
 // ===================== Fleet =====================
-for(var i = 0; i < fleet.airplanes.length; i++){
-  var airplane = fleet.airplanes[i];
+for(var i = 0; i < fleet.length; i++){
+  var airplane = fleet[i];
   var comment = document.createComment(airplane.name);
 
   var airplaneCard = document.createElement("div");

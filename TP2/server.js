@@ -1,12 +1,15 @@
 import express from "express";
 import newsRoutes from "./routes/news.routes.js";
+import fleetRoutes from "./routes/fleet.routes.js";
 import weatherRoutes from "./routes/weather.routes.js";
 
 const app= express();
 
+app.use(express.json());
+
 // APIs
 app.use(newsRoutes);
-
+app.use(fleetRoutes);
 app.use(weatherRoutes);
 
 // Static webpage
