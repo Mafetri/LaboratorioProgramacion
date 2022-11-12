@@ -3,15 +3,15 @@ import { getFleet, getAirplane, createAirplane, updateAirplane, deleteAirplane }
 
 const router = Router();
 
-router.get('/api/fleet', getFleet); 
+router.get('/fleet', getFleet); 
 
-router.get('/api/airplane/:plate', getAirplane);
+router.get('/airplane/:plate', getAirplane);
 
-router.post('/api/airplane', createAirplane);
+router.post('/airplane', createAirplane);
 
-router.put('/api/airplane/:plate', updateAirplane);
+router.put('/airplane/:plate', updateAirplane);
 
-router.delete('/api/airplane/:plate', deleteAirplane);
+router.delete('/airplane/:plate', deleteAirplane);
 
 export default router;
 

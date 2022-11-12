@@ -8,9 +8,9 @@ const app= express();
 app.use(express.json());
 
 // APIs
-app.use(newsRoutes);
-app.use(fleetRoutes);
-app.use(weatherRoutes);
+app.use("/api", newsRoutes);
+app.use("/api", fleetRoutes);
+app.use("/api", weatherRoutes);
 
 // Static webpage
 app.use(express.static('static'));

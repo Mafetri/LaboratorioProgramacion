@@ -3,12 +3,12 @@ import { getNews, createNews, updateNews, deleteNews } from "../controllers/news
 
 const router = Router();
 
-router.get('/api/news', getNews); 
+router.get('/news', getNews); 
 
-router.post('/api/news', createNews);
+router.post('/news', createNews);
 
-router.patch('/api/news/:id', updateNews);
+router.patch('/news/:id', updateNews);
 
-router.delete('/api/news/:id', deleteNews);
+router.delete('/news/:id', deleteNews);
 
 export default router;
