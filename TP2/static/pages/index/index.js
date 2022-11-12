@@ -1,4 +1,4 @@
-import cursos from './requirements-curses.json' assert {type: 'json'};
+import courses from '/api/courses' assert {type: 'json'};
 import trajectory from './trajectory.json' assert {type: 'json'};
 import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 import news from '/api/news?x0=0&n=3' assert {type: 'json'};
@@ -53,14 +53,14 @@ for(var i = news.length-1; i >= 0; i--){
 
 // ===================== Courses =====================
 // Json read and courses data modification
-for (var i = 0; i < cursos.cursos.length; i++) {
-  var clase = cursos.cursos[i].clase;
-  document.querySelector("."+clase+".edad").textContent += cursos.cursos[i].edad;
-  document.querySelector("."+clase+".duracion").textContent += cursos.cursos[i].duracion;
-  document.querySelector("."+clase+".horas").textContent += cursos.cursos[i].horas;
-  document.querySelector("."+clase+".estudios").textContent += cursos.cursos[i].estudios;
-  document.querySelector("."+clase+".psicofisico").textContent += cursos.cursos[i].psicofisico;
-  document.querySelector("."+clase+".licencias").textContent += cursos.cursos[i].licencias;
+for (var i = 0; i < courses.length; i++) {
+  var course_class = courses[i].class;
+  document.querySelector("."+course_class+".edad").textContent += courses[i].age;
+  document.querySelector("."+course_class+".duracion").textContent += courses[i].duration;
+  document.querySelector("."+course_class+".horas").textContent += courses[i].hours + " Horas";
+  document.querySelector("."+course_class+".estudios").textContent += courses[i].studies;
+  document.querySelector("."+course_class+".psicofisico").textContent += courses[i].psychophysical;
+  document.querySelector("."+course_class+".licencias").textContent += courses[i].licenses;
 }
 
 
