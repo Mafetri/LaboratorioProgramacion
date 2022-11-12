@@ -1,19 +1,38 @@
 import courses from '/api/courses' assert {type: 'json'};
-import trajectory from './trajectory.json' assert {type: 'json'};
+import trajectory from '/api/trajectory' assert {type: 'json'};
 import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 import news from '/api/news?x0=0&n=3' assert {type: 'json'};
 import weather from '/api/weather' assert {type: 'json'};
 import metar from '/api/metar' assert {type: 'json'}
 
-// ===================== Trajectory =====================
-document.querySelector('.alumnos p').textContent = trajectory.alumnos;
-document.querySelector('.socios p').textContent = trajectory.socios;
-document.querySelector('.aeronaves p').textContent = trajectory.aeronaves;
-document.querySelector('.annos p').textContent = trajectory.annos;
 
-const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
+// ===================== Trajectory =====================
+for(let i = 0; i < trajectory.length; i++){
+  let thisTrajectory = trajectory[i];
+  let comment = document.createComment(thisTrajectory.type);
+
+  // Son of trajectory section
+  let trajectoryContainer = document.createElement('div');
+  trajectoryContainer.classList.add("trajectory-container");
+
+  // Icon
+  let icon = document.createElement("img");
+  icon.src = trajectory[i].icon;
+  icon.alt = "Icono de Informacion";
+
+  // Data
+  let data = document.createElement("p");
+  data.textContent = trajectory[i].data;
+
+  document.querySelector(".trajectory-grid").appendChild(comment);
+  document.querySelector(".trajectory-grid").appendChild(trajectoryContainer);
+  trajectoryContainer.appendChild(icon);
+  trajectoryContainer.appendChild(data);
+}
+
 
 // ===================== News =====================
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
 for(var i = news.length-1; i >= 0; i--){
   var thisNews = news[i];
   // Son of news

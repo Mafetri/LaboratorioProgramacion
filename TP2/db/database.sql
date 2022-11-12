@@ -53,3 +53,15 @@ INSERT INTO courses VALUES
     ('comercial','20 años','Indefinida','200','Secundario Completo','Clase III','PPA'),
     ('instructor','21 años','Indefinida','500','Secundario Completo','Clase III','Comercial'),
     ('primera','24 años','Indefinida','900','Secundario Completo','Clase III','Comercial');
+
+
+CREATE TABLE trajectory (
+    type VARCHAR(255) NOT NULL PRIMARY KEY,
+    data VARCHAR(255),
+    icon VARCHAR(255)
+)
+INSERT INTO trajectory VALUES 
+    ('alumnos','82 Alumnos Activos','./assets/icons/trajectory/alumnos.png'),
+    ('socios','151 Socios Activos','./assets/icons/trajectory/socios.png'),
+    ('aeronaves','6 Aeronaves','./assets/icons/trajectory/aeronaves.png'),
+    ('annos','Mas de 80 años','./assets/icons/trajectory/antiguedad.png')

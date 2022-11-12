@@ -3,6 +3,7 @@ import newsRoutes from "./routes/news.routes.js";
 import fleetRoutes from "./routes/fleet.routes.js";
 import weatherRoutes from "./routes/weather.routes.js";
 import coursesRoutes from "./routes/courses.routes.js";
+import trajectoryRoutes from "./routes/trajectory.routes.js";
 
 const app= express();
 
@@ -13,6 +14,7 @@ app.use("/api", newsRoutes);
 app.use("/api", fleetRoutes);
 app.use("/api", weatherRoutes);
 app.use("/api", coursesRoutes);
+app.use("/api", trajectoryRoutes);
 
 // Static webpage
 app.use(express.static('static'));
