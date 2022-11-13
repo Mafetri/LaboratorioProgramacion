@@ -9,6 +9,7 @@ import submitForm from "./routes/form.routes.js";
 const app= express();
 
 app.use(express.json());
+app.use(express.urlencoded());
 
 // APIs
 app.use("/api", newsRoutes);

@@ -65,3 +65,11 @@ INSERT INTO trajectory VALUES
     ('socios','151 Socios Activos','./assets/icons/trajectory/socios.png'),
     ('aeronaves','6 Aeronaves','./assets/icons/trajectory/aeronaves.png'),
     ('annos','Mas de 80 años','./assets/icons/trajectory/antiguedad.png')
+
+CREATE TABLE forms (
+    id INT(12) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    phone VARCHAR(255),
+    email VARCHAR(255),
+    message VARCHAR(255)
+)
