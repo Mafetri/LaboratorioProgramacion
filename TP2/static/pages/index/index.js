@@ -2,8 +2,8 @@ import courses from '/api/courses' assert {type: 'json'};
 import trajectory from '/api/trajectory' assert {type: 'json'};
 import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 import news from '/api/news?x0=0&n=3' assert {type: 'json'};
-import weather from '/api/weather' assert {type: 'json'};
-import metar from '/api/metar' assert {type: 'json'}
+//import weather from '/api/weather' assert {type: 'json'};
+//import metar from '/api/metar' assert {type: 'json'}
 
 
 // ===================== Trajectory =====================
@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ===================== Weather =====================
+/*
 document.querySelector(".viento").textContent = weather.wind_direction + "° " + weather.wind_speed + "kt";
 document.querySelector(".qnh").textContent = weather.surface_pressure + " hpa";
 document.querySelector(".temp").textContent = weather.temperature + "°C";
@@ -132,4 +133,6 @@ document.querySelector(".punto-rocio").textContent = weather.dewpoint + "°C";
 document.querySelector(".nubes").textContent = weather.cloud_cover + "%";
 
 document.querySelector(".metar-codified").textContent = metar.data;
+*/
+
 
