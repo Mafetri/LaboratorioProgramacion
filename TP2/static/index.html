@@ -1,400 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles-global.css" />
-    <link rel="stylesheet" href="./pages/index/styles-index.css" />
-    <title>Aeroclub Allen</title>
-    <link rel="icon" href="assets/logo.png" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles-global.css" />
+		<link rel="stylesheet" href="./pages/index/styles-index.css" />
+		<title>Aeroclub Allen</title>
+		<link rel="icon" href="assets/logo.png" />
+	</head>
 
-  <body>
-    <!-- ========================= Header ========================= -->
-    <header class>
-      <a href="index.html">
-        <img class="header-logo" src="assets/logo.png" alt="logo" />
-      </a>
-      <nav class="nav">
-        <a href="#" class="nav-button">
-          <span class="nav-bar"></span>
-          <span class="nav-bar"></span>
-          <span class="nav-bar"></span>
-        </a>
-        <ul class="nav-links">
-          <li><a class="nav-enlace" href="index.html">Inicio</a></li>
-          <li><a class="nav-enlace" href="#courses">Cursos</a></li>
-          <li>
-            <a class="nav-enlace" href="./pages/fleet/fleet.html">Flota</a>
-          </li>
-          <li>
-            <a class="nav-enlace" href="./pages/news/news.html">Noticias</a>
-          </li>
-          <li>
-            <a class="nav-enlace" href="./pages/contact/contact.html"
-              >Contacto</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </header>
+	<body>
+		<!-- ========================= Header ========================= -->
+		<header class>
+			<a href="index.html">
+				<img class="header-logo" src="assets/logo.png" alt="logo" />
+			</a>
+			<nav class="nav">
+				<a href="#" class="nav-button">
+					<span class="nav-bar"></span>
+					<span class="nav-bar"></span>
+					<span class="nav-bar"></span>
+				</a>
+				<ul class="nav-links">
+					<li><a class="nav-enlace" href="index.html">Inicio</a></li>
+					<li><a class="nav-enlace" href="#courses">Cursos</a></li>
+					<li>
+						<a class="nav-enlace" href="./pages/fleet/fleet.html">Flota</a>
+					</li>
+					<li>
+						<a class="nav-enlace" href="./pages/news/news.html">Noticias</a>
+					</li>
+					<li>
+						<a class="nav-enlace" href="./pages/contact/contact.html"
+							>Contacto</a
+						>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-    <!-- ========================= Main ========================= -->
-    <main>
-      <!-- ========================= Welcome ========================= -->
-      <section class="welcome">
-        <div class="welcome-title">
-          <h1>Aeroclub Allen</h1>
-          <h2>El cielo no tiene limites</h2>
-        </div>
+		<!-- ========================= Main ========================= -->
+		<main>
+			<!-- ========================= Welcome ========================= -->
+			<section class="welcome">
+				<div class="welcome-title">
+					<h1>Aeroclub Allen</h1>
+					<h2>El cielo no tiene limites</h2>
+				</div>
 
-        <!-- Picture Carousel -->
-        <div class="welcome-carousel">
-          <ul>
-            <li>
-              <img
-                src="assets/fleet/Petrel/petrel-5.jpg"
-                alt="imagen-carrusel"
-              />
-            </li>
-            <li>
-              <img src="assets/fleet/C172/c172-2.jpeg" alt="imagen-carrusel" />
-            </li>
-            <li>
-              <img src="assets/fleet/C150/c150-2.jpeg" alt="imagen-carrusel" />
-            </li>
-          </ul>
-        </div>
-      </section>
+				<!-- Picture Carousel -->
+				<div class="welcome-carousel">
+					<ul>
+						<li>
+							<img
+								src="assets/fleet/Petrel/petrel-5.jpg"
+								alt="imagen-carrusel"
+							/>
+						</li>
+						<li>
+							<img src="assets/fleet/C172/c172-2.jpeg" alt="imagen-carrusel" />
+						</li>
+						<li>
+							<img src="assets/fleet/C150/c150-2.jpeg" alt="imagen-carrusel" />
+						</li>
+					</ul>
+				</div>
+			</section>
 
-      <!-- =========================  Trajectory  ========================= -->
-      <section class="trajectory-section">
-        <h2 class="section-title" id="calidad">Trayectoria</h2>
-        <div class="trajectory-grid">
-        </div>
-      </section>
+			<!-- =========================  Trajectory  ========================= -->
+			<section class="trajectory-section">
+				<h2 class="section-title" id="calidad">Trayectoria</h2>
+				<div class="trajectory-grid"></div>
+			</section>
 
-      <!-- =========================  News  ========================= -->
-      <section class="news-section">
-        <h1 class="section-title">Noticias</h1>
-        <div class="news"></div>
-        <a href="./pages/news/news.html"><button>Mostrar Mas</button></a>
-      </section>
+			<!-- =========================  News  ========================= -->
+			<section class="news-section">
+				<h1 class="section-title">Noticias</h1>
+				<div class="news"></div>
+				<a href="./pages/news/news.html"><button>Mostrar Mas</button></a>
+			</section>
 
-      <!-- =========================  Courses  ========================= -->
-      <section class="courses-section" id = "courses">
-        <h1 class="section-title">Nuestros Cursos</h1>
-        <div class="courses-grid">
-          <!-- Plito Privado de Avion -->
-          <article class="courses-card ppa">
-            <img src="./assets/courses/ppa.jpg" alt="ppa-imagen" />
-            <h2>Piloto Privado de Avión</h2>
-            <div class="courses-requirements" style="display: none">
-              <hr />
-              <h3 class="opacity-0">Edad minima:</h3>
-              <p class="ppa edad opacity-0"></p>
-              <h3 class="opacity-0">Duracion:</h3>
-              <p class="ppa duracion opacity-0"></p>
-              <h3 class="opacity-0">Horas de vuelo:</h3>
-              <p class="ppa horas opacity-0"></p>
-              <h3 class="opacity-0">Estudios minimos:</h3>
-              <p class="ppa estudios opacity-0"></p>
-              <h3 class="opacity-0">Examen Psicofisico:</h3>
-              <p class="ppa psicofisico opacity-0"></p>
-              <h3 class="opacity-0">Licencias previas:</h3>
-              <p class="ppa licencias opacity-0"></p>
-            </div>
-            <button
-              type="button"
-              onclick="masInfo('ppa')"
-              class="boton-sec-oscuro"
-            >
-              Mas Info
-            </button>
-          </article>
+			<!-- =========================  Courses  ========================= -->
+			<section class="courses-section" id="courses">
+				<h1 class="section-title">Nuestros Cursos</h1>
+				<div class="courses-grid">
+					<!-- Plito Privado de Avion -->
+					<article class="courses-card ppa">
+						<img src="./assets/courses/ppa.jpg" alt="ppa-imagen" />
+						<h2>Piloto Privado de Avión</h2>
+						<div class="courses-requirements" style="display: none">
+							<hr />
+							<h3 class="opacity-0">Edad minima:</h3>
+							<p class="ppa edad opacity-0"></p>
+							<h3 class="opacity-0">Duracion:</h3>
+							<p class="ppa duracion opacity-0"></p>
+							<h3 class="opacity-0">Horas de vuelo:</h3>
+							<p class="ppa horas opacity-0"></p>
+							<h3 class="opacity-0">Estudios minimos:</h3>
+							<p class="ppa estudios opacity-0"></p>
+							<h3 class="opacity-0">Examen Psicofisico:</h3>
+							<p class="ppa psicofisico opacity-0"></p>
+							<h3 class="opacity-0">Licencias previas:</h3>
+							<p class="ppa licencias opacity-0"></p>
+						</div>
+						<button
+							type="button"
+							onclick="masInfo('ppa')"
+							class="boton-sec-oscuro"
+						>
+							Mas Info
+						</button>
+					</article>
 
-          <!-- Plito Comercial -->
-          <article class="courses-card comercial">
-            <img
-              src="https://www.flyone.com.ar/wp-content/uploads/2020/12/cta2.jpg"
-              alt="pc-imagen"
-            />
-            <h2>Piloto Comercial</h2>
-            <div class="courses-requirements" style="display: none">
-              <hr />
-              <h3 class="opacity-0">Edad minima:</h3>
-              <p class="comercial edad opacity-0"></p>
-              <h3 class="opacity-0">Duracion:</h3>
-              <p class="comercial duracion opacity-0"></p>
-              <h3 class="opacity-0">Horas de vuelo:</h3>
-              <p class="comercial horas opacity-0"></p>
-              <h3 class="opacity-0">Estudios minimos:</h3>
-              <p class="comercial estudios opacity-0"></p>
-              <h3 class="opacity-0">Examen Psicofisico:</h3>
-              <p class="comercial psicofisico opacity-0"></p>
-              <h3 class="opacity-0">Licencias previas:</h3>
-              <p class="comercial licencias opacity-0"></p>
-            </div>
-            <button
-              type="button"
-              onclick="masInfo('comercial')"
-              class="boton-sec-oscuro"
-            >
-              Mas Info
-            </button>
-          </article>
+					<!-- Plito Comercial -->
+					<article class="courses-card comercial">
+						<img
+							src="https://www.flyone.com.ar/wp-content/uploads/2020/12/cta2.jpg"
+							alt="pc-imagen"
+						/>
+						<h2>Piloto Comercial</h2>
+						<div class="courses-requirements" style="display: none">
+							<hr />
+							<h3 class="opacity-0">Edad minima:</h3>
+							<p class="comercial edad opacity-0"></p>
+							<h3 class="opacity-0">Duracion:</h3>
+							<p class="comercial duracion opacity-0"></p>
+							<h3 class="opacity-0">Horas de vuelo:</h3>
+							<p class="comercial horas opacity-0"></p>
+							<h3 class="opacity-0">Estudios minimos:</h3>
+							<p class="comercial estudios opacity-0"></p>
+							<h3 class="opacity-0">Examen Psicofisico:</h3>
+							<p class="comercial psicofisico opacity-0"></p>
+							<h3 class="opacity-0">Licencias previas:</h3>
+							<p class="comercial licencias opacity-0"></p>
+						</div>
+						<button
+							type="button"
+							onclick="masInfo('comercial')"
+							class="boton-sec-oscuro"
+						>
+							Mas Info
+						</button>
+					</article>
 
-          <!-- Instructor -->
-          <article class="courses-card instructor">
-            <img
-              src="./assets/courses/instructor.jpg"
-              alt="instructor-imagen"
-            />
-            <h2>Instructor de Vuelo</h2>
-            <div class="courses-requirements" style="display: none">
-              <hr />
-              <h3 class="opacity-0">Edad minima:</h3>
-              <p class="instructor edad opacity-0"></p>
-              <h3 class="opacity-0">Duracion:</h3>
-              <p class="instructor duracion opacity-0"></p>
-              <h3 class="opacity-0">Horas de vuelo:</h3>
-              <p class="instructor horas opacity-0"></p>
-              <h3 class="opacity-0">Estudios minimos:</h3>
-              <p class="instructor estudios opacity-0"></p>
-              <h3 class="opacity-0">Examen Psicofisico:</h3>
-              <p class="instructor psicofisico opacity-0"></p>
-              <h3 class="opacity-0">Licencias previas:</h3>
-              <p class="instructor licencias opacity-0"></p>
-            </div>
-            <button
-              type="button"
-              onclick="masInfo('instructor')"
-              class="boton-sec-oscuro"
-            >
-              Mas Info
-            </button>
-          </article>
+					<!-- Instructor -->
+					<article class="courses-card instructor">
+						<img
+							src="./assets/courses/instructor.jpg"
+							alt="instructor-imagen"
+						/>
+						<h2>Instructor de Vuelo</h2>
+						<div class="courses-requirements" style="display: none">
+							<hr />
+							<h3 class="opacity-0">Edad minima:</h3>
+							<p class="instructor edad opacity-0"></p>
+							<h3 class="opacity-0">Duracion:</h3>
+							<p class="instructor duracion opacity-0"></p>
+							<h3 class="opacity-0">Horas de vuelo:</h3>
+							<p class="instructor horas opacity-0"></p>
+							<h3 class="opacity-0">Estudios minimos:</h3>
+							<p class="instructor estudios opacity-0"></p>
+							<h3 class="opacity-0">Examen Psicofisico:</h3>
+							<p class="instructor psicofisico opacity-0"></p>
+							<h3 class="opacity-0">Licencias previas:</h3>
+							<p class="instructor licencias opacity-0"></p>
+						</div>
+						<button
+							type="button"
+							onclick="masInfo('instructor')"
+							class="boton-sec-oscuro"
+						>
+							Mas Info
+						</button>
+					</article>
 
-          <!-- Primera -->
-          <article class="courses-card primera">
-            <img src="./assets/courses/primera.jpg" alt="primera-imagen" />
-            <h2>Piloto Primera Clase</h2>
-            <div class="courses-requirements" style="display: none">
-              <hr />
-              <h3 class="opacity-0">Edad minima:</h3>
-              <p class="primera edad opacity-0"></p>
-              <h3 class="opacity-0">Duracion:</h3>
-              <p class="primera duracion opacity-0"></p>
-              <h3 class="opacity-0">Horas de vuelo:</h3>
-              <p class="primera horas opacity-0"></p>
-              <h3 class="opacity-0">Estudios minimos:</h3>
-              <p class="primera estudios opacity-0"></p>
-              <h3 class="opacity-0">Examen Psicofisico:</h3>
-              <p class="primera psicofisico opacity-0"></p>
-              <h3 class="opacity-0">Licencias previas:</h3>
-              <p class="primera licencias opacity-0"></p>
-            </div>
-            <button
-              type="button"
-              onclick="masInfo('primera')"
-              class="boton-sec-oscuro"
-            >
-              Mas Info
-            </button>
-          </article>
-        </div>
-      </section>
+					<!-- Primera -->
+					<article class="courses-card primera">
+						<img src="./assets/courses/primera.jpg" alt="primera-imagen" />
+						<h2>Piloto Primera Clase</h2>
+						<div class="courses-requirements" style="display: none">
+							<hr />
+							<h3 class="opacity-0">Edad minima:</h3>
+							<p class="primera edad opacity-0"></p>
+							<h3 class="opacity-0">Duracion:</h3>
+							<p class="primera duracion opacity-0"></p>
+							<h3 class="opacity-0">Horas de vuelo:</h3>
+							<p class="primera horas opacity-0"></p>
+							<h3 class="opacity-0">Estudios minimos:</h3>
+							<p class="primera estudios opacity-0"></p>
+							<h3 class="opacity-0">Examen Psicofisico:</h3>
+							<p class="primera psicofisico opacity-0"></p>
+							<h3 class="opacity-0">Licencias previas:</h3>
+							<p class="primera licencias opacity-0"></p>
+						</div>
+						<button
+							type="button"
+							onclick="masInfo('primera')"
+							class="boton-sec-oscuro"
+						>
+							Mas Info
+						</button>
+					</article>
+				</div>
+			</section>
 
-      <!-- =========================  Fleet  ========================= -->
-      <section class="fleet-section">
-        <h1 class="section-title">Nuestra Flota</h1>
-        <div class="carousel center-align" id = "fleet-carousel">
-          
-        </div>
-        <a href="./pages/fleet/fleet.html"
-          ><button class="boton-sec-oscuro">Mas Informacion</button></a
-        >
-      </section>
+			<!-- =========================  Fleet  ========================= -->
+			<section class="fleet-section">
+				<h1 class="section-title">Nuestra Flota</h1>
+				<div class="carousel center-align" id="fleet-carousel"></div>
+				<a href="./pages/fleet/fleet.html"
+					><button class="boton-sec-oscuro">Mas Informacion</button></a
+				>
+			</section>
 
-      <!-- ========================= Weather ========================= -->
-      <section class="weather-section">
-        <h2 class="weather-title">CLIMA ALLEN</h2>
-        <div class="weather">
-          <div class="weather-card">
-            <img src="./assets/icons/clima/manga-viento.png" alt="img-clima" />
-            <hr />
-            <p class="viento">268° 28.6kt</p>
-          </div>
-          <div class="weather-card">
-            <img src="./assets/icons/clima/presion.png" alt="img-clima" />
-            <hr />
-            <p class="qnh">946 hpa</p>
-          </div>
-          <div class="weather-card">
-            <img src="./assets/icons/clima/temperatura.png" alt="img-clima" />
-            <hr />
-            <p class="temp">14.1 °C</p>
-          </div>
-          <div class="weather-card">
-            <img src="./assets/icons/clima/punto-rocio.png" alt="img-clima" />
-            <hr />
-            <p class="punto-rocio">5.2 °C</p>
-          </div>
-          <div class="weather-card">
-            <img src="./assets/icons/clima/nubes.png" alt="img-clima" />
-            <hr />
-            <p class="nubes">100 %</p>
-          </div>
-        </div>
-        <div class="metar">
-          <h2 class="weather-title">METAR SAZN(NEU)</h2>
-          <p class="metar-codified"></p>
-        </div>
-      </section>
-    </main>
+			<!-- ========================= Weather ========================= -->
+			<section class="weather-section">
+				<h2 class="weather-title">CLIMA ALLEN</h2>
+				<div class="weather">
+					<div class="weather-card">
+						<img src="./assets/icons/clima/manga-viento.png" alt="img-clima" />
+						<hr />
+						<p class="viento"> ERROR </p>
+					</div>
+					<div class="weather-card">
+						<img src="./assets/icons/clima/presion.png" alt="img-clima" />
+						<hr />
+						<p class="qnh"> ERROR </p>
+					</div>
+					<div class="weather-card">
+						<img src="./assets/icons/clima/temperatura.png" alt="img-clima" />
+						<hr />
+						<p class="temp"> ERROR </p>
+					</div>
+					<div class="weather-card">
+						<img src="./assets/icons/clima/punto-rocio.png" alt="img-clima" />
+						<hr />
+						<p class="punto-rocio"> ERROR </p>
+					</div>
+					<div class="weather-card">
+						<img src="./assets/icons/clima/nubes.png" alt="img-clima" />
+						<hr />
+						<p class="nubes"> ERROR </p>
+					</div>
+				</div>
+				<div class="metar">
+					<h2 class="weather-title">METAR SAZN(NEU)</h2>
+					<p class="metar-codified"></p>
+				</div>
+			</section>
+		</main>
 
-    <!-- ========================= Footer ========================= -->
-    <footer>
-      <div class="footer-top">
-        <a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
-          <!-- Ubicacion -->
-          <div class="footer-top-element">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
-              alt="imagen-ubicacion"
-            />
-            <p>Bardas Norte s/n, R8328 Allen, Río Negro</p>
-          </div>
-        </a>
-  
-        <!-- Whatsapp -->
-        <a
-          href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0" target="_blank"
-        >
-          <div class="footer-top-element">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
-              alt="imagen-whatsapp"
-            />
-            <p>+549-298-5450-9555</p>
-          </div>
-        </a>
-  
-        <!-- Mail -->
-        <a href="mailto:allenaeroclub@gmail.com" target="_blank">
-          <div class="footer-top-element">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
-              alt="imagen-mail"
-            />
-            <p>allenaeroclub@gmail.com</p>
-          </div>
-        </a>
-  
-        <!-- Redes Sociales -->
-        <div class="footer-top-element">
-          <a href="https://www.facebook.com/aerocluballen/" target="_blank">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/665/665209.png"
-              alt="imagen-twiter"
-            />
-          </a>
-          <!--Facebook-->
-          <a href="https://www.instagram.com/aerocluballen/?hl=es" target="_blank">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png"
-              alt="imagen-facebook"
-            />
-          </a>
-          <!--Instagram-->
-          <a href="https://twitter.com/aerocluballen?lang=es" target="_blank">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/739/739257.png"
-              alt="imagen-instagram"
-            />
-          </a>
-          <!--Twitter-->
-          <p>Visitanos en nuestras Redes Sociales</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <h3>
-          Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
-          <a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
-          y
-          <a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
-        </h3>
-      </div>
-    </footer>
+		<!-- ========================= Footer ========================= -->
+		<footer>
+			<div class="footer-top">
+				<a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
+					<!-- Ubicacion -->
+					<div class="footer-top-element">
+						<img
+							src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+							alt="imagen-ubicacion"
+						/>
+					</div>
+				</a>
 
+				<!-- Whatsapp -->
+				<a
+					href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0"
+					target="_blank"
+				>
+					<div class="footer-top-element">
+						<img
+							src="./assets/icons/footer/whatsapp.png"
+							alt="imagen-whatsapp"
+						/>
+					</div>
+				</a>
 
-    <!-- ========================= Scripts ========================= -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="module" src="./global.js"></script>
-    <script type="module" src="./pages/index/index.js"></script>
-    <script>
-      // Esta funcion muestra la informacion del curso pasado por parametro
-      function masInfo(clase) {
-        // Saca la imagen, muestra la seccion de informacion y modifica el boton
-        document.querySelector("." + clase + " img").style.display = "none";
-        document.querySelector("." + clase + " div").style.display = "";
-        document
-          .querySelector("." + clase + " button")
-          .setAttribute("onClick", "volver('" + clase + "')");
-        document.querySelector("." + clase + " button").textContent = "Volver";
+				<!-- Mail -->
+				<a href="mailto:allenaeroclub@gmail.com" target="_blank">
+					<div class="footer-top-element">
+						<img
+							src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
+							alt="imagen-mail"
+						/>
+					</div>
+				</a>
 
-        // Animaciones de aparicion (cambiando la opacidad) y "golpecito" de la tarjeta
-        setTimeout(function () {
-          document
-            .querySelectorAll("." + clase + " div h3")
-            .forEach(function (p) {
-              p.classList.replace("opacity-0", "opacity-1");
-            });
-          document
-            .querySelectorAll("." + clase + " div p")
-            .forEach(function (p) {
-              p.classList.replace("opacity-0", "opacity-1");
-            });
-        }, 0);
-        document.querySelector(".courses-card." + clase).style.transform =
-          "translateY(20px)";
-        document.querySelector(".courses-card." + clase).style.transition =
-          "transform 0.3s";
-        setTimeout(function () {
-          document.querySelector(".courses-card." + clase).style.transform =
-            "translateY(0px)";
-        }, 150);
-      }
+				<!--Facebook-->
+				<a
+					href="https://www.facebook.com/aerocluballen/"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img src="./assets/icons/footer/facebook.png" alt="imagen-twiter" />
+				</a>
 
-      function volver(clase) {
-        // Devuelve la opacidad a 0 a los h3 y a los p
-        document
-          .querySelectorAll("." + clase + " div h3")
-          .forEach(function (p) {
-            p.classList.replace("opacity-1", "opacity-0");
-          });
-        document.querySelectorAll("." + clase + " div p").forEach(function (p) {
-          p.classList.replace("opacity-1", "opacity-0");
-        });
+				<!--Instagram-->
+				<a
+					href="https://www.instagram.com/aerocluballen/?hl=es"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img
+						src="./assets/icons/footer/instagram.png"
+						alt="imagen-facebook"
+					/>
+				</a>
+        
+				<!--Twitter-->
+				<a
+					href="https://twitter.com/aerocluballen?lang=es"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img src="./assets/icons/footer/twitter.png" alt="imagen-instagram" />
+				</a>
+			</div>
+			<div class="footer-bottom">
+				<h3>
+					Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
+					<a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
+					y
+					<a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
+				</h3>
+			</div>
+		</footer>
 
-        // Muestra por la clase pasada por parametro la informacion del curso, y cambia el boton, con animacion
-        document.querySelector("." + clase + " img").style.display = "";
-        document.querySelector("." + clase + " div").style.display = "none";
-        document
-          .querySelector("." + clase + " button")
-          .setAttribute("onClick", "masInfo('" + clase + "')");
-        document.querySelector("." + clase + " button").textContent =
-          "Mas Info";
-        document.querySelector(".courses-card." + clase).style.transform =
-          "translateY(20px)";
-        document.querySelector(".courses-card." + clase).style.transition =
-          "transform 0.3s";
-        setTimeout(function () {
-          document.querySelector(".courses-card." + clase).style.transform =
-            "translateY(0px)";
-        }, 150);
-      }
-    </script>
-  </body>
+		<!-- ========================= Scripts ========================= -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script type="module" src="./global.js"></script>
+		<script type="module" src="./pages/index/index.js"></script>
+		<script>
+			// Esta funcion muestra la informacion del curso pasado por parametro
+			function masInfo(clase) {
+				// Saca la imagen, muestra la seccion de informacion y modifica el boton
+				document.querySelector("." + clase + " img").style.display = "none";
+				document.querySelector("." + clase + " div").style.display = "";
+				document
+					.querySelector("." + clase + " button")
+					.setAttribute("onClick", "volver('" + clase + "')");
+				document.querySelector("." + clase + " button").textContent = "Volver";
+
+				// Animaciones de aparicion (cambiando la opacidad) y "golpecito" de la tarjeta
+				setTimeout(function () {
+					document
+						.querySelectorAll("." + clase + " div h3")
+						.forEach(function (p) {
+							p.classList.replace("opacity-0", "opacity-1");
+						});
+					document
+						.querySelectorAll("." + clase + " div p")
+						.forEach(function (p) {
+							p.classList.replace("opacity-0", "opacity-1");
+						});
+				}, 0);
+				document.querySelector(".courses-card." + clase).style.transform =
+					"translateY(20px)";
+				document.querySelector(".courses-card." + clase).style.transition =
+					"transform 0.3s";
+				setTimeout(function () {
+					document.querySelector(".courses-card." + clase).style.transform =
+						"translateY(0px)";
+				}, 150);
+			}
+
+			function volver(clase) {
+				// Devuelve la opacidad a 0 a los h3 y a los p
+				document
+					.querySelectorAll("." + clase + " div h3")
+					.forEach(function (p) {
+						p.classList.replace("opacity-1", "opacity-0");
+					});
+				document.querySelectorAll("." + clase + " div p").forEach(function (p) {
+					p.classList.replace("opacity-1", "opacity-0");
+				});
+
+				// Muestra por la clase pasada por parametro la informacion del curso, y cambia el boton, con animacion
+				document.querySelector("." + clase + " img").style.display = "";
+				document.querySelector("." + clase + " div").style.display = "none";
+				document
+					.querySelector("." + clase + " button")
+					.setAttribute("onClick", "masInfo('" + clase + "')");
+				document.querySelector("." + clase + " button").textContent =
+					"Mas Info";
+				document.querySelector(".courses-card." + clase).style.transform =
+					"translateY(20px)";
+				document.querySelector(".courses-card." + clase).style.transition =
+					"transform 0.3s";
+				setTimeout(function () {
+					document.querySelector(".courses-card." + clase).style.transform =
+						"translateY(0px)";
+				}, 150);
+			}
+		</script>
+	</body>
 </html>

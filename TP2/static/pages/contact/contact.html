@@ -37,14 +37,14 @@
       <div class="contact">
         <h2 class="section-title">Contacto</h2>
         <section class="contact-section">
-          <form action="" class="form">
+          <form class="form" action="" method="POST">
             <fieldset>
               <legend>Contactanos llenando todos los campos</legend>
               <div class="fields-container">
                 <!-- Nombre -->
                 <div class="field">
-                  <label for="">Nombre</label>
-                  <input class="input-text" type="text" placeholder="Nombre" />
+                  <label for="name">Nombre</label>
+                  <input class="input-text" type="text" placeholder="Nombre" id="name"/>
                 </div>
 
                 <!-- Telefono -->
@@ -54,7 +54,7 @@
                     class="input-text"
                     type="tel"
                     name=""
-                    id=""
+                    id="tel"
                     placeholder="Teléfono"
                   />
                 </div>
@@ -66,7 +66,7 @@
                     class="input-text"
                     type="email"
                     name=""
-                    id=""
+                    id="email"
                     placeholder="Email"
                   />
                 </div>
@@ -77,7 +77,7 @@
                   <textarea
                     class="input-text"
                     name=""
-                    id=""
+                    id="message"
                     cols="30"
                     rows="9"
                   ></textarea>
@@ -116,78 +116,83 @@
     </main>
 
     <!-- ========================= Footer ========================= -->
-    <div class="footer-top">
-      <a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
-        <!-- Ubicacion -->
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
-            alt="imagen-ubicacion"
-          />
-          <p>Bardas Norte s/n, R8328 Allen, Río Negro</p>
-        </div>
-      </a>
+    <footer>
+			<div class="footer-top">
+				<a href="https://goo.gl/maps/xn1RdRnpR3BMAEJf7">
+					<!-- Ubicacion -->
+					<div class="footer-top-element">
+						<img
+							src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+							alt="imagen-ubicacion"
+						/>
+					</div>
+				</a>
 
-      <!-- Whatsapp -->
-      <a
-        href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0"
-      >
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
-            alt="imagen-whatsapp"
-          />
-          <p>+549-298-5450-9555</p>
-        </div>
-      </a>
+				<!-- Whatsapp -->
+				<a
+					href="https://api.whatsapp.com/send/?phone=5492984509555&text&type=phone_number&app_absent=0"
+					target="_blank"
+				>
+					<div class="footer-top-element">
+						<img
+							src="../../assets/icons/footer/whatsapp.png"
+							alt="imagen-whatsapp"
+						/>
+					</div>
+				</a>
 
-      <!-- Mail -->
-      <a href="mailto:allenaeroclub@gmail.com">
-        <div class="footer-top-element">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
-            alt="imagen-mail"
-          />
-          <p>allenaeroclub@gmail.com</p>
-        </div>
-      </a>
+				<!-- Mail -->
+				<a href="mailto:allenaeroclub@gmail.com" target="_blank">
+					<div class="footer-top-element">
+						<img
+							src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
+							alt="imagen-mail"
+						/>
+					</div>
+				</a>
 
-      <!-- Redes Sociales -->
-      <!--Facebook-->
-      <div class="footer-top-element">
-        <a href="https://www.facebook.com/aerocluballen/" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/665/665209.png"
-            alt="imagen-twiter"
-          />
-        </a>
-        <!--Instagram-->
-        <a href="https://www.instagram.com/aerocluballen/?hl=es" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png"
-            alt="imagen-facebook"
-          />
-        </a>
-        <!--Twitter-->
-        <a href="https://twitter.com/aerocluballen?lang=es" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/739/739257.png"
-            alt="imagen-instagram"
-          />
-        </a>
-        <p>Visitanos en nuestras Redes Sociales</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <h3>
-        Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
-        <a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
-        y
-        <a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
-      </h3>
-    </div>
+				<!--Facebook-->
+				<a
+					href="https://www.facebook.com/aerocluballen/"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img src="../../assets/icons/footer/facebook.png" alt="imagen-twiter" />
+				</a>
+
+				<!--Instagram-->
+				<a
+					href="https://www.instagram.com/aerocluballen/?hl=es"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img
+						src="../../assets/icons/footer/instagram.png"
+						alt="imagen-facebook"
+					/>
+				</a>
+        
+				<!--Twitter-->
+				<a
+					href="https://twitter.com/aerocluballen?lang=es"
+					target="_blank"
+					class="footer-top-element"
+				>
+					<img src="../../assets/icons/footer/twitter.png" alt="imagen-instagram" />
+				</a>
+			</div>
+			<div class="footer-bottom">
+				<h3>
+					Aeroclub Allen - Todos los derechos reservados 2022 | Desarrollado por
+					<a href="https://github.com/Mafetri"> Manuel Felipe Triñanes </a>
+					y
+					<a href="https://github.com/JonathanJan7"> Jonathan Josue Jan </a>
+				</h3>
+			</div>
+		</footer>
 
     <!-- ========================= Scripts ========================= -->
     <script type="module" src="../../global.js"></script>
+    <script type="" src="./contacto.js"></script>
   </body>
 </html>

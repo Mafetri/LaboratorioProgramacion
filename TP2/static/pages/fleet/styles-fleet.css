@@ -55,7 +55,8 @@ h3 {
 }
 .airplane-info p{
   text-align: center;
-  font-size: 1em;
+  font-size: 1.4em;
+  margin-bottom: 0.5em;
 }
 .airplane-info h3{
   font-size: 1.5em;

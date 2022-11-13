@@ -442,10 +442,10 @@
 /* ========================= Clima ========================= */
 .weather-section{
   border-color: var(--secundarioOscuro);
-  border-style: solid none none none;
+  border-style: solid none solid none;
   border-width: 0.5em;
   background-color: rgba(0, 0, 0, .5);
-  background-image: url(https://wall.bestcarmagz.net/sites/default/files/patagonia-wallpapers-37648-5043471.png);
+  background-image: url("../../assets/fondoClima.jpg");
   background-blend-mode: soft-light;
   background-repeat: no-repeat;
   background-size: cover;

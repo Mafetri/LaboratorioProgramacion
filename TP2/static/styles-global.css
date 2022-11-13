@@ -333,35 +333,26 @@ header.sticky {
 
 /* ==================== Footer ==================== */
 .footer-top {
-  background-color: var(--azulOscuro);
+  background-color: #cccccc;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  gap: 1.5em;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
   text-align: center;
-  padding: 3rem;
+  padding: 2em 30% 2em 30%;
 }
-@media (max-width: 768px) {
-  .footer-top {
-    background-color: var(--secundarioOscuro);
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
-    text-align: center;
-    padding: 5rem;
-  }
-}
+
 .footer-top p {
   color: var(--negro);
   text-align: center;
 }
 .footer-top-element img {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 3rem;
+  height: 3rem;
 }
 .footer-bottom {
-  background-color: var(--azulOscuroSecundario);
+  background-color: #414141;
   margin: 0;
   padding: 0.3%;
   width: 100%;
@@ -374,8 +365,8 @@ header.sticky {
 }
 .footer-bottom a{
   margin: 0;
-  color: var(--secundario);
+  color: #e0e0e0;
 }
 .footer-bottom a:hover{
-  color: var(--primarioOscuro);
+  color: white;
 }
