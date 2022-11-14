@@ -29,7 +29,7 @@ export const getMetar = async (req, res) => {
         const metarFetch = await fetch(metarApi);
         const metar = await metarFetch.json();
         res.json(metar);
-    } catch (error) {
+    } catch (e) {
         return res.status(500).json({
             message: "Something went wrong",
             error: e,
