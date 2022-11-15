@@ -2,6 +2,8 @@ import courses from '/api/courses' assert {type: 'json'};
 import trajectory from '/api/trajectory' assert {type: 'json'};
 import fleet from '/api/fleet?x0=0&n=20' assert {type: 'json'};
 import news from '/api/news?x0=0&n=3' assert {type: 'json'};
+import weather from '/api/weather' assert {type: 'json'};
+import metar from '/api/metar' assert {type: 'json'};
 
 
 // ===================== Trajectory =====================
@@ -121,8 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-import weather from '/api/weather' assert {type: 'json'};
-import metar from '/api/metar' assert {type: 'json'};
+
 // ===================== Weather =====================
 document.querySelector(".viento").textContent = weather.wind_direction + "° " + weather.wind_speed + "kt";
 document.querySelector(".qnh").textContent = weather.surface_pressure + " hpa";
