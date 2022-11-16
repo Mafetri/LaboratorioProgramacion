@@ -23,17 +23,23 @@ export const getNews = async (req, res) => {
 export const createNews = async (req, res) => {
 	const { date, title, description, img } = req.body;
 
-	try {
-		await pool.query(
-			"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)",
-			[date, title, description, img],
-		);
-		res.send("Post Success");
-	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
+	if (date == null || title == null || description == null || img == null) {
+		res.status(400).json({
+			message: "Some data is null",
 		});
+	} else {
+		try {
+			await pool.query(
+				"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)",
+				[date, title, description, img],
+			);
+			res.send("Post Success");
+		} catch (e) {
+			return res.status(500).json({
+				message: "Something went wrong",
+				error: e,
+			});
+		}
 	}
 };
 
@@ -48,11 +54,11 @@ export const updateNews = async (req, res) => {
 			[date, title, description, img, id],
 		);
 
-		if (dbRes.affectedRows === 0){
+		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({
 				message: "New not found",
 			});
-		} else{
+		} else {
 			res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
 		}
 	} catch (e) {

@@ -1,18 +1,30 @@
 .news {
   padding-top: 6em;
   align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);
   background-image: url(https://cdn.britannica.com/25/93825-050-D1300547/collection-newspapers.jpg);
   background-size: auto;
   background-attachment: fixed;
   background-position: center;
   background-blend-mode: soft-light;
+  padding-bottom: 1em;
 }
 
 .news-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+
+.boton-sec-oscuro{
+  padding: 0.5em 10em 0.5em 10em;
+  font-size: 1.3em;
+}
+
+.container{
+  display:flex; 
+  justify-content: center;
 }
 
 @media (max-width: 768px) {

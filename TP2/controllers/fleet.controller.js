@@ -27,7 +27,7 @@ export const getAirplane = async (req, res) => {
 		]);
 
 		if (airplane.length === 0) {
-			res.status(400).json({
+			res.status(404).json({
 				message: "Airplane not found",
 			});
 		} else {
@@ -45,22 +45,28 @@ export const getAirplane = async (req, res) => {
 export const createAirplane = async (req, res) => {
 	const { plate, name, engine, brand, model, speed, consumption, img } = req.body;
 
-	try {
-		await pool.query(
-			"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
-			[plate, name, engine, brand, model, speed, consumption, img],
-		);
-		res.send("Post Success");
-	} catch (e) {
-		if ((e.code = "ER_DUP_ENTRY")) {
-			return res.status(500).json({
-				message: "Error, duplicated plate",
-			});
-		} else {
-			return res.status(500).json({
-				message: "Something went wrong",
-				error: e,
-			});
+	if (plate == null || name == null || engine == null || brand == null || model == null || speed == null || consumption == null || img == null) {
+		res.status(400).json({
+			message: "Some data is null",
+		});
+	} else {
+		try {
+			await pool.query(
+				"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
+				[plate, name, engine, brand, model, speed, consumption, img],
+			);
+			res.send("Post Success");
+		} catch (e) {
+			if ((e.code = "ER_DUP_ENTRY")) {
+				return res.status(500).json({
+					message: "Error, duplicated plate",
+				});
+			} else {
+				return res.status(500).json({
+					message: "Something went wrong",
+					error: e,
+				});
+			}
 		}
 	}
 };

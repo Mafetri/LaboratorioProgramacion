@@ -37,66 +37,73 @@
       <div class="contact">
         <h2 class="section-title">Contacto</h2>
         <section class="contact-section">
-          <form class="form"  method="POST" action="/api/form">
-            <fieldset>
-              <legend>Contactanos llenando todos los campos</legend>
-              <div class="fields-container">
-                <!-- Nombre -->
-                <div class="field">
-                  <label for="name">Nombre</label>
-                  <input class="input-text" type="text" name = "name" placeholder="Nombre" id="name"/>
+          <div class = "flex-column-center">
+            <form class="form">
+              <fieldset>
+                <legend>Contactanos llenando todos los campos</legend>
+                <div class="fields-container">
+                  <!-- Nombre -->
+                  <div class="field">
+                    <label for="name">Nombre</label>
+                    <input class="input-text" type="text" name = "name" placeholder="Nombre" id="name"/>
+                  </div>
+  
+                  <!-- Telefono -->
+                  <div class="field">
+                    <label for="">Teléfono</label>
+                    <input
+                      class="input-text"
+                      type="phone"
+                      name="phone"
+                      id="phone"
+                      placeholder="Teléfono"
+                    />
+                  </div>
+  
+                  <!-- Email -->
+                  <div class="field">
+                    <label for="">Email</label>
+                    <input
+                      class="input-text"
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder="Email"
+                    />
+                  </div>
+  
+                  <!-- Mensaje -->
+                  <div class="field">
+                    <label for="">Mensaje</label>
+                    <textarea
+                      class="input-text"
+                      name="message"
+                      id="message"
+                      cols="30"
+                      rows="9"
+                    ></textarea>
+                  </div>
                 </div>
-
-                <!-- Telefono -->
-                <div class="field">
-                  <label for="">Teléfono</label>
+  
+                <!-- Submit Button -->
+                <div class="submit-button">
                   <input
-                    class="input-text"
-                    type="tel"
-                    name="phone"
-                    id="tel"
-                    placeholder="Teléfono"
+                    onclick=""
+                    class="boton-sec-oscuro"
+                    type="submit"
+                    value="Enviar"
+                    name="submit"
+                    id="submit"
                   />
                 </div>
-
-                <!-- Email -->
-                <div class="field">
-                  <label for="">Email</label>
-                  <input
-                    class="input-text"
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                  />
-                </div>
-
-                <!-- Mensaje -->
-                <div class="field">
-                  <label for="">Mensaje</label>
-                  <textarea
-                    class="input-text"
-                    name="message"
-                    id="message"
-                    cols="30"
-                    rows="9"
-                  ></textarea>
-                </div>
-              </div>
-
-              <!-- Submit Button -->
-              <div class="submit-button">
-                <input
-                  onclick=""
-                  class="boton-sec-oscuro"
-                  type="submit"
-                  value="Enviar"
-                  name=""
-                  id=""
-                />
-              </div>
-            </fieldset>
-          </form>
+              </fieldset>
+              
+            </form>
+            <h2 class = "status" id = "form-ok" style = "display: none;"> Datos enviados exitosamente! </h2>
+            <h2 class = "status" id = "form-error" style = "display: none;"> Hubo un error en el envio! </h2>
+          </div>
+          
+          
           <div class="map-section">
             <iframe
               width="100%"
@@ -193,6 +200,6 @@
 
     <!-- ========================= Scripts ========================= -->
     <script type="module" src="../../global.js"></script>
-    <script type="" src="./contacto.js"></script>
+    <script type="module" src="./contact.js"></script>
   </body>
 </html>

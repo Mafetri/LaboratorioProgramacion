@@ -42,22 +42,28 @@ export const getCourse = async (req, res) => {
 export const createCourse = async (req, res) => {
 	const { course_class, age, duration, hours, studies, psychophysical, licenses } = req.body;
 
-	try {
-		await pool.query(
-			"INSERT INTO courses (course_class, age, duration, hours, studies, psychophysical, licenses) VALUES (?,?,?,?,?,?,?)",
-			[course_class, age, duration, hours, studies, psychophysical, licenses],
-		);
-		res.send("Post Success");
-	} catch (e) {
-		if ((e.code = "ER_DUP_ENTRY")) {
-			return res.status(500).json({
-				message: "Error, duplicated course class",
-			});
-		} else {
-			return res.status(500).json({
-				message: "Something went wrong",
-				error: e,
-			});
+	if (course_class == null || age == null || duration == null || hours == null || studies == null || psychophysical == null || licenses == null ) {
+		res.status(400).json({
+			message: "Some data is null",
+		});
+	} else {
+		try {
+			await pool.query(
+				"INSERT INTO courses (course_class, age, duration, hours, studies, psychophysical, licenses) VALUES (?,?,?,?,?,?,?)",
+				[course_class, age, duration, hours, studies, psychophysical, licenses],
+			);
+			res.send("Post Success");
+		} catch (e) {
+			if ((e.code = "ER_DUP_ENTRY")) {
+				return res.status(500).json({
+					message: "Error, duplicated course class",
+				});
+			} else {
+				return res.status(500).json({
+					message: "Something went wrong",
+					error: e,
+				});
+			}
 		}
 	}
 };

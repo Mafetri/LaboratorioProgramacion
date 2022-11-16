@@ -9,7 +9,7 @@ router.get('/airplane/:plate', getAirplane);
 
 router.post('/airplane', createAirplane);
 
-router.put('/airplane/:plate', updateAirplane);
+router.patch('/airplane/:plate', updateAirplane);
 
 router.delete('/airplane/:plate', deleteAirplane);
 

@@ -16,16 +16,20 @@ export const getForms = async (req, res) => {
 export const submitForm = async (req, res) => {
     const { name, phone, email, message } = req.body;
 
-    try {
-        await pool.query(
-			"INSERT INTO forms (name, phone, email, message) VALUES (?,?,?,?)",
-			[ name, phone, email, message ],
-		);
-        alert("hola");
-    } catch (e) {
-        return res.status(500).json({
-            message: "Something went wrong",
-            error: e,
-        });
+    if (name == "" || phone == "" || email == "" || message == "") {
+        res.send("error");
+    } else {
+        try {
+            await pool.query(
+                "INSERT INTO forms (name, phone, email, message) VALUES (?,?,?,?)",
+                [ name, phone, email, message ],
+            );
+            res.send("success");
+        } catch (e) {
+            return res.status(500).json({
+                message: "Something went wrong",
+                error: e,
+            });
+        }
     }
 }

@@ -1,3 +1,9 @@
+:root{
+  --greenOk: rgb(131, 216, 144);
+  --greenFont: rgb(0, 65, 10);
+  --redError: rgb(206, 100, 100);
+  --redFont: rgb(83, 5, 5);
+}
 body{
   background-image: url("https://images.unsplash.com/photo-1631611114024-b1b34e724c4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2Fsa2llJTIwdGFsa2llfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
   background-position: center;
@@ -9,6 +15,7 @@ body{
 
 .contact {
   padding: 4em;
+  padding-top: 6.7em;
 }
 .section-title {
   margin: auto;
@@ -23,7 +30,6 @@ body{
 /* ===  Form  === */
 .form {
   background-color: var(--secundarioOscuro);
-  width: min(60rem, 100%); /**Utiliza el valor mas pequeño**/
   margin: 0 auto;
   padding: 2rem;
   border-radius: var(--radius);
@@ -102,4 +108,19 @@ body{
     height: 50em;
     width: auto;
   }
+}
+
+.status{
+  padding: 0.1em;
+  font-size: 1.5em;
+  margin: 0;
+  border-radius: 0px 0px var(--radius) var(--radius);
+}
+#form-ok{
+  color: var(--greenFont);
+  background: var(--greenOk);
+}
+#form-error{
+  color: var(--redFont);
+  background: var(--redError);
 }

@@ -20,22 +20,28 @@ export const getTrajectory = async (req, res) => {
 export const createTrajectory = async (req, res) => {
     const { type, data, icon } = req.body;
 
-	try {
-		await pool.query(
-			"INSERT INTO trajectory (type, data, icon) VALUES (?,?,?)",
-			[type, data, icon],
-		);
-		res.send("Post Success");
-	} catch (e) {
-		if ((e.code = "ER_DUP_ENTRY")) {
-			return res.status(500).json({
-				message: "Error, type",
-			});
-		} else {
-			return res.status(500).json({
-				message: "Something went wrong",
-				error: e,
-			});
+	if( type == null || data == null || icon == null ){
+		res.status(400).json({
+			message: "Some data is null",
+		});
+	} else {
+		try {
+			await pool.query(
+				"INSERT INTO trajectory (type, data, icon) VALUES (?,?,?)",
+				[type, data, icon],
+			);
+			res.send("Post Success");
+		} catch (e) {
+			if ((e.code = "ER_DUP_ENTRY")) {
+				return res.status(500).json({
+					message: "Error, type",
+				});
+			} else {
+				return res.status(500).json({
+					message: "Something went wrong",
+					error: e,
+				});
+			}
 		}
 	}
 }
