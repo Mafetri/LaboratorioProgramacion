@@ -498,6 +498,7 @@
   text-shadow: 2px 3px #000000;
 }
 .metar-codified{
+  padding: 0.2em;
   background-color: white;
   border-radius: var(--radius);
   box-shadow: 0 2px 8px #000;

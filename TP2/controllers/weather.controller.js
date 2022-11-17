@@ -1,38 +1,58 @@
 const weatherApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
 const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=d1b8e067265a43a4859df77708";
+const minutesBetween = 5;
+let lastFetch = 0;
+let weather = {
+	wind_direction: "",
+	wind_speed: "",
+	surface_pressure: "",
+	temperature: "",
+	dewpoint: "",
+	cloud_cover: "",
+};
+let metar;
 
 // GetWeather uses an external weatherApi with coordinates
 export const getWeather = async (req, res) => {
-    try{
-        const weatherFetch = await fetch(weatherApi);
-        const weather = await weatherFetch.json();
-        res.json({
-            wind_direction: weather.current_weather.winddirection,
-            wind_speed: weather.current_weather.windspeed,
-            surface_pressure: weather.hourly.surface_pressure[0],
-            temperature: weather.current_weather.temperature,
-            dewpoint: weather.hourly.dewpoint_2m[0],
-            cloud_cover: weather.hourly.cloudcover[0]
-        })
-    } catch(e){
-        return res.status(500).json({
-            message: "Something went wrong",
-            error: e,
-        });
-    }
-    
-}
+	try {
+		// If more than minutesBetween passed from the last fetch, it fetches again
+		if (lastFetch + minutesBetween * 60000 <= Date.now()) {
+			let completeWeather = await (await fetch(weatherApi)).json();
+			lastFetch = Date.now();
+
+			weather.wind_direction = completeWeather.current_weather.winddirection;
+			weather.wind_direction = completeWeather.current_weather.winddirection;
+			weather.wind_speed = completeWeather.current_weather.windspeed;
+			weather.surface_pressure = completeWeather.hourly.surface_pressure[0];
+			weather.temperature = completeWeather.current_weather.temperature;
+			weather.dewpoint = completeWeather.hourly.dewpoint_2m[0];
+			weather.cloud_cover = completeWeather.hourly.cloudcover[0];
+		}
+
+		// Sends the weather json
+		res.json(weather);
+	} catch (e) {
+		return res.status(500).json({
+			message: "Something went wrong",
+			error: e,
+		});
+	}
+};
 
 // GetMetar uses an external metar api of SAZN (nearest airport)
 export const getMetar = async (req, res) => {
-    try {
-        const metarFetch = await fetch(metarApi);
-        const metar = await metarFetch.json();
-        res.json(metar);
-    } catch (e) {
-        return res.status(500).json({
-            message: "Something went wrong",
-            error: e,
-        });
-    }
-}
+	try {
+		// If more than minutesBetween passed from the last fetch, it fetches again
+		if (lastFetch + minutesBetween * 60000 <= Date.now()) {
+			metar = await (await fetch(metarApi)).json();
+		}
+        
+        // Sends the metar json
+		res.json(metar);
+	} catch (e) {
+		return res.status(500).json({
+			message: "Something went wrong",
+			error: e,
+		});
+	}
+};
