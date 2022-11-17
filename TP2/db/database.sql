@@ -19,6 +19,11 @@ INSERT INTO news VALUES
     (NULL, '2021-03-15','¡Allen Vuela 2021!','Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?','/assets/news/festival.jpg'),
     (NULL, '2021-08-10','¡MEGA SORTEO POR EL DÍA DEL NIÑO!','Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sunt quis ullam placeat! Adipisci quia deserunt, eos assumenda sit labore fugiat optio voluptate maiores ipsa maxime commodi, aliquid doloribus fugit?','/assets/news/dia-del-niño.jpg');
 
+INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)
+    ('2021-08-10', 'Lore Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel nibh nec tellus faucibus varius malesuada id justo. Phasellus pellentesque magna dui, eget blandit ante pellentesque quis', '/assets/tokinho.jpg
+'),
+('2021-08-10', 'Lore Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel nibh nec tellus faucibus varius malesuada id justo. Phasellus pellentesque magna dui, eget blandit ante pellentesque quis', '/assets/tokinho.jpg
+');
 
 create table fleet(
     plate VARCHAR(255) NOT NULL PRIMARY KEY,
