@@ -1,4 +1,4 @@
-// Variables and Costants
+// letiables and Costants
 let x0 = 0;
 let n = 4;
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
@@ -19,25 +19,25 @@ async function createNews(){
 
   for (let i = 0; i < news.length; i++) {
     // Div
-    var newListItem = document.createElement("article");
+    let newListItem = document.createElement("article");
   
     //<div Class="news-card"> </div>
     newListItem.classList.add("news-card");
     document.querySelector(".news-grid").appendChild(newListItem);
   
     // News img
-    var img = document.createElement("img");
+    let img = document.createElement("img");
     img.src = "../.." + news[i].img;
     img.alt = "news-img";
   
     // News Info
-    var divInfo = document.createElement("div");
+    let divInfo = document.createElement("div");
     divInfo.classList.add("news-info");
   
     // Create title, description and date of the news-info
-    var title = document.createElement("h2");
-    var description = document.createElement("p");
-    var date = document.createElement("h3");
+    let title = document.createElement("h2");
+    let description = document.createElement("p");
+    let date = document.createElement("h3");
     title.textContent = news[i].title;
     description.textContent = news[i].description;
     let dateArray = news[i].date.split('-');
