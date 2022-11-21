@@ -19,6 +19,7 @@
   --radius: 8px;
   --azulOscuro: #0c3b5a;
   --azulOscuroSecundario: #000519;
+  --shadow: 0 2px 8px #000;
 }
 
 html {

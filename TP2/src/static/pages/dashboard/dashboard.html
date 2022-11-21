@@ -2,32 +2,73 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../fleet/styles-fleet.css" />
-  <link rel="stylesheet" href="../news/styles-news.css" />
-  <link rel="stylesheet" href="../../styles-global.css" />
-  <link rel="stylesheet" href="./styles-dashboard.css" />
-  <title>Aeroclub Allen</title>
-  <link rel="icon" href="../../assets/logo.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../fleet/styles-fleet.css" />
+    <link rel="stylesheet" href="../news/styles-news.css" />
+    <link rel="stylesheet" href="../contact/styles-contact.css" />
+    <link rel="stylesheet" href="../../styles-global.css" />
+    <link rel="stylesheet" href="./styles-dashboard.css" />
+    <title>Aeroclub Allen</title>
+    <link rel="icon" href="../../assets/logo.png" />
 </head>
 
 <body>
-    <h1 class = "title">DASHBOARD</h1>
-    <section class = "news">
-        <h2 class = "section-title">Noticias</h2>
+    <h1 class="title">DASHBOARD</h1>
+    <section class="news">
+        <h2 class="section-title">Noticias</h2>
+
+        <form method="POST" action="/api/news">
+            <fieldset>
+                <legend>Crear nueva noticia</legend>
+                <div class="fields-container">
+                    <!-- Ruta -->
+                    <div class="field">
+                        <label for="name">Ruta imagen</label>
+                        <input class="input-text" type="text" name="img" placeholder="/assets/news/______" id="name" />
+                    </div>
+
+                    <div class="field">
+                        <label for="date">Fecha</label>
+                        <input class="input-text" type="date" name="date" id="date" placeholder="Fecha" />
+                    </div>
+
+                    <!-- Titulo -->
+                    <div class="field">
+                        <label for="title">Titulo</label>
+                        <input class="input-text" type="text" name="title" id="title" placeholder="Titulo" />
+                    </div>
+
+                    <!-- Description -->
+                    <div class="field">
+                        <label for="">Descripcion</label>
+                        <textarea class="input-text" name="description" id="description" cols="30" rows="9"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="submit-button">
+                        <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                            id="submit" />
+                    </div>
+
+            </fieldset>
+
+        </form>
+
         <div class="news-grid">
         </div>
+
         <button class="boton-sec-oscuro" id="load-more">Cargar Más</button>
     </section>
-    <section class = "trajectory">
-        
+
+    <section class="trajectory">
+
     </section>
-    <section class = "airplanes">
-        
+    <section class="airplanes">
+
     </section>
-    
+
 
     <script type="module" src="./main-dashboard.js"></script>
 </body>

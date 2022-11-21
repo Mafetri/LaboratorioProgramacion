@@ -1,73 +1,93 @@
 // letiables and Costants
 let x0 = 0;
 let n = 4;
-const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre' ,'Diciembre']
+const months = [
+	"Enero",
+	"Febrero",
+	"Marzo",
+	"Abril",
+	"Mayo",
+	"Junio",
+	"Julio",
+	"Agosto",
+	"Septiembre",
+	"Octubre",
+	"Noviembre",
+	"Diciembre",
+];
 
 // First ejecution of createNews
 createNews();
 
 // Load More button, increases x0 and calls getNews
-document.querySelector("#load-more").addEventListener('click', async () => {
-  x0 += n;
-  createNews();
-})
+document.querySelector("#load-more").addEventListener("click", async () => {
+	x0 += n;
+	createNews();
+});
 
 // Get News, makes a get of news to the api from the position x0 with an n ammount of news
-async function createNews(){
-  let api = "/api/news?x0="+x0+"&n="+n;
-  let news = await (await fetch(api)).json();
+async function createNews() {
+	let api = "/api/news?x0=" + x0 + "&n=" + n;
+	let news = await (await fetch(api)).json();
 
-  for (let i = 0; i < news.length; i++) {
-    // Div
-    let newListItem = document.createElement("article");
-  
-    //<div Class="news-card"> </div>
-    newListItem.classList.add("news-card");
-    document.querySelector(".news-grid").appendChild(newListItem);
-  
-    // News img
-    let img = document.createElement("img");
-    img.src = "../.." + news[i].img;
-    img.alt = "news-img";
-  
-    // News Info
-    let divInfo = document.createElement("div");
-    divInfo.classList.add("news-info");
-  
-    // Create title, description and date of the news-info
-    let title = document.createElement("h2");
-    let description = document.createElement("p");
-    let date = document.createElement("h3");
-    title.textContent = news[i].title;
-    description.textContent = news[i].description;
-    let dateArray = news[i].date.split('-');
-    date.textContent = dateArray[2].split('T')[0] + " " + months[dateArray[1]-1] + ", " + dateArray[0];
+	for (let i = 0; i < news.length; i++) {
+		// Div
+		let newListItem = document.createElement("article");
 
-    // Delete button
-    let deleteNews = document.createElement("button");
-    deleteNews.textContent = "Borrar";
-    deleteNews.classList.add("delete-button");
-    deleteNews.addEventListener(('click'), () => {console.log("Deleting "+news[i].id)});
+		//<div Class="news-card"> </div>
+		newListItem.classList.add("news-card");
+		document.querySelector(".news-grid").appendChild(newListItem);
 
-    let idNews = document.createElement("h3");
-    idNews.classList.add("id");
-    idNews.textContent = "ID Noticia: " + news[i].id;
+		// News img
+		let img = document.createElement("img");
+		img.src = "../.." + news[i].img;
+		img.alt = "news-img";
 
-    
-    // Append news-info, the img and the date as child of news-card
-    newListItem.appendChild(idNews);
-    newListItem.appendChild(img);
-    newListItem.appendChild(divInfo);
-    newListItem.appendChild(date);
-    newListItem.appendChild(deleteNews);
+		// News Info
+		let divInfo = document.createElement("div");
+		divInfo.classList.add("news-info");
 
-    // Agregamos los hijos de news-info
-    divInfo.appendChild(title);
-    divInfo.appendChild(document.createElement("hr"));
-    divInfo.appendChild(description);
-  }
+		// Create title, description and date of the news-info
+		let title = document.createElement("h2");
+		let description = document.createElement("p");
+		let date = document.createElement("h3");
+		title.textContent = news[i].title;
+		description.textContent = news[i].description;
+		let dateArray = news[i].date.split("-");
+		date.textContent =
+			dateArray[2].split("T")[0] +
+			" " +
+			months[dateArray[1] - 1] +
+			", " +
+			dateArray[0];
+
+		// Delete button
+		let deleteNews = document.createElement("button");
+		deleteNews.textContent = "Borrar";
+		deleteNews.classList.add("delete-button");
+		deleteNews.addEventListener("click", async () => {
+			const res = await fetch("/api/news/" + news[i].id, {
+				method: "DELETE",
+			});
+		});
+
+		let idNews = document.createElement("h3");
+		idNews.classList.add("id");
+		idNews.textContent = "ID Noticia: " + news[i].id;
+
+		// Append news-info, the img and the date as child of news-card
+		newListItem.appendChild(idNews);
+		newListItem.appendChild(img);
+		newListItem.appendChild(divInfo);
+		newListItem.appendChild(date);
+		newListItem.appendChild(deleteNews);
+
+		// Agregamos los hijos de news-info
+		divInfo.appendChild(title);
+		divInfo.appendChild(document.createElement("hr"));
+		divInfo.appendChild(description);
+	}
 }
-
 
 /*
 import fleet from '/api/fleet?x0=0&n=200' assert {type: 'json'};

@@ -41,6 +41,25 @@ h3.id{
     border-radius: 0;
 }
 
+.news form{
+    margin: 1em;
+    background-color: var(--secundarioOscuro);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.news fieldset{
+    border-width: 0;
+}
+.news form legend {
+    color: white;
+    font-size: 1.3em;
+}
+.submit-button .boton-sec-oscuro{
+    width: 100%;
+    background-color: white;
+    color: var(--secundarioOscuro);
+    margin: 0.1em;
+}
 
 
 
