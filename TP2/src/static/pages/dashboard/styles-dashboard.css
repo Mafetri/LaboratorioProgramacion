@@ -1,0 +1,71 @@
+.title{
+    font-size: 3em;
+    margin: 0;
+    background-color: var(--grisClaro);
+    color: var(--secundarioOscuro);
+}
+.news {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+}
+.section-title {
+    width: 50%;
+}
+.boton-sec-oscuro{
+    width: 50%;
+}
+h3.id{
+    background-color: var(--secundarioOscuro);
+    color: white;
+    border-radius: var(--radius) var(--radius) 0 0;
+    margin: 0;
+}
+.delete-button{
+    background-color: rgb(206, 100, 100);
+    color: rgb(83, 5, 5);
+    font-family: var(--funtePrincipal);
+    font-size: 1.5em;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+    border-color: transparent;
+    width: 100%;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+.delete-button:hover{
+    background-color: rgb(160, 17, 17);
+    color:white;
+}
+.news-card img{
+    border-radius: 0;
+}
+
+
+
+
+.airplanes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.airplane-card {
+    flex-direction: column;
+    margin: 1em;
+    justify-content: center;
+}
+
+.airplane-card img {
+    width: 20%;
+    height: 20%;
+}
+
+.airplane-card h2 {
+    font-size: 2em;
+}
+
+.airplane-info {
+    width: auto;
+    margin: 0;
+    font-size: 0.7em;
+}
