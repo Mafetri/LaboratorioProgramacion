@@ -16,7 +16,7 @@
 
 <body>
     <h1 class="title">DASHBOARD</h1>
-    <section class="news">
+    <section class="news" id = "#news">
         <h2 class="section-title">Noticias</h2>
 
         <form method="POST" action="/api/news">
@@ -55,6 +55,48 @@
             </fieldset>
 
         </form>
+
+        <div class = "container-pop-up" id = "modify-news-form-popup">
+            <div class = "pop-up">
+                <a href = "#news" class = "modify-news-form-close"> Cerrar </a>
+                <form class = "modify-news-form" id = "modify-news-form">
+                    <fieldset>
+                        <div class="fields-container">
+                            <!-- Ruta -->
+                            <div class="field">
+                                <label for="name">Ruta imagen</label>
+                                <input class="input-text" type="text" name="img" id="modify-news-form-img" placeholder="/assets/news/______"/>
+                            </div>
+        
+                            <div class="field">
+                                <label for="date">Fecha</label>
+                                <input class="input-text" type="date" name="date" id="modify-news-form-date" placeholder="Fecha" />
+                            </div>
+        
+                            <!-- Titulo -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <input class="input-text" type="text" name="title" id="modify-news-form-title" placeholder="Titulo" />
+                            </div>
+        
+                            <!-- Description -->
+                            <div class="field">
+                                <label for="">Descripcion</label>
+                                <textarea class="input-text" name="description" id="modify-news-form-description" cols="30" rows="9"></textarea>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id="submit" />
+                            </div>
+        
+                    </fieldset>
+                </form>
+            </div>
+            
+        </div>
+        
 
         <div class="news-grid">
         </div>

@@ -16,6 +16,15 @@ const months = [
 	"Diciembre",
 ];
 
+// Variables to be modified if want to do a PUT 
+let newsIdModify;
+let newsDataModify = {
+    imgRoute:"",
+    date:"", 
+    title:"",
+    description:""
+};
+
 // First ejecution of createNews
 createNews();
 
@@ -23,6 +32,43 @@ createNews();
 document.querySelector("#load-more").addEventListener("click", async () => {
 	x0 += n;
 	createNews();
+});
+
+// If the submit button of the modify-news-form is clicked
+document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+    // Extracts the values of the modify-news-form
+    let title = document.querySelector("#modify-news-form-title").value;
+    let imgRoute = document.querySelector("#modify-news-form-img").value;
+    let description = document.querySelector("#modify-news-form-description").value;
+    let date = document.querySelector("#modify-news-form-date").value;
+
+    // If the value of the input its not null, it changes the original parameter with the new one
+    if(title != "") newsDataModify.title = title;
+    if(imgRoute != "") newsDataModify.imgRoute = imgRoute;
+    if(description != "") newsDataModify.description = description;
+    if(date != "") newsDataModify.date = date;
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("PATCH", ("/api/news/"+newsIdModify));
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "success") {
+			img.value = "";
+			date.value = "";
+			title.value = "";
+			description.value = "";
+		}
+	};
+
+    xhr.send(JSON.stringify(newsDataModify));
+
+    // Unce the news has been modified, it reloads the page on the #news ref
+    window.location.replace("#news");
+    window.location.reload();
 });
 
 // Get News, makes a get of news to the api from the position x0 with an n ammount of news
@@ -69,7 +115,29 @@ async function createNews() {
 			const res = await fetch("/api/news/" + news[i].id, {
 				method: "DELETE",
 			});
+            window.location.reload();
 		});
+
+        // Modify button
+        let modifyNews = document.createElement("a");
+        modifyNews.href = "#modify-news-form-popup";
+        modifyNews.textContent = "Modificar";
+        modifyNews.classList.add("modify-button");
+        modifyNews.addEventListener("click", async () => {
+            // If the button "modify" is clicked, it changes the global values to
+            // the pre modified or current news values
+            newsIdModify = news[i].id;
+            newsDataModify.imgRoute = news[i].img;
+            newsDataModify.date = news[i].date.split("T")[0];
+            newsDataModify.title = news[i].title;
+            newsDataModify.description = news[i].description;
+            
+            // It shows in the placeholder the current value
+            document.querySelector("#modify-news-form-date").value = newsDataModify.date;
+            document.querySelector("#modify-news-form-title").placeholder = newsDataModify.title;
+            document.querySelector("#modify-news-form-description").placeholder = newsDataModify.description;
+            document.querySelector("#modify-news-form-img").placeholder = newsDataModify.imgRoute;
+        });
 
 		let idNews = document.createElement("h3");
 		idNews.classList.add("id");
@@ -80,6 +148,7 @@ async function createNews() {
 		newListItem.appendChild(img);
 		newListItem.appendChild(divInfo);
 		newListItem.appendChild(date);
+        newListItem.appendChild(modifyNews);
 		newListItem.appendChild(deleteNews);
 
 		// Agregamos los hijos de news-info
