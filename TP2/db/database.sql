@@ -25,6 +25,7 @@ INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)
 ('2021-08-10', 'Lore Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel nibh nec tellus faucibus varius malesuada id justo. Phasellus pellentesque magna dui, eget blandit ante pellentesque quis', '/assets/tokinho.jpg
 ');
 
+
 create table fleet(
     plate VARCHAR(255) NOT NULL PRIMARY KEY,
     name VARCHAR(255),
@@ -39,8 +40,8 @@ INSERT INTO fleet VALUES
     ('LV-FVA','Petrel','Rotex 912i','Petrel','P912','60','14','/assets/fleet/Petrel/petrel-3.jpg'),
     ('LV-IDE','C150','Continental O-200-A','Cessna','C150','80','22','/assets/fleet/C150/c150-2.jpeg'),
     ('LV-ARN','Archer','Lycoming Model O-360-A4A','Piper','Archer','120','32','/assets/fleet/Archer/archer-2.jpeg'),
-    ('LV-CXF','C172','LV-CXF','Continental O-300','Cessna','C172','120','22','/assets/fleet/C172/c172-2.jpeg'),
-    ('LV-S037','P92','LV-S037','Rotax 912 ULS','Tecnam','P92','80','16','/assets/fleet/P92/p92-1.jpg'),
+    ('LV-CXF','C172','Continental O-300','Cessna','C172','120','22','/assets/fleet/C172/c172-2.jpeg'),
+    ('LV-S037','P92','Rotax 912 ULS','Tecnam','P92','80','16','/assets/fleet/P92/p92-1.jpg'),
     ('LV-HZS','PA22','Lycoming O-235-C1B','Piper','PA-22','60','21','/assets/fleet/PA22/pa22-2.jpg');
 
 
@@ -70,6 +71,7 @@ INSERT INTO trajectory VALUES
     ('socios','151 Socios Activos','./assets/icons/trajectory/socios.png'),
     ('aeronaves','6 Aeronaves','./assets/icons/trajectory/aeronaves.png'),
     ('annos','Mas de 80 años','./assets/icons/trajectory/antiguedad.png')
+
 
 CREATE TABLE forms (
     id INT(12) NOT NULL AUTO_INCREMENT PRIMARY KEY,

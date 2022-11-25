@@ -1,4 +1,7 @@
-
+.section-title{
+    margin: 0.4em;
+    width: 80%;
+}
 .title{
     font-size: 3em;
     margin: 0;
@@ -10,9 +13,7 @@
     flex-direction: column;
     padding-top: 1em;
 }
-.section-title {
-    width: 50%;
-}
+
 .boton-sec-oscuro{
     width: 50%;
 }
@@ -61,7 +62,7 @@ h3.id{
     position: fixed;
     visibility: hidden;
     opacity: 0;
-    transition: all 1s;
+    transition: all 0.4s;
     background-color: rgba(206, 206, 206, 0.8);
 }
 .pop-up{
@@ -75,7 +76,7 @@ h3.id{
     visibility: visible;
     opacity: 1;
 }
-.modify-news-form-close{
+.close-button{
     padding: 0 0.6em 0 0.6em;
     color: black;
     font-size: 1.8em;
@@ -85,7 +86,7 @@ h3.id{
     right: 0%;
     top: -30px;
 }
-.modify-news-form-close:hover{
+.close-button:hover{
     background-color: rgb(255, 98, 98);
 }
 .news-card img{

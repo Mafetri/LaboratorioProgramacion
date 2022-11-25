@@ -6,11 +6,16 @@ export const getFleet = async (req, res) => {
 	const { x0, n } = req.query;
 
 	try {
-		const [rows] = await pool.query("SELECT * FROM fleet LIMIT ?,?", [
-			parseInt(x0),
-			parseInt(n),
-		]);
-		res.json(rows);
+		if(Number.isInteger(parseInt(n)) && Number.isInteger(parseInt(x0))){
+			const [rows] = await pool.query("SELECT * FROM fleet LIMIT ?,?", [
+				parseInt(x0),
+				parseInt(n),
+			]);
+			res.json(rows);
+		} else {
+			res.status(400).send("Some variables are not integer as expected");
+		}
+		
 	} catch (e) {
 		return res.status(500).json({
 			message: "Something went wrong",
@@ -50,24 +55,29 @@ export const createAirplane = async (req, res) => {
 			message: "Some data is null",
 		});
 	} else {
-		try {
-			await pool.query(
-				"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
-				[plate, name, engine, brand, model, speed, consumption, img],
-			);
-			res.send("Post Success");
-		} catch (e) {
-			if ((e.code = "ER_DUP_ENTRY")) {
-				return res.status(500).json({
-					message: "Error, duplicated plate",
-				});
-			} else {
-				return res.status(500).json({
-					message: "Something went wrong",
-					error: e,
-				});
+		if(Number.isInteger(parseInt(speed)) && Number.isInteger(parseInt(consumption))){
+			try {
+				await pool.query(
+					"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
+					[plate, name, engine, brand, model, speed, consumption, img],
+				);
+				res.send("Post Success");
+			} catch (e) {
+				if ((e.code = "ER_DUP_ENTRY")) {
+					return res.status(500).json({
+						message: "Error, duplicated plate",
+					});
+				} else {
+					return res.status(500).json({
+						message: "Something went wrong",
+						error: e,
+					});
+				}
 			}
+		} else {
+			res.status(400).send("Some variables are not integer as expected");
 		}
+		
 	}
 };
 
@@ -76,27 +86,32 @@ export const updateAirplane = async (req, res) => {
 	const { plate } = req.params;
 	const { name, engine, brand, model, speed, consumption, img } = req.body;
 
-	try {
-		const [dbRes] = await pool.query(
-			"UPDATE fleet SET name = IFNULL(?, name), engine = IFNULL(?, engine), brand = IFNULL(?, brand), model = IFNULL(?, model), speed = IFNULL(?, speed), consumption = IFNULL(?, consumption), img = IFNULL(?, img) WHERE plate = ?",
-			[name, engine, brand, model, speed, consumption, img, plate],
-		);
-
-		if (dbRes.affectedRows === 0) {
-			return res.status(404).json({
-				message: "Airplane not found",
-			});
-		} else {
-			res.json(
-				(await pool.query("SELECT * FROM fleet WHERE plate = ?", [plate]))[0],
+	if((speed == null || Number.isInteger(parseInt(speed))) && (consumption == null || Number.isInteger(parseInt(consumption)))){
+		try {
+			const [dbRes] = await pool.query(
+				"UPDATE fleet SET name = IFNULL(?, name), engine = IFNULL(?, engine), brand = IFNULL(?, brand), model = IFNULL(?, model), speed = IFNULL(?, speed), consumption = IFNULL(?, consumption), img = IFNULL(?, img) WHERE plate = ?",
+				[name, engine, brand, model, speed, consumption, img, plate],
 			);
+	
+			if (dbRes.affectedRows === 0) {
+				return res.status(404).json({
+					message: "Airplane not found",
+				});
+			} else {
+				res.json(
+					(await pool.query("SELECT * FROM fleet WHERE plate = ?", [plate]))[0],
+				);
+			}
+		} catch (e) {
+			return res.status(500).json({
+				message: "Error",
+				error: e,
+			});
 		}
-	} catch (e) {
-		return res.status(500).json({
-			message: "Error",
-			error: e,
-		});
+	} else {
+		res.status(400).send("Some variables are not integer as expected");
 	}
+	
 };
 
 // Delete Airplane, deletes a given plate airplane from de db
@@ -111,7 +126,7 @@ export const deleteAirplane = async (req, res) => {
 				message: "Airplane not found",
 			});
 		} else {
-			res.send("News Deleted");
+			res.send("Airplane Deleted");
 		}
 	} catch (e) {
 		return res.status(500).json({

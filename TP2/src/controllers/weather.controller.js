@@ -1,5 +1,6 @@
+import { METAR_API_KEY } from '../config.js'
 const weatherApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
-const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=d1b8e067265a43a4859df77708";
+const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=" + METAR_API_KEY;
 const minutesBetween = 5;
 let lastFetch = 0;
 let weather = {

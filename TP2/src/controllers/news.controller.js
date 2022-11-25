@@ -6,11 +6,15 @@ export const getNews = async (req, res) => {
 	const { x0, n } = req.query;
 
 	try {
-		const [rows] = await pool.query(
-			"SELECT * FROM news ORDER BY date DESC LIMIT ?,?",
-			[parseInt(x0), parseInt(n)],
-		);
-		res.json(rows);
+		if(Number.isInteger(parseInt(n)) && Number.isInteger(parseInt(x0))){
+			const [rows] = await pool.query(
+				"SELECT * FROM news ORDER BY date DESC LIMIT ?,?",
+				[parseInt(x0), parseInt(n)],
+			);
+			res.json(rows);
+		} else {
+			res.status(400).send("Some variables are not integer as expected");
+		}
 	} catch (e) {
 		return res.status(500).json({
 			message: "Something went wrong",
