@@ -16,15 +16,6 @@ const months = [
 	"Diciembre",
 ];
 
-// Variables to be modified if want to do a PUT 
-let newsIdModify;
-let newsDataModify = {
-    imgRoute:"",
-    date:"", 
-    title:"",
-    description:""
-};
-
 // First ejecution of createNews
 createNews();
 
@@ -38,21 +29,16 @@ document.querySelector("#load-more").addEventListener("click", async () => {
 document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 	e.preventDefault();
 
-    // Extracts the values of the modify-news-form
-    let title = document.querySelector("#modify-news-form-title").value;
-    let imgRoute = document.querySelector("#modify-news-form-img").value;
-    let description = document.querySelector("#modify-news-form-description").value;
-    let date = document.querySelector("#modify-news-form-date").value;
-
-    // If the value of the input its not null, it changes the original parameter with the new one
-    if(title != "") newsDataModify.title = title;
-    if(imgRoute != "") newsDataModify.imgRoute = imgRoute;
-    if(description != "") newsDataModify.description = description;
-    if(date != "") newsDataModify.date = date;
+    let newsDataModify = {
+        img: document.querySelector("#modify-news-form-img").value,
+        date: document.querySelector("#modify-news-form-date").value, 
+        title: document.querySelector("#modify-news-form-title").value,
+        description: document.querySelector("#modify-news-form-description").value
+    };
 
     // Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
-	xhr.open("PATCH", ("/api/news/"+newsIdModify));
+	xhr.open("PATCH", ("/api/news/"+document.querySelector("#modify-news-form-id").innerHTML.split(' ')[2]));
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.onload = function () {
         // If the server sends a success
@@ -124,19 +110,12 @@ async function createNews() {
         modifyNews.textContent = "Modificar";
         modifyNews.classList.add("modify-button");
         modifyNews.addEventListener("click", async () => {
-            // If the button "modify" is clicked, it changes the global values to
-            // the pre modified or current news values
-            newsIdModify = news[i].id;
-            newsDataModify.imgRoute = news[i].img;
-            newsDataModify.date = news[i].date.split("T")[0];
-            newsDataModify.title = news[i].title;
-            newsDataModify.description = news[i].description;
-            
-            // It shows in the placeholder the current value
-            document.querySelector("#modify-news-form-date").value = newsDataModify.date;
-            document.querySelector("#modify-news-form-title").placeholder = newsDataModify.title;
-            document.querySelector("#modify-news-form-description").placeholder = newsDataModify.description;
-            document.querySelector("#modify-news-form-img").placeholder = newsDataModify.imgRoute;
+            // It fills the form with the current value of the news
+            document.querySelector("#modify-news-form-id").innerHTML = "Modificando ID: " + news[i].id;
+            document.querySelector("#modify-news-form-date").value = news[i].date.split("T")[0];
+            document.querySelector("#modify-news-form-title").value = news[i].title;
+            document.querySelector("#modify-news-form-description").value = news[i].description;
+            document.querySelector("#modify-news-form-img").value = news[i].img;
         });
 
 		let idNews = document.createElement("h3");

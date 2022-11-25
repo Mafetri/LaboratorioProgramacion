@@ -22,7 +22,7 @@
         <div class = "container-pop-up" id = "create-news-form-popup">
             <div class = "pop-up">
                 <a href= "#news" class = "close-button"> Cerrar </a>
-                <form method="POST" action="/api/news" id = "create-news-form">
+                <form id = "create-news-form">
                     <fieldset>
                         <legend>Crear nueva noticia</legend>
                         <div class="fields-container">
@@ -67,19 +67,21 @@
                 <a href = "#news" class = "close-button"> Cerrar </a>
                 <form class = "modify-news-form" id = "modify-news-form">
                     <fieldset>
+                        <legend id = "modify-news-form-id"></legend>
                         <div class="fields-container">
-                            <!-- Ruta -->
+                            <!-- Route of IMG -->
                             <div class="field">
                                 <label for="name">Ruta imagen</label>
                                 <input class="input-text" type="text" name="img" id="modify-news-form-img" placeholder="/assets/news/______"/>
                             </div>
-        
+
+                            <!-- Date -->
                             <div class="field">
                                 <label for="date">Fecha</label>
                                 <input class="input-text" type="date" name="date" id="modify-news-form-date" placeholder="Fecha" />
                             </div>
         
-                            <!-- Titulo -->
+                            <!-- Title -->
                             <div class="field">
                                 <label for="title">Titulo</label>
                                 <input class="input-text" type="text" name="title" id="modify-news-form-title" placeholder="Titulo" />
