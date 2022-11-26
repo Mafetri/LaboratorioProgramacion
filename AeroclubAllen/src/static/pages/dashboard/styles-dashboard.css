@@ -1,3 +1,23 @@
+/*  =============  Header  =============  */
+header{
+    height: 4em;
+    background: white;
+    box-shadow: 0 1px 5px #000;
+}
+.nav li a{
+    color:black;
+    text-shadow: none;
+    font-weight: bold;
+}
+#logo-dashboard{
+    display: flex;
+    gap: 1em;
+}
+#logo-dashboard a img{
+    translate: 0 5px ;
+}
+
+/*  =============  Section Title  =============  */
 .section-title{
     margin: 0.4em;
     width: 80%;
@@ -8,14 +28,18 @@
     background-color: var(--grisClaro);
     color: var(--secundarioOscuro);
 }
+
+/*  =============  Extras  =============  */
+.boton-sec-oscuro{
+    width: 50%;
+}
+
+/*  =============  News  =============  */
 .news {
+    padding-top: 5em !important;
     display: flex;
     flex-direction: column;
     padding-top: 1em;
-}
-
-.boton-sec-oscuro{
-    width: 50%;
 }
 h3.id{
     background-color: var(--secundarioOscuro);
@@ -23,6 +47,30 @@ h3.id{
     border-radius: var(--radius) var(--radius) 0 0;
     margin: 0;
 }
+.news-card img{
+    border-radius: 0;
+}
+.news form{
+    margin: 1em;
+    background-color: var(--secundarioOscuro);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.news fieldset{
+    border-width: 0;
+}
+.news form legend {
+    color: white;
+    font-size: 1.3em;
+}
+.submit-button .boton-sec-oscuro{
+    width: 100%;
+    background-color: white;
+    color: var(--secundarioOscuro);
+    margin: 0.1em;
+}
+
+/*  =============  Delete Button  =============  */
 .delete-button{
     background-color: rgb(206, 100, 100);
     color: rgb(83, 5, 5);
@@ -39,6 +87,8 @@ h3.id{
     background-color: rgb(160, 17, 17);
     color:white;
 }
+
+/*  =============  Modify Button  =============  */
 .modify-button{
     background-color: rgb(255, 204, 95);
     color: rgb(121, 85, 8);
@@ -55,6 +105,8 @@ h3.id{
     background-color: rgb(255, 174, 0);
     color:white;
 }
+
+/*  =============  PopUp Form  =============  */
 .container-pop-up{
     top: 0;
     width: 100%;
@@ -89,32 +141,8 @@ h3.id{
 .close-button:hover{
     background-color: rgb(255, 98, 98);
 }
-.news-card img{
-    border-radius: 0;
-}
 
-.news form{
-    margin: 1em;
-    background-color: var(--secundarioOscuro);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-.news fieldset{
-    border-width: 0;
-}
-.news form legend {
-    color: white;
-    font-size: 1.3em;
-}
-.submit-button .boton-sec-oscuro{
-    width: 100%;
-    background-color: white;
-    color: var(--secundarioOscuro);
-    margin: 0.1em;
-}
-
-
-
+/*  =============  Fleet  =============  */
 .airplanes {
     display: flex;
     flex-wrap: wrap;

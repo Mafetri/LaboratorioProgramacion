@@ -377,3 +377,7 @@ header.sticky {
   flex-direction: column;
   justify-content: center;
 }
+
+.margin-0{
+  margin: 0;
+}

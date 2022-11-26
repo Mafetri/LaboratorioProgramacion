@@ -15,7 +15,38 @@
 </head>
 
 <body>
-    <h1 class="title">DASHBOARD</h1>
+    <!-- ===================  Header  =================== -->
+    <header class>
+        <div id = "logo-dashboard">
+            <a href="../../index.html">
+                <img class="header-logo" src="../../assets/logo.png" alt="logo" />
+            </a>
+            <h1 class = "margin-0"> Dashboard</h1>
+        </div>
+        
+        <nav class="nav">
+            <a href="#" class="nav-button">
+                <span class="nav-bar"></span>
+                <span class="nav-bar"></span>
+                <span class="nav-bar"></span>
+            </a>
+            <ul class="nav-links">
+                <li><a class="nav-enlace" href="index.html">Inicio</a></li>
+                <li><a class="nav-enlace" href="#courses">Cursos</a></li>
+                <li>
+                    <a class="nav-enlace" href="#fleet">Flota</a>
+                </li>
+                <li>
+                    <a class="nav-enlace" href="#news">Noticias</a>
+                </li>
+                <li>
+                    <a class="nav-enlace" href="#trajectory">Trayectoria</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- ===================  News  =================== -->
     <section class="news" id = "#news">
         <h2 class="section-title">Noticias</h2>
         <a href="#create-news-form-popup" class = "boton-sec-oscuro">Crear Noticia</a>
@@ -112,10 +143,10 @@
         <button class="boton-sec-oscuro" id="load-more">Cargar Más</button>
     </section>
 
-    <section class="trajectory">
+    <section class="trajectory" id = "#trajectory">
 
     </section>
-    <section class="airplanes">
+    <section class="airplanes" id ="fleet">
 
     </section>
 
