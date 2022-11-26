@@ -116,10 +116,10 @@ export const updateAirplane = async (req, res) => {
 
 // Delete Airplane, deletes a given plate airplane from de db
 export const deleteAirplane = async (req, res) => {
-	const { id } = req.params;
+	const { plate } = req.params;
 
 	try {
-		const [dbRes] = await pool.query("DELETE FROM news WHERE id=?", [id]);
+		const [dbRes] = await pool.query("DELETE FROM fleet WHERE plate=?", [plate]);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({

@@ -40,6 +40,9 @@ header{
     display: flex;
     flex-direction: column;
     padding-top: 1em;
+    border-color: var(--secundarioOscuro);
+    border-width: 0.5em;
+    border-style: solid none;
 }
 h3.id{
     background-color: var(--secundarioOscuro);
@@ -50,24 +53,32 @@ h3.id{
 .news-card img{
     border-radius: 0;
 }
-.news form{
-    margin: 1em;
-    background-color: var(--secundarioOscuro);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-.news fieldset{
-    border-width: 0;
-}
-.news form legend {
-    color: white;
-    font-size: 1.3em;
-}
 .submit-button .boton-sec-oscuro{
     width: 100%;
     background-color: white;
     color: var(--secundarioOscuro);
     margin: 0.1em;
+}
+
+/*  =============  Forms  =============  */
+form{
+    margin: 1em;
+    background-color: var(--secundarioOscuro);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+fieldset{
+    border-width: 0;
+}
+form legend {
+    color: white;
+    font-size: 1.3em;
+}
+.fleet-fields:nth-child(3), .fleet-fields:nth-child(4) {
+    grid-column:auto;
+}
+.fleet-fields-container{
+    grid-template-rows: auto;
 }
 
 /*  =============  Delete Button  =============  */
@@ -143,11 +154,21 @@ h3.id{
 }
 
 /*  =============  Fleet  =============  */
-.airplanes {
+.airplanes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-top: 2em;
+    border-color: var(--secundarioOscuro);
+    border-width: 0.5em;
+    border-style: none none none solid;
+}
+#fleet-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
 .airplane-card {
     flex-direction: column;
     margin: 1em;
@@ -155,8 +176,10 @@ h3.id{
 }
 
 .airplane-card img {
-    width: 20%;
-    height: 20%;
+    width: auto;
+    height: 13em;
+    padding: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .airplane-card h2 {
@@ -164,7 +187,13 @@ h3.id{
 }
 
 .airplane-info {
+    padding-top: 1em;
+    padding-bottom: 1em;
     width: auto;
     margin: 0;
     font-size: 0.7em;
+}
+
+.airplane-info hr{
+    height: 5px;
 }

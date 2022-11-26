@@ -1,6 +1,8 @@
+// ================  News  ================
 // letiables and Costants
 let x0 = 0;
 let n = 4;
+
 const months = [
 	"Enero",
 	"Febrero",
@@ -118,6 +120,7 @@ async function createNews() {
             document.querySelector("#modify-news-form-img").value = news[i].img;
         });
 
+        // ID of the news
 		let idNews = document.createElement("h3");
 		idNews.classList.add("id");
 		idNews.textContent = "ID Noticia: " + news[i].id;
@@ -137,7 +140,9 @@ async function createNews() {
 	}
 }
 
-/*
+
+
+// ================  Fleet  ================
 import fleet from '/api/fleet?x0=0&n=200' assert {type: 'json'};
 
 // Info fleet
@@ -200,11 +205,41 @@ for (let i = 0; i < fleet.length; i++) {
     let consumption = document.createElement("p");
     consumption.textContent = airplane.consumption + "lt/h";
 
+    // Delete button
+    let deleteAirplane = document.createElement("button");
+    deleteAirplane.textContent = "Borrar";
+    deleteAirplane.classList.add("delete-button");
+    deleteAirplane.addEventListener("click", async () => {
+        const res = await fetch("/api/airplane/" + airplane.plate, {
+            method: "DELETE",
+        });
+        window.location.reload();
+    });
+
+    // Modify button
+    let modifyAirplane = document.createElement("a");
+    modifyAirplane.href = "#modify-fleet-form-popup";
+    modifyAirplane.textContent = "Modificar";
+    modifyAirplane.classList.add("modify-button");
+    modifyAirplane.addEventListener("click", async () => {
+        // It fills the form with the current value of the news
+        document.querySelector("#modify-fleet-form-plate").innerHTML = "Modificando Matricula: " + airplane.plate;
+        document.querySelector("#modify-fleet-form-img").value = airplane.img;
+        document.querySelector("#modify-fleet-form-name").value = airplane.name;
+        document.querySelector("#modify-fleet-form-engine").value = airplane.engine;
+        document.querySelector("#modify-fleet-form-brand").value = airplane.brand;
+        document.querySelector("#modify-fleet-form-model").value = airplane.model;
+        document.querySelector("#modify-fleet-form-speed").value = airplane.speed;
+        document.querySelector("#modify-fleet-form-consumption").value = airplane.consumption;
+    });
+
     // ---  Appends  ---
-    document.querySelector(".airplanes").appendChild(nameComment);
-    document.querySelector(".airplanes").appendChild(card);
+    document.querySelector("#fleet-grid").appendChild(nameComment);
+    document.querySelector("#fleet-grid").appendChild(card);
     card.appendChild(img);
     card.appendChild(airplaneInfo);
+    card.appendChild(modifyAirplane);
+    card.appendChild(deleteAirplane);
     airplaneInfo.appendChild(name);
     airplaneInfo.appendChild(hr);
     airplaneInfo.appendChild(plateTitle);
@@ -220,4 +255,41 @@ for (let i = 0; i < fleet.length; i++) {
     airplaneInfo.appendChild(consumptionTitle);
     airplaneInfo.appendChild(consumption);
 }
-*/
+
+document.querySelector("#modify-fleet-form").addEventListener("submit", (e) => {
+    console.log("hola");
+	e.preventDefault();
+
+    let dataModify = {
+        engine: document.querySelector("#modify-fleet-form-engine").value,
+        brand: document.querySelector("#modify-fleet-form-brand").value,
+        model: document.querySelector("#modify-fleet-form-model").value,
+        speed: document.querySelector("#modify-fleet-form-speed").value,
+        consumption: document.querySelector("#modify-fleet-form-consumption").value,
+        img: document.querySelector("#modify-fleet-form-img").value,
+        name: document.querySelector("#modify-fleet-form-name").value
+    };
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("PATCH", ("/api/airplane/"+document.querySelector("#modify-fleet-form-plate").innerHTML.split(' ')[2]));
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "success") {
+            engine.value = "";
+            brand.value = "";
+            model.value = "";
+            speed.value = "";
+            consumption.value = "";
+            img.value = "";
+		}
+	};
+
+    xhr.send(JSON.stringify(dataModify));
+
+    // Unce the news has been modified, it reloads the page on the #fleet ref
+    window.location.replace("#fleet");
+    window.location.reload();
+});
+
