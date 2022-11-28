@@ -161,7 +161,7 @@ form legend {
     padding-top: 2em;
     border-color: var(--secundarioOscuro);
     border-width: 0.5em;
-    border-style: none none none solid;
+    border-style: none none solid none;
 }
 #fleet-grid {
     display: flex;

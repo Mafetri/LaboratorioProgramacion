@@ -210,27 +210,29 @@ for (let i = 0; i < fleet.length; i++) {
     deleteAirplane.textContent = "Borrar";
     deleteAirplane.classList.add("delete-button");
     deleteAirplane.addEventListener("click", async () => {
-        const res = await fetch("/api/airplane/" + airplane.plate, {
-            method: "DELETE",
-        });
-        window.location.reload();
+        if(window.confirm("Seguro que quiere borrar el " + airplane.name + "?")){
+            const res = await fetch("/api/airplane/" + airplane.plate, {
+                method: "DELETE",
+            });
+            window.location.reload();
+        }
     });
 
     // Modify button
     let modifyAirplane = document.createElement("a");
-    modifyAirplane.href = "#modify-fleet-form-popup";
+    modifyAirplane.href = "#modify-airplane-form-popup";
     modifyAirplane.textContent = "Modificar";
     modifyAirplane.classList.add("modify-button");
     modifyAirplane.addEventListener("click", async () => {
         // It fills the form with the current value of the news
-        document.querySelector("#modify-fleet-form-plate").innerHTML = "Modificando Matricula: " + airplane.plate;
-        document.querySelector("#modify-fleet-form-img").value = airplane.img;
-        document.querySelector("#modify-fleet-form-name").value = airplane.name;
-        document.querySelector("#modify-fleet-form-engine").value = airplane.engine;
-        document.querySelector("#modify-fleet-form-brand").value = airplane.brand;
-        document.querySelector("#modify-fleet-form-model").value = airplane.model;
-        document.querySelector("#modify-fleet-form-speed").value = airplane.speed;
-        document.querySelector("#modify-fleet-form-consumption").value = airplane.consumption;
+        document.querySelector("#modify-airplane-form-plate").innerHTML = "Modificando Matricula: " + airplane.plate;
+        document.querySelector("#modify-airplane-form-img").value = airplane.img;
+        document.querySelector("#modify-airplane-form-name").value = airplane.name;
+        document.querySelector("#modify-airplane-form-engine").value = airplane.engine;
+        document.querySelector("#modify-airplane-form-brand").value = airplane.brand;
+        document.querySelector("#modify-airplane-form-model").value = airplane.model;
+        document.querySelector("#modify-airplane-form-speed").value = airplane.speed;
+        document.querySelector("#modify-airplane-form-consumption").value = airplane.consumption;
     });
 
     // ---  Appends  ---
@@ -256,8 +258,8 @@ for (let i = 0; i < fleet.length; i++) {
     airplaneInfo.appendChild(consumption);
 }
 
-document.querySelector("#modify-fleet-form").addEventListener("submit", (e) => {
-    console.log("hola");
+// Modify Airplane PATCH
+document.querySelector("#modify-airplane-form").addEventListener("submit", (e) => {
 	e.preventDefault();
 
     let dataModify = {
@@ -287,6 +289,48 @@ document.querySelector("#modify-fleet-form").addEventListener("submit", (e) => {
 	};
 
     xhr.send(JSON.stringify(dataModify));
+
+    // Unce the news has been modified, it reloads the page on the #fleet ref
+    window.location.replace("#fleet");
+    window.location.reload();
+});
+
+// Create Airplane POST
+document.querySelector("#create-airplane-form").addEventListener("submit", (e) => {
+    console.log("hola");
+	e.preventDefault();
+
+    let newData = {
+        plate: document.querySelector("#create-airplane-form-plate").value,
+        engine: document.querySelector("#create-airplane-form-engine").value,
+        brand: document.querySelector("#create-airplane-form-brand").value,
+        model: document.querySelector("#create-airplane-form-model").value,
+        speed: document.querySelector("#create-airplane-form-speed").value,
+        consumption: document.querySelector("#create-airplane-form-consumption").value,
+        img: document.querySelector("#create-airplane-form-img").value,
+        name: document.querySelector("#create-airplane-form-name").value
+    };
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", ("/api/airplane"));
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "Post Success") {
+            plate.value = "";
+            engine.value = "";
+            brand.value = "";
+            model.value = "";
+            speed.value = "";
+            consumption.value = "";
+            img.value = "";
+		} else {
+            alert("Hubo un error en la creacion del avion");
+        }
+	};
+
+    xhr.send(JSON.stringify(newData));
 
     // Unce the news has been modified, it reloads the page on the #fleet ref
     window.location.replace("#fleet");

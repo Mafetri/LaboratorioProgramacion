@@ -209,6 +209,10 @@ header.sticky {
   opacity: 0;
 }
 
+.top-10{
+  top: 10% !important;
+}
+
 /* ==================== Boton Gradiante ==================== */
 .boton-gradiante {
   background-image: linear-gradient(

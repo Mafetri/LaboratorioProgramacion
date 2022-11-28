@@ -55,7 +55,7 @@
         <div class = "container-pop-up" id = "create-news-form-popup">
             <div class = "pop-up">
                 <a href= "#news" class = "close-button"> Cerrar </a>
-                <form id = "create-news-form">
+                <form method="POST" action="/api/news" id = "create-news-form">
                     <fieldset>
                         <legend>Crear nueva noticia</legend>
                         <div class="fields-container">
@@ -84,8 +84,8 @@
         
                             <!-- Submit Button -->
                             <div class="submit-button">
-                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
-                                    id = "create-news-form-submit" />
+                                <input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                id = "create-news-form-submit" />
                             </div>
         
                     </fieldset>
@@ -152,53 +152,124 @@
     <!-- ===================  Fleet  =================== -->
     <section class="airplanes" id ="fleet">
         <h2 class="section-title">Flota</h2>
-        <div class = "container-pop-up" id = "modify-fleet-form-popup">
-            <div class = "pop-up">
-                <a href = "#fleet" class = "close-button"> Cerrar </a>
-                <form id = "modify-fleet-form">
+
+        <a href="#create-airplane-form-popup" class = "boton-sec-oscuro">Crear Avion</a>
+        <div class = "container-pop-up" id = "create-airplane-form-popup">
+            <div class = "pop-up top-10">
+                <a href= "#fleet" class = "close-button"> Cerrar </a>
+                <form id = "create-airplane-form">
                     <fieldset>
-                        <legend id = "modify-fleet-form-plate"></legend>
+                        <legend>Crear nuevo avion</legend>
                         <div class="fleet-fields-container">
+                            <!-- Plate -->
+                            <div class="field">
+                                <label for="plate">Matricula</label>
+                                <input class="input-text" type="text" name="plate" id="create-airplane-form-plate" placeholder="LV-____" required/>
+                            </div>
+
                             <!-- Route of IMG -->
                             <div class="field">
                                 <label for="img">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" id="modify-fleet-form-img" placeholder="/assets/news/______"/>
+                                <input class="input-text" type="text" name="img" id="create-airplane-form-img" placeholder="/assets/fleet/______/______" required/>
                             </div>
 
                             <!-- Route of IMG -->
                             <div class="field">
                                 <label for="name">Nombre</label>
-                                <input class="input-text" type="text" name="name" id="modify-fleet-form-name" placeholder="Nombre"/>
+                                <input class="input-text" type="text" name="name" id="create-airplane-form-name" placeholder="Nombre" required/>
                             </div>
 
                             <!-- Engine -->
                             <div class="field">
                                 <label for="engine">Motor</label>
-                                <input class="input-text" type="text" name="engine" id="modify-fleet-form-engine" placeholder="Motor" />
+                                <input class="input-text" type="text" name="engine" id="create-airplane-form-engine" placeholder="Motor" required/>
                             </div>
         
                             <!-- Brand -->
                             <div class="field">
                                 <label for="brand">Marca</label>
-                                <input class="input-text" type="text" name="brand" id="modify-fleet-form-brand" placeholder="Marca" />
+                                <input class="input-text" type="text" name="brand" id="create-airplane-form-brand" placeholder="Marca" required/>
                             </div>
         
                             <!-- Model -->
                             <div class="field">
                                 <label for="model">Modelo</label>
-                                <input class="input-text" type="text" name="model" id="modify-fleet-form-model" placeholder="Modelo" />
+                                <input class="input-text" type="text" name="model" id="create-airplane-form-model" placeholder="Modelo" required/>
                             </div>
 
                             <!-- Speed -->
                             <div class="field">
                                 <label for="speed">Velocidad Crucero</label>
-                                <input class="input-text" type="number" name="speed" id="modify-fleet-form-speed" placeholder="Velocidad Crucero" />
+                                <input class="input-text" type="number" name="speed" id="create-airplane-form-speed" placeholder="Velocidad Crucero" required/>
                             </div>
 
                             <!-- Consumption -->
                             <div class="field">
                                 <label for="consumption">Consumo</label>
-                                <input class="input-text" type="number" name="consumption" id="modify-fleet-form-consumption" placeholder="Consumo" />
+                                <input class="input-text" type="number" name="consumption" id="create-airplane-form-consumption" placeholder="Consumo" required/>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <a href="#fleet">
+                                    <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id = "create-news-form-submit" />
+                                </a>
+                            </div>
+        
+                    </fieldset>
+        
+                </form>
+            </div>
+        </div>
+
+        <div class = "container-pop-up" id = "modify-airplane-form-popup">
+            <div class = "pop-up top-10">
+                <a href = "#fleet" class = "close-button"> Cerrar </a>
+                <form id = "modify-airplane-form">
+                    <fieldset>
+                        <legend id = "modify-airplane-form-plate"></legend>
+                        <div class="fleet-fields-container">
+                            <!-- Route of IMG -->
+                            <div class="field">
+                                <label for="img">Ruta imagen</label>
+                                <input class="input-text" type="text" name="img" id="modify-airplane-form-img" placeholder="/assets/fleet/______/______"/>
+                            </div>
+
+                            <!-- Route of IMG -->
+                            <div class="field">
+                                <label for="name">Nombre</label>
+                                <input class="input-text" type="text" name="name" id="modify-airplane-form-name" placeholder="Nombre"/>
+                            </div>
+
+                            <!-- Engine -->
+                            <div class="field">
+                                <label for="engine">Motor</label>
+                                <input class="input-text" type="text" name="engine" id="modify-airplane-form-engine" placeholder="Motor" />
+                            </div>
+        
+                            <!-- Brand -->
+                            <div class="field">
+                                <label for="brand">Marca</label>
+                                <input class="input-text" type="text" name="brand" id="modify-airplane-form-brand" placeholder="Marca" />
+                            </div>
+        
+                            <!-- Model -->
+                            <div class="field">
+                                <label for="model">Modelo</label>
+                                <input class="input-text" type="text" name="model" id="modify-airplane-form-model" placeholder="Modelo" />
+                            </div>
+
+                            <!-- Speed -->
+                            <div class="field">
+                                <label for="speed">Velocidad Crucero</label>
+                                <input class="input-text" type="number" name="speed" id="modify-airplane-form-speed" placeholder="Velocidad Crucero" />
+                            </div>
+
+                            <!-- Consumption -->
+                            <div class="field">
+                                <label for="consumption">Consumo</label>
+                                <input class="input-text" type="number" name="consumption" id="modify-airplane-form-consumption" placeholder="Consumo" />
                             </div>
         
                             <!-- Submit Button -->
@@ -212,6 +283,7 @@
             </div>
             
         </div>
+
         <div id = "fleet-grid"></div>
     </section>
 
