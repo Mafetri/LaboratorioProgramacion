@@ -1,7 +1,68 @@
+// ================  Trajectory  ================
+import trajectory from '/api/trajectory' assert {type: 'json'};
+
+for(let i = 0; i < trajectory.length; i++){
+    let thisTrajectory = trajectory[i];
+    let comment = document.createComment(thisTrajectory.type);
+
+    // Son of trajectory section
+    let trajectoryContainer = document.createElement('div');
+    trajectoryContainer.classList.add("trajectory-container");
+
+    // Icon
+    let icon = document.createElement("img");
+    console.log(trajectory[i].icon);
+    icon.src = "../."+trajectory[i].icon;
+    icon.alt = "Icono de Informacion";
+
+    // Data
+    let data = document.createElement("p");
+    data.textContent = trajectory[i].data;
+
+    // Buttons
+    let buttons = document.createElement("div");
+    buttons.classList.add("buttons");
+
+    // Delete button
+    let deleteTrajectory = document.createElement("button");
+    deleteTrajectory.textContent = "Borrar";
+    deleteTrajectory.classList.add("delete-button");
+    deleteTrajectory.addEventListener("click", async () => {
+        if(window.confirm("Seguro que quiere borrar la trayectoria de " + trajectory[i].type + "?")){
+            const res = await fetch("/api/trajectory/" + trajectory[i].type, {
+                method: "DELETE",
+            });
+            window.location.reload();
+        }
+    });
+
+    // Modify button
+    let modifyTrajectory = document.createElement("a");
+    modifyTrajectory.href = "#modify-trajectory-form-popup";
+    modifyTrajectory.textContent = "Modificar";
+    modifyTrajectory.classList.add("modify-button");
+    modifyTrajectory.addEventListener("click", async () => {
+        // It fills the form with the current value of the trajectory
+        document.querySelector("#modify-trajectory-form-type").innerHTML = "Modificando trajectoria: " + trajectory[i].type;
+        document.querySelector("#modify-trajectory-form-icon").value = trajectory[i].icon;
+        document.querySelector("#modify-trajectory-form-data").value = trajectory[i].data;
+    });
+    
+
+
+    document.querySelector(".trajectory-grid").appendChild(comment);
+    document.querySelector(".trajectory-grid").appendChild(trajectoryContainer);
+    trajectoryContainer.appendChild(icon);
+    trajectoryContainer.appendChild(data);
+    trajectoryContainer.appendChild(buttons);
+    buttons.appendChild(modifyTrajectory);
+    buttons.appendChild(deleteTrajectory);
+}
+
 // ================  News  ================
 // letiables and Costants
 let x0 = 0;
-let n = 4;
+let n = 8;
 
 const months = [
 	"Enero",

@@ -46,6 +46,44 @@
         </nav>
     </header>
     
+    <!-- ===================  Trajectory  =================== -->
+    <section class="trajectory-section" id = "trajectory">
+        <h2 class="section-title" id="calidad">Trayectoria</h2>
+		<div class="trajectory-grid"></div>
+
+        <!--  Modify News  -->
+        <div class = "container-pop-up" id = "modify-trajectory-form-popup">
+            <div class = "pop-up">
+                <a href = "#trajectory-section" class = "close-button"> Cerrar </a>
+                <form id = "modify-trajectory-form">
+                    <fieldset>
+                        <legend id = "modify-trajectory-form-type"></legend>
+                        <div class="fields-container">
+                            <!-- Route of IMG -->
+                            <div class="field">
+                                <label for="name">Ruta icono</label>
+                                <input class="input-text" type="text" name="img" id="modify-trajectory-form-icon" placeholder="/assets/icons/trajectory/______"/>
+                            </div>
+        
+                            <!-- Data -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <input class="input-text" type="text" name="title" id="modify-trajectory-form-data" placeholder="Informacion" />
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id="submit" />
+                            </div>
+        
+                    </fieldset>
+                </form>
+            </div>
+            
+        </div>
+    </section>
+
     <!-- ===================  News  =================== -->
     <section class="news" id = "#news">
         <h2 class="section-title">Noticias</h2>
@@ -144,11 +182,6 @@
         <button class="boton-sec-oscuro" id="load-more">Cargar Más</button>
     </section>
 
-    <!-- ===================  Trajectory  =================== -->
-    <section class="trajectory" id = "#trajectory">
-
-    </section>
-    
     <!-- ===================  Fleet  =================== -->
     <section class="airplanes" id ="fleet">
         <h2 class="section-title">Flota</h2>

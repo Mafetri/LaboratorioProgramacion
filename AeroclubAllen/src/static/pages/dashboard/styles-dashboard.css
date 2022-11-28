@@ -1,199 +1,272 @@
 /*  =============  Header  =============  */
-header{
-    height: 4em;
-    background: white;
-    box-shadow: 0 1px 5px #000;
+header {
+	height: 4em;
+	background: white;
+	box-shadow: 0 1px 5px #000;
 }
-.nav li a{
-    color:black;
-    text-shadow: none;
-    font-weight: bold;
+.nav li a {
+	color: black;
+	text-shadow: none;
+	font-weight: bold;
 }
-#logo-dashboard{
-    display: flex;
-    gap: 1em;
+#logo-dashboard {
+	display: flex;
+	gap: 1em;
 }
-#logo-dashboard a img{
-    translate: 0 5px ;
+#logo-dashboard a img {
+	translate: 0 5px;
 }
 
+
 /*  =============  Section Title  =============  */
-.section-title{
-    margin: 0.4em;
-    width: 80%;
+.section-title {
+	margin: 0.4em;
+	width: 80%;
 }
-.title{
-    font-size: 3em;
-    margin: 0;
-    background-color: var(--grisClaro);
-    color: var(--secundarioOscuro);
+.title {
+	font-size: 3em;
+	margin: 0;
+	background-color: var(--grisClaro);
+	color: var(--secundarioOscuro);
 }
 
 /*  =============  Extras  =============  */
-.boton-sec-oscuro{
-    width: 50%;
+.boton-sec-oscuro {
+	width: 50%;
+}
+
+/* ==================== Trajectory ==================== */
+.trajectory-section {
+	background-color: white;
+	border-color: var(--secundarioOscuro);
+	border-width: 0.5em;
+	border-style: solid none none none;
+    padding-top: 5em;
+}
+.trajectory-section .section-title {
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
+	color: #000 !important;
+    width: 100%;
+    margin: 0;
+}
+.trajectory-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	padding: 5rem;
+	padding-top: 0.3em;
+	padding-bottom: 0.5em;
+	border-color: var(--secundarioOscuro);
+	border-width: 0.5em;
+	gap: 10em;
+}
+.trajectory-container {
+	text-align: center;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+    border-radius: var(--radius);
+}
+.trajectory-container p {
+	font-size: 1.3em;
+	color: black;
+}
+.trajectory-container img {
+	width: 8.5rem;
+	height: 8.5rem;
+    padding: 0.4em;
+}
+#modify-trajectory-form{
+    height: 12em;
+}
+
+@media (max-width: 768px) {
+	.trajectory-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.1rem;
+	}
+	.trajectory-container p {
+		font-size: 1em;
+	}
+	.trajectory-container img {
+		width: 4.5rem;
+		height: 4.5rem;
+	}
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /*  =============  News  =============  */
 .news {
-    padding-top: 5em !important;
-    display: flex;
-    flex-direction: column;
-    padding-top: 1em;
-    border-color: var(--secundarioOscuro);
-    border-width: 0.5em;
-    border-style: solid none;
+	display: flex;
+	flex-direction: column;
+	border-color: var(--secundarioOscuro);
+	border-width: 0.5em;
+	border-style: solid none;
+    padding-top: 0;
 }
-h3.id{
-    background-color: var(--secundarioOscuro);
-    color: white;
-    border-radius: var(--radius) var(--radius) 0 0;
-    margin: 0;
+h3.id {
+	background-color: var(--secundarioOscuro);
+	color: white;
+	border-radius: var(--radius) var(--radius) 0 0;
+	margin: 0;
 }
-.news-card img{
-    border-radius: 0;
+.news-card img {
+	border-radius: 0;
 }
-.submit-button .boton-sec-oscuro{
-    width: 100%;
-    background-color: white;
-    color: var(--secundarioOscuro);
-    margin: 0.1em;
+.submit-button .boton-sec-oscuro {
+	width: 100%;
+	background-color: white;
+	color: var(--secundarioOscuro);
+	margin: 0.1em;
 }
 
 /*  =============  Forms  =============  */
-form{
-    margin: 1em;
-    background-color: var(--secundarioOscuro);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+form {
+	margin: 1em;
+	background-color: var(--secundarioOscuro);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
 }
-fieldset{
-    border-width: 0;
+fieldset {
+	border-width: 0;
 }
 form legend {
-    color: white;
-    font-size: 1.3em;
+	color: white;
+	font-size: 1.3em;
 }
-.fleet-fields:nth-child(3), .fleet-fields:nth-child(4) {
-    grid-column:auto;
+.fleet-fields:nth-child(3),
+.fleet-fields:nth-child(4) {
+	grid-column: auto;
 }
-.fleet-fields-container{
-    grid-template-rows: auto;
+.fleet-fields-container {
+	grid-template-rows: auto;
 }
 
 /*  =============  Delete Button  =============  */
-.delete-button{
-    background-color: rgb(206, 100, 100);
-    color: rgb(83, 5, 5);
-    font-family: var(--funtePrincipal);
-    font-size: 1.5em;
-    margin: 0;
-    cursor: pointer;
-    text-align: center;
-    border-color: transparent;
-    width: 100%;
-    border-radius: 0 0 var(--radius) var(--radius);
+.delete-button {
+	background-color: rgb(206, 100, 100);
+	color: rgb(83, 5, 5);
+	font-family: var(--funtePrincipal);
+	font-size: 1.5em;
+	margin: 0;
+	cursor: pointer;
+	text-align: center;
+	border-color: transparent;
+	width: 100%;
+	border-radius: 0 0 var(--radius) var(--radius);
 }
-.delete-button:hover{
-    background-color: rgb(160, 17, 17);
-    color:white;
+.delete-button:hover {
+	background-color: rgb(160, 17, 17);
+	color: white;
 }
 
 /*  =============  Modify Button  =============  */
-.modify-button{
-    background-color: rgb(255, 204, 95);
-    color: rgb(121, 85, 8);
-    font-family: var(--funtePrincipal);
-    font-size: 1.5em;
-    margin: 0;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
-    border-radius: 0;
-    border-color: transparent;
+.modify-button {
+	background-color: rgb(255, 204, 95);
+	color: rgb(121, 85, 8);
+	font-family: var(--funtePrincipal);
+	font-size: 1.5em;
+	margin: 0;
+	cursor: pointer;
+	text-align: center;
+	width: 100%;
+	border-radius: 0;
+	border-color: transparent;
 }
-.modify-button:hover{
-    background-color: rgb(255, 174, 0);
-    color:white;
+.modify-button:hover {
+	background-color: rgb(255, 174, 0);
+	color: white;
 }
 
 /*  =============  PopUp Form  =============  */
-.container-pop-up{
-    top: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.4s;
-    background-color: rgba(206, 206, 206, 0.8);
+.container-pop-up {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.4s;
+	background-color: rgba(206, 206, 206, 0.8);
 }
-.pop-up{
-    position: relative;
-    top: 20%;
-    left: 35%;
-    width: 30%;
-    height: 48%;
+.pop-up {
+	position: relative;
+	top: 20%;
+	left: 35%;
+	width: 30%;
+	height: 48%;
 }
-.container-pop-up:target{
-    visibility: visible;
-    opacity: 1;
+.container-pop-up:target {
+	visibility: visible;
+	opacity: 1;
 }
-.close-button{
-    padding: 0 0.6em 0 0.6em;
-    color: black;
-    font-size: 1.8em;
-    background-color: white;
-    border-radius: var(--radius);
-    position: absolute;
-    right: 0%;
-    top: -30px;
+.pop-up form{
+    padding: 0.7em;
 }
-.close-button:hover{
-    background-color: rgb(255, 98, 98);
+.close-button {
+	padding: 0 0.6em 0 0.6em;
+	color: black;
+	font-size: 1.8em;
+	background-color: white;
+	border-radius: var(--radius);
+	position: absolute;
+	right: 0%;
+	top: -30px;
+}
+.close-button:hover {
+	background-color: rgb(255, 98, 98);
 }
 
 /*  =============  Fleet  =============  */
-.airplanes{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding-top: 2em;
-    border-color: var(--secundarioOscuro);
-    border-width: 0.5em;
-    border-style: none none solid none;
+.airplanes {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	padding-top: 2em;
+	border-color: var(--secundarioOscuro);
+	border-width: 0.5em;
+	border-style: none none solid none;
 }
 #fleet-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
 
 .airplane-card {
-    flex-direction: column;
-    margin: 1em;
-    justify-content: center;
+	flex-direction: column;
+	margin: 1em;
+	justify-content: center;
 }
 
 .airplane-card img {
-    width: auto;
-    height: 13em;
-    padding: 0;
-    border-radius: var(--radius) var(--radius) 0 0;
+	width: auto;
+	height: 13em;
+	padding: 0;
+	border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .airplane-card h2 {
-    font-size: 2em;
+	font-size: 2em;
 }
 
 .airplane-info {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    width: auto;
-    margin: 0;
-    font-size: 0.7em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	width: auto;
+	margin: 0;
+	font-size: 0.7em;
 }
 
-.airplane-info hr{
-    height: 5px;
+.airplane-info hr {
+	height: 5px;
 }
+
+
