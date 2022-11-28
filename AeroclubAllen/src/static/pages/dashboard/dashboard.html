@@ -55,31 +55,31 @@
         <div class = "container-pop-up" id = "create-news-form-popup">
             <div class = "pop-up">
                 <a href= "#news" class = "close-button"> Cerrar </a>
-                <form method="POST" action="/api/news" id = "create-news-form">
+                <form id = "create-news-form">
                     <fieldset>
                         <legend>Crear nueva noticia</legend>
                         <div class="fields-container">
                             <!-- Ruta -->
                             <div class="field">
                                 <label for="name">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" placeholder="/assets/news/______" id="name" />
+                                <input class="input-text" type="text" name="img" placeholder="/assets/news/______" id="create-news-form-img" />
                             </div>
         
                             <div class="field">
                                 <label for="date">Fecha</label>
-                                <input class="input-text" type="date" name="date" id="date" placeholder="Fecha" />
+                                <input class="input-text" type="date" name="date" id="create-news-form-date" placeholder="Fecha" />
                             </div>
         
                             <!-- Titulo -->
                             <div class="field">
                                 <label for="title">Titulo</label>
-                                <input class="input-text" type="text" name="title" id="title" placeholder="Titulo" />
+                                <input class="input-text" type="text" name="title" id="create-news-form-title" placeholder="Titulo" />
                             </div>
         
                             <!-- Description -->
                             <div class="field">
                                 <label for="">Descripcion</label>
-                                <textarea class="input-text" name="description" id="description" cols="30" rows="9"></textarea>
+                                <textarea class="input-text" name="description" id="create-news-form-description" cols="30" rows="9"></textarea>
                             </div>
         
                             <!-- Submit Button -->

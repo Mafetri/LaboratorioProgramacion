@@ -21,44 +21,6 @@ const months = [
 // First ejecution of createNews
 createNews();
 
-// Load More button, increases x0 and calls getNews
-document.querySelector("#load-more").addEventListener("click", async () => {
-	x0 += n;
-	createNews();
-});
-
-// If the submit button of the modify-news-form is clicked
-document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
-	e.preventDefault();
-
-    let newsDataModify = {
-        img: document.querySelector("#modify-news-form-img").value,
-        date: document.querySelector("#modify-news-form-date").value, 
-        title: document.querySelector("#modify-news-form-title").value,
-        description: document.querySelector("#modify-news-form-description").value
-    };
-
-    // Uses XHR to post the form data
-	let xhr = new XMLHttpRequest();
-	xhr.open("PATCH", ("/api/news/"+document.querySelector("#modify-news-form-id").innerHTML.split(' ')[2]));
-	xhr.setRequestHeader("content-type", "application/json");
-	xhr.onload = function () {
-        // If the server sends a success
-		if (xhr.responseText == "success") {
-			img.value = "";
-			date.value = "";
-			title.value = "";
-			description.value = "";
-		}
-	};
-
-    xhr.send(JSON.stringify(newsDataModify));
-
-    // Unce the news has been modified, it reloads the page on the #news ref
-    window.location.replace("#news");
-    window.location.reload();
-});
-
 // Get News, makes a get of news to the api from the position x0 with an n ammount of news
 async function createNews() {
 	let api = "/api/news?x0=" + x0 + "&n=" + n;
@@ -100,10 +62,12 @@ async function createNews() {
 		deleteNews.textContent = "Borrar";
 		deleteNews.classList.add("delete-button");
 		deleteNews.addEventListener("click", async () => {
-			const res = await fetch("/api/news/" + news[i].id, {
-				method: "DELETE",
-			});
-            window.location.reload();
+            if(window.confirm("Seguro que quiere borrar la noticia " + news[i].title + " (ID: " + news[i].id + ")"+ "?")){
+                const res = await fetch("/api/news/" + news[i].id, {
+                    method: "DELETE",
+                });
+                window.location.reload();
+            }
 		});
 
         // Modify button
@@ -140,12 +104,81 @@ async function createNews() {
 	}
 }
 
+// Load More button, increases x0 and calls getNews
+document.querySelector("#load-more").addEventListener("click", async () => {
+	x0 += n;
+	createNews();
+});
+
+// Modify News PATCH
+document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+    let newsDataModify = {
+        img: document.querySelector("#modify-news-form-img").value,
+        date: document.querySelector("#modify-news-form-date").value, 
+        title: document.querySelector("#modify-news-form-title").value,
+        description: document.querySelector("#modify-news-form-description").value
+    };
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("PATCH", ("/api/news/"+document.querySelector("#modify-news-form-id").innerHTML.split(' ')[2]));
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "success") {
+			img.value = "";
+			date.value = "";
+			title.value = "";
+			description.value = "";
+		}
+	};
+
+    xhr.send(JSON.stringify(newsDataModify));
+
+    // Unce the news has been modified, it reloads the page on the #news ref
+    window.location.replace("#news");
+    window.location.reload();
+});
+
+// Create News POST
+document.querySelector("#create-news-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+    let newData = {
+        img: document.querySelector("#create-news-form-img").value,
+        date: document.querySelector("#create-news-form-date").value, 
+        title: document.querySelector("#create-news-form-title").value,
+        description: document.querySelector("#create-news-form-description").value
+    };
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/news");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "Post Success") {
+			img.value = "";
+			date.value = "";
+			title.value = "";
+			description.value = "";
+		}
+	};
+
+    xhr.send(JSON.stringify(newData));
+
+    // Unce the news has been modified, it reloads the page on the #news ref
+    window.location.replace("#news");
+    window.location.reload();
+});
 
 
 // ================  Fleet  ================
 import fleet from '/api/fleet?x0=0&n=200' assert {type: 'json'};
 
-// Info fleet
+// Creates all fleet cards
 for (let i = 0; i < fleet.length; i++) {
     let airplane = fleet[i];
     //  ---  Card  ---
@@ -210,7 +243,7 @@ for (let i = 0; i < fleet.length; i++) {
     deleteAirplane.textContent = "Borrar";
     deleteAirplane.classList.add("delete-button");
     deleteAirplane.addEventListener("click", async () => {
-        if(window.confirm("Seguro que quiere borrar el " + airplane.name + "?")){
+        if(window.confirm("Seguro que quiere borrar el " + airplane.name + "(" + airplane.plate + ")"+ "?")){
             const res = await fetch("/api/airplane/" + airplane.plate, {
                 method: "DELETE",
             });
@@ -313,7 +346,7 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 
     // Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", ("/api/airplane"));
+	xhr.open("POST", "/api/airplane");
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.onload = function () {
         // If the server sends a success
