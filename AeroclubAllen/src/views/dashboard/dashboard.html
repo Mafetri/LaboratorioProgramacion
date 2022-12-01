@@ -319,9 +319,45 @@
 
         <div id = "fleet-grid"></div>
     </section>
-
+        
     <section class = "users">
         <h1 class = "section-title"> Usuarios </h1>
+        <!--  Create User  -->
+        <a href="#create-user-form-popup" class = "boton-sec-oscuro">Agregar Usuario</a>
+        <div class = "container-pop-up" id = "create-user-form-popup">
+            <div class = "pop-up">
+                <a href= "#user" class = "close-button"> Cerrar </a>
+                <form id = "create-user-form">
+                    <fieldset>
+                        <legend>Agregar Usuario</legend>
+                        <div class="fields-container">
+                            <!-- DNI -->
+                            <div class="field">
+                                <label for="date">DNI</label>
+                                <input class="input-text" type="number" name="dni" id="create-user-form-dni" placeholder="DNI" required/>
+                            </div>
+
+                            <!-- Role -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <select name = "role" id="create-user-form-role" required>
+                                    <option value = "admin">Administrador</option>
+                                    <option value = "editor">Editor</option>
+                                    <option value = "pilot">Piloto</option>
+                                    <option value = "student">Alumno</option>
+                                </select>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Agregar" name="submit"
+                                id = "create-news-form-submit" />
+                            </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
         <table class = "users-grid">
             <thead>
                 <th>DNI</th>

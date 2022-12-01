@@ -33,6 +33,7 @@ header {
 /*  =============  Extras  =============  */
 .boton-sec-oscuro {
 	width: 50%;
+	margin: auto;
 }
 
 /* ==================== Trajectory ==================== */
@@ -281,7 +282,7 @@ form legend {
 }
 .users-grid {
 	width: 60%;
-	margin: auto;
+	margin: 0.5em auto;
 	font-size: 1.5em;
 	border: 1px solid black;
 	border-radius: var(--radius);
@@ -293,5 +294,15 @@ form legend {
 }
 .users-grid tr {
 	border: 2px solid black;
+}
+
+.users select{
+	padding: 1.0em;
+	width: 20em;
+	border-radius: var(--radius);
+	font-family: var(--funtePrincipal);
+}
+#create-user-form{
+	height: 14em;
 }
 

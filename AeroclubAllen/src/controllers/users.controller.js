@@ -71,3 +71,33 @@ export const getUsers = async (req, res) => {
 		});
 	}
 }
+
+// Create User
+export const createUser = async (req, res) => {
+	const { dni, role } = req.body;
+
+    if (dni == "" || role == "") {
+		res.status(400).json({
+			message: "Some data is wrong",
+		});
+	} else {
+		try {
+			await pool.query(
+				"INSERT INTO users (dni, role, password) VALUES (?,?,?)",
+				[dni, role, 'newuser'],
+			);
+			res.send("Post Success");
+		} catch (e) {
+			if ((e.code = "ER_DUP_ENTRY")) {
+                return res.status(500).json({
+                    message: "Error, duplicated DNI",
+                });
+            } else {
+                return res.status(500).json({
+                    message: "Something went wrong",
+                    error: e,
+                });
+            }
+		}
+	}
+};

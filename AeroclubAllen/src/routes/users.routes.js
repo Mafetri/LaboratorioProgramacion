@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isLoggedIn, isNotLoggedIn } from "../lib/auth.js";
-import { sendSignup, passportSignup , sendSingin, passportSignin, logout, sendDashboard, getUsers } from "../controllers/users.controller.js";
+import { sendSignup, passportSignup , sendSingin, passportSignin, logout, sendDashboard, getUsers, createUser } from "../controllers/users.controller.js";
 const router = Router();
 
 // Sign Up
@@ -15,9 +15,12 @@ router.post("/signin", isNotLoggedIn, passportSignin);
 router.get("/logout", isLoggedIn, logout);
 
 // Dashboard
-router.get("/dashboard", isLoggedIn, sendDashboard);
+router.get("/dashboard", sendDashboard);
 
 // Get Users
-router.get("/users", isLoggedIn, getUsers);
+router.get("/api/users", getUsers);
+
+// Create User
+router.post("/api/user", createUser);
 
 export default router;

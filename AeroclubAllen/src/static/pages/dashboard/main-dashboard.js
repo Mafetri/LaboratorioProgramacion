@@ -431,8 +431,8 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 });
 
 
-// Users
-import users from "/users" assert {type: 'json'};
+// ================  Users  ================
+import users from "/api/users" assert {type: 'json'};
 
 for(let i = 0; i<users.length; i++){
     let newListItem = document.createElement("tr");
@@ -449,3 +449,31 @@ for(let i = 0; i<users.length; i++){
     newListItem.appendChild(name);
     newListItem.appendChild(role);
 }
+
+document.querySelector("#create-user-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+    let newData = {
+        dni: document.querySelector("#create-user-form-dni").value,
+        role: document.querySelector("#create-user-form-role").value, 
+    };
+
+    // Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/user");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+        // If the server sends a success
+		if (xhr.responseText == "Post Success") {
+			dni.value = "";
+			role.value = "";
+		}
+	};
+
+    xhr.send(JSON.stringify(newData));
+
+    // Unce the news has been modified, it reloads the page on the #news ref
+    window.location.replace("#users");
+    window.location.reload();
+});
+
