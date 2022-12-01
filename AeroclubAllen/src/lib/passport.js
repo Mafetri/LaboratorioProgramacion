@@ -6,8 +6,8 @@ import helpers from "./helpers.js";
 passport.use('local.signup',
 	new LocalStrategy.Strategy(
 		{
-			usernameField: 'dni',
-			passwordField: 'password',
+			usernameField: "dni",
+			passwordField: "password",
 			passReqToCallback: true,
 		},
 		async (req, dni, password, done) => {

@@ -17,12 +17,12 @@
 <body>
     <div class = "data-input">
         <h2>Registro</h2>
-        <form action = "/api/signup" method="POST">
-            <input type="text" name="name" placeholder="Nombre" class="form-control" autofocus>
-            <input type="text" name="surname" placeholder="Apellido" class="form-control" autofocus>
-            <input type="text" name="dni" placeholder="DNI" class="form-control">
+        <form action = "/signup" method="POST">
+            <input type="text" name="name" placeholder="Nombre" class="form-control" >
+            <input type="text" name="surname" placeholder="Apellido" class="form-control" >
+            <input type="text" name="dni" placeholder="DNI" class="form-control" required>
             <input type="text" name="email" placeholder="Email" class="form-control">
-            <input type="password" name="password" placeholder="Contraseña" class="form-control">
+            <input type="password" name="password" placeholder="Contraseña" class="form-control" required>
             <button class="">Registro</button>
         </form>
     </div>
