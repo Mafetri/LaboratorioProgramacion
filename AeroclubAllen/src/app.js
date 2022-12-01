@@ -5,8 +5,8 @@ import weatherRoutes from "./routes/weather.routes.js";
 import coursesRoutes from "./routes/courses.routes.js";
 import trajectoryRoutes from "./routes/trajectory.routes.js";
 import submitForm from "./routes/form.routes.js";
-import flash from "connect-flash";
 import dashboard from "./routes/dashboard.routes.js";
+import flash from "connect-flash";
 import passport from "./lib/passport.js";
 import session from "express-session";
 //import validator from "express-validator";
@@ -25,7 +25,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 //app.use(validator());
 
-
 // APIs
 app.use("/api", newsRoutes);
 app.use("/api", fleetRoutes);
@@ -34,8 +33,6 @@ app.use("/api", coursesRoutes);
 app.use("/api", trajectoryRoutes);
 app.use("/api", submitForm);
 app.use("/api", dashboard);
-
-
 
 // Static webpage
 app.use(express.static('src/static'));

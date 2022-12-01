@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "../lib/passport.js";
-
+import { isLoggedIn } from "../lib/auth.js";
 const router = Router();
 
 // Sign Up
@@ -31,5 +31,9 @@ router.get('/logout', (req, res) => {
         res.redirect('/index.html');
     });
 });
+
+router.get('/dashboard', isLoggedIn, (req, res) => {
+    res.redirect("../pages/dashboard/dashboard.html")
+}); 
 
 export default router;
