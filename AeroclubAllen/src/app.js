@@ -32,7 +32,7 @@ app.use("/api", weatherRoutes);
 app.use("/api", coursesRoutes);
 app.use("/api", trajectoryRoutes);
 app.use("/api", submitForm);
-app.use("/api", dashboard);
+app.use(dashboard);
 
 // Static webpage
 app.use(express.static('src/static'));

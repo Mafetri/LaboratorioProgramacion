@@ -1,5 +1,7 @@
 import { Router } from "express";
 import passport from "../lib/passport.js";
+import path from "path";
+import {fileURLToPath} from "url"
 import { isLoggedIn } from "../lib/auth.js";
 const router = Router();
 
@@ -7,8 +9,8 @@ const router = Router();
 router.post(
 	"/signup",
 	passport.authenticate("local.signup", {
-		successRedirect: "../pages/dashboard/sign-in.html",
-		failureRedirect: "../pages/dashboard/register.html",
+		successRedirect: "/signin",
+		failureRedirect: "/signup",
 		failureFlash: true,
 	}),
 );
@@ -16,8 +18,8 @@ router.post(
 // Sing In
 router.post("/signin", (req, res, next) => {
 	passport.authenticate("local.signin", {
-		successRedirect: "../pages/dashboard/dashboard.html",
-		failureRedirect: "../pages/dashboard/sign-in.html",
+		successRedirect: "/dashboard",
+		failureRedirect: "/signin",
 		failureFlash: true,
 	})(req, res, next);
 });
@@ -33,7 +35,15 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/dashboard', isLoggedIn, (req, res) => {
-    res.redirect("../pages/dashboard/dashboard.html")
+    res.sendFile(path.join(fileURLToPath(import.meta.url),'../../views/dashboard/dashboard.html'))
+}); 
+
+router.get('/signin', (req, res) => {
+    res.sendFile(path.join(fileURLToPath(import.meta.url),'../../views/dashboard/sign-in.html'));
+}); 
+
+router.get('/signup', (req, res) => {
+    res.sendFile(path.join(fileURLToPath(import.meta.url),'../../views/dashboard/sign-up.html'));
 }); 
 
 export default router;
