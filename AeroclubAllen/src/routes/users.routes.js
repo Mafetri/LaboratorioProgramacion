@@ -15,12 +15,12 @@ router.post("/signin", isNotLoggedIn, passportSignin);
 router.get("/logout", isLoggedIn, logout);
 
 // Dashboard
-router.get("/dashboard", sendDashboard);
+router.get("/dashboard", isLoggedIn, sendDashboard);
 
 // Get Users
-router.get("/api/users", getUsers);
+router.get("/api/users", isLoggedIn, getUsers);
 
 // Create User
-router.post("/api/user", createUser);
+router.post("/api/user", isLoggedIn, createUser);
 
 export default router;

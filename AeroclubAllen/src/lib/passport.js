@@ -14,13 +14,20 @@ passport.use('local.signup',
 			const { name, surname, email } = req.body;
 
             try{
-                // Saves on password the encrypted password
-                password = await helpers.encryptPassword(password);
-                            
-                // Saves on DB
-                const result = await pool.query("INSERT INTO users VALUES (?,?,?,?,?,?) ", [dni, name, surname, email, 'NULL', password]);
+				const [ existingUser ] = await pool.query("SELECT * FROM users WHERE dni = ?", dni)
 
-                return done(null, {dni, name, surname, email, password});
+				// If the user exists on the DB and has the default password "newuser", it puts the values of the form
+				if(existingUser.length > 0 && existingUser[0].password == "newuser"){
+					// Saves on password the encrypted password
+					password = await helpers.encryptPassword(password);
+
+					// Saves on DB
+					await pool.query("UPDATE users SET name = ?, surname = ?, email = ?, password = ? WHERE dni = ?", [ name, surname, email, password, dni]);
+					
+					return done(null, {dni, name, surname, email, password});
+				} else {
+					done(null, false, req.flash("message", "Usuario no existente"));
+				}
             } catch(e){
                 console.log(e);
             }
@@ -39,11 +46,11 @@ passport.use(
 			passReqToCallback: true,
 		},
 		async (req, dni, password, done) => {
-			const rows = await pool.query("SELECT * FROM users WHERE dni = ?", [
+			const [rows] = await pool.query("SELECT * FROM users WHERE dni = ?", [
 				dni,
 			]);
-			if (rows.length > 0) {
-				const user = rows[0][0];
+			if (rows.length > 0 && rows[0].password != "newuser") {
+				const user = rows[0];
 				const validPassword = await helpers.matchPassword(
 					password,
 					user.password,
@@ -51,7 +58,6 @@ passport.use(
 				if (validPassword) {
 					done(null, user, req.flash("success", "Welcome " + user.dni));
 				} else {
-					console.log("no entró");
 					done(null, false, req.flash("message", "Incorrect Password"));
 				}
 			} else {
@@ -70,8 +76,8 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (dni, done) => {
-	const rows = await pool.query("SELECT * FROM users WHERE dni = ?", [dni]);
-	done(null, rows[0][0]);
+	const [rows] = await pool.query("SELECT * FROM users WHERE dni = ?", [dni]);
+	done(null, rows[0]);
 });
 
 export default passport;
