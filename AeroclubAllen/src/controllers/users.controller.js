@@ -1,5 +1,11 @@
+// Data Base
+import { pool } from "../db.js";
+
+// Passport
 import passport from "../lib/passport.js";
 import path from "path";
+
+// Absolute path
 import { fileURLToPath } from "url";
 
 // SignUp
@@ -49,4 +55,19 @@ export const sendDashboard = (req, res) => {
 			"../../views/dashboard/dashboard.html",
 		),
 	);
+}
+
+// Get Users
+export const getUsers = async (req, res) => {
+    try {
+		const [ rows ] = await pool.query(
+			"SELECT dni, name, surname, role FROM users"
+		);
+		res.json(rows);
+	} catch (e) {
+		return res.status(500).json({
+			message: "Something went wrong",
+			error: e,
+		});
+	}
 }

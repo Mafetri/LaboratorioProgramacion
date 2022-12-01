@@ -11,7 +11,6 @@ for(let i = 0; i < trajectory.length; i++){
 
     // Icon
     let icon = document.createElement("img");
-    console.log(trajectory[i].icon);
     icon.src = "../."+trajectory[i].icon;
     icon.alt = "Icono de Informacion";
 
@@ -431,3 +430,22 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
     window.location.reload();
 });
 
+
+// Users
+import users from "/users" assert {type: 'json'};
+
+for(let i = 0; i<users.length; i++){
+    let newListItem = document.createElement("tr");
+
+    let dni = document.createElement("td");
+    dni.textContent = users[i].dni;
+    let name = document.createElement("td");
+    name.textContent = users[i].surname + ", " + users[i].name;
+    let role = document.createElement("td");
+    role.textContent = users[i].role;
+
+    document.querySelector("#users-table").appendChild(newListItem);
+    newListItem.appendChild(dni);
+    newListItem.appendChild(name);
+    newListItem.appendChild(role);
+}

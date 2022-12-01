@@ -269,4 +269,29 @@ form legend {
 	height: 5px;
 }
 
+.users {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: white;
+	padding: 1em;
+}
+.users .section-title{
+	margin: 0.5em auto;
+}
+.users-grid {
+	width: 60%;
+	margin: auto;
+	font-size: 1.5em;
+	border: 1px solid black;
+	border-radius: var(--radius);
+	background-color: var(--secundarioOscuro);
+}
+.users-grid td, th{
+	padding: 0.2em 1em;
+	color: white
+}
+.users-grid tr {
+	border: 2px solid black;
+}
 
