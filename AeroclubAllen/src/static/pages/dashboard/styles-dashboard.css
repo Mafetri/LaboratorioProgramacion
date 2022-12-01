@@ -20,7 +20,7 @@ header {
 
 /*  =============  Section Title  =============  */
 .section-title {
-	margin: 0.4em;
+	margin: 1em auto;
 	width: 80%;
 }
 .title {
@@ -306,3 +306,43 @@ form legend {
 	height: 14em;
 }
 
+.sign-form {
+	width: 20%;
+	display: flex;
+	justify-content: center;
+	margin: auto;
+}
+.sign-form fieldset{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1em;
+	gap: 1em;
+	width: 100%;
+}
+.sign-form input{
+	border-radius: var(--radius);
+	padding: 1em;
+	font-family: var(--fuentePrincipal);
+	box-shadow: 0 1px 2px #000;
+	border: none;
+}
+.sign-form label{
+	font-size: 1.3em;
+}
+.sign-form .field{
+	display: flex;
+	flex-direction: column;
+	color: white;
+}
+.sign-form .submit-button .boton-sec-oscuro{
+	font-size: 1em;
+}
+.submit-button{
+	margin-top: 1em;
+}
+#sign-logo{
+	border-radius: 100%;
+	height: 100%;
+	width: 10em;
+}

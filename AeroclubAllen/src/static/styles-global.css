@@ -213,6 +213,20 @@ header.sticky {
   top: 10% !important;
 }
 
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+.darkened-clouds {
+  background-color: rgba(0, 0, 0, .3);
+  background-image: url("../../assets/nubes.jpg");
+  background-size: auto;
+  background-attachment:fixed;
+  background-position: center;
+  background-blend-mode: soft-light;
+}
+
 /* ==================== Boton Gradiante ==================== */
 .boton-gradiante {
   background-image: linear-gradient(
