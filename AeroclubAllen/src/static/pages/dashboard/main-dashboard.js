@@ -476,4 +476,3 @@ document.querySelector("#create-user-form").addEventListener("submit", (e) => {
     window.location.replace("#users");
     window.location.reload();
 });
-
