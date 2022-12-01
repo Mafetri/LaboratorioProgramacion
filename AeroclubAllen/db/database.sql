@@ -80,3 +80,13 @@ CREATE TABLE forms (
     email VARCHAR(255),
     message VARCHAR(255)
 )
+
+
+CREATE TABLE users (
+    dni INT(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    surname VARCHAR(255),
+    email VARCHAR(255),
+    role VARCHAR(255)
+)
