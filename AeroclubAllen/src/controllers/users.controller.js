@@ -41,3 +41,22 @@ export const createUser = async (req, res) => {
 		}
 	}
 };
+
+// Delete User
+export const deleteUser = async (req, res) => {
+	const { dni } = req.params;
+
+	try {
+		const [ dbRes ] = await pool.query("DELETE FROM users WHERE dni=?", [ dni ]);
+
+		if (dbRes.affectedRows === 0) {
+			return res.status(404).json({
+				message: "User not found",
+			});
+		} else {
+			res.send("User Deleted");
+		}
+	} catch (e) {
+		somethingWentWrong500(e, res);
+	}
+}
