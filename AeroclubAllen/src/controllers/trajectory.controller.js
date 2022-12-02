@@ -1,5 +1,6 @@
 // Data Base
 import { pool } from "../db.js";
+import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Get Trajectory
 export const getTrajectory = async (req, res) => {
@@ -9,10 +10,7 @@ export const getTrajectory = async (req, res) => {
 		);
 		res.json(rows);
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 }
 
@@ -37,10 +35,7 @@ export const createTrajectory = async (req, res) => {
 					message: "Error, type",
 				});
 			} else {
-				return res.status(500).json({
-					message: "Something went wrong",
-					error: e,
-				});
+				somethingWentWrong500(e, res);
 			}
 		}
 	}
@@ -65,10 +60,7 @@ export const updateTrajectory = async (req, res) => {
             res.json((await pool.query("SELECT * FROM trajectory WHERE tpye = ?", [type]))[0]);
         }
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -87,9 +79,6 @@ export const deleteTrajectory = async (req, res) => {
 			res.send("Trajectory Deleted");
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Error",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };

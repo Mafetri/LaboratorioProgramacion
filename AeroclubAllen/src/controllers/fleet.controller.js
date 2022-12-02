@@ -1,5 +1,6 @@
 // Data Base
 import { pool } from "../db.js";
+import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Get Fleet, returns the fleet from x position and an 'n' ammount of airplanes
 export const getFleet = async (req, res) => {
@@ -17,10 +18,7 @@ export const getFleet = async (req, res) => {
 		}
 		
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -39,10 +37,7 @@ export const getAirplane = async (req, res) => {
 			res.json(airplane[0]);
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -68,10 +63,7 @@ export const createAirplane = async (req, res) => {
 						message: "Error, duplicated plate",
 					});
 				} else {
-					return res.status(500).json({
-						message: "Something went wrong",
-						error: e,
-					});
+					somethingWentWrong500(e, res);
 				}
 			}
 		} else {
@@ -103,10 +95,7 @@ export const updateAirplane = async (req, res) => {
 				);
 			}
 		} catch (e) {
-			return res.status(500).json({
-				message: "Error",
-				error: e,
-			});
+			somethingWentWrong500(e, res);
 		}
 	} else {
 		res.status(400).send("Some variables are not integer as expected");
@@ -129,9 +118,6 @@ export const deleteAirplane = async (req, res) => {
 			res.send("Airplane Deleted");
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Error",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };

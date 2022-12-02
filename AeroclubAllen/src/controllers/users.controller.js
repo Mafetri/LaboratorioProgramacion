@@ -8,6 +8,8 @@ import path from "path";
 // Absolute path
 import { fileURLToPath } from "url";
 
+import { somethingWentWrong500 } from "../error/error.handler.js";
+
 // SignUp
 export const sendSignup = (req, res) => {
     res.sendFile(path.join(fileURLToPath(import.meta.url),'../../views/dashboard/sign-up.html'));
@@ -65,10 +67,7 @@ export const getUsers = async (req, res) => {
 		);
 		res.json(rows);
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 }
 
@@ -93,10 +92,7 @@ export const createUser = async (req, res) => {
                     message: "Error, duplicated DNI",
                 });
             } else {
-                return res.status(500).json({
-                    message: "Something went wrong",
-                    error: e,
-                });
+                somethingWentWrong500(e, res);
             }
 		}
 	}

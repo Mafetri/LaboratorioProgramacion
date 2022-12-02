@@ -1,5 +1,6 @@
 // Data Base
 import { pool } from "../db.js";
+import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Get news
 export const getNews = async (req, res) => {
@@ -39,10 +40,7 @@ export const createNews = async (req, res) => {
 			);
 			res.send("Post Success");
 		} catch (e) {
-			return res.status(500).json({
-				message: "Something went wrong",
-				error: e,
-			});
+			somethingWentWrong500(e, res);
 		}
 	}
 };
@@ -66,10 +64,7 @@ export const updateNews = async (req, res) => {
 			res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -88,9 +83,6 @@ export const deleteNews = async (req, res) => {
 			res.send("News Deleted");
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
