@@ -125,7 +125,6 @@ h3.id {
 	width: 100%;
 	background-color: white;
 	color: var(--secundarioOscuro);
-	margin: 0.1em;
 }
 
 /*  =============  Forms  =============  */
@@ -302,10 +301,12 @@ form legend {
 	border-radius: var(--radius);
 	font-family: var(--funtePrincipal);
 }
-#create-user-form{
+#create-user-form, #modify-user-form{
 	height: 14em;
 }
 
+
+/*  =============  Sign  =============  */
 .sign-form {
 	width: 20%;
 	display: flex;
@@ -347,8 +348,30 @@ form legend {
 	width: 10em;
 }
 
+/*  =============  LogOut Button  =============  */
 #logout-button{
 	width: 100%;
 	font-size: 1em;
 	padding: 0.3em;
+}
+
+/*  =============  Users  =============  */
+#modify-user-form{
+	height: 17em;
+}
+.fields-container{
+	grid-template-rows: auto;
+}
+.user-buttons{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.user-buttons .delete-button{
+	border-radius: var(--radius) 0 0 var(--radius);
+	font-size: 1em;
+}
+.user-buttons .modify-button{
+	border-radius: 0 var(--radius) var(--radius) 0;
+	font-size: 1em;
 }

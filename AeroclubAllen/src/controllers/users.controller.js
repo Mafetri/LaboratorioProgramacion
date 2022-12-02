@@ -42,6 +42,29 @@ export const createUser = async (req, res) => {
 	}
 };
 
+// Update User
+export const updateUser = async (req, res) => {
+	const { dni } = req.params;
+	const { name, surname, role } = req.body;
+
+	try {
+		const [dbRes] = await pool.query(
+			"UPDATE users SET name = IFNULL(?, name), surname = IFNULL(?, surname), role = IFNULL(?, role) WHERE dni = ?",
+			[name, surname, role, dni],
+		);
+
+		if (dbRes.affectedRows === 0) {
+			return res.status(404).json({
+				message: "User not found",
+			});
+		} else {
+			res.json((await pool.query("SELECT * FROM users WHERE dni = ?", [dni]))[0]);
+		}
+	} catch (e) {
+		somethingWentWrong500(e, res);
+	}
+};
+
 // Delete User
 export const deleteUser = async (req, res) => {
 	const { dni } = req.params;

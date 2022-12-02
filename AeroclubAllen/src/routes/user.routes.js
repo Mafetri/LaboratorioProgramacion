@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isLoggedIn } from "../lib/auth.js";
-import { getUsers, createUser, deleteUser } from "../controllers/users.controller.js";
+import { getUsers, createUser, deleteUser, updateUser } from "../controllers/users.controller.js";
 
 const router = Router();
 
@@ -10,7 +10,10 @@ router.get("/users", isLoggedIn, getUsers);
 // Create User
 router.post("/user", isLoggedIn, createUser);
 
+// Patch user
+router.patch("/user/:dni", isLoggedIn, updateUser);
+
 // Delete user
-router.delete("/users/:dni", isLoggedIn, deleteUser);
+router.delete("/user/:dni", isLoggedIn, deleteUser);
 
 export default router;

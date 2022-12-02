@@ -57,7 +57,7 @@
         <h2 class="section-title" id="calidad">Trayectoria</h2>
 		<div class="trajectory-grid"></div>
 
-        <!--  Modify News  -->
+        <!--  Modify Trajectory  -->
         <div class = "container-pop-up" id = "modify-trajectory-form-popup">
             <div class = "pop-up">
                 <a href = "#trajectory-section" class = "close-button"> Cerrar </a>
@@ -82,11 +82,9 @@
                                 <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
                                     id="submit" />
                             </div>
-        
                     </fieldset>
                 </form>
             </div>
-            
         </div>
     </section>
 
@@ -339,7 +337,7 @@
                         <div class="fields-container">
                             <!-- DNI -->
                             <div class="field">
-                                <label for="date">DNI</label>
+                                <label for="dni">DNI</label>
                                 <input class="input-text" type="number" name="dni" id="create-user-form-dni" placeholder="DNI" required/>
                             </div>
 
@@ -364,6 +362,48 @@
                 </form>
             </div>
         </div>
+
+        <!--  Modify User  -->
+        <div class = "container-pop-up" id = "modify-user-form-popup">
+            <div class = "pop-up">
+                <a href = "#users" class = "close-button"> Cerrar </a>
+                <form id = "modify-user-form">
+                    <fieldset>
+                        <legend id = "modify-user-form-dni"></legend>
+                        <div class="fields-container">
+                            <!-- Nombre -->
+                            <div class="field">
+                                <label for="name">Nombre</label>
+                                <input class="input-text" type="text" name="dni" id="modify-user-form-name" placeholder="Nombre" required/>
+                            </div>
+
+                            <!-- Apellido -->
+                            <div class="field">
+                                <label for="surname">Apellido</label>
+                                <input class="input-text" type="text" name="dni" id="modify-user-form-surname" placeholder="Apellido" required/>
+                            </div>
+
+                            <!-- Role -->
+                            <div class="field">
+                                <label for="role">Rol</label>
+                                <select name = "role" id="modify-user-form-role" required>
+                                    <option value = "admin">Administrador</option>
+                                    <option value = "editor">Editor</option>
+                                    <option value = "pilot">Piloto</option>
+                                    <option value = "student">Alumno</option>
+                                </select>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <!--  Table of Users  -->
         <table class = "users-grid">
             <thead>
                 <th>DNI</th>

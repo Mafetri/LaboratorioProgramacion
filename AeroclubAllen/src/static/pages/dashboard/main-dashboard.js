@@ -436,6 +436,7 @@ for (let i = 0; i < users.length; i++) {
 	role.textContent = users[i].role;
 
     let buttons = document.createElement("td");
+    buttons.classList.add("user-buttons");
 
 	// Delete button
 	let deleteUser = document.createElement("button");
@@ -443,11 +444,24 @@ for (let i = 0; i < users.length; i++) {
 	deleteUser.classList.add("delete-button");
 	deleteUser.addEventListener("click", async () => {
 		if (window.confirm("Seguro que quiere borrar a " + users[i].name + " " + users[i].surname + "?")) {
-			const res = await fetch("/api/users/" + users[i].dni, {
+			const res = await fetch("/api/user/" + users[i].dni, {
 				method: "DELETE",
 			});
 			window.location.reload();
 		}
+	});
+
+    // Modify Button
+	let modifyUser = document.createElement("a");
+	modifyUser.href = "#modify-user-form-popup";
+	modifyUser.textContent = "Modificar";
+	modifyUser.classList.add("modify-button");
+	modifyUser.addEventListener("click", async () => {
+		// It fills the form with the editable current value of the user
+        document.querySelector("#modify-user-form-dni").innerHTML = "Modificando Usuario: " + users[i].dni;
+		document.querySelector("#modify-user-form-name").value = users[i].name;
+        document.querySelector("#modify-user-form-surname").value = users[i].surname;
+		document.querySelector("#modify-user-form-role").seleccted = users[i].role;
 	});
 
 	document.querySelector("#users-table").appendChild(newListItem);
@@ -456,6 +470,7 @@ for (let i = 0; i < users.length; i++) {
 	newListItem.appendChild(role);
     newListItem.appendChild(buttons);
     buttons.appendChild(deleteUser);
+    buttons.appendChild(modifyUser);
 }
 
 document.querySelector("#create-user-form").addEventListener("submit", (e) => {
@@ -481,6 +496,34 @@ document.querySelector("#create-user-form").addEventListener("submit", (e) => {
 	xhr.send(JSON.stringify(newData));
 
 	// Unce the news has been modified, it reloads the page on the #news ref
+	window.location.replace("#users");
+	window.location.reload();
+});
+
+document.querySelector("#modify-user-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+	let newData = {
+        name: document.querySelector("#modify-user-form-name").value,
+		surname: document.querySelector("#modify-user-form-surname").value,
+		role: document.querySelector("#modify-user-form-role").value,
+	};
+
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("PATCH", "/api/user/" + document.querySelector("#modify-user-form-dni").innerHTML.split(" ")[2]);
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "Post Success") {
+			name.value = "";
+            surname.value = "";
+			role.value = "";
+		}
+	};
+
+	xhr.send(JSON.stringify(newData));
+
 	window.location.replace("#users");
 	window.location.reload();
 });
