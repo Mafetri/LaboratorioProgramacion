@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { isLoggedIn, isNotLoggedIn } from "../lib/auth.js";
-import { sendSignup, passportSignup , sendSingin, passportSignin, logout, sendDashboard, getUsers, createUser } from "../controllers/users.controller.js";
+import { sendSignup, passportSignup , sendSingin, passportSignin, logout, sendDashboard } from "../controllers/auth.controller.js";
+
 const router = Router();
 
 // Sign Up
@@ -16,11 +17,5 @@ router.get("/logout", isLoggedIn, logout);
 
 // Dashboard
 router.get("/dashboard", isLoggedIn, sendDashboard);
-
-// Get Users
-router.get("/api/users", isLoggedIn, getUsers);
-
-// Create User
-router.post("/api/user", isLoggedIn, createUser);
 
 export default router;
