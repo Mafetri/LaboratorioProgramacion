@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isLoggedIn, isNotLoggedIn } from "../lib/auth.js";
-import { passportSignup , sendSing, passportSignin, logout, sendDashboard } from "../controllers/auth.controller.js";
+import { passportSignup , sendSing, passportSignin, logout, sendDashboard, getUserRole } from "../controllers/auth.controller.js";
 
 const router = Router();
 
@@ -18,5 +18,7 @@ router.get("/logout", isLoggedIn, logout);
 
 // Dashboard
 router.get("/dashboard", isLoggedIn, sendDashboard);
+
+router.get("/userRole", isLoggedIn, getUserRole);
 
 export default router;

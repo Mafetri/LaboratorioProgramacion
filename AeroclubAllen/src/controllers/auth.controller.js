@@ -1,14 +1,9 @@
-// Data Base
-import { pool } from "../db.js";
-
 // Passport
 import passport from "../lib/passport.js";
 import path from "path";
 
 // Absolute path
 import { fileURLToPath } from "url";
-
-import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Sign Page
 export const sendSing = (req, res) => {
@@ -50,10 +45,18 @@ export const logout = (req, res) => {
 
 // Dashboard
 export const sendDashboard = (req, res) => {
-	res.sendFile(
-		path.join(
-			fileURLToPath(import.meta.url),
-			"../../views/dashboard.html",
-		),
-	);
+	if(req.user.role == "admin" || req.user.role == "editor"){
+		res.sendFile(
+			path.join(
+				fileURLToPath(import.meta.url),
+				"../../views/dashboard.html",
+			),
+		);
+	} else {
+		res.redirect("/logout");
+	}
+}
+
+export const getUserRole = (req, res) => {
+	res.json({role: req.user.role});
 }

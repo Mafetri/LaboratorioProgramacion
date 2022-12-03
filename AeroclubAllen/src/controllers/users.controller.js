@@ -5,20 +5,27 @@ import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
-    try {
-		const [ rows ] = await pool.query(
-			"SELECT dni, name, surname, role FROM users"
-		);
-		res.json(rows);
-	} catch (e) {
-		somethingWentWrong500(e, res);
+	if(req.user.role == "admin"){
+		try {
+			const [ rows ] = await pool.query(
+				"SELECT dni, name, surname, role FROM users"
+			);
+			res.json(rows);
+		} catch (e) {
+			somethingWentWrong500(e, res);
+		}
+	} else {
+		res.status(400).json({
+			message: "User is not an admin"
+		})
 	}
+	
 }
 
 // Create User
 export const createUser = async (req, res) => {
 	const { dni, role } = req.body;
-
+	if(req.user.role == "admin"){
     if (dni == "" || role == "") {
 		res.status(400).json({
 			message: "Some data is wrong",
@@ -39,6 +46,10 @@ export const createUser = async (req, res) => {
                 somethingWentWrong500(e, res);
             }
 		}
+	}} else {
+		res.status(400).json({
+			message: "User is not an admin"
+		})
 	}
 };
 
@@ -46,6 +57,7 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
 	const { dni } = req.params;
 	const { name, surname, role } = req.body;
+	if(req.user.role == "admin"){
 
 	try {
 		const [dbRes] = await pool.query(
@@ -62,6 +74,10 @@ export const updateUser = async (req, res) => {
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);
+	}} else {
+		res.status(400).json({
+			message: "User is not an admin"
+		})
 	}
 };
 
@@ -69,17 +85,23 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
 	const { dni } = req.params;
 
-	try {
-		const [ dbRes ] = await pool.query("DELETE FROM users WHERE dni=?", [ dni ]);
-
-		if (dbRes.affectedRows === 0) {
-			return res.status(404).json({
-				message: "User not found",
-			});
-		} else {
-			res.send("User Deleted");
+	if(req.user.role == "admin" && req.user.dni != dni){
+		try {
+			const [ dbRes ] = await pool.query("DELETE FROM users WHERE dni=?", [ dni ]);
+	
+			if (dbRes.affectedRows === 0) {
+				return res.status(404).json({
+					message: "User not found",
+				});
+			} else {
+				res.send("User Deleted");
+			}
+		} catch (e) {
+			somethingWentWrong500(e, res);
 		}
-	} catch (e) {
-		somethingWentWrong500(e, res);
+	} else {
+		res.status(400).json({
+			message: "User is not an admin"
+		})
 	}
 }
