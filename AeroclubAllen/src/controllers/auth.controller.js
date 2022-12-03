@@ -10,31 +10,30 @@ import { fileURLToPath } from "url";
 
 import { somethingWentWrong500 } from "../error/error.handler.js";
 
-// SignUp
-export const sendSignup = (req, res) => {
-    res.sendFile(path.join(fileURLToPath(import.meta.url),'../../views/dashboard/sign-up.html'));
+// Sign Page
+export const sendSing = (req, res) => {
+	res.sendFile(
+		path.join(
+			fileURLToPath(import.meta.url),
+			"../../views/sign.html",
+		),
+	);
 }
+
+// SignUp
 export const passportSignup = (req, res, next) => {
     passport.authenticate("local.signup", {
-		successRedirect: "/signin",
-		failureRedirect: "/signup",
+		successRedirect: "/dashboard",
+		failureRedirect: "/sign",
 		failureFlash: true,
 	})(req, res, next)
 }
 
 // SignIn
-export const sendSingin = (req, res) => {
-	res.sendFile(
-		path.join(
-			fileURLToPath(import.meta.url),
-			"../../views/dashboard/sign-in.html",
-		),
-	);
-}
 export const passportSignin = (req, res, next) => {
 	passport.authenticate("local.signin", {
 		successRedirect: "/dashboard",
-		failureRedirect: "/signin",
+		failureRedirect: "/sign",
 		failureFlash: true,
 	})(req, res, next);
 }
@@ -54,7 +53,7 @@ export const sendDashboard = (req, res) => {
 	res.sendFile(
 		path.join(
 			fileURLToPath(import.meta.url),
-			"../../views/dashboard/dashboard.html",
+			"../../views/dashboard.html",
 		),
 	);
 }
