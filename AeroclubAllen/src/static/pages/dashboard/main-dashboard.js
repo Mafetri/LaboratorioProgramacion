@@ -422,11 +422,9 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 });
 
 // ================  Users  ================
-let userRole = (await (await fetch("/userRole")).json()).role;
+let users = await (await fetch("/api/users")).json();
 
-if( userRole == "admin"){
-	const users = await (await fetch("/api/users")).json();
-
+if(users.length > 0){
 	for (let i = 0; i < users.length; i++) {
 		let newListItem = document.createElement("tr");
 	

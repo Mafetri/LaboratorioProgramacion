@@ -7,22 +7,17 @@ import { fileURLToPath } from "url";
 
 // Sign Page
 export const sendSing = (req, res) => {
-	res.sendFile(
-		path.join(
-			fileURLToPath(import.meta.url),
-			"../../views/sign.html",
-		),
-	);
-}
+	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../views/sign.html"));
+};
 
 // SignUp
 export const passportSignup = (req, res, next) => {
-    passport.authenticate("local.signup", {
+	passport.authenticate("local.signup", {
 		successRedirect: "/dashboard",
 		failureRedirect: "/sign",
 		failureFlash: true,
-	})(req, res, next)
-}
+	})(req, res, next);
+};
 
 // SignIn
 export const passportSignin = (req, res, next) => {
@@ -31,7 +26,7 @@ export const passportSignin = (req, res, next) => {
 		failureRedirect: "/sign",
 		failureFlash: true,
 	})(req, res, next);
-}
+};
 
 // Logout
 export const logout = (req, res) => {
@@ -41,22 +36,14 @@ export const logout = (req, res) => {
 		}
 		res.redirect("/index.html");
 	});
-}
+};
 
 // Dashboard
 export const sendDashboard = (req, res) => {
-	if(req.user.role == "admin" || req.user.role == "editor"){
-		res.sendFile(
-			path.join(
-				fileURLToPath(import.meta.url),
-				"../../views/dashboard.html",
-			),
-		);
-	} else {
-		res.redirect("/logout");
-	}
-}
+	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../views/dashboard.html"));
+};
 
+// User Role
 export const getUserRole = (req, res) => {
-	res.json({role: req.user.role});
-}
+	res.json({ role: req.user.role });
+};
