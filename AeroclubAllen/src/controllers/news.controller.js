@@ -5,6 +5,10 @@ import { somethingWentWrong500 } from "../error/error.handler.js";
 // Where news imgs are saved
 import { NEWS_IMG_ROUTE } from "../config.js";
 
+// Auditlog
+import { createLog } from "../services/auditlog/auditlog.dao.js";
+
+
 // Get news
 export const getNews = async (req, res) => {
 	const { x0, n } = req.query;
@@ -20,10 +24,7 @@ export const getNews = async (req, res) => {
 			res.status(400).send("Some variables are not integer as expected");
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -40,9 +41,14 @@ export const createNews = async (req, res) => {
 
 		try {
 			await pool.query(
-				"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)",
+				"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?);",
 				[date, title, description, imgRoute],
 			);
+
+			// Gets the id of the recently added news, and creates a log of it
+			const [rows] = await pool.query("SELECT id FROM news ORDER BY id DESC LIMIT 1");
+			await createLog(req.user.dni, "creation", "news", rows[0].id);
+
 			res.send("Post Success");
 		} catch (e) {
 			somethingWentWrong500(e, res);
@@ -72,6 +78,7 @@ export const updateNews = async (req, res) => {
 				message: "New not found",
 			});
 		} else {
+			await createLog(req.user.dni, "modification", "news", id);
 			res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
 		}
 	} catch (e) {
@@ -91,6 +98,7 @@ export const deleteNews = async (req, res) => {
 				message: "New not found",
 			});
 		} else {
+			await createLog(req.user.dni, "deletion", "news", id);
 			res.send("News Deleted");
 		}
 	} catch (e) {

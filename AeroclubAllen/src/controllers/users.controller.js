@@ -24,6 +24,8 @@ export const createUser = async (req, res) => {
 	} else {
 		try {
 			await pool.query("INSERT INTO users (dni, role, password) VALUES (?,?,?)", [dni, role, "newuser"]);
+			await createLog(req.user.dni, "creation", "users", dni);
+
 			res.send("Post Success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
@@ -53,6 +55,8 @@ export const updateUser = async (req, res) => {
 				message: "User not found",
 			});
 		} else {
+			await createLog(req.user.dni, "modification", "users", dni);
+
 			res.json((await pool.query("SELECT * FROM users WHERE dni = ?", [dni]))[0]);
 		}
 	} catch (e) {
@@ -73,6 +77,7 @@ export const deleteUser = async (req, res) => {
 					message: "User not found",
 				});
 			} else {
+				await createLog(req.user.dni, "deletion", "users", dni);
 				res.send("User Deleted");
 			}
 		} catch (e) {

@@ -7,6 +7,7 @@ import trajectoryRoutes from "./routes/trajectory.routes.js";
 import submitForm from "./routes/form.routes.js";
 import auth from "./routes/auth.routes.js";
 import users from "./routes/user.routes.js";
+import auditlog from "./services/auditlog/auditlog.routes.js";
 import flash from "connect-flash";
 import passport from "./lib/passport.js";
 import session from "express-session";
@@ -35,6 +36,7 @@ app.use("/api", coursesRoutes);
 app.use("/api", trajectoryRoutes);
 app.use("/api", submitForm);
 app.use("/api", users);
+app.use("/api", auditlog);
 
 // Static webpage
 app.use(express.static('src/static'));

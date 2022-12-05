@@ -90,3 +90,13 @@ CREATE TABLE users (
     email VARCHAR(255),
     role VARCHAR(255)
 )
+
+
+CREATE TABLE auditlog (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    user_dni INT(255) NOT NULL,
+    description VARCHAR(255),
+    table_name VARCHAR(255),
+    primary_key_changed VARCHAR(255),
+)

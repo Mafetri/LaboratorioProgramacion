@@ -28,6 +28,7 @@ export const createTrajectory = async (req, res) => {
 				"INSERT INTO trajectory (type, data, icon) VALUES (?,?,?)",
 				[type, data, icon],
 			);
+			await createLog(req.user.dni, "creation", "trajectory", type);
 			res.send("Post Success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
@@ -57,6 +58,7 @@ export const updateTrajectory = async (req, res) => {
 				message: "Trajectory type not found",
 			});
         } else{
+			await createLog(req.user.dni, "modification", "trajectory", type);
             res.json((await pool.query("SELECT * FROM trajectory WHERE tpye = ?", [type]))[0]);
         }
 	} catch (e) {
@@ -76,6 +78,7 @@ export const deleteTrajectory = async (req, res) => {
 				message: "Trajectory type not found",
 			});
 		} else {
+			await createLog(req.user.dni, "deletion", "trajectory", type);
 			res.send("Trajectory Deleted");
 		}
 	} catch (e) {

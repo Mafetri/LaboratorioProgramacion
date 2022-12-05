@@ -5,6 +5,9 @@ import { somethingWentWrong500 } from "../error/error.handler.js";
 // Where fleet imgs are saved
 import { AIRPLANE_IMG_ROUTE } from "../config.js";
 
+// Auditlog
+import { createLog } from "../services/auditlog/auditlog.dao.js";
+
 // Get Fleet, returns the fleet from x position and an 'n' ammount of airplanes
 export const getFleet = async (req, res) => {
 	const { x0, n } = req.query;
@@ -64,6 +67,9 @@ export const createAirplane = async (req, res) => {
 					"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
 					[plate, name, engine, brand, model, speed, consumption, imgRoute],
 				);
+
+				await createLog(req.user.dni, "creation", "fleet", plate);
+
 				res.send("Post Success");
 			} catch (e) {
 				if ((e.code = "ER_DUP_ENTRY")) {
@@ -106,6 +112,8 @@ export const updateAirplane = async (req, res) => {
 					message: "Airplane not found",
 				});
 			} else {
+				await createLog(req.user.dni, "modification", "fleet", plate);
+				
 				res.json((await pool.query("SELECT * FROM fleet WHERE plate = ?", [plate]))[0]);
 			}
 		} catch (e) {
@@ -128,6 +136,7 @@ export const deleteAirplane = async (req, res) => {
 				message: "Airplane not found",
 			});
 		} else {
+			await createLog(req.user.dni, "deletion", "fleet", plate);
 			res.send("Airplane Deleted");
 		}
 	} catch (e) {
