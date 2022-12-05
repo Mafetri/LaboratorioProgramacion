@@ -2,6 +2,9 @@
 import { pool } from "../db.js";
 import { somethingWentWrong500 } from "../error/error.handler.js";
 
+// Where news imgs are saved
+import { NEWS_IMG_ROUTE } from "../config.js";
+
 // Get news
 export const getNews = async (req, res) => {
 	const { x0, n } = req.query;
@@ -33,7 +36,7 @@ export const createNews = async (req, res) => {
 			message: "Some data is null",
 		});
 	} else {
-		const imgRoute = "/assets/news/" + imgName;
+		const imgRoute = NEWS_IMG_ROUTE + "/" + imgName;
 
 		try {
 			await pool.query(
@@ -55,7 +58,7 @@ export const updateNews = async (req, res) => {
 	// If imgName is undefined (no img sent), then it gives a null imgRoute to sql
 	let imgRoute = null;
 	if(imgName != undefined){
-		imgRoute = "/assets/news/"+imgName;
+		imgRoute = NEWS_IMG_ROUTE+"/"+imgName;
 	}
 
 	try {
