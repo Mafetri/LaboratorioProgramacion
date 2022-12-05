@@ -33,7 +33,8 @@ export const createNews = async (req, res) => {
 			message: "Some data is null",
 		});
 	} else {
-		const imgRoute = "/assets/news/"+imgName;
+		const imgRoute = "/assets/news/" + imgName;
+
 		try {
 			await pool.query(
 				"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)",

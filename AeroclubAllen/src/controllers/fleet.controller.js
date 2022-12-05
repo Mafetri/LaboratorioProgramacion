@@ -43,18 +43,20 @@ export const getAirplane = async (req, res) => {
 
 // Create Airplane, creates an airplane on the db
 export const createAirplane = async (req, res) => {
-	const { plate, name, engine, brand, model, speed, consumption, img } = req.body;
+	const { plate, name, engine, brand, model, speed, consumption, imgName } = JSON.parse(req.body.data);
 
-	if (plate == null || name == null || engine == null || brand == null || model == null || speed == null || consumption == null || img == null) {
+	if (plate == null || name == null || engine == null || brand == null || model == null || speed == null || consumption == null || imgName == null) {
 		res.status(400).json({
 			message: "Some data is null",
 		});
 	} else {
 		if(Number.isInteger(parseInt(speed)) && Number.isInteger(parseInt(consumption))){
+			const imgRoute = "/assets/fleet/"+name+"/"+imgName;
+
 			try {
 				await pool.query(
 					"INSERT INTO fleet (plate, name, engine, brand, model, speed, consumption, img) VALUES (?,?,?,?,?,?,?,?)",
-					[plate, name, engine, brand, model, speed, consumption, img],
+					[plate, name, engine, brand, model, speed, consumption, imgRoute],
 				);
 				res.send("Post Success");
 			} catch (e) {
@@ -76,13 +78,19 @@ export const createAirplane = async (req, res) => {
 // Update Airplane, modifies the info of an existing airplane
 export const updateAirplane = async (req, res) => {
 	const { plate } = req.params;
-	const { name, engine, brand, model, speed, consumption, img } = req.body;
+	const { name, engine, brand, model, speed, consumption, imgName } = JSON.parse(req.body.data);
 
 	if((speed == null || Number.isInteger(parseInt(speed))) && (consumption == null || Number.isInteger(parseInt(consumption)))){
+		// If imgName is undefined (no img sent), then it gives a null imgRoute to sql
+		let imgRoute = null;
+		if(imgName != undefined){
+			imgRoute = "/assets/fleet/"+name+"/"+imgName;			
+		}
+
 		try {
 			const [dbRes] = await pool.query(
 				"UPDATE fleet SET name = IFNULL(?, name), engine = IFNULL(?, engine), brand = IFNULL(?, brand), model = IFNULL(?, model), speed = IFNULL(?, speed), consumption = IFNULL(?, consumption), img = IFNULL(?, img) WHERE plate = ?",
-				[name, engine, brand, model, speed, consumption, img, plate],
+				[name, engine, brand, model, speed, consumption, imgRoute, plate],
 			);
 	
 			if (dbRes.affectedRows === 0) {

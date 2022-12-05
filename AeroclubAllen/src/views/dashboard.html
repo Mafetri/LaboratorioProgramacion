@@ -193,6 +193,7 @@
     <section class="airplanes" id ="fleet">
         <h2 class="section-title">Flota</h2>
 
+        <!--  Create Airplane  -->
         <a href="#create-airplane-form-popup" class = "boton-sec-oscuro">Crear Avion</a>
         <div class = "container-pop-up" id = "create-airplane-form-popup">
             <div class = "pop-up top-10">
@@ -207,13 +208,14 @@
                                 <input class="input-text" type="text" name="plate" id="create-airplane-form-plate" placeholder="LV-____" required/>
                             </div>
 
-                            <!-- Route of IMG -->
+                            <!-- Img -->
                             <div class="field">
-                                <label for="img">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" id="create-airplane-form-img" placeholder="/assets/fleet/______/______" required/>
+                                <label for="img">Imagen</label>
+                                <label class="upload-file-label" for="create-airplane-form-imgFile">Subir Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="create-airplane-form-imgFile"/>
                             </div>
 
-                            <!-- Route of IMG -->
+                            <!-- Name -->
                             <div class="field">
                                 <label for="name">Nombre</label>
                                 <input class="input-text" type="text" name="name" id="create-airplane-form-name" placeholder="Nombre" required/>
@@ -263,6 +265,7 @@
             </div>
         </div>
 
+        <!--  Modify Airplane  -->
         <div class = "container-pop-up" id = "modify-airplane-form-popup">
             <div class = "pop-up top-10">
                 <a href = "#fleet" class = "close-button"> Cerrar </a>
@@ -272,11 +275,12 @@
                         <div class="fleet-fields-container">
                             <!-- Route of IMG -->
                             <div class="field">
-                                <label for="img">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" id="modify-airplane-form-img" placeholder="/assets/fleet/______/______"/>
+                                <label for="img">Imagen</label>
+                                <label class="upload-file-label" for="modify-airplane-form-imgFile">Subir Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="modify-airplane-form-imgFile"/>
                             </div>
 
-                            <!-- Route of IMG -->
+                            <!-- Name -->
                             <div class="field">
                                 <label for="name">Nombre</label>
                                 <input class="input-text" type="text" name="name" id="modify-airplane-form-name" placeholder="Nombre"/>
