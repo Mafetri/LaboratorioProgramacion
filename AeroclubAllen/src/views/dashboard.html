@@ -101,12 +101,14 @@
                     <fieldset>
                         <legend>Crear nueva noticia</legend>
                         <div class="fields-container">
-                            <!-- Ruta -->
+                            <!-- Img -->
                             <div class="field">
-                                <label for="name">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" placeholder="/assets/news/______" id="create-news-form-img" />
+                                <label for="name">Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="create-news-form-imgFile" />
+                                <label class="upload-file-label" for="create-news-form-imgFile">Subir Imagen</label>
                             </div>
         
+                            <!-- Date -->
                             <div class="field">
                                 <label for="date">Fecha</label>
                                 <input class="input-text" type="date" name="date" id="create-news-form-date" placeholder="Fecha" />
@@ -144,10 +146,11 @@
                     <fieldset>
                         <legend id = "modify-news-form-id"></legend>
                         <div class="fields-container">
-                            <!-- Route of IMG -->
+                            <!-- Img -->
                             <div class="field">
-                                <label for="name">Ruta imagen</label>
-                                <input class="input-text" type="text" name="img" id="modify-news-form-img" placeholder="/assets/news/______"/>
+                                <label for="name">Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="modify-news-form-imgFile"/>
+                                <label class="upload-file-label" for="modify-news-form-imgFile">Subir Imagen</label>
                             </div>
 
                             <!-- Date -->

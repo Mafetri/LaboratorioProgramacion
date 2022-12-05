@@ -134,7 +134,6 @@ async function createNews() {
 			document.querySelector("#modify-news-form-date").value = news[i].date.split("T")[0];
 			document.querySelector("#modify-news-form-title").value = news[i].title;
 			document.querySelector("#modify-news-form-description").value = news[i].description;
-			document.querySelector("#modify-news-form-img").value = news[i].img;
 		});
 
 		// ID of the news
@@ -168,16 +167,22 @@ document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	let newsDataModify = {
-		img: document.querySelector("#modify-news-form-img").value,
 		date: document.querySelector("#modify-news-form-date").value,
 		title: document.querySelector("#modify-news-form-title").value,
 		description: document.querySelector("#modify-news-form-description").value,
 	};
 
+	if(document.querySelector("#modify-news-form-imgFile").files.length != 0){
+		newsDataModify.imgName = document.querySelector("#modify-news-form-imgFile").files[0].name;
+	}
+
+	let toSend = new FormData();
+	toSend.append('data', JSON.stringify(newsDataModify));
+	toSend.append('file', document.querySelector("#modify-news-form-imgFile").files[0]);
+
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
 	xhr.open("PATCH", "/api/news/" + document.querySelector("#modify-news-form-id").innerHTML.split(" ")[2]);
-	xhr.setRequestHeader("content-type", "application/json");
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
@@ -188,7 +193,7 @@ document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 		}
 	};
 
-	xhr.send(JSON.stringify(newsDataModify));
+	xhr.send(toSend);
 
 	// Unce the news has been modified, it reloads the page on the #news ref
 	window.location.replace("#news");
@@ -200,16 +205,19 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	let newData = {
-		img: document.querySelector("#create-news-form-img").value,
+		imgName: document.querySelector("#create-news-form-imgFile").files[0].name,
 		date: document.querySelector("#create-news-form-date").value,
 		title: document.querySelector("#create-news-form-title").value,
 		description: document.querySelector("#create-news-form-description").value,
 	};
 
+	let toSend = new FormData();
+	toSend.append('data', JSON.stringify(newData));
+	toSend.append('file', document.querySelector("#create-news-form-imgFile").files[0]);
+
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", "/api/news");
-	xhr.setRequestHeader("content-type", "application/json");
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "Post Success") {
@@ -220,12 +228,14 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 		}
 	};
 
-	xhr.send(JSON.stringify(newData));
+	xhr.send(toSend);
 
 	// Unce the news has been modified, it reloads the page on the #news ref
 	window.location.replace("#news");
 	window.location.reload();
 });
+
+
 
 // ================  Fleet  ================
 import fleet from "/api/fleet?x0=0&n=200" assert { type: "json" };
@@ -424,6 +434,8 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 // ================  Users  ================
 let users = await (await fetch("/api/users")).json();
 
+// If the ammount of users is grater than 0, it fills the table with the users
+// if not, it deletes all the section of users
 if(users.length > 0){
 	for (let i = 0; i < users.length; i++) {
 		let newListItem = document.createElement("tr");

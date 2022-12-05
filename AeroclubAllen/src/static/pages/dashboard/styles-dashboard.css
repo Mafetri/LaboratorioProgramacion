@@ -332,3 +332,24 @@ form legend {
 	border-radius: 0 var(--radius) var(--radius) 0;
 	font-size: 1em;
 }
+
+#create-news-form-imgFile, #modify-news-form-imgFile{
+	display: none;
+}
+.upload-file-label{
+	cursor: pointer;
+	position: absolute;
+	color: var(--secundarioOscuro) !important;
+	font-size: 1em;
+	font-family: var(--funtePrincipal);
+	border-radius: var(--radius);
+	background-color: white;
+	top: 4.9em;
+	min-width: 35%;
+	padding: 1em;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+}
+.upload-file-label:hover{
+	background-color:var(--grisClaro);
+}

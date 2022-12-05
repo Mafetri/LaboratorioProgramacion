@@ -26,17 +26,18 @@ export const getNews = async (req, res) => {
 
 // Create news
 export const createNews = async (req, res) => {
-	const { date, title, description, img } = req.body;
+	const { date, title, description, imgName } = JSON.parse(req.body.data);
 
-	if (date == null || title == null || description == null || img == null) {
+	if (date == null || title == null || description == null || imgName == null) {
 		res.status(400).json({
 			message: "Some data is null",
 		});
 	} else {
+		const imgRoute = "/assets/news/"+imgName;
 		try {
 			await pool.query(
 				"INSERT INTO news (date, title, description, img) VALUES (?,?,?,?)",
-				[date, title, description, img],
+				[date, title, description, imgRoute],
 			);
 			res.send("Post Success");
 		} catch (e) {
@@ -48,12 +49,18 @@ export const createNews = async (req, res) => {
 // Update news
 export const updateNews = async (req, res) => {
 	const { id } = req.params;
-	const { date, title, description, img } = req.body;
+	const { date, title, description, imgName } = JSON.parse(req.body.data);
+
+	// If imgName is undefined (no img sent), then it gives a null imgRoute to sql
+	let imgRoute = null;
+	if(imgName != undefined){
+		imgRoute = "/assets/news/"+imgName;
+	}
 
 	try {
 		const [dbRes] = await pool.query(
 			"UPDATE news SET date = IFNULL(?, date), title = IFNULL(?, title), description = IFNULL(?, description), img = IFNULL(?, img) WHERE id = ?",
-			[date, title, description, img, id],
+			[date, title, description, imgRoute, id],
 		);
 
 		if (dbRes.affectedRows === 0) {
