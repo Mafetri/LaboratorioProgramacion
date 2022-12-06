@@ -5,12 +5,14 @@
 }
 .welcome-title {
   z-index: 1;
-  vertical-align: middle;
   color: white;
   position: absolute;
-  margin-top: 20%;
-  margin-left: 15%;
-  width: 70%;
+  width: 60%;
+  left: 0;
+  right: 0;
+  top: 35vh;
+  bottom: 0;
+  margin: auto;
 }
 .welcome-title h1 {
   justify-content: center;
@@ -50,10 +52,14 @@
 .welcome-carousel li {
   list-style: none;
   width: 100%;
+  height: 100vh;
 }
 .welcome-carousel img {
+  height: 100vh;
   width: 100%;
+  object-fit: cover;
 }
+
 @keyframes slide {
   0% {
     margin-left: 0%;
@@ -78,11 +84,17 @@
 }
 
 @media (max-width: 768px) {
+  .welcome-title {
+    width: 90%;
+  }
   .welcome-title h1 {
-    font-size: 2em;
+    line-height: normal;
+    white-space: unset;
+    font-size: 4em;
   }
   .welcome-title h2 {
-    font-size: 1em;
+    font-size: 1.5em;
+    margin: 0;
   }
 }
 

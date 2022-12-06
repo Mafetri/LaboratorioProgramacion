@@ -15,7 +15,7 @@ body{
 
 .contact {
   padding: 4em;
-  padding-top: 6.7em;
+  padding-top: 5em;
 }
 .section-title {
   margin: auto;
@@ -104,9 +104,9 @@ body{
 }
 @media (max-width: 1200px) {
   .map-section {
-    margin-bottom: 0;
     height: 50em;
     width: auto;
+    padding-bottom: 5em;
   }
 }
 
@@ -123,4 +123,15 @@ body{
 #form-error{
   color: var(--redFont);
   background: var(--redError);
+}
+
+body{
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 8em;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

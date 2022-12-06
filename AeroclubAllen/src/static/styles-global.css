@@ -99,9 +99,10 @@ header {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
+  translate: 0 3px;
 }
 header.sticky {
-  height: 5rem;
+  height: 4em;
   background: var(--headerPegajoso);
   backdrop-filter: blur(20px);
   box-shadow: 0 1px 5px #000;
@@ -112,6 +113,9 @@ header.sticky {
     flex-direction: column;
     align-items: flex-start;
     padding: 0rem;
+  }
+  .header-logo{
+    translate: 3px 3px;
   }
 
   header.solid {
