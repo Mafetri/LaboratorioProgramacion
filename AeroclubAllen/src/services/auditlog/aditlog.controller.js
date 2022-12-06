@@ -1,5 +1,5 @@
-// Data Base
-import { pool } from "../../db.js";
+// DAO
+import auditlog from "./auditlog.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Get Auditlog
@@ -8,11 +8,8 @@ export const getAuditlog = async (req, res) => {
 
 	try {
 		if(Number.isInteger(parseInt(n)) && Number.isInteger(parseInt(x0))){
-			const [rows] = await pool.query(
-				"SELECT * FROM auditlog ORDER BY date DESC LIMIT ?,?",
-				[parseInt(x0), parseInt(n)],
-			);
-			res.json(rows);
+			const audit = await auditlog.getAuditlog(x0,n);
+			res.json(audit);
 		} else {
 			res.status(400).send("Some variables are not integer as expected");
 		}

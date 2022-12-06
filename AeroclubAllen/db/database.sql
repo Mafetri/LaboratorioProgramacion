@@ -94,7 +94,7 @@ CREATE TABLE users (
 
 CREATE TABLE auditlog (
     id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    date DATE NOT NULL,
+    date DATETIME NOT NULL,
     user_dni INT(255) NOT NULL,
     description VARCHAR(255),
     table_name VARCHAR(255),

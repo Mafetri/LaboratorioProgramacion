@@ -269,6 +269,7 @@ form legend {
 	height: 5px;
 }
 
+/*  =============  Users  =============  */
 .users {
 	display: flex;
 	flex-direction: column;
@@ -279,22 +280,6 @@ form legend {
 .users .section-title{
 	margin: 0.5em auto;
 }
-.users-grid {
-	width: 60%;
-	margin: 0.5em auto;
-	font-size: 1.5em;
-	border: 1px solid black;
-	border-radius: var(--radius);
-	background-color: var(--secundarioOscuro);
-}
-.users-grid td, th{
-	padding: 0.2em 1em;
-	color: white
-}
-.users-grid tr {
-	border: 2px solid black;
-}
-
 .users select{
 	padding: 1.0em;
 	width: 20em;
@@ -304,15 +289,6 @@ form legend {
 #create-user-form, #modify-user-form{
 	height: 14em;
 }
-
-/*  =============  LogOut Button  =============  */
-#logout-button{
-	width: 100%;
-	font-size: 1em;
-	padding: 0.3em;
-}
-
-/*  =============  Users  =============  */
 #modify-user-form{
 	height: 17em;
 }
@@ -332,7 +308,30 @@ form legend {
 	border-radius: 0 var(--radius) var(--radius) 0;
 	font-size: 1em;
 }
+.table-user-section {
+	width: 60%;
+	margin: 0.5em auto;
+	font-size: 1.5em;
+	border: 1px solid black;
+	border-radius: var(--radius);
+	background-color: var(--secundarioOscuro);
+}
+.table-user-section td, th{
+	padding: 0.2em 1em;
+	color: white
+}
+.table-user-sectionrid tr {
+	border: 2px solid black;
+}
 
+/*  =============  LogOut Button  =============  */
+#logout-button{
+	width: 100%;
+	font-size: 1em;
+	padding: 0.3em;
+}
+
+/*  =============  File Upload  =============  */
 #create-news-form-imgFile, #modify-news-form-imgFile, #modify-airplane-form-imgFile, #create-airplane-form-imgFile{
 	display: none;
 }

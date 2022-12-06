@@ -6,7 +6,7 @@ import { somethingWentWrong500 } from "../error/error.handler.js";
 import { NEWS_IMG_ROUTE } from "../config.js";
 
 // Auditlog
-import { createLog } from "../services/auditlog/auditlog.dao.js";
+import auditlog from "../services/auditlog/auditlog.dao.js";
 
 
 // Get news
@@ -47,7 +47,7 @@ export const createNews = async (req, res) => {
 
 			// Gets the id of the recently added news, and creates a log of it
 			const [rows] = await pool.query("SELECT id FROM news ORDER BY id DESC LIMIT 1");
-			await createLog(req.user.dni, "creation", "news", rows[0].id);
+			await auditlog.createLog(req.user.dni, "creation", "news", rows[0].id);
 
 			res.send("Post Success");
 		} catch (e) {
@@ -78,7 +78,7 @@ export const updateNews = async (req, res) => {
 				message: "New not found",
 			});
 		} else {
-			await createLog(req.user.dni, "modification", "news", id);
+			await auditlog.createLog(req.user.dni, "modification", "news", id);
 			res.json((await pool.query("SELECT * FROM news WHERE id = ?", [id]))[0]);
 		}
 	} catch (e) {
@@ -98,7 +98,7 @@ export const deleteNews = async (req, res) => {
 				message: "New not found",
 			});
 		} else {
-			await createLog(req.user.dni, "deletion", "news", id);
+			await auditlog.createLog(req.user.dni, "deletion", "news", id);
 			res.send("News Deleted");
 		}
 	} catch (e) {

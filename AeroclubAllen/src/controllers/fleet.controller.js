@@ -6,7 +6,7 @@ import { somethingWentWrong500 } from "../error/error.handler.js";
 import { AIRPLANE_IMG_ROUTE } from "../config.js";
 
 // Auditlog
-import { createLog } from "../services/auditlog/auditlog.dao.js";
+import auditlog from "../services/auditlog/auditlog.dao.js";
 
 // Get Fleet, returns the fleet from x position and an 'n' ammount of airplanes
 export const getFleet = async (req, res) => {
@@ -68,7 +68,7 @@ export const createAirplane = async (req, res) => {
 					[plate, name, engine, brand, model, speed, consumption, imgRoute],
 				);
 
-				await createLog(req.user.dni, "creation", "fleet", plate);
+				await auditlog.createLog(req.user.dni, "creation", "fleet", plate);
 
 				res.send("Post Success");
 			} catch (e) {
@@ -112,7 +112,7 @@ export const updateAirplane = async (req, res) => {
 					message: "Airplane not found",
 				});
 			} else {
-				await createLog(req.user.dni, "modification", "fleet", plate);
+				await auditlog.createLog(req.user.dni, "modification", "fleet", plate);
 				
 				res.json((await pool.query("SELECT * FROM fleet WHERE plate = ?", [plate]))[0]);
 			}

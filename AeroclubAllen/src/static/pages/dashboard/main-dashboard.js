@@ -440,11 +440,12 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 });
 
 // ================  Users  ================
-let users = await (await fetch("/api/users")).json();
+const users = await (await fetch("/api/users")).json();
 
 // If the ammount of users is grater than 0, it fills the table with the users
 // if not, it deletes all the section of users
 if(users.length > 0){
+	// Fills the users table
 	for (let i = 0; i < users.length; i++) {
 		let newListItem = document.createElement("tr");
 	
@@ -453,7 +454,7 @@ if(users.length > 0){
 		let name = document.createElement("td");
 		name.textContent = users[i].surname + ", " + users[i].name;
 		let role = document.createElement("td");
-		role.textContent = users[i].role;
+		role.textContent = roleTranslation(users[i].role);
 	
 		let buttons = document.createElement("td");
 		buttons.classList.add("user-buttons");
@@ -492,7 +493,8 @@ if(users.length > 0){
 		buttons.appendChild(deleteUser);
 		buttons.appendChild(modifyUser);
 	}
-	
+
+	// Creation form send
 	document.querySelector("#create-user-form").addEventListener("submit", (e) => {
 		e.preventDefault();
 	
@@ -520,6 +522,7 @@ if(users.length > 0){
 		window.location.reload();
 	});
 	
+	// Modification form send
 	document.querySelector("#modify-user-form").addEventListener("submit", (e) => {
 		e.preventDefault();
 	
@@ -547,7 +550,53 @@ if(users.length > 0){
 		window.location.replace("#users");
 		window.location.reload();
 	});
+
+	// Auditlog table fill
+	const auditlog = await (await fetch("/api/auditlog?x0=0&n=20")).json();
+
+	for(let i = 0; i < users.length; i++){
+		let newListItem = document.createElement("tr");
+
+		let date = document.createElement("td");
+		let dateArray = auditlog[i].date.split('T')[0].split('-');
+		let timeArray = auditlog[i].date.split("T")[1].split(':');
+		date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1]+" UTC";
+
+		let description = document.createElement("td");
+		let user = (users.filter((u)=>{return u.dni == auditlog[i].user_dni}))[0];
+		description.textContent = user.name + " " + user.surname + " " + descriptionTranslation(auditlog[i].description, auditlog[i].table_name, auditlog[i].primary_key_changed);
+
+		document.querySelector("#auditlog-table").appendChild(newListItem);
+		newListItem.appendChild(date);
+		newListItem.appendChild(description);
+	}
 } else {
 	document.querySelector(".users").remove();
 }
+
+function roleTranslation(role){
+	switch(role){
+		case 'admin': return "Administrador";
+		case 'editor': return "Editor";
+		case 'pilot': return "Piloto";
+		case 'student': return "Alumno";
+	}
+}
+
+function descriptionTranslation (description, tableName, key) {
+	let descriptionTranslated;
+	switch(description){
+		case 'modification': descriptionTranslated = 'modificó'; break;
+		case 'creation': descriptionTranslated = 'creó'; break;
+		case 'deletion': descriptionTranslated = 'eliminó'; break;
+	}
+	switch(tableName){
+		case 'fleet': descriptionTranslated += " el avión"; break;
+		case 'news': descriptionTranslated += " la noticia"; break;
+		case 'users': descriptionTranslated += " el usuario"; break;
+	}
+	descriptionTranslated += ": " + key;
+	return descriptionTranslated;
+}
+
 

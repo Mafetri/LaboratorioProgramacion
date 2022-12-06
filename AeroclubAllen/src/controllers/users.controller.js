@@ -3,6 +3,8 @@ import { pool } from "../db.js";
 
 import { somethingWentWrong500 } from "../error/error.handler.js";
 
+import auditlog from "../services/auditlog/auditlog.dao.js";
+
 // Get Users
 export const getUsers = async (req, res) => {
 	try {
@@ -24,7 +26,7 @@ export const createUser = async (req, res) => {
 	} else {
 		try {
 			await pool.query("INSERT INTO users (dni, role, password) VALUES (?,?,?)", [dni, role, "newuser"]);
-			await createLog(req.user.dni, "creation", "users", dni);
+			await auditlog.createLog(req.user.dni, "creation", "users", dni);
 
 			res.send("Post Success");
 		} catch (e) {
@@ -55,7 +57,7 @@ export const updateUser = async (req, res) => {
 				message: "User not found",
 			});
 		} else {
-			await createLog(req.user.dni, "modification", "users", dni);
+			await auditlog.createLog(req.user.dni, "modification", "users", dni);
 
 			res.json((await pool.query("SELECT * FROM users WHERE dni = ?", [dni]))[0]);
 		}
@@ -77,7 +79,7 @@ export const deleteUser = async (req, res) => {
 					message: "User not found",
 				});
 			} else {
-				await createLog(req.user.dni, "deletion", "users", dni);
+				await auditlog.createLog(req.user.dni, "deletion", "users", dni);
 				res.send("User Deleted");
 			}
 		} catch (e) {
