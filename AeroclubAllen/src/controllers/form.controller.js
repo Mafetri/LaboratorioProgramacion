@@ -1,15 +1,13 @@
 // Data Base
 import { pool } from "../db.js";
+import { somethingWentWrong500 } from "../error/error.handler.js";
 
 export const getForms = async (req, res) => {
     try {
         [ rows ] = await pool.query('SELECT * FROM forms');
         res.json(rows);
     } catch (error) {
-        return res.status(500).json({
-            message: "Something went wrong",
-            error: e,
-        });
+        somethingWentWrong500(e, res);
     }
 }
 
@@ -26,10 +24,7 @@ export const submitForm = async (req, res) => {
             );
             res.send("success");
         } catch (e) {
-            return res.status(500).json({
-                message: "Something went wrong",
-                error: e,
-            });
+            somethingWentWrong500(e, res);
         }
     }
 }

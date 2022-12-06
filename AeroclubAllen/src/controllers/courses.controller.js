@@ -1,5 +1,6 @@
 // Data Base
 import { pool } from "../db.js";
+import { somethingWentWrong500 } from "../error/error.handler.js";
 
 // Get Courses
 export const getCourses = async (req, res) => {
@@ -9,10 +10,7 @@ export const getCourses = async (req, res) => {
 		);
 		res.json(rows);
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -31,10 +29,7 @@ export const getCourse = async (req, res) => {
 			res.json(course[0]);
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -59,10 +54,7 @@ export const createCourse = async (req, res) => {
 					message: "Error, duplicated course class",
 				});
 			} else {
-				return res.status(500).json({
-					message: "Something went wrong",
-					error: e,
-				});
+				somethingWentWrong500(e, res);
 			}
 		}
 	}
@@ -87,10 +79,7 @@ export const updateCourse = async (req, res) => {
             res.json((await pool.query("SELECT * FROM courses WHERE course_class = ?", [course_class]))[0]);
         }
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };
 
@@ -109,9 +98,6 @@ export const deleteCourse = async (req, res) => {
 			res.send("Course Deleted");
 		}
 	} catch (e) {
-		return res.status(500).json({
-			message: "Something went wrong",
-			error: e,
-		});
+		somethingWentWrong500(e, res);
 	}
 };

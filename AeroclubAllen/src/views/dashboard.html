@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../pages/fleet/styles-fleet.css" />
+    <link rel="stylesheet" href="../pages/news/styles-news.css" />
+    <link rel="stylesheet" href="../pages/contact/styles-contact.css" />
+    <link rel="stylesheet" href="../styles-global.css" />
+    <link rel="stylesheet" href="../pages/dashboard/styles-dashboard.css" />
+    <title>Aeroclub Allen</title>
+    <link rel="icon" href="../../assets/logo.png" />
+</head>
+
+<body>
+    <!-- ===================  Header  =================== -->
+    <header class>
+        <div id = "logo-dashboard">
+            <a href="../../index.html">
+                <img class="header-logo" src="../../assets/logo.png" alt="logo" />
+            </a>
+            <h1 class = "margin-0"> Dashboard</h1>
+        </div>
+        
+        <nav class="nav">
+            <a href="#" class="nav-button">
+                <span class="nav-bar"></span>
+                <span class="nav-bar"></span>
+                <span class="nav-bar"></span>
+            </a>
+            <ul class="nav-links">
+                <li><a class="nav-enlace" href="index.html">Inicio</a></li>
+                <li><a class="nav-enlace" href="#courses">Cursos</a></li>
+                <li>
+                    <a class="nav-enlace" href="#fleet">Flota</a>
+                </li>
+                <li>
+                    <a class="nav-enlace" href="#news">Noticias</a>
+                </li>
+                <li>
+                    <a class="nav-enlace" href="#trajectory">Trayectoria</a>
+                </li>
+                <li>
+                    <a href = "/logout">
+                        <button class = "boton-sec-oscuro" id ="logout-button">Logout</button>
+                    </a>
+                    
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- ===================  Trajectory  =================== -->
+    <section class="trajectory-section" id = "trajectory">
+        <h2 class="section-title" id="calidad">Trayectoria</h2>
+		<div class="trajectory-grid"></div>
+
+        <!--  Modify Trajectory  -->
+        <div class = "container-pop-up" id = "modify-trajectory-form-popup">
+            <div class = "pop-up">
+                <a href = "#trajectory-section" class = "close-button"> Cerrar </a>
+                <form id = "modify-trajectory-form">
+                    <fieldset>
+                        <legend id = "modify-trajectory-form-type"></legend>
+                        <div class="fields-container">
+                            <!-- Route of IMG -->
+                            <div class="field">
+                                <label for="name">Ruta icono</label>
+                                <input class="input-text" type="text" name="img" id="modify-trajectory-form-icon" placeholder="/assets/icons/trajectory/______"/>
+                            </div>
+        
+                            <!-- Data -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <input class="input-text" type="text" name="title" id="modify-trajectory-form-data" placeholder="Informacion" />
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id="submit" />
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================  News  =================== -->
+    <section class="news" id = "#news">
+        <h2 class="section-title">Noticias</h2>
+
+        <!--  Create News  -->
+        <a href="#create-news-form-popup" class = "boton-sec-oscuro">Crear Noticia</a>
+        <div class = "container-pop-up" id = "create-news-form-popup">
+            <div class = "pop-up">
+                <a href= "#news" class = "close-button"> Cerrar </a>
+                <form id = "create-news-form">
+                    <fieldset>
+                        <legend>Crear nueva noticia</legend>
+                        <div class="fields-container">
+                            <!-- Img -->
+                            <div class="field">
+                                <label for="name">Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="create-news-form-imgFile" />
+                                <label class="upload-file-label" for="create-news-form-imgFile">Subir Imagen</label>
+                            </div>
+        
+                            <!-- Date -->
+                            <div class="field">
+                                <label for="date">Fecha</label>
+                                <input class="input-text" type="date" name="date" id="create-news-form-date" placeholder="Fecha" />
+                            </div>
+        
+                            <!-- Titulo -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <input class="input-text" type="text" name="title" id="create-news-form-title" placeholder="Titulo" />
+                            </div>
+        
+                            <!-- Description -->
+                            <div class="field">
+                                <label for="">Descripcion</label>
+                                <textarea class="input-text" name="description" id="create-news-form-description" cols="30" rows="9"></textarea>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                id = "create-news-form-submit" />
+                            </div>
+        
+                    </fieldset>
+        
+                </form>
+            </div>
+        </div>
+        
+        <!--  Modify News  -->
+        <div class = "container-pop-up" id = "modify-news-form-popup">
+            <div class = "pop-up">
+                <a href = "#news" class = "close-button"> Cerrar </a>
+                <form id = "modify-news-form">
+                    <fieldset>
+                        <legend id = "modify-news-form-id"></legend>
+                        <div class="fields-container">
+                            <!-- Img -->
+                            <div class="field">
+                                <label for="name">Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="modify-news-form-imgFile"/>
+                                <label class="upload-file-label" for="modify-news-form-imgFile">Subir Imagen</label>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="field">
+                                <label for="date">Fecha</label>
+                                <input class="input-text" type="date" name="date" id="modify-news-form-date" placeholder="Fecha" />
+                            </div>
+        
+                            <!-- Title -->
+                            <div class="field">
+                                <label for="title">Titulo</label>
+                                <input class="input-text" type="text" name="title" id="modify-news-form-title" placeholder="Titulo" />
+                            </div>
+        
+                            <!-- Description -->
+                            <div class="field">
+                                <label for="">Descripcion</label>
+                                <textarea class="input-text" name="description" id="modify-news-form-description" cols="30" rows="9"></textarea>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id="submit" />
+                            </div>
+        
+                    </fieldset>
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="news-grid">
+        </div>
+
+        <button class="boton-sec-oscuro" id="load-more">Cargar Más</button>
+    </section>
+
+    <!-- ===================  Fleet  =================== -->
+    <section class="airplanes" id ="fleet">
+        <h2 class="section-title">Flota</h2>
+
+        <!--  Create Airplane  -->
+        <a href="#create-airplane-form-popup" class = "boton-sec-oscuro">Crear Avion</a>
+        <div class = "container-pop-up" id = "create-airplane-form-popup">
+            <div class = "pop-up top-10">
+                <a href= "#fleet" class = "close-button"> Cerrar </a>
+                <form id = "create-airplane-form">
+                    <fieldset>
+                        <legend>Crear nuevo avion</legend>
+                        <div class="fleet-fields-container">
+                            <!-- Plate -->
+                            <div class="field">
+                                <label for="plate">Matricula</label>
+                                <input class="input-text" type="text" name="plate" id="create-airplane-form-plate" placeholder="LV-____" required/>
+                            </div>
+
+                            <!-- Img -->
+                            <div class="field">
+                                <label for="img">Imagen</label>
+                                <label class="upload-file-label" for="create-airplane-form-imgFile">Subir Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="create-airplane-form-imgFile"/>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="field">
+                                <label for="name">Nombre</label>
+                                <input class="input-text" type="text" name="name" id="create-airplane-form-name" placeholder="Nombre" required/>
+                            </div>
+
+                            <!-- Engine -->
+                            <div class="field">
+                                <label for="engine">Motor</label>
+                                <input class="input-text" type="text" name="engine" id="create-airplane-form-engine" placeholder="Motor" required/>
+                            </div>
+        
+                            <!-- Brand -->
+                            <div class="field">
+                                <label for="brand">Marca</label>
+                                <input class="input-text" type="text" name="brand" id="create-airplane-form-brand" placeholder="Marca" required/>
+                            </div>
+        
+                            <!-- Model -->
+                            <div class="field">
+                                <label for="model">Modelo</label>
+                                <input class="input-text" type="text" name="model" id="create-airplane-form-model" placeholder="Modelo" required/>
+                            </div>
+
+                            <!-- Speed -->
+                            <div class="field">
+                                <label for="speed">Velocidad Crucero</label>
+                                <input class="input-text" type="number" name="speed" id="create-airplane-form-speed" placeholder="Velocidad Crucero" required/>
+                            </div>
+
+                            <!-- Consumption -->
+                            <div class="field">
+                                <label for="consumption">Consumo</label>
+                                <input class="input-text" type="number" name="consumption" id="create-airplane-form-consumption" placeholder="Consumo" required/>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <a href="#fleet">
+                                    <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id = "create-news-form-submit" />
+                                </a>
+                            </div>
+        
+                    </fieldset>
+        
+                </form>
+            </div>
+        </div>
+
+        <!--  Modify Airplane  -->
+        <div class = "container-pop-up" id = "modify-airplane-form-popup">
+            <div class = "pop-up top-10">
+                <a href = "#fleet" class = "close-button"> Cerrar </a>
+                <form id = "modify-airplane-form">
+                    <fieldset>
+                        <legend id = "modify-airplane-form-plate"></legend>
+                        <div class="fleet-fields-container">
+                            <!-- Route of IMG -->
+                            <div class="field">
+                                <label for="img">Imagen</label>
+                                <label class="upload-file-label" for="modify-airplane-form-imgFile">Subir Imagen</label>
+                                <input class="input-text" type="file" name="imgFile" id="modify-airplane-form-imgFile"/>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="field">
+                                <label for="name">Nombre</label>
+                                <input class="input-text" type="text" name="name" id="modify-airplane-form-name" placeholder="Nombre"/>
+                            </div>
+
+                            <!-- Engine -->
+                            <div class="field">
+                                <label for="engine">Motor</label>
+                                <input class="input-text" type="text" name="engine" id="modify-airplane-form-engine" placeholder="Motor" />
+                            </div>
+        
+                            <!-- Brand -->
+                            <div class="field">
+                                <label for="brand">Marca</label>
+                                <input class="input-text" type="text" name="brand" id="modify-airplane-form-brand" placeholder="Marca" />
+                            </div>
+        
+                            <!-- Model -->
+                            <div class="field">
+                                <label for="model">Modelo</label>
+                                <input class="input-text" type="text" name="model" id="modify-airplane-form-model" placeholder="Modelo" />
+                            </div>
+
+                            <!-- Speed -->
+                            <div class="field">
+                                <label for="speed">Velocidad Crucero</label>
+                                <input class="input-text" type="number" name="speed" id="modify-airplane-form-speed" placeholder="Velocidad Crucero" />
+                            </div>
+
+                            <!-- Consumption -->
+                            <div class="field">
+                                <label for="consumption">Consumo</label>
+                                <input class="input-text" type="number" name="consumption" id="modify-airplane-form-consumption" placeholder="Consumo" />
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Publicar" name="submit"
+                                    id="submit" />
+                            </div>
+        
+                    </fieldset>
+                </form>
+            </div>
+            
+        </div>
+
+        <div id = "fleet-grid"></div>
+    </section>
+    
+    <!-- ===================  Users  =================== -->
+    <section class = "users">
+        <h1 class = "section-title"> Usuarios </h1>
+        <!--  Create User  -->
+        <a href="#create-user-form-popup" class = "boton-sec-oscuro">Agregar Usuario</a>
+        <div class = "container-pop-up" id = "create-user-form-popup">
+            <div class = "pop-up">
+                <a href= "#user" class = "close-button"> Cerrar </a>
+                <form id = "create-user-form">
+                    <fieldset>
+                        <legend>Agregar Usuario</legend>
+                        <div class="fields-container">
+                            <!-- DNI -->
+                            <div class="field">
+                                <label for="dni">DNI</label>
+                                <input class="input-text" type="number" name="dni" id="create-user-form-dni" placeholder="DNI" required/>
+                            </div>
+
+                            <!-- Role -->
+                            <div class="field">
+                                <label for="role">Rol</label>
+                                <select name = "role" id="create-user-form-role" required>
+                                    <option value = "admin">Administrador</option>
+                                    <option value = "editor">Editor</option>
+                                    <option value = "pilot">Piloto</option>
+                                    <option value = "student">Alumno</option>
+                                </select>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Agregar" name="submit"
+                                id = "create-news-form-submit" />
+                            </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+
+        <!--  Modify User  -->
+        <div class = "container-pop-up" id = "modify-user-form-popup">
+            <div class = "pop-up">
+                <a href = "#users" class = "close-button"> Cerrar </a>
+                <form id = "modify-user-form">
+                    <fieldset>
+                        <legend id = "modify-user-form-dni"></legend>
+                        <div class="fields-container">
+                            <!-- Nombre -->
+                            <div class="field">
+                                <label for="name">Nombre</label>
+                                <input class="input-text" type="text" name="dni" id="modify-user-form-name" placeholder="Nombre" required/>
+                            </div>
+
+                            <!-- Apellido -->
+                            <div class="field">
+                                <label for="surname">Apellido</label>
+                                <input class="input-text" type="text" name="dni" id="modify-user-form-surname" placeholder="Apellido" required/>
+                            </div>
+
+                            <!-- Role -->
+                            <div class="field">
+                                <label for="role">Rol</label>
+                                <select name = "role" id="modify-user-form-role" required>
+                                    <option value = "admin">Administrador</option>
+                                    <option value = "editor">Editor</option>
+                                    <option value = "pilot">Piloto</option>
+                                    <option value = "student">Alumno</option>
+                                </select>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="submit-button">
+                                <input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <!--  Table of Users  -->
+        <table class = "table-user-section">
+            <thead>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Rol Actual</th>
+            </thead>
+            <tbody  id = "users-table">
+
+            </tbody>
+        </table>
+
+        <!--  Auditlog  -->
+        <h2 class = "section-title">Registro de Auditoria</h2>
+        <table class = "table-user-section">
+            <thead>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+            </thead>
+            <tbody  id = "auditlog-table">
+
+            </tbody>
+        </table>
+    </section>
+
+
+    <script type="module" src="../pages/dashboard/main-dashboard.js"></script>
+</body>
+
+</html>

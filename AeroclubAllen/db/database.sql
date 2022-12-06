@@ -80,3 +80,23 @@ CREATE TABLE forms (
     email VARCHAR(255),
     message VARCHAR(255)
 )
+
+
+CREATE TABLE users (
+    dni INT(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    surname VARCHAR(255),
+    email VARCHAR(255),
+    role VARCHAR(255)
+)
+
+
+CREATE TABLE auditlog (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    date DATETIME NOT NULL,
+    user_dni INT(255) NOT NULL,
+    description VARCHAR(255),
+    table_name VARCHAR(255),
+    primary_key_changed VARCHAR(255),
+)
