@@ -1,6 +1,6 @@
 // Data Base
-import { pool } from "../db.js";
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { pool } from "../../db.js";
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Get Courses
 export const getCourses = async (req, res) => {

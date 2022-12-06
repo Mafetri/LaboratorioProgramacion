@@ -1,9 +1,9 @@
 // Data Base
-import { pool } from "../db.js";
+import { pool } from "../../db.js";
 
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
-import auditlog from "../services/auditlog/auditlog.dao.js";
+import auditlog from "../auditlog/auditlog.dao.js";
 
 // Get Users
 export const getUsers = async (req, res) => {

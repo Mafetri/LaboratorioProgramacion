@@ -1,12 +1,12 @@
 // Data Base
-import { pool } from "../db.js";
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { pool } from "../../db.js";
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Where fleet imgs are saved
-import { AIRPLANE_IMG_ROUTE } from "../config.js";
+import { AIRPLANE_IMG_ROUTE } from "../../config.js";
 
 // Auditlog
-import auditlog from "../services/auditlog/auditlog.dao.js";
+import auditlog from "../auditlog/auditlog.dao.js";
 
 // Get Fleet, returns the fleet from x position and an 'n' ammount of airplanes
 export const getFleet = async (req, res) => {

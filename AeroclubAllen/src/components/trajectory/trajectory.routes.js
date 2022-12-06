@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTrajectory, createTrajectory, updateTrajectory, deleteTrajectory } from "../controllers/trajectory.controller.js";
+import { getTrajectory, createTrajectory, updateTrajectory, deleteTrajectory } from "./trajectory.controller.js";
 
 const router = Router();
 

@@ -1,12 +1,12 @@
 // Data Base
-import { pool } from "../db.js";
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { pool } from "../../db.js";
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Where news imgs are saved
-import { NEWS_IMG_ROUTE } from "../config.js";
+import { NEWS_IMG_ROUTE } from "../../config.js";
 
 // Auditlog
-import auditlog from "../services/auditlog/auditlog.dao.js";
+import auditlog from "../auditlog/auditlog.dao.js";
 
 
 // Get news

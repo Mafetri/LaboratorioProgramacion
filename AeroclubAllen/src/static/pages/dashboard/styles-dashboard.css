@@ -4,7 +4,7 @@ body {
 /*  =============  Header  =============  */
 header {
 	height: 4em;
-	background: white;
+	background: rgb(245, 241,243);;
 	box-shadow: 0 1px 5px #000;
 }
 .nav li a {
@@ -197,6 +197,7 @@ form legend {
 	visibility: hidden;
 	opacity: 0;
 	transition: all 0.4s;
+	z-index: 3;
 	background-color: rgba(206, 206, 206, 0.8);
 }
 .pop-up {

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getFleet, getAirplane, createAirplane, updateAirplane, deleteAirplane } from "../controllers/fleet.controller.js";
-import { uploadAirplane } from "../controllers/uploader.js";
+import { getFleet, getAirplane, createAirplane, updateAirplane, deleteAirplane } from "./fleet.controller.js";
+import { uploadAirplane } from "../../multer/uploader.js";
 
 const router = Router();
 

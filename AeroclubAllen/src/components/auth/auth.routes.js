@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { isLoggedIn, isNotLoggedIn, canEnterDashboard } from "../lib/auth.js";
-import { passportSignup , sendSing, passportSignin, logout, sendDashboard, getUserRole } from "../controllers/auth.controller.js";
+import { isLoggedIn, isNotLoggedIn, canEnterDashboard } from "../../lib/auth.js";
+import { passportSignup , sendSing, passportSignin, logout, sendDashboard, getUserRole } from "./auth.controller.js";
 
 const router = Router();
 

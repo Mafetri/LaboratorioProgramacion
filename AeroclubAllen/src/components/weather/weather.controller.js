@@ -1,5 +1,5 @@
-import { METAR_API_KEY } from '../config.js'
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { METAR_API_KEY } from '../../config.js'
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 const weatherApi = "https://api.open-meteo.com/v1/forecast?windspeed_unit=kn&current_weather=true&hourly=relativehumidity_2m,precipitation,cloudcover,dewpoint_2m,temperature_2m,surface_pressure&timezone=America%2FSao_Paulo&latitude=-38.95833333&longitude=-67.80277778";
 const metarApi = "https://api.checkwx.com/metar/SAZN?x-api-key=" + METAR_API_KEY;

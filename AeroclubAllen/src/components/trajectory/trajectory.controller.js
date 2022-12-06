@@ -1,6 +1,6 @@
 // Data Base
-import { pool } from "../db.js";
-import { somethingWentWrong500 } from "../error/error.handler.js";
+import { pool } from "../../db.js";
+import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Get Trajectory
 export const getTrajectory = async (req, res) => {

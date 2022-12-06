@@ -1,5 +1,5 @@
 // Passport
-import passport from "../lib/passport.js";
+import passport from "../../lib/passport.js";
 import path from "path";
 
 // Absolute path
@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 
 // Sign Page
 export const sendSing = (req, res) => {
-	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../views/sign.html"));
+	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../../views/sign.html"));
 };
 
 // SignUp
@@ -40,7 +40,7 @@ export const logout = (req, res) => {
 
 // Dashboard
 export const sendDashboard = (req, res) => {
-	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../views/dashboard.html"));
+	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../../views/dashboard.html"));
 };
 
 // User Role
