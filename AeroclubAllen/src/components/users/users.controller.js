@@ -1,14 +1,12 @@
-// Data Base
-import { pool } from "../../db.js";
-
+// DAO
+import users from "./users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
-
 import auditlog from "../auditlog/auditlog.dao.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT dni, name, surname, role FROM users");
+		const rows = await users.getUsers();
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -25,9 +23,10 @@ export const createUser = async (req, res) => {
 		});
 	} else {
 		try {
-			await pool.query("INSERT INTO users (dni, role, password) VALUES (?,?,?)", [dni, role, "newuser"]);
-			await auditlog.createLog(req.user.dni, "creation", "users", dni);
+			await users.createUser(dni, role);
 
+			await auditlog.createLog(req.user.dni, "creation", "users", dni);
+			
 			res.send("Post Success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
@@ -47,10 +46,7 @@ export const updateUser = async (req, res) => {
 	const { name, surname, role } = req.body;
 
 	try {
-		const [dbRes] = await pool.query(
-			"UPDATE users SET name = IFNULL(?, name), surname = IFNULL(?, surname), role = IFNULL(?, role) WHERE dni = ?",
-			[name, surname, role, dni],
-		);
+		const dbRes = await users.updateUser(name, surname, role, dni);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({
@@ -59,7 +55,7 @@ export const updateUser = async (req, res) => {
 		} else {
 			await auditlog.createLog(req.user.dni, "modification", "users", dni);
 
-			res.json((await pool.query("SELECT * FROM users WHERE dni = ?", [dni]))[0]);
+			res.json(users.getUser(dni));
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

@@ -1,13 +1,11 @@
 // Data Base
-import { pool } from "../../db.js";
+import trajectory from "./trajectory.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 
 // Get Trajectory
 export const getTrajectory = async (req, res) => {
     try {
-		const [ rows ] = await pool.query(
-			"SELECT * FROM trajectory"
-		);
+		const rows = await trajectory.getTrajectories();
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -24,11 +22,10 @@ export const createTrajectory = async (req, res) => {
 		});
 	} else {
 		try {
-			await pool.query(
-				"INSERT INTO trajectory (type, data, icon) VALUES (?,?,?)",
-				[type, data, icon],
-			);
+			await createTrajectory(type, data, icon);
+
 			await createLog(req.user.dni, "creation", "trajectory", type);
+
 			res.send("Post Success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
@@ -48,10 +45,7 @@ export const updateTrajectory = async (req, res) => {
 	const { data, icon } = req.body;
 
 	try {
-		const [dbRes] = await pool.query(
-			"UPDATE trajectory SET data = IFNULL(?, data), icon = IFNULL(?, icon) WHERE type = ?",
-			[data, icon, type]
-		);
+		const dbRes = await trajectory.updateTrajectory (type, data, icon);
 
 		if (dbRes.affectedRows === 0){
             return res.status(404).json({
@@ -59,7 +53,7 @@ export const updateTrajectory = async (req, res) => {
 			});
         } else{
 			await createLog(req.user.dni, "modification", "trajectory", type);
-            res.json((await pool.query("SELECT * FROM trajectory WHERE tpye = ?", [type]))[0]);
+            res.json(dbRes);
         }
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -71,7 +65,7 @@ export const deleteTrajectory = async (req, res) => {
 	const { type } = req.params;
 
 	try {
-		const [dbRes] = await pool.query("DELETE FROM trajectory WHERE type=?", [type]);
+		const dbRes = await trajectory.deleteTrajectory(type);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({

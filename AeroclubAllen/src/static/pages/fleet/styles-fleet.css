@@ -96,6 +96,7 @@ h3 {
   .airplane-card img{
     height: auto;
     width: auto;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
 }
 @media (max-width: 768px) {

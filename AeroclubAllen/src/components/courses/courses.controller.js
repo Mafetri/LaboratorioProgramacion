@@ -1,13 +1,10 @@
-// Data Base
-import { pool } from "../../db.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
+import courses from "./courses.dao.js"
 
 // Get Courses
 export const getCourses = async (req, res) => {
 	try {
-		const [ rows ] = await pool.query(
-			"SELECT * FROM courses"
-		);
+		const rows = await courses.getCourses();
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -19,7 +16,7 @@ export const getCourse = async (req, res) => {
 	const { course_class } = req.params;
 
 	try {
-		const [course] = await pool.query("SELECT FROM courses WHERE course_class=?", [course_class]);
+		const course = courses.getCourse(course_class);
 
 		if (course.length === 0) {
 			res.status(400).json({
@@ -43,10 +40,7 @@ export const createCourse = async (req, res) => {
 		});
 	} else {
 		try {
-			await pool.query(
-				"INSERT INTO courses (course_class, age, duration, hours, studies, psychophysical, licenses) VALUES (?,?,?,?,?,?,?)",
-				[course_class, age, duration, hours, studies, psychophysical, licenses],
-			);
+			await courses.createCourse(course_class, age, duration, hours, studies, psychophysical, licenses);
 			res.send("Post Success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
@@ -66,29 +60,26 @@ export const updateCourse = async (req, res) => {
 	const { age, duration, hours, studies, psychophysical, licenses } = req.body;
 
 	try {
-		const [dbRes] = await pool.query(
-			"UPDATE courses SET age = IFNULL(?, age), duration = IFNULL(?, duration), hours = IFNULL(?, hours), studies = IFNULL(?, studies), psychophysical = IFNULL(?, psychophysical), licenses = IFNULL(?, licenses) WHERE course_class = ?",
-			[age, duration, hours, studies, psychophysical, licenses, course_class]
-		);
+		const dbRes = await courses.updateCourse(age, duration, hours, studies, psychophysical, licenses, course_class);
 
 		if (dbRes.affectedRows === 0){
             return res.status(404).json({
 				message: "Course not found",
 			});
         } else{
-            res.json((await pool.query("SELECT * FROM courses WHERE course_class = ?", [course_class]))[0]);
+            res.json((await courses.getCourse(course_class))[0]);
         }
 	} catch (e) {
 		somethingWentWrong500(e, res);
 	}
 };
 
-// Delete news
+// Delete Course
 export const deleteCourse = async (req, res) => {
 	const { course_class } = req.params;
 
 	try {
-		const [dbRes] = await pool.query("DELETE FROM courses WHERE course_class=?", [course_class]);
+		const dbRes = await courses.deleteCourse(course_class);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({
