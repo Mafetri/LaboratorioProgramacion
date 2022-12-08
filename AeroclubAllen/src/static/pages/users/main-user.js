@@ -48,42 +48,81 @@ if(user.role == "admin" || user.role == "editor"){
 
 // All turns
 if(user.role == "admin" || user.role == "instructor"){
-    const userSection = document.querySelector("#user");
+    let sectionTitle = document.createElement("h2");
+    sectionTitle.textContent = "Turnos"
+    sectionTitle.classList.add("section-title");
+    sectionTitle.classList.add("margin-auto");
 
-    let newListItem = document.createElement("tr");
+    // Table
+    let table = document.createElement("table");
+    table.classList.add("table-user-section");
 
-    let askDate = document.createElement("td");
-    askDate.textContent = "06/12/2022" + " " + "16:23" + " UTC";
+    // Head
+    let tHead = document.createElement("thead");
+    let th1 = document.createElement("th");
+    th1.textContent = "Pedido";
+    let th2 = document.createElement("th");
+    th2.textContent = "Persona";
+    let th3 = document.createElement("th");
+    th3.textContent = "Fecha";
+    let th4 = document.createElement("th");
+    th4.textContent = "Avion";
+    let th5 = document.createElement("th");
+    th5.textContent = "¿Instructor?";
+    let th6 = document.createElement("th");
+    th6.textContent = "Estado";
+    tHead.appendChild(th1);
+    tHead.appendChild(th2);
+    tHead.appendChild(th3);
+    tHead.appendChild(th4);
+    tHead.appendChild(th5);
+    tHead.appendChild(th6);
 
-    let person = document.createElement("td");
-    person.textContent = "Diego Luciani";
+    let tBody = document.createElement("tbody");
+    tBody.id = ("all-turns-table");
 
-    let date = document.createElement("td");
-    date.textContent = "08/12/2022" + " " + "17:00" + " UTC";
+    document.querySelector("#all-turns").appendChild(sectionTitle);
+    document.querySelector("#all-turns").appendChild(table);
+    table.appendChild(tHead);
+    table.appendChild(tBody);
 
-    let aiplante = document.createElement("td");
-    aiplante.textContent = "LV-IDE";
+    // ALL THIS MUST BE ON A LOOP FOR ALL TURNS
+        let newListItem = document.createElement("tr");
 
-    let instructor = document.createElement("td");
-    instructor.textContent = "Si";
+        let askDate = document.createElement("td");
+        askDate.textContent = "06/12/2022" + " " + "16:23" + " UTC";
 
-    let state = document.createElement("td");
-    // IF THE TURN WAS NOT ACCEPTED YET
-    let acceptButton = document.createElement("button");
-    acceptButton.textContent = "Aceptar";
-    let denyButton = document.createElement("button");
-    denyButton.textContent = "Rechazar";
+        let person = document.createElement("td");
+        person.textContent = "Diego Luciani";
 
-    document.querySelector("#all-turns-table").appendChild(newListItem);
-    newListItem.appendChild(askDate);
-    newListItem.appendChild(person);
-    newListItem.appendChild(date);
-    newListItem.appendChild(aiplante);
-    newListItem.appendChild(instructor);
-    state.appendChild(acceptButton);
-    state.appendChild(denyButton);
-    newListItem.appendChild(state);
+        let date = document.createElement("td");
+        date.textContent = "08/12/2022" + " " + "17:00" + " UTC";
+
+        let aiplante = document.createElement("td");
+        aiplante.textContent = "LV-IDE";
+
+        let instructor = document.createElement("td");
+        instructor.textContent = "Si";
+
+        let state = document.createElement("td");
+        // IF THE TURN WAS NOT ACCEPTED YET
+        let acceptButton = document.createElement("button");
+        acceptButton.textContent = "Aceptar";
+        let denyButton = document.createElement("button");
+        denyButton.textContent = "Rechazar";
+
+        tBody.appendChild(newListItem);
+        newListItem.appendChild(askDate);
+        newListItem.appendChild(person);
+        newListItem.appendChild(date);
+        newListItem.appendChild(aiplante);
+        newListItem.appendChild(instructor);
+        state.appendChild(acceptButton);
+        state.appendChild(denyButton);
+        newListItem.appendChild(state);
 }
+
+
 
 // All flights no registered
 

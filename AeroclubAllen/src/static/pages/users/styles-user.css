@@ -3,13 +3,13 @@ section {
 }
 
 #user {
-    padding: 10em;
     padding-top: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1em;   
 }
+
 .user-card {
     width:fit-content;
     display: flex;
@@ -28,6 +28,7 @@ section {
     text-align: left;
     margin: 0;
     color: var(--secundarioOscuro);
+    font-size: 1.5em;
 }
 .user-card img {
     border-radius: 100%;
@@ -35,13 +36,14 @@ section {
 	width: 100%;
 	box-shadow: var(--shadow);
     margin-right: 3em;
-	translate: 0px 3em;
-	transform: scale(1.4);
+	translate: 0px 1em;
 	/* z-index: 0; */
 }
+
 .boton-sec-oscuro {
     width: 100%;
 }
+
 .modify-button {
     border-radius: var(--radius);
     margin-top: 0.6em;
@@ -49,10 +51,32 @@ section {
 }
 .register-button{
     margin: auto;
-    margin-top: 1em;
-    width: 50%;
+    width: 100%;
+    box-shadow: none;
+}
+.register-button .boton-sec-oscuro {
+    box-shadow: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    background-color: var(--gris);
+    color: var(--secundarioOscuro);
+    font-weight: 800;
 }
 
 .table-user-section{
     width: auto !important;
+}
+
+.section-for-user {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 1em auto;
+    width: 80%;
+    background-color: rgb(245, 241,243);
+}
+.section-title {
+    width: 100%;
+}
+
+.section-for-user table{
+    font-size: 1.3em;
 }
