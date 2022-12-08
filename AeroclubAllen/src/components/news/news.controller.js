@@ -41,7 +41,7 @@ export const createNews = async (req, res) => {
 			// Gets the id of the recently added news, and creates a log of it
 			const rows = await news.getLastId();
 			await auditlog.createLog(req.user.dni, "creation", "news", rows[0].id);
-			res.send("Post Success");
+			res.send("success");
 		} catch (e) {
 			somethingWentWrong500(e, res);
 		}
@@ -68,7 +68,7 @@ export const updateNews = async (req, res) => {
 			});
 		} else {
 			await auditlog.createLog(req.user.dni, "modification", "news", id);
-			res.json((news.getNewsId(id))[0]);
+			res.send("success");
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

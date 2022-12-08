@@ -186,18 +186,17 @@ document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
-			img.value = "";
-			date.value = "";
-			title.value = "";
-			description.value = "";
+			alert("Cambio Realizado");
+			window.location.replace("#news");
+			window.location.reload();
+		} else{
+			alert("Hubo un error");
+			window.location.replace("#news");
+			window.location.reload();
 		}
 	};
 
 	xhr.send(toSend);
-
-	// Unce the news has been modified, it reloads the page on the #news ref
-	window.location.replace("#news");
-	window.location.reload();
 });
 
 // Create News POST
@@ -220,11 +219,14 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 	xhr.open("POST", "/api/news");
 	xhr.onload = function () {
 		// If the server sends a success
-		if (xhr.responseText == "Post Success") {
-			img.value = "";
-			date.value = "";
-			title.value = "";
-			description.value = "";
+		if (xhr.responseText == "success") {
+			alert("Cambio Realizado");
+			window.location.replace("#news");
+			window.location.reload();
+		} else{
+			alert("Hubo un error");
+			window.location.replace("#news");
+			window.location.reload();
 		}
 	};
 
@@ -379,20 +381,17 @@ document.querySelector("#modify-airplane-form").addEventListener("submit", (e) =
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
-			engine.value = "";
-			brand.value = "";
-			model.value = "";
-			speed.value = "";
-			consumption.value = "";
-			img.value = "";
+			alert("Cambio Realizado");
+			window.location.replace("#fleet");
+			window.location.reload();
+		} else{
+			alert("Hubo un error");
+			window.location.replace("#fleet");
+			window.location.reload();
 		}
 	};
 
 	xhr.send(toSend);
-
-	// Unce the news has been modified, it reloads the page on the #fleet ref
-	window.location.replace("#fleet");
-	window.location.reload();
 });
 
 // Create Airplane POST
@@ -419,24 +418,18 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 	xhr.open("POST", "/api/airplane");
 	xhr.onload = function () {
 		// If the server sends a success
-		if (xhr.responseText == "Post Success") {
-			plate.value = "";
-			engine.value = "";
-			brand.value = "";
-			model.value = "";
-			speed.value = "";
-			consumption.value = "";
-			img.value = "";
-		} else {
-			alert("Hubo un error en la creacion del avion");
+		if (xhr.responseText == "success") {
+			alert("Avion creado con exito!");
+			window.location.replace("#fleet");
+			window.location.reload();
+		} else{
+			alert("Hubo un error en la creacion!");
+			window.location.replace("#fleet");
+			window.location.reload();
 		}
 	};
 
 	xhr.send(toSend);
-
-	// Unce the news has been modified, it reloads the page on the #fleet ref
-	window.location.replace("#fleet");
-	window.location.reload();
 });
 
 // ================  Users  ================
@@ -511,17 +504,18 @@ if(users.length > 0){
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.onload = function () {
 			// If the server sends a success
-			if (xhr.responseText == "Post Success") {
-				dni.value = "";
-				role.value = "";
+			if (xhr.responseText == "success") {
+				alert("Usuario creado con exito!");
+				window.location.replace("#users");
+				window.location.reload();
+			} else {
+				alert("Hubo un error en la creacion del usuario!");
+				window.location.replace("#users");
+				window.location.reload();
 			}
 		};
 	
 		xhr.send(JSON.stringify(newData));
-	
-		// Unce the news has been modified, it reloads the page on the #news ref
-		window.location.replace("#users");
-		window.location.reload();
 	});
 	
 	// Modification form send
@@ -548,6 +542,8 @@ if(users.length > 0){
 				window.location.reload();
 			} else {
 				alert("Error");
+				window.location.replace("#users");
+				window.location.reload();
 			}
 		};
 	

@@ -66,7 +66,7 @@ export const createAirplane = async (req, res) => {
 
 				await auditlog.createLog(req.user.dni, "creation", "fleet", plate);
 
-				res.send("Post Success");
+				res.send("success");
 			} catch (e) {
 				if ((e.code = "ER_DUP_ENTRY")) {
 					return res.status(500).json({
@@ -106,7 +106,7 @@ export const updateAirplane = async (req, res) => {
 			} else {
 				await auditlog.createLog(req.user.dni, "modification", "fleet", plate);
 				
-				res.json((await fleet.getAirplane(plate))[0]);
+				res.send("success");
 			}
 		} catch (e) {
 			somethingWentWrong500(e, res);

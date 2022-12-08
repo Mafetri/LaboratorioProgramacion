@@ -27,10 +27,6 @@ contactForm.addEventListener("submit", (e) => {
         // If the server sends a success
 		if (xhr.responseText == "success") {
 			document.querySelector("#form-ok").style.display = "";
-			name.value = "";
-			email.value = "";
-			phone.value = "";
-			message.value = "";
 		} else {
             document.querySelector("#form-error").style.display = "";
         }

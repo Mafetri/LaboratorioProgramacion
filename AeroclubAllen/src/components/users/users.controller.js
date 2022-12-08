@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
 
 			await auditlog.createLog(req.user.dni, "creation", "users", dni);
 			
-			res.send("Post Success");
+			res.send("success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
 				return res.status(500).json({
