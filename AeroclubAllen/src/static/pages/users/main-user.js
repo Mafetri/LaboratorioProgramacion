@@ -33,17 +33,19 @@ function fillUserCard(){
 
 // Dashboard Button
 if(user.role == "admin" || user.role == "editor"){
-    const userSection = document.querySelector("#user");
+    // <a href = "/dashboard">
+	// 					<button class="boton-sec-oscuro">Dashboard</button>
+	// 				</a>
+    const userButtons = document.querySelector("#user-card-buttons");
 
     let dashboardButtonA = document.createElement("a");
     dashboardButtonA.href = "/dashboard";
-    dashboardButtonA.classList.add("margin-auto");
     let dashboardButton = document.createElement("button");
     dashboardButton.classList.add("boton-sec-oscuro");
-    dashboardButton.textContent = "Ir al Dashboard";
+    dashboardButton.textContent = "Dashboard";
 
     dashboardButtonA.append(dashboardButton)
-    userSection.append(dashboardButtonA);
+    userButtons.prepend(dashboardButtonA);
 }
 
 // All turns

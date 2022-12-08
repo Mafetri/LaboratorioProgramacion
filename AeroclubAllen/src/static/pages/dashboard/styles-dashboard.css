@@ -332,7 +332,7 @@ form legend {
 }
 
 /*  =============  LogOut Button  =============  */
-#logout-button{
+#back-button{
 	width: 100%;
 	font-size: 1em;
 	padding: 0.3em;

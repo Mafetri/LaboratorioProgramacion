@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../pages/fleet/styles-fleet.css" />
+		<link rel="stylesheet" href="../pages/news/styles-news.css" />
+		<link rel="stylesheet" href="../pages/contact/styles-contact.css" />
+		<link rel="stylesheet" href="../pages/dashboard/styles-dashboard.css" />
+		<link rel="stylesheet" href="../styles-global.css" />
+		<link rel="stylesheet" href="../pages/users/styles-user.css" />
+		<title>Aeroclub Allen</title>
+		<link rel="icon" href="../../assets/logo.png" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../pages/fleet/styles-fleet.css" />
-    <link rel="stylesheet" href="../pages/news/styles-news.css" />
-    <link rel="stylesheet" href="../pages/contact/styles-contact.css" />
-    <link rel="stylesheet" href="../pages/dashboard/styles-dashboard.css" />
-    <link rel="stylesheet" href="../styles-global.css" />
-    <link rel="stylesheet" href="../pages/users/styles-user.css" />
-    <title>Aeroclub Allen</title>
-    <link rel="icon" href="../../assets/logo.png" />
-</head>
+	<body class="darkened-clouds">
+		<section id="user">
+			<section class = "user-card-container">
+				<div class="user-card" id="user-card">
+					<div class="center margin-1">
+						<img id="sign-logo" src="../../assets/logo.png" alt="logo" />
+					</div>
+					<div id="user-card-info"></div>
+				</div>
+				<div class = "user-card-buttons" id = "user-card-buttons">
+					<a href = "/logout"> <button class="boton-sec-oscuro" id ="logout-button">Desconectarse</button> </a>
+				</div>
+			</section>
 
-<body class = "darkened-clouds">
-    <section id = "user">
-        <section class = "user-card" id = "user-card">
-            <div class = "center margin-1">
-                <img id = "sign-logo" src="../../assets/logo.png" alt="logo" />
-            </div>
-            <div id = "user-card-info"></div>
-        </section>
-    
-        <!-- Turns -->
-        <section class = "section-for-user" id="all-turns" >
-            
-        </section>
+			<!-- Turns -->
+			<section class="section-for-user" id="all-turns"></section>
 
-        <!-- User Flight Register -->
-        <section class = "section-for-user" id="flights-register" >
-            <h2 class = "section-title margin-auto">Ultimos Vuelos</h2>
-            <a class = "register-button center" href="">
-                <button class = "boton-sec-oscuro" >Registrar Vuelo</button>
-            </a>
-            <table class = "table-user-section">
-                <thead>
-                    <th>Fecha</th>
-                    <th>Avion</th>
-                    <th>Duracion</th>
-                </thead>
-                <tbody  id = "users-table">
-                    <tr>
-                        <td>06/12/2020</td>
-                        <td>LF-FVA</td>
-                        <td>1,2hs</td>
-                        <td><a><button>Ver Mas</button></a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    
-        <!-- User Turns -->
-        <section class = "section-for-user" id="airplane-turns" >
-            <h2 class = "section-title margin-auto">Mis Turnos</h2>
-            <a class = "register-button center" href="">
-                <button class = "boton-sec-oscuro" >Agendar Turno</button>
-            </a>
-            <table class = "table-user-section">
-                <thead>
-                    <th>Fecha</th>
-                    <th>Avion</th>
-                    <th>Estado</th>
-                </thead>
-                <tbody  id = "users-table">
-                    <tr>
-                        <td>06/12/2020</td>
-                        <td>LF-FVA</td>
-                        <td>Aceptado</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </section>
-    
+			<!-- User Flight Register -->
+			<section class="section-for-user" id="flights-register">
+				<h2 class="section-title margin-auto">Ultimos Vuelos</h2>
+				<a class="register-button center" href="">
+					<button class="boton-sec-oscuro">Registrar Vuelo</button>
+				</a>
+				<table class="table-user-section">
+					<thead>
+						<th>Fecha</th>
+						<th>Avion</th>
+						<th>Duracion</th>
+					</thead>
+					<tbody id="users-table">
+						<tr>
+							<td>06/12/2020</td>
+							<td>LF-FVA</td>
+							<td>1,2hs</td>
+							<td>
+								<a><button>Ver Mas</button></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
 
-    <script type="module" src="../pages/users/main-user.js"></script>
-</body>
+			<!-- User Turns -->
+			<section class="section-for-user" id="airplane-turns">
+				<h2 class="section-title margin-auto">Mis Turnos</h2>
+				<a class="register-button center" href="">
+					<button class="boton-sec-oscuro">Agendar Turno</button>
+				</a>
+				<table class="table-user-section">
+					<thead>
+						<th>Fecha</th>
+						<th>Avion</th>
+						<th>Estado</th>
+					</thead>
+					<tbody id="users-table">
+						<tr>
+							<td>06/12/2020</td>
+							<td>LF-FVA</td>
+							<td>Aceptado</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</section>
+
+		<script type="module" src="../pages/users/main-user.js"></script>
+	</body>
 </html>

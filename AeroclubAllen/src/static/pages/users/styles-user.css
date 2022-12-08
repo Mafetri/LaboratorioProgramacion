@@ -9,13 +9,19 @@ section {
     justify-content: center;
     gap: 1em;   
 }
-
+.user-card-container{
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+}
 .user-card {
     width:fit-content;
     display: flex;
     background-color: rgb(245, 241,243);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    border-radius: var(--radius) var(--radius) 0 0;
     padding: 2em;
     margin: auto;
 }
@@ -38,6 +44,21 @@ section {
     margin-right: 3em;
 	translate: 0px 1em;
 	/* z-index: 0; */
+}
+.user-card-buttons .boton-sec-oscuro{
+    background-color: var(--gris);
+    color: var(--secundarioOscuro);
+    border-radius: 0;
+    box-shadow: none;
+}
+#logout-button{
+    background-color: rgb(206, 100, 100);
+    color: rgb(83, 5, 5);
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+#logout-button:hover{
+    background-color: rgb(160, 17, 17) !important;
+	color: white;
 }
 
 .boton-sec-oscuro {
