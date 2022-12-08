@@ -28,6 +28,47 @@
 				</div>
 			</section>
 
+			<!--  Modify User  -->
+			<div class = "container-pop-up" id = "modify-user-form-popup">
+				<div class = "pop-up">
+					<a href = "#users" class = "close-button"> Cerrar </a>
+					<form id = "modify-user-form">
+						<fieldset>
+							<legend id = "modify-user-form-dni"></legend>
+							<div class="fields-container">
+								<!-- Name -->
+								<div class="field">
+									<label for="name">Nombre</label>
+									<input class="input-text" type="text" name="name" id="modify-user-form-name" placeholder="Nombre" required/>
+								</div>
+	
+								<!-- Surname -->
+								<div class="field">
+									<label for="surname">Apellido</label>
+									<input class="input-text" type="text" name="surname" id="modify-user-form-surname" placeholder="Apellido" required/>
+								</div>
+	
+								<!-- Email -->
+								<div class="field">
+									<label for="email">Email</label>
+									<input class="input-text" type="email" name="email" id="modify-user-form-email" placeholder="Email" required/>
+								</div>
+	
+								<!-- Phone -->
+								<div class="field">
+									<label for="phone">Telefono</label>
+									<input class="input-text" type="text" name="phone" id="modify-user-form-phone" placeholder="Telefono" required/>
+								</div>
+
+								<!-- Submit Button -->
+								<div class="submit-button">
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+
 			<!-- Turns -->
 			<section class="section-for-user" id="all-turns"></section>
 

@@ -4,7 +4,7 @@ const users = {};
 
 users.getUsers = async () => {
 	try {
-		const [rows] = await pool.query("SELECT dni, name, surname, role FROM users");
+		const [rows] = await pool.query("SELECT dni, name, surname, phone, email, role FROM users");
 		return rows;
 	} catch (error) {
 		throw error;
@@ -28,11 +28,11 @@ users.createUser = async (dni, role) => {
 	}
 };
 
-users.updateUser = async (type, data, icon) => {
+users.updateUser = async (name, surname, role, phone, email, dni) => {
 	try {
 		const [dbRes] = await pool.query(
-			"UPDATE users SET name = IFNULL(?, name), surname = IFNULL(?, surname), role = IFNULL(?, role) WHERE dni = ?",
-			[name, surname, role, dni],
+			"UPDATE users SET name = IFNULL(?, name), surname = IFNULL(?, surname), role = IFNULL(?, role), phone = IFNULL(?, phone), email = IFNULL(?, email) WHERE dni = ?",
+			[name, surname, role, phone, email, dni],
 		);
 		return dbRes;
 	} catch (error) {
@@ -40,9 +40,9 @@ users.updateUser = async (type, data, icon) => {
 	}
 };
 
-users.deleteUser = async (type) => {
+users.deleteUser = async (dni) => {
 	try {
-		const [dbRes] = await pool.query("DELETE FROM trajectory WHERE type=?", [type]);
+		const [dbRes] = await pool.query("DELETE FROM users WHERE dni=?", [dni]);
 		return dbRes;
 	} catch (error) {
 		throw error;

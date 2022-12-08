@@ -43,10 +43,10 @@ export const createUser = async (req, res) => {
 // Update User
 export const updateUser = async (req, res) => {
 	const { dni } = req.params;
-	const { name, surname, role } = req.body;
+	const { name, surname, role, phone, email } = req.body;
 
 	try {
-		const dbRes = await users.updateUser(name, surname, role, dni);
+		const dbRes = await users.updateUser(name, surname, role, phone, email, dni);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({
@@ -55,7 +55,7 @@ export const updateUser = async (req, res) => {
 		} else {
 			await auditlog.createLog(req.user.dni, "modification", "users", dni);
 
-			res.json(users.getUser(dni));
+			res.send("success");
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

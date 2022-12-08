@@ -293,12 +293,12 @@ form legend {
 	border-radius: var(--radius);
 	font-family: var(--funtePrincipal);
 }
-#create-user-form, #modify-user-form{
-	height: 14em;
+
+form {
+	height: fit-content;
+	width: fit-content;
 }
-#modify-user-form{
-	height: 17em;
-}
+
 .fields-container{
 	grid-template-rows: auto;
 }

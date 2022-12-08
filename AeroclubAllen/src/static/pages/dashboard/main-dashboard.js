@@ -482,6 +482,8 @@ if(users.length > 0){
 			document.querySelector("#modify-user-form-dni").innerHTML = "Modificando Usuario: " + users[i].dni;
 			document.querySelector("#modify-user-form-name").value = users[i].name;
 			document.querySelector("#modify-user-form-surname").value = users[i].surname;
+			document.querySelector("#modify-user-form-phone").value = users[i].phone;
+			document.querySelector("#modify-user-form-email").value = users[i].email;
 			document.querySelector("#modify-user-form-role").seleccted = users[i].role;
 		});
 	
@@ -529,6 +531,8 @@ if(users.length > 0){
 		let newData = {
 			name: document.querySelector("#modify-user-form-name").value,
 			surname: document.querySelector("#modify-user-form-surname").value,
+			email: document.querySelector("#modify-user-form-email").value,
+			phone: document.querySelector("#modify-user-form-phone").value,
 			role: document.querySelector("#modify-user-form-role").value,
 		};
 	
@@ -538,17 +542,16 @@ if(users.length > 0){
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.onload = function () {
 			// If the server sends a success
-			if (xhr.responseText == "Post Success") {
-				name.value = "";
-				surname.value = "";
-				role.value = "";
+			if (xhr.responseText == "success") {
+				alert("Cambio Realizado");
+				window.location.replace("#users");
+				window.location.reload();
+			} else {
+				alert("Error");
 			}
 		};
 	
 		xhr.send(JSON.stringify(newData));
-	
-		window.location.replace("#users");
-		window.location.reload();
 	});
 
 	// Auditlog table fill

@@ -1,41 +1,73 @@
-
 const user = await (await fetch("/api/userLoggedin")).json();
 
-fillUserCard();
-function fillUserCard(){
+fillUserInfo();
+function fillUserInfo(){
     const userCard = document.querySelector("#user-card-info");
     let dni = document.createElement("h2");
     dni.textContent = "DNI: " + user.dni;
     
     let name = document.createElement("h2");
     name.textContent = "Nombre: " + user.name + " " + user.surname;
-    
+    document.querySelector("#modify-user-form-name").value = user.name;
+    document.querySelector("#modify-user-form-surname").value = user.surname;
+
     let email = document.createElement("h2");
     email.textContent = "Email: " + user.email;
+    document.querySelector("#modify-user-form-email").value = user.email;
     
     let role = document.createElement("h2");
     role.textContent = "Rol: " + roleTranslation(user.role);
     
     let phone = document.createElement("h2");
     phone.textContent = "Telefono: " + user.phone;
+    document.querySelector("#modify-user-form-phone").value = user.phone;
 
+    let moddifyButtonA = document.createElement("a");
+    moddifyButtonA.href = "#modify-user-form-popup";
     let modifyButton = document.createElement("button");
     modifyButton.classList.add("modify-button");
-    modifyButton.textContent = "Modificar"
-    
+    modifyButton.textContent = "Modificar";
+    moddifyButtonA.appendChild(modifyButton);
+
     userCard.append(dni);
     userCard.append(name);
     userCard.append(email);
     userCard.append(role);
     userCard.append(phone);
-    userCard.append(modifyButton);
+    userCard.append(moddifyButtonA);
 }
+
+// Update User info
+document.querySelector("#modify-user-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    let newData = {
+        name: document.querySelector("#modify-user-form-name").value,
+        surname: document.querySelector("#modify-user-form-surname").value,
+        email: document.querySelector("#modify-user-form-email").value,
+        phone: document.querySelector("#modify-user-form-phone").value
+    };
+
+    // Uses XHR to post the form data
+    let xhr = new XMLHttpRequest();
+    xhr.open("PATCH", "/api/user/" + user.dni);
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.onload = function () {
+        // If the server sends a success
+        if (xhr.responseText == "success") {
+            alert("Cambio Realizado");
+            window.location.reload();
+        } else {
+            alert("Error");
+            window.location.reload();
+        }
+    };
+
+    xhr.send(JSON.stringify(newData));
+});
 
 // Dashboard Button
 if(user.role == "admin" || user.role == "editor"){
-    // <a href = "/dashboard">
-	// 					<button class="boton-sec-oscuro">Dashboard</button>
-	// 				</a>
     const userButtons = document.querySelector("#user-card-buttons");
 
     let dashboardButtonA = document.createElement("a");

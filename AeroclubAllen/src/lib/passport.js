@@ -11,7 +11,7 @@ passport.use('local.signup',
 			passReqToCallback: true,
 		},
 		async (req, dni, password, done) => {
-			const { name, surname, email } = req.body;
+			const { name, surname, email, phone } = req.body;
 
             try{
 				const [ existingUser ] = await pool.query("SELECT * FROM users WHERE dni = ?", dni)
@@ -22,9 +22,9 @@ passport.use('local.signup',
 					password = await helpers.encryptPassword(password);
 
 					// Saves on DB
-					await pool.query("UPDATE users SET name = ?, surname = ?, email = ?, password = ? WHERE dni = ?", [ name, surname, email, password, dni]);
+					await pool.query("UPDATE users SET name = ?, surname = ?, email = ?, password = ?, phone = ? WHERE dni = ?", [ name, surname, email, password, phone, dni]);
 					
-					return done(null, {dni, name, surname, email, password});
+					return done(null, {dni, name, surname, phone, email, password});
 				} else {
 					done(null, false, req.flash("message", "Usuario no existente"));
 				}

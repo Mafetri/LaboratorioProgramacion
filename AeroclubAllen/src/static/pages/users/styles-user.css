@@ -65,6 +65,7 @@ section {
     width: 100%;
 }
 
+/* ======== Modify User Data ======== */
 .modify-button {
     border-radius: var(--radius);
     margin-top: 0.6em;
@@ -86,7 +87,6 @@ section {
 .table-user-section{
     width: auto !important;
 }
-
 .section-for-user {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -97,7 +97,6 @@ section {
 .section-title {
     width: 100%;
 }
-
 .section-for-user table{
     font-size: 1.3em;
 }
