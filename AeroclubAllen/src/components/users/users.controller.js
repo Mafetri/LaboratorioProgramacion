@@ -87,3 +87,13 @@ export const deleteUser = async (req, res) => {
 		});
 	}
 };
+
+
+export const getUserLoggedin = async (req, res) => {
+	try {
+		const user = await users.getUser(req.user.dni);
+		res.json(user[0]);
+	} catch (error) {
+		
+	}
+}

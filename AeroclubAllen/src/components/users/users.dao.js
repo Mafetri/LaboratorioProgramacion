@@ -13,7 +13,7 @@ users.getUsers = async () => {
 
 users.getUser = async (dni) => {
 	try {
-		const [user] = await pool.query("SELECT dni, name, surname, role FROM users WHERE dni = ?", [dni]);
+		const [user] = await pool.query("SELECT dni, name, surname, role, email, phone FROM users WHERE dni = ?", [dni]);
 		return user;
 	} catch (error) {
 		throw error;

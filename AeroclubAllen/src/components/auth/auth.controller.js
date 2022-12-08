@@ -13,7 +13,7 @@ export const sendSing = (req, res) => {
 // SignUp
 export const passportSignup = (req, res, next) => {
 	passport.authenticate("local.signup", {
-		successRedirect: "/dashboard",
+		successRedirect: "/userPage",
 		failureRedirect: "/sign",
 		failureFlash: true,
 	})(req, res, next);
@@ -22,7 +22,7 @@ export const passportSignup = (req, res, next) => {
 // SignIn
 export const passportSignin = (req, res, next) => {
 	passport.authenticate("local.signin", {
-		successRedirect: "/dashboard",
+		successRedirect: "/userPage",
 		failureRedirect: "/sign",
 		failureFlash: true,
 	})(req, res, next);
@@ -42,6 +42,15 @@ export const logout = (req, res) => {
 export const sendDashboard = (req, res) => {
 	res.sendFile(path.join(fileURLToPath(import.meta.url), "../../../views/dashboard.html"));
 };
+
+// User Page
+export const sendUserPage = async (req, res) => {
+	try {
+		res.sendFile(path.join(fileURLToPath(import.meta.url), "../../../views/user.html"));
+	} catch (e) {
+		somethingWentWrong500(e, res);
+	}
+}
 
 // User Role
 export const getUserRole = (req, res) => {

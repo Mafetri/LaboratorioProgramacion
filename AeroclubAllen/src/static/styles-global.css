@@ -222,6 +222,18 @@ header.sticky {
   justify-content: center;
 }
 
+.margin-1{
+  margin: 1em;
+}
+
+.margin-auto {
+  margin: auto !important;
+}
+
+.width-50 {
+  width: 50%;
+}
+
 .darkened-clouds {
   background-color: rgba(0, 0, 0, .3);
   background-image: url("../../assets/nubes.jpg");
