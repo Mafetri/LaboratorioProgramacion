@@ -31,7 +31,7 @@ function fillUserCard(){
     userCard.append(modifyButton);
 }
 
-// If he is an admin
+// Dashboard Button
 if(user.role == "admin" || user.role == "editor"){
     const userSection = document.querySelector("#user");
 
@@ -45,6 +45,47 @@ if(user.role == "admin" || user.role == "editor"){
     dashboardButtonA.append(dashboardButton)
     userSection.append(dashboardButtonA);
 }
+
+// All turns
+if(user.role == "admin" || user.role == "instructor"){
+    const userSection = document.querySelector("#user");
+
+    let newListItem = document.createElement("tr");
+
+    let askDate = document.createElement("td");
+    askDate.textContent = "06/12/2022" + " " + "16:23" + " UTC";
+
+    let person = document.createElement("td");
+    person.textContent = "Diego Luciani";
+
+    let date = document.createElement("td");
+    date.textContent = "08/12/2022" + " " + "17:00" + " UTC";
+
+    let aiplante = document.createElement("td");
+    aiplante.textContent = "LV-IDE";
+
+    let instructor = document.createElement("td");
+    instructor.textContent = "Si";
+
+    let state = document.createElement("td");
+    // IF THE TURN WAS NOT ACCEPTED YET
+    let acceptButton = document.createElement("button");
+    acceptButton.textContent = "Aceptar";
+    let denyButton = document.createElement("button");
+    denyButton.textContent = "Rechazar";
+
+    document.querySelector("#all-turns-table").appendChild(newListItem);
+    newListItem.appendChild(askDate);
+    newListItem.appendChild(person);
+    newListItem.appendChild(date);
+    newListItem.appendChild(aiplante);
+    newListItem.appendChild(instructor);
+    state.appendChild(acceptButton);
+    state.appendChild(denyButton);
+    newListItem.appendChild(state);
+}
+
+// All flights no registered
 
 
 function roleTranslation(role){

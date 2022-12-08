@@ -1,5 +1,10 @@
+section {
+    margin: 1em;
+}
+
 #user {
     padding: 10em;
+    padding-top: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,4 +51,8 @@
     margin: auto;
     margin-top: 1em;
     width: 50%;
+}
+
+.table-user-section{
+    width: auto !important;
 }
