@@ -22,7 +22,7 @@ users.getUser = async (dni) => {
 
 users.createUser = async (dni, role) => {
 	try {
-		pool.query("INSERT INTO users (dni, role, password) VALUES (?,?,?)", [dni, role, "newuser"]);
+		await pool.query("INSERT INTO users (dni, role, password) VALUES (?,?,?)", [dni, role, "newuser"]);
 	} catch (error) {
 		throw error;
 	}

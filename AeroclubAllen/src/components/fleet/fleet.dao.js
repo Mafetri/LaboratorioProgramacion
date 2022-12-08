@@ -42,6 +42,7 @@ fleet.updateAirplane = async (name, engine, brand, model, speed, consumption, im
 			"UPDATE fleet SET name = IFNULL(?, name), engine = IFNULL(?, engine), brand = IFNULL(?, brand), model = IFNULL(?, model), speed = IFNULL(?, speed), consumption = IFNULL(?, consumption), img = IFNULL(?, img) WHERE plate = ?",
 			[name, engine, brand, model, speed, consumption, imgRoute, plate],
 		);
+		return dbRes;
 	} catch (error) {
 		throw error;
 	}
@@ -51,6 +52,7 @@ fleet.updateAirplane = async (name, engine, brand, model, speed, consumption, im
 fleet.deleteAirplane = async (plate) => {
 	try {
 		const [dbRes] = await pool.query("DELETE FROM fleet WHERE plate=?", [plate]);
+		return dbRes;
 	} catch (error) {
 		throw error;
 	}

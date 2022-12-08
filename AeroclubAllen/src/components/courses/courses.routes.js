@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getCourses, getCourse, createCourse, updateCourse, deleteCourse } from "./courses.controller.js";
+import { isLoggedIn } from "../../lib/auth.js";
 
 const router = Router();
 
@@ -7,10 +8,10 @@ router.get('/courses', getCourses);
 
 router.get('/courses/:course_class', getCourse); 
 
-router.post('/courses', createCourse);
+router.post('/courses', isLoggedIn, createCourse);
 
-router.patch('/courses/:course_class', updateCourse);
+router.patch('/courses/:course_class', isLoggedIn, updateCourse);
 
-router.delete('/courses/:course_class', deleteCourse);
+router.delete('/courses/:course_class', isLoggedIn, deleteCourse);
 
 export default router;

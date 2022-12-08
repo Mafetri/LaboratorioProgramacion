@@ -14,7 +14,7 @@ router.get("/userLoggedin", getUserLoggedin);
 router.post("/user", isLoggedIn, isAdmin, createUser);
 
 // Patch user
-router.patch("/user/:dni", isLoggedIn, isAdmin, updateUser);
+router.patch("/user/:dni", isLoggedIn, updateUser);
 
 // Delete user
 router.delete("/user/:dni", isLoggedIn, isAdmin, deleteUser);

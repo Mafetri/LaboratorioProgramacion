@@ -8,7 +8,6 @@ import { NEWS_IMG_ROUTE } from "../../config.js";
 // Auditlog
 import auditlog from "../auditlog/auditlog.dao.js";
 
-
 // Get news
 export const getNews = async (req, res) => {
 	const { x0, n } = req.query;
@@ -37,7 +36,7 @@ export const createNews = async (req, res) => {
 		const imgRoute = NEWS_IMG_ROUTE + "/" + imgName;
 
 		try {
-			await news.createNews(date, title, description, imgName);
+			await news.createNews(date, title, description, imgRoute);
 			// Gets the id of the recently added news, and creates a log of it
 			const rows = await news.getLastId();
 			await auditlog.createLog(req.user.dni, "creation", "news", rows[0].id);
@@ -88,7 +87,7 @@ export const deleteNews = async (req, res) => {
 			});
 		} else {
 			await auditlog.createLog(req.user.dni, "deletion", "news", id);
-			res.send("News Deleted");
+			res.send("success");
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

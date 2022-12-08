@@ -93,10 +93,11 @@ export const updateAirplane = async (req, res) => {
 	) {
 		try {
 			// If imgName is undefined (no img sent), sents a NULL in imgRoute to the DAO
+			let dbRes = null;
 			if(imgName == undefined){
-				const dbRes = fleet.updateAirplane(name, engine, brand, model, speed, consumption, null, plate);
+				dbRes = await fleet.updateAirplane(name, engine, brand, model, speed, consumption, null, plate);
 			} else {
-				const dbRes = fleet.updateAirplane(name, engine, brand, model, speed, consumption, (AIRPLANE_IMG_ROUTE + "/" + name + "/" + imgName), plate);
+				dbRes = await fleet.updateAirplane(name, engine, brand, model, speed, consumption, (AIRPLANE_IMG_ROUTE + "/" + name + "/" + imgName), plate);
 			}
 
 			if (dbRes.affectedRows === 0) {
@@ -121,7 +122,7 @@ export const deleteAirplane = async (req, res) => {
 	const { plate } = req.params;
 
 	try {
-		const dbRes = fleet.deleteAirplane(plate);
+		const dbRes = await fleet.deleteAirplane(plate);
 
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({

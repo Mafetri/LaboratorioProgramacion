@@ -2,6 +2,7 @@
 import users from "./users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 import auditlog from "../auditlog/auditlog.dao.js";
+import { isAdmin } from "../../lib/auth.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
@@ -45,21 +46,29 @@ export const updateUser = async (req, res) => {
 	const { dni } = req.params;
 	const { name, surname, role, phone, email } = req.body;
 
-	try {
-		const dbRes = await users.updateUser(name, surname, role, phone, email, dni);
-
-		if (dbRes.affectedRows === 0) {
-			return res.status(404).json({
-				message: "User not found",
-			});
-		} else {
-			await auditlog.createLog(req.user.dni, "modification", "users", dni);
-
-			res.send("success");
+	if(dni == req.user.dni || req.user.role == "admin"){
+		try {
+			const dbRes = await users.updateUser(name, surname, role, phone, email, dni);
+	
+			if (dbRes.affectedRows === 0) {
+				return res.status(404).json({
+					message: "User not found",
+				});
+			} else {
+				await auditlog.createLog(req.user.dni, "modification", "users", dni);
+	
+				res.send("success");
+			}
+		} catch (e) {
+			console.log(e);
+			somethingWentWrong500(e, res);
 		}
-	} catch (e) {
-		somethingWentWrong500(e, res);
+	} else {
+		return res.status(400).json({
+			message: "Only admins can change other users info",
+		});
 	}
+	
 };
 
 // Delete User
@@ -68,7 +77,7 @@ export const deleteUser = async (req, res) => {
 
 	if (req.user.dni != dni) {
 		try {
-			const [dbRes] = await pool.query("DELETE FROM users WHERE dni=?", [dni]);
+			const dbRes = users.deleteUser(dni);
 
 			if (dbRes.affectedRows === 0) {
 				return res.status(404).json({
@@ -76,7 +85,7 @@ export const deleteUser = async (req, res) => {
 				});
 			} else {
 				await auditlog.createLog(req.user.dni, "deletion", "users", dni);
-				res.send("User Deleted");
+				res.send("seccess");
 			}
 		} catch (e) {
 			somethingWentWrong500(e, res);

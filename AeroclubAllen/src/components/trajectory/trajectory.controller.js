@@ -1,6 +1,6 @@
-// Data Base
 import trajectory from "./trajectory.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
+import auditlog from "../auditlog/auditlog.dao.js";
 
 // Get Trajectory
 export const getTrajectory = async (req, res) => {
@@ -24,9 +24,9 @@ export const createTrajectory = async (req, res) => {
 		try {
 			await createTrajectory(type, data, icon);
 
-			await createLog(req.user.dni, "creation", "trajectory", type);
+			await auditlog.createLog(req.user.dni, "creation", "trajectory", type);
 
-			res.send("Post Success");
+			res.send("success");
 		} catch (e) {
 			if ((e.code = "ER_DUP_ENTRY")) {
 				return res.status(500).json({
@@ -52,8 +52,8 @@ export const updateTrajectory = async (req, res) => {
 				message: "Trajectory type not found",
 			});
         } else{
-			await createLog(req.user.dni, "modification", "trajectory", type);
-            res.json(dbRes);
+			await auditlog.createLog(req.user.dni, "modification", "trajectory", type);
+            res.send("success");
         }
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -72,8 +72,8 @@ export const deleteTrajectory = async (req, res) => {
 				message: "Trajectory type not found",
 			});
 		} else {
-			await createLog(req.user.dni, "deletion", "trajectory", type);
-			res.send("Trajectory Deleted");
+			await auditlog.createLog(req.user.dni, "deletion", "trajectory", type);
+			res.send("success");
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

@@ -56,6 +56,35 @@ for (let i = 0; i < trajectory.length; i++) {
 	buttons.appendChild(deleteTrajectory);
 }
 
+// Modify trajectory PATCH
+document.querySelector("#modify-trajectory-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+	let dataModify = {
+		icon: document.querySelector("#modify-trajectory-form-icon").value,
+		data: document.querySelector("#modify-trajectory-form-data").value,
+	};
+
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("PATCH", "/api/trajectory/" + document.querySelector("#modify-trajectory-form-type").innerHTML.split(" ")[2]);	
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "success") {
+			alert("Cambio Realizado");
+			window.location.replace("#news");
+			window.location.reload();
+		} else {
+			alert("Hubo un error");
+			window.location.replace("#news");
+			window.location.reload();
+		}
+	};
+
+	xhr.send(JSON.stringify(dataModify));
+});
+
 // ================  News  ================
 // letiables and Costants
 let x0 = 0;
@@ -172,13 +201,13 @@ document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 		description: document.querySelector("#modify-news-form-description").value,
 	};
 
-	if(document.querySelector("#modify-news-form-imgFile").files.length != 0){
+	if (document.querySelector("#modify-news-form-imgFile").files.length != 0) {
 		newsDataModify.imgName = document.querySelector("#modify-news-form-imgFile").files[0].name;
 	}
 
 	let toSend = new FormData();
-	toSend.append('data', JSON.stringify(newsDataModify));
-	toSend.append('file', document.querySelector("#modify-news-form-imgFile").files[0]);
+	toSend.append("data", JSON.stringify(newsDataModify));
+	toSend.append("file", document.querySelector("#modify-news-form-imgFile").files[0]);
 
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
@@ -189,7 +218,7 @@ document.querySelector("#modify-news-form").addEventListener("submit", (e) => {
 			alert("Cambio Realizado");
 			window.location.replace("#news");
 			window.location.reload();
-		} else{
+		} else {
 			alert("Hubo un error");
 			window.location.replace("#news");
 			window.location.reload();
@@ -211,8 +240,8 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 	};
 
 	let toSend = new FormData();
-	toSend.append('data', JSON.stringify(newData));
-	toSend.append('file', document.querySelector("#create-news-form-imgFile").files[0]);
+	toSend.append("data", JSON.stringify(newData));
+	toSend.append("file", document.querySelector("#create-news-form-imgFile").files[0]);
 
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
@@ -220,10 +249,10 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
-			alert("Cambio Realizado");
+			alert("Noticia publicada con exito!");
 			window.location.replace("#news");
 			window.location.reload();
-		} else{
+		} else {
 			alert("Hubo un error");
 			window.location.replace("#news");
 			window.location.reload();
@@ -231,13 +260,7 @@ document.querySelector("#create-news-form").addEventListener("submit", (e) => {
 	};
 
 	xhr.send(toSend);
-
-	// Unce the news has been modified, it reloads the page on the #news ref
-	window.location.replace("#news");
-	window.location.reload();
 });
-
-
 
 // ================  Fleet  ================
 import fleet from "/api/fleet?x0=0&n=200" assert { type: "json" };
@@ -367,13 +390,13 @@ document.querySelector("#modify-airplane-form").addEventListener("submit", (e) =
 		name: document.querySelector("#modify-airplane-form-name").value,
 	};
 
-	if(document.querySelector("#modify-airplane-form-imgFile").files.length != 0){
+	if (document.querySelector("#modify-airplane-form-imgFile").files.length != 0) {
 		dataModify.imgName = document.querySelector("#modify-airplane-form-imgFile").files[0].name;
 	}
 
 	let toSend = new FormData();
-	toSend.append('data', JSON.stringify(dataModify));
-	toSend.append('file', document.querySelector("#modify-airplane-form-imgFile").files[0]);
+	toSend.append("data", JSON.stringify(dataModify));
+	toSend.append("file", document.querySelector("#modify-airplane-form-imgFile").files[0]);
 
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
@@ -384,7 +407,7 @@ document.querySelector("#modify-airplane-form").addEventListener("submit", (e) =
 			alert("Cambio Realizado");
 			window.location.replace("#fleet");
 			window.location.reload();
-		} else{
+		} else {
 			alert("Hubo un error");
 			window.location.replace("#fleet");
 			window.location.reload();
@@ -410,8 +433,8 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 	};
 
 	let toSend = new FormData();
-	toSend.append('data', JSON.stringify(newData));
-	toSend.append('file', document.querySelector("#create-airplane-form-imgFile").files[0]);
+	toSend.append("data", JSON.stringify(newData));
+	toSend.append("file", document.querySelector("#create-airplane-form-imgFile").files[0]);
 
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
@@ -422,7 +445,7 @@ document.querySelector("#create-airplane-form").addEventListener("submit", (e) =
 			alert("Avion creado con exito!");
 			window.location.replace("#fleet");
 			window.location.reload();
-		} else{
+		} else {
 			alert("Hubo un error en la creacion!");
 			window.location.replace("#fleet");
 			window.location.reload();
@@ -437,21 +460,21 @@ const users = await (await fetch("/api/users")).json();
 
 // If the ammount of users is grater than 0, it fills the table with the users
 // if not, it deletes all the section of users
-if(users.length > 0){
+if (users.length > 0) {
 	// Fills the users table
 	for (let i = 0; i < users.length; i++) {
 		let newListItem = document.createElement("tr");
-	
+
 		let dni = document.createElement("td");
 		dni.textContent = users[i].dni;
 		let name = document.createElement("td");
 		name.textContent = users[i].surname + ", " + users[i].name;
 		let role = document.createElement("td");
 		role.textContent = roleTranslation(users[i].role);
-	
+
 		let buttons = document.createElement("td");
 		buttons.classList.add("user-buttons");
-	
+
 		// Delete button
 		let deleteUser = document.createElement("button");
 		deleteUser.textContent = "Borrar";
@@ -464,7 +487,7 @@ if(users.length > 0){
 				window.location.reload();
 			}
 		});
-	
+
 		// Modify Button
 		let modifyUser = document.createElement("a");
 		modifyUser.href = "#modify-user-form-popup";
@@ -479,7 +502,7 @@ if(users.length > 0){
 			document.querySelector("#modify-user-form-email").value = users[i].email;
 			document.querySelector("#modify-user-form-role").seleccted = users[i].role;
 		});
-	
+
 		document.querySelector("#users-table").appendChild(newListItem);
 		newListItem.appendChild(dni);
 		newListItem.appendChild(name);
@@ -492,12 +515,12 @@ if(users.length > 0){
 	// Creation form send
 	document.querySelector("#create-user-form").addEventListener("submit", (e) => {
 		e.preventDefault();
-	
+
 		let newData = {
 			dni: document.querySelector("#create-user-form-dni").value,
 			role: document.querySelector("#create-user-form-role").value,
 		};
-	
+
 		// Uses XHR to post the form data
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", "/api/user");
@@ -514,14 +537,14 @@ if(users.length > 0){
 				window.location.reload();
 			}
 		};
-	
+
 		xhr.send(JSON.stringify(newData));
 	});
-	
+
 	// Modification form send
 	document.querySelector("#modify-user-form").addEventListener("submit", (e) => {
 		e.preventDefault();
-	
+
 		let newData = {
 			name: document.querySelector("#modify-user-form-name").value,
 			surname: document.querySelector("#modify-user-form-surname").value,
@@ -529,7 +552,7 @@ if(users.length > 0){
 			phone: document.querySelector("#modify-user-form-phone").value,
 			role: document.querySelector("#modify-user-form-role").value,
 		};
-	
+
 		// Uses XHR to post the form data
 		let xhr = new XMLHttpRequest();
 		xhr.open("PATCH", "/api/user/" + document.querySelector("#modify-user-form-dni").innerHTML.split(" ")[2]);
@@ -546,24 +569,32 @@ if(users.length > 0){
 				window.location.reload();
 			}
 		};
-	
+
 		xhr.send(JSON.stringify(newData));
 	});
 
 	// Auditlog table fill
 	const auditlog = await (await fetch("/api/auditlog?x0=0&n=20")).json();
 
-	for(let i = 0; i < users.length; i++){
+	for (let i = 0; i < users.length; i++) {
 		let newListItem = document.createElement("tr");
 
 		let date = document.createElement("td");
-		let dateArray = auditlog[i].date.split('T')[0].split('-');
-		let timeArray = auditlog[i].date.split("T")[1].split(':');
-		date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1]+" UTC";
+		let dateArray = auditlog[i].date.split("T")[0].split("-");
+		let timeArray = auditlog[i].date.split("T")[1].split(":");
+		date.textContent =
+			dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
 
 		let description = document.createElement("td");
-		let user = (users.filter((u)=>{return u.dni == auditlog[i].user_dni}))[0];
-		description.textContent = user.name + " " + user.surname + " " + descriptionTranslation(auditlog[i].description, auditlog[i].table_name, auditlog[i].primary_key_changed);
+		let user = users.filter((u) => {
+			return u.dni == auditlog[i].user_dni;
+		})[0];
+		description.textContent =
+			user.name +
+			" " +
+			user.surname +
+			" " +
+			descriptionTranslation(auditlog[i].description, auditlog[i].table_name, auditlog[i].primary_key_changed);
 
 		document.querySelector("#auditlog-table").appendChild(newListItem);
 		newListItem.appendChild(date);
@@ -573,29 +604,43 @@ if(users.length > 0){
 	document.querySelector(".users").remove();
 }
 
-function roleTranslation(role){
-	switch(role){
-		case 'admin': return "Administrador";
-		case 'editor': return "Editor";
-		case 'pilot': return "Piloto";
-		case 'student': return "Alumno";
+function roleTranslation(role) {
+	switch (role) {
+		case "admin":
+			return "Administrador";
+		case "editor":
+			return "Editor";
+		case "pilot":
+			return "Piloto";
+		case "student":
+			return "Alumno";
 	}
 }
 
-function descriptionTranslation (description, tableName, key) {
+function descriptionTranslation(description, tableName, key) {
 	let descriptionTranslated;
-	switch(description){
-		case 'modification': descriptionTranslated = 'modificó'; break;
-		case 'creation': descriptionTranslated = 'creó'; break;
-		case 'deletion': descriptionTranslated = 'eliminó'; break;
+	switch (description) {
+		case "modification":
+			descriptionTranslated = "modificó";
+			break;
+		case "creation":
+			descriptionTranslated = "creó";
+			break;
+		case "deletion":
+			descriptionTranslated = "eliminó";
+			break;
 	}
-	switch(tableName){
-		case 'fleet': descriptionTranslated += " el avión"; break;
-		case 'news': descriptionTranslated += " la noticia"; break;
-		case 'users': descriptionTranslated += " el usuario"; break;
+	switch (tableName) {
+		case "fleet":
+			descriptionTranslated += " el avión";
+			break;
+		case "news":
+			descriptionTranslated += " la noticia";
+			break;
+		case "users":
+			descriptionTranslated += " el usuario";
+			break;
 	}
 	descriptionTranslated += ": " + key;
 	return descriptionTranslated;
 }
-
-

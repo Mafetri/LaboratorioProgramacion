@@ -297,6 +297,7 @@ form legend {
 form {
 	height: fit-content;
 	width: fit-content;
+	min-width: 32em;
 }
 
 .fields-container{
