@@ -276,60 +276,13 @@ form legend {
 }
 
 /*  =============  Users  =============  */
-.users {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: white;
-	padding: 1em;
-	background-color: rgb(245, 241,243);
-}
-.users .section-title{
-	margin: 0.5em auto;
-}
-.users select{
-	padding: 1.0em;
-	width: 20em;
-	border-radius: var(--radius);
-	font-family: var(--funtePrincipal);
-}
-
 form {
 	height: fit-content;
 	width: fit-content;
 	min-width: 32em;
 }
-
 .fields-container{
 	grid-template-rows: auto;
-}
-.user-buttons{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-}
-.user-buttons .delete-button{
-	border-radius: var(--radius) 0 0 var(--radius);
-	font-size: 1em;
-}
-.user-buttons .modify-button{
-	border-radius: 0 var(--radius) var(--radius) 0;
-	font-size: 1em;
-}
-.table-user-section {
-	width: 60%;
-	margin: 0.5em auto;
-	font-size: 1.5em;
-	border: 1px solid black;
-	border-radius: var(--radius);
-	background-color: var(--secundarioOscuro);
-}
-.table-user-section td, th{
-	padding: 0.2em 1em;
-	color: white
-}
-.table-user-sectionrid tr {
-	border: 2px solid black;
 }
 
 /*  =============  LogOut Button  =============  */

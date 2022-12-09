@@ -29,6 +29,82 @@
 				</div>
 			</section>
 
+			<!--  Modify Self User  -->
+			<div class = "container-pop-up" id = "modify-self-user-form-popup">
+				<div class = "pop-up">
+					<a href = "#" class = "close-button"> Cerrar </a>
+					<form id = "modify-self-user-form">
+						<fieldset>
+							<legend id = "modify-self-user-form-dni"></legend>
+							<div class="fields-container">
+								<!-- Name -->
+								<div class="field">
+									<label for="name">Nombre</label>
+									<input class="input-text" type="text" name="name" id="modify-self-user-form-name" placeholder="Nombre" required/>
+								</div>
+	
+								<!-- Surname -->
+								<div class="field">
+									<label for="surname">Apellido</label>
+									<input class="input-text" type="text" name="surname" id="modify-self-user-form-surname" placeholder="Apellido" required/>
+								</div>
+	
+								<!-- Email -->
+								<div class="field">
+									<label for="email">Email</label>
+									<input class="input-text" type="email" name="email" id="modify-self-user-form-email" placeholder="Email" required/>
+								</div>
+	
+								<!-- Phone -->
+								<div class="field">
+									<label for="phone">Telefono</label>
+									<input class="input-text" type="text" name="phone" id="modify-self-user-form-phone" placeholder="Telefono" required/>
+								</div>
+
+								<!-- Submit Button -->
+								<div class="submit-button">
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+
+			<!--  Create User  -->
+			<div class = "container-pop-up" id = "create-user-form-popup">
+				<div class = "pop-up">
+					<a href= "#user" class = "close-button"> Cerrar </a>
+					<form id = "create-user-form">
+						<fieldset>
+							<legend>Agregar Usuario</legend>
+							<div class="fields-container">
+								<!-- DNI -->
+								<div class="field">
+									<label for="dni">DNI</label>
+									<input class="input-text" type="number" name="dni" id="create-user-form-dni" placeholder="DNI" required/>
+								</div>
+	
+								<!-- Role -->
+								<div class="field">
+									<label for="role">Rol</label>
+									<select name = "role" id="create-user-form-role" required>
+										<option value = "admin">Administrador</option>
+										<option value = "editor">Editor</option>
+										<option value = "pilot">Piloto</option>
+										<option value = "student">Alumno</option>
+									</select>
+								</div>
+	
+								<!-- Submit Button -->
+								<div class="submit-button">
+									<input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Agregar" name="submit"
+									id = "create-news-form-submit" />
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			
 			<!--  Modify User  -->
 			<div class = "container-pop-up" id = "modify-user-form-popup">
 				<div class = "pop-up">
@@ -60,7 +136,18 @@
 									<label for="phone">Telefono</label>
 									<input class="input-text" type="text" name="phone" id="modify-user-form-phone" placeholder="Telefono" required/>
 								</div>
-
+	
+								<!-- Role -->
+								<div class="field">
+									<label for="role">Rol</label>
+									<select name = "role" id="modify-user-form-role" required>
+										<option value = "admin">Administrador</option>
+										<option value = "editor">Editor</option>
+										<option value = "pilot">Piloto</option>
+										<option value = "student">Alumno</option>
+									</select>
+								</div>
+			
 								<!-- Submit Button -->
 								<div class="submit-button">
 									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
@@ -74,14 +161,42 @@
 			<section id = "role-options">
 				<!-- Turns -->
 				<section class="section-for-user" id="all-turns"></section>
-			</section>
+				<!-- Users -->
+				<section class = "section-for-user" id = "users-section">
+					<h2 class = "section-title margin-auto"> Usuarios </h2>
+					<a href="#create-user-form-popup"><button class = "gray-button">Crear Usuario</button></a>
+					<!--  Table of Users  -->
+					<table class = "table-user-section">
+						<thead>
+							<th>DNI</th>
+							<th>Nombre</th>
+							<th>Rol Actual</th>
+						</thead>
+						<tbody  id = "users-table">
 			
+						</tbody>
+					</table>
+				</section>
+				<!--  Auditlog  -->
+				<section class = "section-for-user" id = "audit-log">
+					<h2 class = "section-title margin-auto">Registro de Auditoria</h2>
+					<table class = "table-user-section">
+						<thead>
+							<th>Fecha</th>
+							<th>Descripcion</th>
+						</thead>
+						<tbody  id = "auditlog-table">
+			
+						</tbody>
+					</table>
+				</section>
+			</section>
 
 			<!-- User Flight Register -->
 			<section class="section-for-user" id="flights-register">
 				<h2 class="section-title margin-auto">Ultimos Vuelos</h2>
 				<a class="register-button center" href="">
-					<button class="boton-sec-oscuro">Registrar Vuelo</button>
+					<button class="gray-button">Registrar Vuelo</button>
 				</a>
 				<table class="table-user-section">
 					<thead>
@@ -106,7 +221,7 @@
 			<section class="section-for-user" id="airplane-turns">
 				<h2 class="section-title margin-auto">Mis Turnos</h2>
 				<a class="register-button center" href="">
-					<button class="boton-sec-oscuro">Agendar Turno</button>
+					<button class="gray-button">Agendar Turno</button>
 				</a>
 				<table class="table-user-section">
 					<thead>
