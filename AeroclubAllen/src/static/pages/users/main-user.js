@@ -66,6 +66,20 @@ document.querySelector("#modify-user-form").addEventListener("submit", (e) => {
     xhr.send(JSON.stringify(newData));
 });
 
+// Role Options Button
+if(user.role != "pilot" || user.role != "student"){
+    const userButtons = document.querySelector("#user-card-buttons");
+
+    let roleButton = document.createElement("button");
+    roleButton.classList.add("boton-sec-oscuro");
+    roleButton.textContent = "Opciones de Rol";
+    roleButton.addEventListener("click", () => {
+        document.querySelector("#role-options").classList.toggle("show");
+    });
+
+    userButtons.prepend(roleButton);
+}
+
 // Dashboard Button
 if(user.role == "admin" || user.role == "editor"){
     const userButtons = document.querySelector("#user-card-buttons");

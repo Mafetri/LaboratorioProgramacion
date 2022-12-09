@@ -100,3 +100,13 @@ section {
 .section-for-user table{
     font-size: 1.3em;
 }
+
+#role-options {
+    display: none;
+    opacity: 0;
+    transition: all ease 1s;
+}
+#role-options.show {
+    display: block;
+    opacity: 1;
+}
