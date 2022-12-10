@@ -2,9 +2,14 @@ import { pool } from "../../db.js";
 
 const users = {};
 
-users.getUsers = async () => {
+users.getUsers = async (importants) => {
 	try {
-		const [rows] = await pool.query("SELECT dni, name, surname, phone, email, role FROM users");
+		if( importants == "true"){
+			const [rows] = await pool.query("SELECT dni, name, surname, role, email, phone FROM users WHERE role NOT IN('pilot', 'student') ORDER BY FIELD(role, 'admin', 'editor', 'instructor', 'secretary'), surname DESC;");
+			return rows;
+		}
+
+		const [rows] = await pool.query("SELECT dni, name, surname, role, email, phone FROM users WHERE role IN('pilot', 'student') ORDER BY surname ASC;");
 		return rows;
 	} catch (error) {
 		throw error;

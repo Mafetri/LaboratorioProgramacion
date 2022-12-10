@@ -6,8 +6,10 @@ import { isAdmin } from "../../lib/auth.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
+	const { importants } = req.query;
+
 	try {
-		const rows = await users.getUsers();
+		const rows = await users.getUsers(importants);
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);

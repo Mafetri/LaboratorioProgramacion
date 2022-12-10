@@ -73,16 +73,15 @@ if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
 	let roleButton = document.createElement("button");
 	roleButton.classList.add("gray-button");
 	roleButton.textContent = "Opciones de Rol";
-    let statusHidden = true;
-    document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
+	let statusHidden = true;
+	document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
 	roleButton.addEventListener("click", () => {
 		document.querySelector("#role-options").classList.toggle("show");
-        document.querySelector("#role-options").style.transform = "translateY(-25px)";
-        setTimeout(function () {
-            document.querySelector("#role-options").style.transform = "translateY(0px)";
-        }, 0);
-        statusHidden = false;
-        
+		document.querySelector("#role-options").style.transform = "translateY(-25px)";
+		setTimeout(function () {
+			document.querySelector("#role-options").style.transform = "translateY(0px)";
+		}, 0);
+		statusHidden = false;
 	});
 
 	userButtons.prepend(roleButton);
@@ -180,57 +179,66 @@ if (user.role == "admin" || user.role == "instructor") {
 
 //  =================  Users  =================
 if (user.role == "admin") {
-	const users = await (await fetch("/api/users")).json();
+	let users = await (await fetch("/api/users?importants=true")).json();
+	fillUserTable(users);
 
 	// Fills the users table
-	for (let i = 0; i < users.length; i++) {
-		let newListItem = document.createElement("tr");
+	document.querySelector("#load-all-users").addEventListener("click", async (e) => {
+		let restOfUsers = await (await fetch("/api/users?importants=false")).json();
+		document.querySelector("#load-all-users").remove();
+		fillUserTable(restOfUsers);
+	})
 
-		let dni = document.createElement("td");
-		dni.textContent = users[i].dni;
-		let name = document.createElement("td");
-		name.textContent = users[i].surname + ", " + users[i].name;
-		let role = document.createElement("td");
-		role.textContent = roleTranslation(users[i].role);
-
-		let buttons = document.createElement("td");
-		buttons.classList.add("user-buttons");
-
-		// Delete button
-		let deleteUser = document.createElement("button");
-		deleteUser.textContent = "Borrar";
-		deleteUser.classList.add("delete-button");
-		deleteUser.addEventListener("click", async () => {
-			if (window.confirm("Seguro que quiere borrar a " + users[i].name + " " + users[i].surname + "?")) {
-				const res = await fetch("/api/user/" + users[i].dni, {
-					method: "DELETE",
-				});
-				window.location.reload();
-			}
-		});
-
-		// Modify Button
-		let modifyUser = document.createElement("a");
-		modifyUser.href = "#modify-user-form-popup";
-		modifyUser.textContent = "Modificar";
-		modifyUser.classList.add("modify-button");
-		modifyUser.addEventListener("click", async () => {
-			// It fills the form with the editable current value of the user
-			document.querySelector("#modify-user-form-dni").innerHTML = "Modificando Usuario: " + users[i].dni;
-			document.querySelector("#modify-user-form-name").value = users[i].name;
-			document.querySelector("#modify-user-form-surname").value = users[i].surname;
-			document.querySelector("#modify-user-form-phone").value = users[i].phone;
-			document.querySelector("#modify-user-form-email").value = users[i].email;
-			document.querySelector("#modify-user-form-role").seleccted = users[i].role;
-		});
-
-		document.querySelector("#users-table").appendChild(newListItem);
-		newListItem.appendChild(dni);
-		newListItem.appendChild(name);
-		newListItem.appendChild(role);
-		newListItem.appendChild(buttons);
-		buttons.appendChild(deleteUser);
-		buttons.appendChild(modifyUser);
+	function fillUserTable(users) {
+		for (let i = 0; i < users.length; i++) {
+			let newListItem = document.createElement("tr");
+	
+			let dni = document.createElement("td");
+			dni.textContent = users[i].dni;
+			let name = document.createElement("td");
+			name.textContent = users[i].surname + ", " + users[i].name;
+			let role = document.createElement("td");
+			role.textContent = roleTranslation(users[i].role);
+	
+			let buttons = document.createElement("td");
+			buttons.classList.add("user-buttons");
+	
+			// Delete button
+			let deleteUser = document.createElement("button");
+			deleteUser.textContent = "Borrar";
+			deleteUser.classList.add("delete-button");
+			deleteUser.addEventListener("click", async () => {
+				if (window.confirm("Seguro que quiere borrar a " + users[i].name + " " + users[i].surname + "?")) {
+					const res = await fetch("/api/user/" + users[i].dni, {
+						method: "DELETE",
+					});
+					window.location.reload();
+				}
+			});
+	
+			// Modify Button
+			let modifyUser = document.createElement("a");
+			modifyUser.href = "#modify-user-form-popup";
+			modifyUser.textContent = "Modificar";
+			modifyUser.classList.add("modify-button");
+			modifyUser.addEventListener("click", async () => {
+				// It fills the form with the editable current value of the user
+				document.querySelector("#modify-user-form-dni").innerHTML = "Modificando Usuario: " + users[i].dni;
+				document.querySelector("#modify-user-form-name").value = users[i].name;
+				document.querySelector("#modify-user-form-surname").value = users[i].surname;
+				document.querySelector("#modify-user-form-phone").value = users[i].phone;
+				document.querySelector("#modify-user-form-email").value = users[i].email;
+				document.querySelector("#modify-user-form-role").seleccted = users[i].role;
+			});
+	
+			document.querySelector("#users-table").appendChild(newListItem);
+			newListItem.appendChild(dni);
+			newListItem.appendChild(name);
+			newListItem.appendChild(role);
+			newListItem.appendChild(buttons);
+			buttons.appendChild(deleteUser);
+			buttons.appendChild(modifyUser);
+		}
 	}
 
 	// Crete User POST
@@ -297,7 +305,7 @@ if (user.role == "admin") {
 	// Auditlog table fill
 	const auditlog = await (await fetch("/api/auditlog?x0=0&n=20")).json();
 
-	for (let i = 0; i < users.length; i++) {
+	for (let i = 0; i < auditlog.length; i++) {
 		let newListItem = document.createElement("tr");
 
 		let date = document.createElement("td");
@@ -322,11 +330,11 @@ if (user.role == "admin") {
 		newListItem.appendChild(description);
 	}
 } else {
-    console.log("hola");
+	console.log("hola");
 	document.querySelector("#users-section").remove();
-    document.querySelector("#audit-log").remove();
-    document.querySelector("#create-user-form-popup").remove();
-    document.querySelector("#modify-user-form-popup").remove();
+	document.querySelector("#audit-log").remove();
+	document.querySelector("#create-user-form-popup").remove();
+	document.querySelector("#modify-user-form-popup").remove();
 }
 
 function roleTranslation(role) {
