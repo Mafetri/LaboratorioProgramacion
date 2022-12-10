@@ -311,17 +311,13 @@ if (user.role == "admin") {
 		let date = document.createElement("td");
 		let dateArray = auditlog[i].date.split("T")[0].split("-");
 		let timeArray = auditlog[i].date.split("T")[1].split(":");
-		date.textContent =
-			dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+		date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
 
 		let description = document.createElement("td");
-		let user = users.filter((u) => {
-			return u.dni == auditlog[i].user_dni;
-		})[0];
 		description.textContent =
-			user.name +
+			auditlog[i].name +
 			" " +
-			user.surname +
+			auditlog[i].surname +
 			" " +
 			descriptionTranslation(auditlog[i].description, auditlog[i].table_name, auditlog[i].primary_key_changed);
 
