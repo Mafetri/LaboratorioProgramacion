@@ -116,3 +116,11 @@ CREATE TABLE turns (
 
 INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);
 INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);
+
+
+CREATE TABLE instructors_availability  (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    instructor_dni INT(255) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL
+)

@@ -66,7 +66,8 @@ document.querySelector("#modify-self-user-form").addEventListener("submit", (e) 
 	xhr.send(JSON.stringify(newData));
 });
 
-//  =================  Role Option Button  =================
+//  =================  Role Options  =================
+//  ====> Role Option Button
 if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
 	const userButtons = document.querySelector("#user-card-buttons");
 
@@ -87,7 +88,7 @@ if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
 	userButtons.prepend(roleButton);
 }
 
-//  =================  Dashboard Button  =================
+//  ====> Dashboard Button
 if (user.role == "admin" || user.role == "editor") {
 	const userButtons = document.querySelector("#user-card-buttons");
 
@@ -101,7 +102,39 @@ if (user.role == "admin" || user.role == "editor") {
 	userButtons.prepend(dashboardButtonA);
 }
 
-//  =================  Unchecked Turns  =================
+//  ====> Instructor Disponibility
+if(user.role == "admin") {
+	let instructorsAviability = await (await fetch("/api/instructors")).json();
+	instructorAviabilityTable(instructorsAviability);
+}
+function instructorAviabilityTable (instructorsAviability) {
+	const table = document.querySelector("#instructor-availability-table");
+
+	for (let i = 0; i < instructorsAviability.length; i++) {
+		let newListItem = document.createElement("tr");
+
+		let completeName = document.createElement("td");
+		completeName.textContent = instructorsAviability[i].name + " " + instructorsAviability[i].surname;
+
+		let start_date = document.createElement("td");
+		let dateArray = uncheckedTurns[i].start_date.split("T")[0].split("-");
+		let timeArray = uncheckedTurns[i].start_date.split("T")[1].split(":");
+		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+
+		let end_date = document.createElement("td");
+		dateArray = uncheckedTurns[i].end_date.split("T")[0].split("-");
+		timeArray = uncheckedTurns[i].end_date.split("T")[1].split(":");
+		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+
+
+		table.appendChild(newListItem);
+		newListItem.appendChild(completeName);
+		newListItem.appendChild(start_date);
+		newListItem.appendChild(end_date);
+	}
+}
+
+//  ====> Unchecked Turns
 if (user.role == "secretary" || user.role == "admin"){
 	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
 	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
@@ -223,7 +256,7 @@ function fillTurnsTable(uncheckedTurns, tableName){
 	}
 }
 
-//  =================  Users  =================
+//  =====> Users Table
 if (user.role == "admin") {
 	let users = await (await fetch("/api/users?importants=true")).json();
 	fillUserTable(users);

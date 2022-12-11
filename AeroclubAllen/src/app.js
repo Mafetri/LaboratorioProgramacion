@@ -15,6 +15,7 @@ import auth from "./components/auth/auth.routes.js";
 import users from "./components/users/user.routes.js";
 import auditlog from "./components/auditlog/auditlog.routes.js";
 import turnsRoutes from "./components/turns/turns.routes.js";
+import instructors from "./components/instructors/instructors.routes.js";
 
 
 const app = express();
@@ -42,6 +43,7 @@ app.use("/api", submitForm);
 app.use("/api", users);
 app.use("/api", auditlog);
 app.use("/api", turnsRoutes);
+app.use("/api", instructors);
 
 // Static webpage
 app.use(express.static('src/static'));
