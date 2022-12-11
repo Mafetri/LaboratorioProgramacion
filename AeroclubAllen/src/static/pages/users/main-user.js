@@ -484,8 +484,6 @@ if (user.role == "admin" || user.role == "secretary"){
 		xhr.send(JSON.stringify(newData));
 	})
 
-	// Enable User PATCH
-
 	// Fill Disabled Users table
 	const disabledUsers = await (await fetch("/api/disabledUsers")).json();
 	disabledUsersTableFiller();
