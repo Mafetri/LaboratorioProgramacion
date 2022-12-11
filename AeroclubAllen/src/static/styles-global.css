@@ -315,6 +315,18 @@ header.sticky {
   }
 }
 
+.height-fit {
+  height: fit-content !important;
+}
+
+.border-radius {
+  border-radius: var(--radius) !important;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+
 /* ==================== News Card ==================== */
 .news-card{
   padding: 0em;

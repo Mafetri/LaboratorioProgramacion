@@ -214,9 +214,33 @@
 					</table>
 				</section>
 
+				<!-- Disable User -->
+				<section class="section-for-user" id="disable-user">
+					<h2 class = "section-title margin-auto">Deshabilitar/Habilitar Socio</h2>
+					<form class = "margin-auto" id = "disable-user-form">
+						<fieldset>
+							<div class="fields-container">
+								<div class="field margin-bottom-0">
+									<input class="input-text" type="text" name="toggle-user-enabled" id="toggle-user-enabled-dni" placeholder = "DNI" required/>
+								</div>							
+									<input onclick="" class="gray-button height-fit border-radius" type="submit" value="Deshabilitar" name="submit" id="submit" />
+								</div>
+							</div>
+						</fieldset>
+					</form>
+					<table class = "table-user-section">
+						<thead>
+							<th>DNI</th>
+							<th>Nombre</th>
+						</thead>
+						<tbody  id = "disabled-users-table">
+							
+						</tbody>
+					</table>
+				</section>
 			</section>
 
-			<!--  Instructor Aviability Post -->
+			<!--  Instructor Aviability Form -->
 			<div class = "container-pop-up" id = "instructor-availability-form-popup">
 				<div class = "pop-up">
 					<a href = "#" class = "close-button"> Cerrar </a>
@@ -225,14 +249,14 @@
 							<div class="fields-container">
 								<!-- Date and Time Start -->
 								<div class="field">
-									<label for="date">Desde:</label>
-									<input class="input-text" type="datetime-local" name="date" id="instructor-availability-form-start-date" required/>
+									<label for="start-date">Desde:</label>
+									<input class="input-text" type="datetime-local" name="start-date" id="instructor-availability-form-start-date" required/>
 								</div>
 
 								<!-- Date and Time End -->
 								<div class="field">
-									<label for="date">Hasta:</label>
-									<input class="input-text" type="datetime-local" name="date" id="instructor-availability-form-end-date" required/>
+									<label for="end-date">Hasta:</label>
+									<input class="input-text" type="datetime-local" name="end-date" id="instructor-availability-form-end-date" required/>
 								</div>
 			
 								<!-- Submit Button -->

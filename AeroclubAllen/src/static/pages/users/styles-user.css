@@ -165,3 +165,8 @@ th {
 		min-height: 3em;
 	}
 }
+
+#disable-user-form {
+	margin-top: 0.5em !important;
+	box-shadow: none !important;
+}

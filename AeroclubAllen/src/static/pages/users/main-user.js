@@ -105,9 +105,23 @@ if (user.role == "admin" || user.role == "editor") {
 //  ====> Instructor Disponibility
 // Fills the table depending the role, if it is a instructor it will fill it with his aviabilities
 // and a button to submit more, if it is an admin, it will show all isntructors aviabilities
-if(user.role == "admin") {
+if(user.role == "admin" || user.role == "secretary") {
 	const instructorsAviability = await (await fetch("/api/instructors")).json();
 	instructorAviabilityTable(instructorsAviability);
+} else if (user.role == "instructor") {
+	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
+	let addAviabilityA = document.createElement("a");
+	addAviabilityA.href = "#instructor-availability-form-popup";
+	let addAviability = document.createElement("button");
+	addAviability.classList.add("gray-button");
+	addAviability.textContent = "Agregar Disponibilidad";
+	addAviabilityA.appendChild(addAviability)
+	document.querySelector("#instructor-availability").insertBefore(addAviabilityA, document.querySelector("#instructor-availability-title").nextSibling.nextSibling);
+
+	let instructorAviability = await (await fetch("/api/instructors/" + user.dni)).json();
+	instructorAviabilityTable(instructorAviability);
+} else {
+	document.querySelector("#instructor-availability").remove();
 }
 function instructorAviabilityTable (instructorsAviability) {
 	const table = document.querySelector("#instructor-availability-table");
@@ -133,19 +147,6 @@ function instructorAviabilityTable (instructorsAviability) {
 		newListItem.appendChild(start_date);
 		newListItem.appendChild(end_date);
 	}
-}
-if(user.role == "instructor"){
-	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
-	let addAviabilityA = document.createElement("a");
-	addAviabilityA.href = "#instructor-availability-form-popup";
-	let addAviability = document.createElement("button");
-	addAviability.classList.add("gray-button");
-	addAviability.textContent = "Agregar Disponibilidad";
-	addAviabilityA.appendChild(addAviability)
-	document.querySelector("#instructor-availability").insertBefore(addAviabilityA, document.querySelector("#instructor-availability-title").nextSibling.nextSibling);
-
-	let instructorAviability = await (await fetch("/api/instructors/" + user.dni)).json();
-	instructorAviabilityTable(instructorAviability);
 }
 
 //  ====> Instructor Disponibility Submit
@@ -173,7 +174,6 @@ document.querySelector("#instructor-availability-form").addEventListener("submit
 	};
 	xhr.send(JSON.stringify(newData));
 });
-
 
 //  ====> Unchecked Turns
 if (user.role == "secretary" || user.role == "admin"){
@@ -423,7 +423,14 @@ if (user.role == "admin") {
 
 		xhr.send(JSON.stringify(newData));
 	});
+} else {
+	document.querySelector("#users-section").remove();
+	document.querySelector("#create-user-form-popup").remove();
+	document.querySelector("#modify-user-form-popup").remove();
+}
 
+//  =====> Audit Log
+if( user.role == "admin" || user.role == "secretary" ){
 	// Auditlog table fill
 	const auditlog = await (await fetch("/api/auditlog?x0=0&n=20")).json();
 	for (let i = 0; i < auditlog.length; i++) {
@@ -447,9 +454,73 @@ if (user.role == "admin") {
 		newListItem.appendChild(description);
 	}
 } else {
-	document.querySelector("#users-section").remove();
-	document.querySelector("#create-user-form-popup").remove();
-	document.querySelector("#modify-user-form-popup").remove();
+	document.querySelector("#audit-log").remove();
+}
+
+//  =====> Enable/Disbale User
+if (user.role == "admin" || user.role == "secretary"){
+	// Disable User PATCH
+	document.querySelector("#disable-user-form").addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		const newData = {
+			enabled: "false",
+		}
+
+		// Uses XHR to post the form data
+		let xhr = new XMLHttpRequest();
+		xhr.open("PATCH", "/api/user/" + document.querySelector("#toggle-user-enabled-dni").value);
+		xhr.setRequestHeader("content-type", "application/json");
+		xhr.onload = function () {
+			// If the server sends a success
+			if (xhr.responseText == "success") {
+				alert("Usuario desabilitado!");
+				window.location.reload();
+			} else {
+				alert("Hubo un error, revise los datos o comuniquese con un administrador");
+				window.location.reload();
+			}
+		};
+		xhr.send(JSON.stringify(newData));
+	})
+
+	// Enable User PATCH
+
+	// Fill Disabled Users table
+	const disabledUsers = await (await fetch("/api/disabledUsers")).json();
+	disabledUsersTableFiller();
+	function disabledUsersTableFiller() {
+		for (let i = 0; i < disabledUsers.length; i++) {
+			let newListItem = document.createElement("tr");
+	
+			let name = document.createElement("td");
+			name.textContent = disabledUsers[i].name + " " + disabledUsers[i].surname;
+	
+			let dni = document.createElement("td");
+			dni.textContent = disabledUsers[i].dni;
+
+			// Enable button
+			let enableUser = document.createElement("button");
+			enableUser.textContent = "Habilitar";
+			enableUser.classList.add("ok-button");
+			enableUser.addEventListener("click", async () => {
+				if (window.confirm("Seguro que quiere habilitar a " + disabledUsers[i].name + " " + disabledUsers[i].surname + "?")) {
+					const res = await fetch("/api/user/" + disabledUsers[i].dni, {
+						method: "PATCH",
+						body: JSON.stringify({ enabled: 'true' }),
+						headers: { 'Content-Type': 'application/json'}
+					});
+					window.location.reload();
+				}
+			});
+	
+			document.querySelector("#disabled-users-table").appendChild(newListItem);
+			newListItem.appendChild(dni);
+			newListItem.appendChild(name);
+			newListItem.appendChild(enableUser);
+		}
+	}
+	
 }
 
 //  =================  My Turns  =================

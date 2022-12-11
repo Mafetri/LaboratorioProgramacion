@@ -6,7 +6,7 @@ const instructors = {};
 // Get Instructors Aviability
 instructors.getInstructorsAviability = async () => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM instructors_availability ORDER BY start_date DESC");
+		const [rows] = await pool.query("SELECT instructors_availability.*, users.name, users.surname FROM instructors_availability JOIN users ON instructors_availability.instructor_dni = users.dni ORDER BY instructors_availability.start_date DESC");
 		return rows;
 	} catch (error) {
 		throw error;
