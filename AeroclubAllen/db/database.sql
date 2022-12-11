@@ -100,3 +100,17 @@ CREATE TABLE auditlog (
     table_name VARCHAR(255),
     primary_key_changed VARCHAR(255),
 )
+
+
+CREATE TABLE turns (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    request_date DATETIME NOT NULL,
+    user_dni INT(255) NOT NULL,
+    date DATETIME NOT NULL,
+    airplane_plate VARCHAR(255) NOT NULL,
+    instructor_dni INT(255),
+    approved BOOLEAN NOT NULL
+)
+
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), "LV-FVA", 10660264, NULL);
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), "LV-FVA", 10660264, NULL);
