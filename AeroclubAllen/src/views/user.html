@@ -89,6 +89,8 @@
 									<label for="role">Rol</label>
 									<select name = "role" id="create-user-form-role" required>
 										<option value = "admin">Administrador</option>
+										<option value = "secretary">Secretaria</option>
+										<option value = "instructor">Instructor</option>
 										<option value = "editor">Editor</option>
 										<option value = "pilot">Piloto</option>
 										<option value = "student">Alumno</option>
@@ -142,6 +144,8 @@
 									<label for="role">Rol</label>
 									<select name = "role" id="modify-user-form-role" required>
 										<option value = "admin">Administrador</option>
+										<option value = "secretary">Secretaria</option>
+										<option value = "instructor">Instructor</option>
 										<option value = "editor">Editor</option>
 										<option value = "pilot">Piloto</option>
 										<option value = "student">Alumno</option>
@@ -161,9 +165,6 @@
 			<section id = "role-options">
 				<!-- Turns Unchecked -->
 				<section class="section-for-user" id="unchecked-turns"></section>
-				
-				<!-- Turns -->
-				<section class="section-for-user" id="all-turns"></section>
 
 				<!-- Users -->
 				<section class = "section-for-user" id = "users-section">
@@ -200,7 +201,7 @@
 
 				<!-- Instructor Availability -->
 				<section class = "section-for-user" id = "instructor-availability">
-					<h2 class = "section-title margin-auto">Disponibilidad de Instructores</h2>
+					<h2 class = "section-title margin-auto" id = "instructor-availability-title">Disponibilidad de Instructores</h2>
 					<table class = "table-user-section">
 						<thead>
 							<th>Instructor</th>
@@ -214,6 +215,34 @@
 				</section>
 
 			</section>
+
+			<!--  Instructor Aviability Post -->
+			<div class = "container-pop-up" id = "instructor-availability-form-popup">
+				<div class = "pop-up">
+					<a href = "#" class = "close-button"> Cerrar </a>
+					<form id = "instructor-availability-form">
+						<fieldset>
+							<div class="fields-container">
+								<!-- Date and Time Start -->
+								<div class="field">
+									<label for="date">Desde:</label>
+									<input class="input-text" type="datetime-local" name="date" id="instructor-availability-form-start-date" required/>
+								</div>
+
+								<!-- Date and Time End -->
+								<div class="field">
+									<label for="date">Hasta:</label>
+									<input class="input-text" type="datetime-local" name="date" id="instructor-availability-form-end-date" required/>
+								</div>
+			
+								<!-- Submit Button -->
+								<div class="submit-button">
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit" id="submit" />
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
 
 			<!-- User Flight Register -->
 			<!-- <section class="section-for-user" id="flights-register">

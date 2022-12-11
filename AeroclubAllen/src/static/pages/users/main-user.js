@@ -103,13 +103,14 @@ if (user.role == "admin" || user.role == "editor") {
 }
 
 //  ====> Instructor Disponibility
+// Fills the table depending the role, if it is a instructor it will fill it with his aviabilities
+// and a button to submit more, if it is an admin, it will show all isntructors aviabilities
 if(user.role == "admin") {
-	let instructorsAviability = await (await fetch("/api/instructors")).json();
+	const instructorsAviability = await (await fetch("/api/instructors")).json();
 	instructorAviabilityTable(instructorsAviability);
 }
 function instructorAviabilityTable (instructorsAviability) {
 	const table = document.querySelector("#instructor-availability-table");
-
 	for (let i = 0; i < instructorsAviability.length; i++) {
 		let newListItem = document.createElement("tr");
 
@@ -117,13 +118,13 @@ function instructorAviabilityTable (instructorsAviability) {
 		completeName.textContent = instructorsAviability[i].name + " " + instructorsAviability[i].surname;
 
 		let start_date = document.createElement("td");
-		let dateArray = uncheckedTurns[i].start_date.split("T")[0].split("-");
-		let timeArray = uncheckedTurns[i].start_date.split("T")[1].split(":");
+		let dateArray = instructorsAviability[i].start_date.split("T")[0].split("-");
+		let timeArray = instructorsAviability[i].start_date.split("T")[1].split(":");
 		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
 
 		let end_date = document.createElement("td");
-		dateArray = uncheckedTurns[i].end_date.split("T")[0].split("-");
-		timeArray = uncheckedTurns[i].end_date.split("T")[1].split(":");
+		dateArray = instructorsAviability[i].end_date.split("T")[0].split("-");
+		timeArray = instructorsAviability[i].end_date.split("T")[1].split(":");
 		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
 
 
@@ -133,11 +134,54 @@ function instructorAviabilityTable (instructorsAviability) {
 		newListItem.appendChild(end_date);
 	}
 }
+if(user.role == "instructor"){
+	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
+	let addAviabilityA = document.createElement("a");
+	addAviabilityA.href = "#instructor-availability-form-popup";
+	let addAviability = document.createElement("button");
+	addAviability.classList.add("gray-button");
+	addAviability.textContent = "Agregar Disponibilidad";
+	addAviabilityA.appendChild(addAviability)
+	document.querySelector("#instructor-availability").insertBefore(addAviabilityA, document.querySelector("#instructor-availability-title").nextSibling.nextSibling);
+
+	let instructorAviability = await (await fetch("/api/instructors/" + user.dni)).json();
+	instructorAviabilityTable(instructorAviability);
+}
+
+//  ====> Instructor Disponibility Submit
+document.querySelector("#instructor-availability-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+	let newData = {
+		startDate: document.querySelector("#instructor-availability-form-start-date").value,
+		endDate: document.querySelector("#instructor-availability-form-end-date").value,
+	};
+
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/instructors");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "success") {
+			alert("Disponibilidad cargada con exito!");
+			window.location.reload();
+		} else {
+			alert("Hubo un error en la carga, revise los datos o comuniquese con un administrador");
+			window.location.reload();
+		}
+	};
+	xhr.send(JSON.stringify(newData));
+});
+
 
 //  ====> Unchecked Turns
 if (user.role == "secretary" || user.role == "admin"){
 	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
 	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
+} else {
+	document.querySelector("#unchecked-turns").remove();
+	document.querySelector("#audit-log").remove();
 }
 function fillTurnsTable(uncheckedTurns, tableName){
 	let sectionTitle = document.createElement("h2");
@@ -403,9 +447,7 @@ if (user.role == "admin") {
 		newListItem.appendChild(description);
 	}
 } else {
-	console.log("hola");
 	document.querySelector("#users-section").remove();
-	document.querySelector("#audit-log").remove();
 	document.querySelector("#create-user-form-popup").remove();
 	document.querySelector("#modify-user-form-popup").remove();
 }
@@ -454,8 +496,6 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 		purpose: document.querySelector("#request-turn-form-purpose").value,
 	};
 
-	console.log(newData);
-
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", "/api/turns");
@@ -483,6 +523,10 @@ function roleTranslation(role) {
 			return "Piloto";
 		case "student":
 			return "Alumno";
+		case "instructor":
+			return "Instructor";
+		case "secretary":
+			return "Secretaria";
 	}
 }
 
