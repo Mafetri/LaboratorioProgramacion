@@ -109,7 +109,7 @@ CREATE TABLE turns (
     user_dni INT(255) NOT NULL,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
-    airplane_plate VARCHAR(255) NOT NULL,
+    airplane_plate VARCHAR(255),
     purpose VARCHAR(255) NOT NULL,
     instructor_dni INT(255),
     approved BOOLEAN NOT NULL

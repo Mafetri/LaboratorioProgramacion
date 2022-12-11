@@ -77,15 +77,23 @@ export const createTurn = async (req, res) => {
 				const turnsThatOverlaps = acceptedTurns.filter((t)=>{timesOverLap(startDate, endDate, t.start_date, t.end_date) && t.airplane_plate == airplane});
 	
 				// If there is no airplane turn overlaps
-				if(turnsThatOverlaps.length == 0){
-					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+				if(turnsThatOverlaps.length == 0 && instructor == false){
+					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose);
 					res.send("success");
+				} else if (turnsThatOverlaps.length == 0 && instructor == true){
+					if(instructorDni != 0){
+						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+						res.send("success");
+					} else {
+						res.send("no-instructor");
+					}
 				} else {
 					res.send("airplane-overlaps");
 				}
+
 			} else {
 				// If no airplane were requested, we are talking about an student
-				if(instructorDni = null) {
+				if(instructorDni == 0) {
 					res.send("no-instructor");
 				} else {
 					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
@@ -95,9 +103,8 @@ export const createTurn = async (req, res) => {
 		} else {
 			res.send("user-disabled");
 		}
-		
-
 	} catch (e) {
+		console.log(e);
 		somethingWentWrong500(e, res);
 	}
 };

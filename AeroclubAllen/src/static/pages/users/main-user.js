@@ -181,7 +181,6 @@ if (user.role == "secretary" || user.role == "admin"){
 	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
 } else {
 	document.querySelector("#unchecked-turns").remove();
-	document.querySelector("#audit-log").remove();
 }
 function fillTurnsTable(uncheckedTurns, tableName){
 	let sectionTitle = document.createElement("h2");
@@ -534,6 +533,8 @@ if(user.role == "student"){
 			case "local": option.disabled = true; break;
 		}
 	});;
+
+	document.querySelector("#request-turn-form-airplane").disabled = true;
 } else {
 	document.querySelectorAll("#request-turn-form-purpose option").forEach(option => {
 		if(option.value == "instruction"){
@@ -553,6 +554,15 @@ if(user.role == "student"){
 	});
 }
 
+// Airplanes Options
+const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
+for(let i = 0; i < fleet.length; i++){
+	let option = document.createElement("option");
+	option.value = fleet[i].plate;
+	option.textContent = fleet[i].name + " ("+  fleet[i].plate + ")";
+	document.querySelector("#request-turn-form-airplane").appendChild(option);
+}
+
 // Register a turn POST
 document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -560,10 +570,13 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	let newData = {
 		startDate: document.querySelector("#request-turn-form-start-date").value,
 		endDate: document.querySelector("#request-turn-form-end-date").value,
-		airplane: document.querySelector("#request-turn-form-airplane").value,
 		instructor: document.querySelector("#request-turn-form-instructor").checked,
 		purpose: document.querySelector("#request-turn-form-purpose").value,
 	};
+
+	if ( user.role != "student" ){
+		newData.airplane = document.querySelector("#request-turn-form-airplane").value
+	}
 
 	// Uses XHR to post the form data
 	let xhr = new XMLHttpRequest();
@@ -573,14 +586,21 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
 			alert("Turno reservado con exito!");
-			window.location.reload();
+		} else if (xhr.responseText == "user-disabled") {
+			alert("No está habilitado para solicitar turnos, comunicarse con la secretaria");
+		} else if (xhr.responseText == "no-instructor") {
+			alert("No hay instructores disponibles para el turno solicitado.");
+		} else if (xhr.responseText == "airplane-overlaps"){
+			alert("El turno solicitado se superpone con el turno de otro para dicho avión.");
 		} else {
 			alert("Hubo un error en la reserva del turno, revise los datos o comuniquese con un administrador");
-			window.location.reload();
 		}
+		window.location.reload();
 	};
 	xhr.send(JSON.stringify(newData));
 });
+
+document.querySelector("#request-turn-form-airplane")
 
 function roleTranslation(role) {
 	switch (role) {
