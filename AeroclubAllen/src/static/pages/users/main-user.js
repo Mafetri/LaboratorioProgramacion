@@ -600,7 +600,46 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	xhr.send(JSON.stringify(newData));
 });
 
-document.querySelector("#request-turn-form-airplane")
+// My Turns
+const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
+const table = document.querySelector("#my-turns-table");
+for (let i = 0; i < myTurns.length; i++) {
+	let newListItem = document.createElement("tr");
+
+	let completeName = document.createElement("td");
+	if(myTurns[i].name == null){
+		completeName.textContent = "Sin Instructor";
+	} else {
+		completeName.textContent = myTurns[i].name + " " + myTurns[i].surname;
+	}
+
+	let start_date = document.createElement("td");
+	let dateArray = myTurns[i].start_date.split("T")[0].split("-");
+	let timeArray = myTurns[i].start_date.split("T")[1].split(":");
+	start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+
+	let end_date = document.createElement("td");
+	dateArray = myTurns[i].end_date.split("T")[0].split("-");
+	timeArray = myTurns[i].end_date.split("T")[1].split(":");
+	end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+
+	let status = document.createElement("td");
+	switch(myTurns[i].approved){
+		case 1: status.textContent = "Aprobado"; break;
+		case 0: status.textContent = "Rechazado"; break;
+		default: status.textContent = "En Espera"; break;
+	}
+
+	let airplanePlate = document.createElement("td");
+	airplanePlate.textContent = myTurns[i].airplane_plate;
+
+	table.appendChild(newListItem);
+	newListItem.appendChild(start_date);
+	newListItem.appendChild(end_date);
+	newListItem.appendChild(airplanePlate);
+	newListItem.appendChild(completeName);
+	newListItem.appendChild(status);
+}
 
 function roleTranslation(role) {
 	switch (role) {

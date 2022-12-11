@@ -14,6 +14,17 @@ export const getTurns = async (req, res) => {
 	}
 };
 
+export const getTurnsUser = async (req, res) => {
+	const { dni } = req.params;
+
+	try {
+		const rows = await turns.getTurnsUser(dni);
+		res.json(rows);
+	} catch (error) {
+		somethingWentWrong500(error, res);
+	}
+}
+
 // Set Status
 export const setStatus = async (req, res) => {
 	const { id } = req.params;

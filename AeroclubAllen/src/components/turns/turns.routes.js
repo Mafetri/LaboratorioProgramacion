@@ -1,11 +1,13 @@
 import { Router } from "express";
 
 import { isLoggedIn } from "../../lib/auth.js";
-import { setStatus, getTurns, createTurn } from "./turns.controller.js";
+import { setStatus, getTurns, createTurn, getTurnsUser } from "./turns.controller.js";
 
 const router = Router();
 
 router.get('/turns', isLoggedIn, getTurns);
+
+router.get('/turns/:dni', isLoggedIn, getTurnsUser)
 
 router.patch('/turns/:id', isLoggedIn, setStatus);
 
