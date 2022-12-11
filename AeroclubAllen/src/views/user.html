@@ -225,7 +225,7 @@
 			<!-- User Turns -->
 			<section class="section-for-user" id="airplane-turns">
 				<h2 class="section-title margin-auto">Mis Turnos</h2>
-				<a class="register-button center" href="">
+				<a class="register-button center" href="#request-turn-form-popup">
 					<button class="gray-button">Agendar Turno</button>
 				</a>
 				<table class="table-user-section">
@@ -243,6 +243,60 @@
 					</tbody>
 				</table>
 			</section>
+
+			<!--  Turn Request  -->
+			<div class = "container-pop-up" id = "request-turn-form-popup">
+				<div class = "pop-up">
+					<a href = "#" class = "close-button"> Cerrar </a>
+					<form id = "request-turn-form">
+						<fieldset>
+							<div class="fields-container">
+								<!-- Date and Time Start -->
+								<div class="field">
+									<label for="date">Desde:</label>
+									<input class="input-text" type="datetime-local" name="date" id="request-turn-form-start-date" required/>
+								</div>
+
+								<!-- Date and Time End -->
+								<div class="field">
+									<label for="date">Hasta:</label>
+									<input class="input-text" type="datetime-local" name="date" id="request-turn-form-end-date" required/>
+								</div>
+
+								<!-- Purpose -->
+								<div class="field">
+									<label for="purpose">Finalidad:</label>
+									<select name = "purpose" id="request-turn-form-purpose" required>
+										<option hidden disabled selected value>- Seleccionar -</option>
+										<option value = "instruction">Instruccion</option>
+										<option value = "navigation">Navegacion</option>
+										<option value = "local">Vuelo Local</option>
+										<option value = "readaptation">Readaptacion</option>
+										<option value = "adaptation">Adaptacion</option>
+									</select>
+								</div>
+	
+								<!-- Airplane -->
+								<div class="field">
+									<label for="airplane">Avion</label>
+									<select name = "airplane" id="request-turn-form-airplane" required>
+										<option value = "LV-FVA">Petrel (LF-FVA)</option>
+									</select>
+								</div>
+
+								<!-- Instructor -->
+								<div class="field">
+									<label for="instructor">Con instructor: <input type="checkbox" name="instructor" id="request-turn-form-instructor"/></label>
+								</div>
+			
+								<!-- Submit Button -->
+								<div class="submit-button">
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit" id="submit" />
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
 		</section>
 
 		<script type="module" src="../pages/users/main-user.js"></script>

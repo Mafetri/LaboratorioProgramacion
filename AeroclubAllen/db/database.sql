@@ -106,11 +106,13 @@ CREATE TABLE turns (
     id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     request_date DATETIME NOT NULL,
     user_dni INT(255) NOT NULL,
-    date DATETIME NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
     airplane_plate VARCHAR(255) NOT NULL,
+    purpose VARCHAR(255) NOT NULL,
     instructor_dni INT(255),
     approved BOOLEAN NOT NULL
 )
 
-INSERT INTO turns VALUE (NULL, now(), 42910846, now(), "LV-FVA", 10660264, NULL);
-INSERT INTO turns VALUE (NULL, now(), 42910846, now(), "LV-FVA", 10660264, NULL);
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);

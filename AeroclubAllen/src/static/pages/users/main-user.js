@@ -101,8 +101,12 @@ if (user.role == "admin" || user.role == "editor") {
 	userButtons.prepend(dashboardButtonA);
 }
 
-//  =================  All turns  =================
-if (user.role == "admin" || user.role == "instructor") {
+//  =================  Unchecked Turns  =================
+if (user.role == "secretary" || user.role == "admin"){
+	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
+	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
+}
+function fillTurnsTable(uncheckedTurns, tableName){
 	let sectionTitle = document.createElement("h2");
 	sectionTitle.textContent = "Turnos";
 	sectionTitle.classList.add("section-title");
@@ -115,66 +119,108 @@ if (user.role == "admin" || user.role == "instructor") {
 	// Head
 	let tHead = document.createElement("thead");
 	let th1 = document.createElement("th");
-	th1.textContent = "Pedido";
+	th1.textContent = "Fecha Pedido";
 	let th2 = document.createElement("th");
 	th2.textContent = "Persona";
 	let th3 = document.createElement("th");
-	th3.textContent = "Fecha";
+	th3.textContent = "Fecha Inicio";
 	let th4 = document.createElement("th");
-	th4.textContent = "Avion";
+	th3.textContent = "Fecha Fin";
 	let th5 = document.createElement("th");
-	th5.textContent = "¿Instructor?";
+	th4.textContent = "Avion";
 	let th6 = document.createElement("th");
-	th6.textContent = "Estado";
+	th3.textContent = "Finalidad";
+	let th7 = document.createElement("th");
+	th5.textContent = "Instructor";
+	let th8 = document.createElement("th");
+	th6.textContent = "Opciones";
 	tHead.appendChild(th1);
 	tHead.appendChild(th2);
 	tHead.appendChild(th3);
 	tHead.appendChild(th4);
 	tHead.appendChild(th5);
 	tHead.appendChild(th6);
+	tHead.appendChild(th7);
+	tHead.appendChild(th8);
 
 	let tBody = document.createElement("tbody");
-	tBody.id = "all-turns-table";
+	tBody.id = "unchecked-turns-table";
 
-	document.querySelector("#all-turns").appendChild(sectionTitle);
-	document.querySelector("#all-turns").appendChild(table);
+	tableName.appendChild(sectionTitle);
+	tableName.appendChild(table);
 	table.appendChild(tHead);
 	table.appendChild(tBody);
 
-	// ALL THIS MUST BE ON A LOOP FOR ALL TURNS
-	let newListItem = document.createElement("tr");
+	for(let i = 0; i < uncheckedTurns.length; i++){
+		let newListItem = document.createElement("tr");
+	
+		let reqDate = document.createElement("td");
+		let reqDateArray = uncheckedTurns[i].request_date.split("T")[0].split("-");
+		let reqTimeArray = uncheckedTurns[i].request_date.split("T")[1].split(":");
+		reqDate.textContent = reqDateArray[2] + "/" + reqDateArray[1] + "/" + reqDateArray[0] + " " + reqTimeArray[0] + ":" + reqTimeArray[1] + " UTC";
+	
+		let person = document.createElement("td");
+		person.textContent = uncheckedTurns[i].requester_name + " " + uncheckedTurns[i].requester_surname;
+	
+		let start_date = document.createElement("td");
+		let dateArray = uncheckedTurns[i].start_date.split("T")[0].split("-");
+		let timeArray = uncheckedTurns[i].start_date.split("T")[1].split(":");
+		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
 
-	let askDate = document.createElement("td");
-	askDate.textContent = "06/12/2022" + " " + "16:23" + " UTC";
+		let end_date = document.createElement("td");
+		dateArray = uncheckedTurns[i].end_date.split("T")[0].split("-");
+		timeArray = uncheckedTurns[i].end_date.split("T")[1].split(":");
+		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+	
+		let purpose = document.createElement("td");
+		purpose.textContent = uncheckedTurns[i].purpose;
 
-	let person = document.createElement("td");
-	person.textContent = "Diego Luciani";
+		let aiplante = document.createElement("td");
+		aiplante.textContent = uncheckedTurns[i].airplane_plate;
+	
+		let instructor = document.createElement("td");
+		if(uncheckedTurns[i].instructor_name != null){
+			instructor.textContent = uncheckedTurns[i].instructor_name  + " " + uncheckedTurns[i].instructor_surname;
+		} else {
+			instructor.textContent = "Sin Instructor";
+		}
+	
+		let state = document.createElement("td");
+		let acceptButton = document.createElement("button");
+		acceptButton.textContent = "Aceptar";
+		acceptButton.addEventListener("click", async () => {
+			if (window.confirm("Seguro que desea aceptar el turno? ")) {
+				const res = await fetch("/api/turns/" + uncheckedTurns[i].id + "?result=true", {
+					method: "PATCH",
+				});
+				window.location.reload();
+			}
+		});
 
-	let date = document.createElement("td");
-	date.textContent = "08/12/2022" + " " + "17:00" + " UTC";
-
-	let aiplante = document.createElement("td");
-	aiplante.textContent = "LV-IDE";
-
-	let instructor = document.createElement("td");
-	instructor.textContent = "Si";
-
-	let state = document.createElement("td");
-	// IF THE TURN WAS NOT ACCEPTED YET
-	let acceptButton = document.createElement("button");
-	acceptButton.textContent = "Aceptar";
-	let denyButton = document.createElement("button");
-	denyButton.textContent = "Rechazar";
-
-	tBody.appendChild(newListItem);
-	newListItem.appendChild(askDate);
-	newListItem.appendChild(person);
-	newListItem.appendChild(date);
-	newListItem.appendChild(aiplante);
-	newListItem.appendChild(instructor);
-	state.appendChild(acceptButton);
-	state.appendChild(denyButton);
-	newListItem.appendChild(state);
+		let denyButton = document.createElement("button");
+		denyButton.textContent = "Rechazar";
+		denyButton.addEventListener("click", async () => {
+			if (window.confirm("Seguro que desea denegar el turno? ")) {
+				const res = await fetch("/api/turns/" + uncheckedTurns[i].id, {
+					method: "PATCH",
+					search: new URLSearchParams().append('result','false'),
+				});
+				window.location.reload();
+			}
+		});
+	
+		tBody.appendChild(newListItem);
+		newListItem.appendChild(reqDate);
+		newListItem.appendChild(person);
+		newListItem.appendChild(start_date);
+		newListItem.appendChild(end_date);
+		newListItem.appendChild(purpose);
+		newListItem.appendChild(aiplante);
+		newListItem.appendChild(instructor);
+		state.appendChild(acceptButton);
+		state.appendChild(denyButton);
+		newListItem.appendChild(state);
+	}
 }
 
 //  =================  Users  =================
@@ -331,106 +377,68 @@ if (user.role == "admin") {
 	document.querySelector("#modify-user-form-popup").remove();
 }
 
-if (user.role == "secretary" || user.role == "admin"){
-	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
-	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
+//  =================  My Turns  =================
+// Turns Form conditions
+const instructor = document.querySelector("#request-turn-form-instructor");
+if(user.role == "student"){
+	instructor.checked = true;
+	instructor.disabled = true;
+	document.querySelectorAll("#request-turn-form-purpose option").forEach(option => {
+		switch (option.value){
+			case "readaptation": option.disabled = true; break;
+			case "adaptation": option.disabled = true; break;
+			case "local": option.disabled = true; break;
+		}
+	});;
+} else {
+	document.querySelectorAll("#request-turn-form-purpose option").forEach(option => {
+		if(option.value == "instruction"){
+			option.disabled = true;
+		}
+	});
+	const purposeSelect = document.querySelector("#request-turn-form-purpose");
+	purposeSelect.addEventListener('change', () => {
+		const instructor = document.querySelector("#request-turn-form-instructor");
+		if(purposeSelect.value == "instruction" || purposeSelect.value == "readaptation" || purposeSelect.value == "adaptation" ){
+			instructor.checked = true;
+			instructor.disabled = true;
+		} else {
+			instructor.checked = false;
+			instructor.disabled = false;
+		}
+	});
 }
-function fillTurnsTable(uncheckedTurns, tableName){
-	let sectionTitle = document.createElement("h2");
-	sectionTitle.textContent = "Turnos";
-	sectionTitle.classList.add("section-title");
-	sectionTitle.classList.add("margin-auto");
 
-	// Table
-	let table = document.createElement("table");
-	table.classList.add("table-user-section");
+// Register a turn POST
+document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
+	e.preventDefault();
 
-	// Head
-	let tHead = document.createElement("thead");
-	let th1 = document.createElement("th");
-	th1.textContent = "Fecha Pedido";
-	let th2 = document.createElement("th");
-	th2.textContent = "Persona";
-	let th3 = document.createElement("th");
-	th3.textContent = "Fecha";
-	let th4 = document.createElement("th");
-	th4.textContent = "Avion";
-	let th5 = document.createElement("th");
-	th5.textContent = "Instructor";
-	let th6 = document.createElement("th");
-	th6.textContent = "Opciones";
-	tHead.appendChild(th1);
-	tHead.appendChild(th2);
-	tHead.appendChild(th3);
-	tHead.appendChild(th4);
-	tHead.appendChild(th5);
-	tHead.appendChild(th6);
+	let newData = {
+		startDate: document.querySelector("#request-turn-form-start-date").value,
+		endDate: document.querySelector("#request-turn-form-end-date").value,
+		airplane: document.querySelector("#request-turn-form-airplane").value,
+		instructor: document.querySelector("#request-turn-form-instructor").checked,
+		purpose: document.querySelector("#request-turn-form-purpose").value,
+	};
 
-	let tBody = document.createElement("tbody");
-	tBody.id = "unchecked-turns-table";
+	console.log(newData);
 
-	tableName.appendChild(sectionTitle);
-	tableName.appendChild(table);
-	table.appendChild(tHead);
-	table.appendChild(tBody);
-
-	for(let i = 0; i < uncheckedTurns.length; i++){
-		let newListItem = document.createElement("tr");
-	
-		let reqDate = document.createElement("td");
-		let reqDateArray = uncheckedTurns[i].request_date.split("T")[0].split("-");
-		let reqTimeArray = uncheckedTurns[i].request_date.split("T")[1].split(":");
-		reqDate.textContent = reqDateArray[2] + "/" + reqDateArray[1] + "/" + reqDateArray[0] + " " + reqTimeArray[0] + ":" + reqTimeArray[1] + " UTC";
-	
-		let person = document.createElement("td");
-		person.textContent = uncheckedTurns[i].requester_name + " " + uncheckedTurns[i].requester_surname;
-	
-		let date = document.createElement("td");
-		let dateArray = uncheckedTurns[i].date.split("T")[0].split("-");
-		let timeArray = uncheckedTurns[i].date.split("T")[1].split(":");
-		date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
-	
-		let aiplante = document.createElement("td");
-		aiplante.textContent = uncheckedTurns[i].airplane_plate;
-	
-		let instructor = document.createElement("td");
-		instructor.textContent = uncheckedTurns[i].instructor_name + " " + uncheckedTurns[i].instructor_surname;
-	
-		let state = document.createElement("td");
-		let acceptButton = document.createElement("button");
-		acceptButton.textContent = "Aceptar";
-		acceptButton.addEventListener("click", async () => {
-			if (window.confirm("Seguro que desea aceptar el turno? ")) {
-				const res = await fetch("/api/turns/" + uncheckedTurns[i].id + "?result=true", {
-					method: "PATCH",
-				});
-				window.location.reload();
-			}
-		});
-
-		let denyButton = document.createElement("button");
-		denyButton.textContent = "Rechazar";
-		denyButton.addEventListener("click", async () => {
-			if (window.confirm("Seguro que desea denegar el turno? ")) {
-				const res = await fetch("/api/turns/" + uncheckedTurns[i].id, {
-					method: "PATCH",
-					search: new URLSearchParams().append('result','false'),
-				});
-				window.location.reload();
-			}
-		});
-	
-		tBody.appendChild(newListItem);
-		newListItem.appendChild(reqDate);
-		newListItem.appendChild(person);
-		newListItem.appendChild(date);
-		newListItem.appendChild(aiplante);
-		newListItem.appendChild(instructor);
-		state.appendChild(acceptButton);
-		state.appendChild(denyButton);
-		newListItem.appendChild(state);
-	}
-}
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/turns");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "success") {
+			alert("Turno reservado con exito!");
+			window.location.reload();
+		} else {
+			alert("Hubo un error en la reserva del turno, revise los datos o comuniquese con un administrador");
+			window.location.reload();
+		}
+	};
+	xhr.send(JSON.stringify(newData));
+});
 
 function roleTranslation(role) {
 	switch (role) {
