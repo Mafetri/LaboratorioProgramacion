@@ -120,6 +120,25 @@ export const createTurn = async (req, res) => {
 	}
 };
 
+// Delete Turn
+export const deleteTurn = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const dbRes = await turns.deleteTurn(id);
+
+		if (dbRes.affectedRows === 0) {
+			return res.status(404).json({
+				message: "Turn not found",
+			});
+		} else {
+			res.send("success");
+		}
+	} catch (e) {
+		somethingWentWrong500(e, res);
+	}
+}
+
 const timesOverLap = (startDate, endDate, acceptedStartDate, acceptedEndDate) => {
 	const startDateTime = new Date(startDate).getTime();
 	const endDateTime = new Date(endDate).getTime();

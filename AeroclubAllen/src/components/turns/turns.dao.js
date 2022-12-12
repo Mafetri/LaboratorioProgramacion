@@ -48,4 +48,13 @@ turns.reserveTurn = async (user_dni, startDate, endDate, airplane, instructor, p
     }
 }
 
+turns.deleteTurn = async (id) => {
+    try {
+        const [dbRes] = await pool.query("DELETE FROM turns WHERE id = ?", [id]);
+        return dbRes;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default turns;

@@ -171,6 +171,11 @@ th {
 	box-shadow: none !important;
 }
 
+#my-turns-table .delete-button { 
+	border-radius: 0;
+	font-size: 1em;
+	padding: 0.2em;
+}	
 
 #table-turns {
 	display: flex; 

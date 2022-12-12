@@ -637,18 +637,33 @@ for (let i = 0; i < myTurns.length; i++) {
 	let airplanePlate = document.createElement("td");
 	airplanePlate.textContent = myTurns[i].airplane_plate;
 
+	// Cancel Button
+	let cancelButton = document.createElement("button");
+	cancelButton.textContent = "Cancelar";
+	cancelButton.classList.add("delete-button");
+	cancelButton.addEventListener("click", async () => {
+		if (window.confirm("Seguro que quiere cancelar el turno?")) {
+			const res = await fetch("/api/turns/" + myTurns[i].id, {
+				method: "DELETE",
+			});
+			window.location.reload();
+		}
+	});
+
 	table.appendChild(newListItem);
 	newListItem.appendChild(start_date);
 	newListItem.appendChild(end_date);
 	newListItem.appendChild(airplanePlate);
 	newListItem.appendChild(completeName);
 	newListItem.appendChild(status);
+	newListItem.appendChild(cancelButton);
 }
 
 // ===========   All Turns   ===========
 const oneHourHeight = 55;
 const start_hour = 6;
 const end_hour = 21;
+// Creates the hours on the left
 for(let i = 0; i < end_hour-start_hour; i++){
 	let hour = document.createElement("div");
 	hour.style = "height: "+oneHourHeight+"px;"; 
@@ -656,6 +671,7 @@ for(let i = 0; i < end_hour-start_hour; i++){
 	hour.textContent = (i+start_hour)+" hs ";
 	document.querySelector("#table-turns-hours").appendChild(hour);
 }
+// Creates the header row with the names of the airplanes
 for(let i = 0; i < (fleet.length); i++){
 	let airplane = document.createElement("div");
 	let airplaneName = document.createElement("p");
@@ -666,11 +682,15 @@ for(let i = 0; i < (fleet.length); i++){
 	airplane.appendChild(airplaneName);
 	document.querySelector("#table-turns").appendChild(airplane);
 }
-
+// Request all the turns
 const allTurns = await(await fetch("/api/turns?approved=true")).json();
+// Modify the UTC hour of the turns
 turnsToLocalTime(allTurns);
+// Defines the height of the table
 const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
+// Inicial day 																								<============ Change to today day when finish
 let selecctedDay = "2022-12-12";
+// If somebody press the button to update the turns
 document.querySelector("#update-date-turns").addEventListener("click", ()=> {
 	selecctedDay = document.querySelector("#all-turns-date-input").value;
 	let turnLoaded = document.querySelectorAll("#turn-box");
