@@ -1,4 +1,5 @@
 const user = await (await fetch("/api/userLoggedin")).json();
+const localTime = -3;
 
 fillUserInfo();
 function fillUserInfo() {
@@ -178,6 +179,7 @@ document.querySelector("#instructor-availability-form").addEventListener("submit
 //  ====> Unchecked Turns
 if (user.role == "secretary" || user.role == "admin"){
 	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
+	turnsToLocalTime(uncheckedTurns);
 	fillTurnsTable(uncheckedTurns, document.querySelector('#unchecked-turns'));
 } else {
 	document.querySelector("#unchecked-turns").remove();
@@ -241,12 +243,12 @@ function fillTurnsTable(uncheckedTurns, tableName){
 		let start_date = document.createElement("td");
 		let dateArray = uncheckedTurns[i].start_date.split("T")[0].split("-");
 		let timeArray = uncheckedTurns[i].start_date.split("T")[1].split(":");
-		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
 
 		let end_date = document.createElement("td");
 		dateArray = uncheckedTurns[i].end_date.split("T")[0].split("-");
 		timeArray = uncheckedTurns[i].end_date.split("T")[1].split(":");
-		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1] + " UTC";
+		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
 	
 		let purpose = document.createElement("td");
 		purpose.textContent = uncheckedTurns[i].purpose;
@@ -602,6 +604,8 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 
 // My Turns
 const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
+turnsToLocalTime(myTurns);
+
 const table = document.querySelector("#my-turns-table");
 for (let i = 0; i < myTurns.length; i++) {
 	let newListItem = document.createElement("tr");
@@ -639,6 +643,71 @@ for (let i = 0; i < myTurns.length; i++) {
 	newListItem.appendChild(airplanePlate);
 	newListItem.appendChild(completeName);
 	newListItem.appendChild(status);
+}
+
+for(let i = 0; i < 15; i++){
+	let hour = document.createElement("p");
+	hour.textContent = (i+6)+" hs ";
+	document.querySelector("#table-turns-hours").appendChild(hour);
+}
+for(let i = 0; i < (fleet.length); i++){
+	let airplane = document.createElement("div");
+	let airplaneName = document.createElement("p");
+	
+	airplaneName.textContent = fleet[i].plate;
+	airplane.id = fleet[i].plate;
+	
+	airplane.appendChild(airplaneName);
+	document.querySelector("#table-turns").appendChild(airplane);
+}
+
+
+// All Turns
+const allTurns = await(await fetch("/api/turns?approved=true")).json();
+turnsToLocalTime(allTurns);
+const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
+const start_hour = 6;
+const end_hour = 20;
+const oneHourHeight = tableHeight / (end_hour-start_hour);
+let selecctedDay = "2022-12-12";
+for(let i = 0; i < allTurns.length; i++){
+	if(selecctedDay == allTurns[i].start_date.split("T")[0]){
+		const turnLength = (new Date(allTurns[i].end_date).getTime() - new Date(allTurns[i].start_date).getTime())/1000/60/60;
+
+		let timeArray = allTurns[i].start_date.split("T")[1].split(":");
+		let start_date = timeArray[0] + ":" + timeArray[1];
+	
+		timeArray = allTurns[i].end_date.split("T")[1].split(":");
+		let end_date = timeArray[0] + ":" + timeArray[1];
+	
+		let hourOfStart = parseFloat(allTurns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[i].start_date.split("T")[1].split(":")[1]/60);
+		let allSibilings = document.querySelectorAll('#'+allTurns[i].airplane_plate + " div");
+		let sibilingsHeight = 0;
+		for(let j = 0; j < allSibilings.length; j++){
+			sibilingsHeight += allSibilings[j].offsetHeight;
+		}
+		console.log(sibilingsHeight);
+		let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
+
+		let turn = document.createElement("div");
+		turn.textContent = start_date + " - " + end_date;
+		turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
+		turn.id = "turn-box";
+		document.querySelector('#'+allTurns[i].airplane_plate).appendChild(turn);
+	}
+}
+
+
+function turnsToLocalTime (turns){
+	for(let i = 0; i < turns.length; i++){
+		let utcStartDate = new Date(turns[i].start_date);
+		utcStartDate.setHours(utcStartDate.getHours() + localTime);
+		turns[i].start_date = utcStartDate.toISOString();
+	
+		let utcEndDate = new Date(turns[i].end_date);
+		utcEndDate.setHours(utcEndDate.getHours() + localTime);
+		turns[i].end_date = utcEndDate.toISOString(); 
+	}
 }
 
 function roleTranslation(role) {
