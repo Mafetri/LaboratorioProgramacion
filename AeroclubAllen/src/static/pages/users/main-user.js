@@ -602,7 +602,7 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	xhr.send(JSON.stringify(newData));
 });
 
-// My Turns
+//  ===========   My Turns   ===========
 const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
 turnsToLocalTime(myTurns);
 
@@ -645,9 +645,15 @@ for (let i = 0; i < myTurns.length; i++) {
 	newListItem.appendChild(status);
 }
 
-for(let i = 0; i < 15; i++){
-	let hour = document.createElement("p");
-	hour.textContent = (i+6)+" hs ";
+// ===========   All Turns   ===========
+const oneHourHeight = 55;
+const start_hour = 6;
+const end_hour = 21;
+for(let i = 0; i < end_hour-start_hour; i++){
+	let hour = document.createElement("div");
+	hour.style = "height: "+oneHourHeight+"px;"; 
+	hour.id = "hour-box";
+	hour.textContent = (i+start_hour)+" hs ";
 	document.querySelector("#table-turns-hours").appendChild(hour);
 }
 for(let i = 0; i < (fleet.length); i++){
@@ -661,42 +667,47 @@ for(let i = 0; i < (fleet.length); i++){
 	document.querySelector("#table-turns").appendChild(airplane);
 }
 
-
-// All Turns
 const allTurns = await(await fetch("/api/turns?approved=true")).json();
 turnsToLocalTime(allTurns);
 const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
-const start_hour = 6;
-const end_hour = 20;
-const oneHourHeight = tableHeight / (end_hour-start_hour);
 let selecctedDay = "2022-12-12";
-for(let i = 0; i < allTurns.length; i++){
-	if(selecctedDay == allTurns[i].start_date.split("T")[0]){
-		const turnLength = (new Date(allTurns[i].end_date).getTime() - new Date(allTurns[i].start_date).getTime())/1000/60/60;
-
-		let timeArray = allTurns[i].start_date.split("T")[1].split(":");
-		let start_date = timeArray[0] + ":" + timeArray[1];
+document.querySelector("#update-date-turns").addEventListener("click", ()=> {
+	selecctedDay = document.querySelector("#all-turns-date-input").value;
+	let turnLoaded = document.querySelectorAll("#turn-box");
+	turnLoaded.forEach((t)=>{
+		t.remove();
+	})	
+	fillAllTurns();
+})
+fillAllTurns();
+function fillAllTurns() {
+	for(let i = 0; i < allTurns.length; i++){
+		if(selecctedDay == allTurns[i].start_date.split("T")[0]){
+			const turnLength = (new Date(allTurns[i].end_date).getTime() - new Date(allTurns[i].start_date).getTime())/1000/60/60;
 	
-		timeArray = allTurns[i].end_date.split("T")[1].split(":");
-		let end_date = timeArray[0] + ":" + timeArray[1];
+			let timeArray = allTurns[i].start_date.split("T")[1].split(":");
+			let start_date = timeArray[0] + ":" + timeArray[1];
+		
+			timeArray = allTurns[i].end_date.split("T")[1].split(":");
+			let end_date = timeArray[0] + ":" + timeArray[1];
+		
+			let hourOfStart = parseFloat(allTurns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[i].start_date.split("T")[1].split(":")[1]/60);
+			let allSibilings = document.querySelectorAll('#'+allTurns[i].airplane_plate + " div");
+			let sibilingsHeight = 0;
+			for(let j = 0; j < allSibilings.length; j++){
+				sibilingsHeight += allSibilings[j].offsetHeight;
+			}
 	
-		let hourOfStart = parseFloat(allTurns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[i].start_date.split("T")[1].split(":")[1]/60);
-		let allSibilings = document.querySelectorAll('#'+allTurns[i].airplane_plate + " div");
-		let sibilingsHeight = 0;
-		for(let j = 0; j < allSibilings.length; j++){
-			sibilingsHeight += allSibilings[j].offsetHeight;
+			let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
+	
+			let turn = document.createElement("div");
+			turn.textContent = start_date + " - " + end_date;
+			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
+			turn.id = "turn-box";
+			document.querySelector('#'+allTurns[i].airplane_plate).appendChild(turn);
 		}
-		console.log(sibilingsHeight);
-		let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
-
-		let turn = document.createElement("div");
-		turn.textContent = start_date + " - " + end_date;
-		turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
-		turn.id = "turn-box";
-		document.querySelector('#'+allTurns[i].airplane_plate).appendChild(turn);
 	}
 }
-
 
 function turnsToLocalTime (turns){
 	for(let i = 0; i < turns.length; i++){
