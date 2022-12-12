@@ -27,6 +27,15 @@ turns.getTurnsUser = async (dni) => {
     }
 }
 
+turns.getTurnsOverlaped = async (plate, startDate, endDate) => {
+    try {
+        const [rows] = await pool.query("SELECT * FROM turns WHERE turns.airplane_plate = ? AND ? < turns.end_date AND ? > turns.start_date", [plate, startDate, endDate]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
 turns.setResult = async (id, result) => {
     try {
         const [dbRes] = await pool.query(

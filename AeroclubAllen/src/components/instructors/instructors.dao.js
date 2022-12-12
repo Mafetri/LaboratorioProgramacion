@@ -38,4 +38,22 @@ instructors.addAviability = async (startDate, endDate, dni) => {
 	}
 };
 
+instructors.getInstructorsAvailable = async (startDate, endDate) => {
+	try {
+		const [rows] = await pool.query ("SELECT * FROM instructors_availability WHERE instructors_availability.start_date <= ? AND instructors_availability.end_date >= ? AND NOT EXISTS(SELECT * FROM turns WHERE turns.approved = 1 AND turns.instructor_dni = instructors_availability.instructor_dni AND ? < turns.end_date AND ? > turns.start_date)", [startDate, endDate, startDate, endDate]);
+		return rows;
+	} catch (error) {
+		throw error;
+	}
+}
+
+instructors.orderByAmountOfTurns = async () => {
+	try {
+		const [rows] = await pool.query ("SELECT instructor_dni, COUNT(*) AS amount FROM turns GROUP BY instructor_dni ORDER BY amount ASC;");
+		return rows;
+	} catch (error) {
+		throw error;
+	}
+}
+
 export default instructors;

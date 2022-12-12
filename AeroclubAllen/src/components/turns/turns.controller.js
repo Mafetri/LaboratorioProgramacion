@@ -56,42 +56,35 @@ export const createTurn = async (req, res) => {
 			let instructorDni = 0;
 	
 			if(instructor == true) {
-				const instructorsAviability = await instructors.getInstructorsAviability();
-				let instructorsAvailable = [];
-	
-				// Checks if there is any instructor that has empty time for the time of the turn requested
-				instructorsAviability.forEach((i) => {
-					// If the requested time is "inside" the availability of any instructor
-					if(new Date(i.start_date).getTime() < new Date(startDate).getTime() && new Date(i.end_date).getTime() > new Date(endDate).getTime()){
-						// Gets all the turns assigned to that instructor
-						let turnsOfThatInstructor = acceptedTurns.filter((t) => {t.instructor_dni == i.instructor_dni});
-	
-						// Gets the turns that overlaps with the requested one
-						let turnsThatOverlap = turnsOfThatInstructor.filter((t) => {timesOverLap(startDate, endDate, t.start_date, t.end_date)})
-	
-						// If no turns of the instructor, that has aviability time for the desiered lap, overlaps then is is assigned
-						if(turnsThatOverlap.length == 0){
-							instructorsAvailable.push({dni: i.instructor_dni, turnsReservedWithHim: turnsOfThatInstructor.length});
+				// instructorsAvailable has all the instructors avialable
+				let instructorsAvailable = await instructors.getInstructorsAvailable(startDate, endDate);
+
+				if( instructorsAvailable.length > 0 ){
+					// instructorsOrdered has all instructors ordered by ammount of turns
+					const instructorsOrdered = await instructors.orderByAmountOfTurns();
+
+					// instructorDni now has the first instructorOrdered that appears on the available ones
+					for(let i = 0; i < instructorsOrdered.length; i++){
+						for(let j = 0; j < instructorsAvailable.length; j++){
+							if(instructorsAvailable[j].instructor_dni == instructorsOrdered[i].instructor_dni){
+								instructorDni = instructorsOrdered[i].instructor_dni;
+								break;
+							}
 						}
 					}
-				})
-	
-				if(instructorsAvailable.length > 0){
-					// Get the instructor that has the lowest ammount of turnsReservedWithHim
-					instructorDni = (instructorsAvailable.reduce((min, inst) => (inst.turnsReservedWithHim < min.turnsReservedWithHim ? inst : min), { turnsReservedWithHim: Infinity })).dni;
 				}
 			}
 	
 			// If an airplane was requested
 			if( airplane != undefined ) {
 				// Gets the turns that has the same airplane that overlaps the requested turn
-				const turnsThatOverlaps = acceptedTurns.filter((t)=>{timesOverLap(startDate, endDate, t.start_date, t.end_date) && t.airplane_plate == airplane});
+				const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
 	
 				// If there is no airplane turn overlaps
-				if(turnsThatOverlaps.length == 0 && instructor == false){
+				if(turnsOverlaped.length == 0 && instructor == false){
 					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose);
 					res.send("success");
-				} else if (turnsThatOverlaps.length == 0 && instructor == true){
+				} else if (turnsOverlaped.length == 0 && instructor == true){
 					if(instructorDni != 0){
 						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
 						res.send("success");
@@ -101,7 +94,6 @@ export const createTurn = async (req, res) => {
 				} else {
 					res.send("airplane-overlaps");
 				}
-
 			} else {
 				// If no airplane were requested, we are talking about an student
 				if(instructorDni == 0) {
