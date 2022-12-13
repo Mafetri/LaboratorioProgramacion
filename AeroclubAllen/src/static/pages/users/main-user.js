@@ -724,43 +724,38 @@ let turns = [];
 allTurns.forEach((t)=>{
 	let newTurn = JSON.parse(JSON.stringify(t));
 	const startDate = new Date(t.start_date);
-	const endDate = new Date(t.end_date);
+	let endDate = new Date(t.end_date);
 
 	let flagStartDate = new Date(t.start_date);
-	flagStartDate.setHours(start_hour);
+	flagStartDate.setHours(start_hour + localTime);
 	flagStartDate.setMinutes(0);
 
 	let flagEndDate = new Date(t.start_date);
-	flagEndDate.setHours(end_hour);
+	flagEndDate.setHours(end_hour + localTime);
 	flagEndDate.setMinutes(0);
 
-	if(flagStartDate > startDate){
+	if(flagStartDate.toISOString() > startDate.toISOString()){
 		newTurn.start_date = new Date(flagStartDate);
 	} else {
 		newTurn.start_date = new Date(startDate);
 	}
 	flagStartDate.setDate(flagStartDate.getDate() + 1);
 
-	if(flagEndDate < endDate && endDate > flagStartDate){
-		let utcEndFlag = new Date(flagEndDate);
-		utcEndFlag.setHours(utcEndFlag.getHours() + localTime);
-		newTurn.end_date = utcEndFlag.toISOString();
+	if(flagEndDate.toISOString() < endDate.toISOString()){
+		newTurn.end_date = new Date(flagEndDate).toISOString();
 	} else {
-		newTurn.end_date = new Date(endDate);
+		newTurn.end_date = new Date(endDate).toISOString();
 	}
+	flagEndDate.setDate(flagEndDate.getDate() + 1);
 
 	turns.push(JSON.parse(JSON.stringify(newTurn)));
 
-	flagEndDate.setDate(flagEndDate.getDate() + 1);
-
-	while(flagStartDate < endDate){
+	while(flagStartDate.toISOString() < endDate.toISOString()){
 		// Sets the start time at the start time of the day
-		let utcStart = new Date(flagStartDate);
-		utcStart.setHours(utcStart.getHours() + localTime);
-		newTurn.start_date = utcStart.toISOString();
+		newTurn.start_date = new Date(flagStartDate).toISOString();
 
 		// If the end_date of the turn finishes after the finish hour of that day
-		if(flagEndDate < endDate){
+		if(flagEndDate.toISOString() < endDate.toISOString()){
 			newTurn.end_date = new Date(flagEndDate).toISOString();
 		} else {
 			newTurn.end_date = new Date(endDate).toISOString();
@@ -874,53 +869,38 @@ let aviabilities = [];
 instructorsAviability.forEach((t)=>{
 	let newTurn = JSON.parse(JSON.stringify(t));
 	const startDate = new Date(t.start_date);
-	const endDate = new Date(t.end_date);
+	let endDate = new Date(t.end_date);
 
 	let flagStartDate = new Date(t.start_date);
-	flagStartDate.setHours(start_hour);
+	flagStartDate.setHours(start_hour + localTime);
 	flagStartDate.setMinutes(0);
 
 	let flagEndDate = new Date(t.start_date);
-	flagEndDate.setHours(end_hour);
+	flagEndDate.setHours(end_hour + localTime);
 	flagEndDate.setMinutes(0);
 
-	if(flagStartDate > startDate){
+	if(flagStartDate.toISOString() > startDate.toISOString()){
 		newTurn.start_date = new Date(flagStartDate);
 	} else {
 		newTurn.start_date = new Date(startDate);
 	}
 	flagStartDate.setDate(flagStartDate.getDate() + 1);
 
-	if(t.id == 3){
-		console.log(flagEndDate);
-		console.log(t.end_date);
-		console.log(flagStartDate);
-		console.log(flagEndDate < t.end_date);
-	}
-	if(flagEndDate < endDate && endDate > flagStartDate){
-		let utcEndFlag = new Date(flagEndDate);
-		utcEndFlag.setHours(utcEndFlag.getHours() + localTime);
-		newTurn.end_date = utcEndFlag.toISOString();
+	if(flagEndDate.toISOString() < endDate.toISOString()){
+		newTurn.end_date = new Date(flagEndDate).toISOString();
 	} else {
-		newTurn.end_date = new Date(endDate);
-		if(newTurn.id == 3){
-
-			console.log(newTurn.end_date);
-		}
+		newTurn.end_date = new Date(endDate).toISOString();
 	}
+	flagEndDate.setDate(flagEndDate.getDate() + 1);
 
 	aviabilities.push(JSON.parse(JSON.stringify(newTurn)));
 
-	flagEndDate.setDate(flagEndDate.getDate() + 1);
-
-	while(flagStartDate < endDate){
+	while(flagStartDate.toISOString() < endDate.toISOString()){
 		// Sets the start time at the start time of the day
-		let utcStart = new Date(flagStartDate);
-		utcStart.setHours(utcStart.getHours() + localTime);
-		newTurn.start_date = utcStart.toISOString();
+		newTurn.start_date = new Date(flagStartDate).toISOString();
 
 		// If the end_date of the turn finishes after the finish hour of that day
-		if(flagEndDate < endDate){
+		if(flagEndDate.toISOString() < endDate.toISOString()){
 			newTurn.end_date = new Date(flagEndDate).toISOString();
 		} else {
 			newTurn.end_date = new Date(endDate).toISOString();
@@ -969,7 +949,7 @@ function fillAllInstructors() {
 }
 function fillInstrcutorTurns (i) {
 	for(let j = 0; j < turns.length; j++){
-		if(selecctedInstructorsDay == turns[j].start_date.split("T")[0] && turns[j].instructor_dni == instructorsAviability[i].instructor_dni){
+		if(selecctedInstructorsDay == turns[j].start_date.split("T")[0] && turns[j].instructor_dni == aviabilities[i].instructor_dni){
 			const turnLength = (new Date(turns[j].end_date).getTime() - new Date(turns[j].start_date).getTime())/1000/60/60;
 	
 			let timeArray = turns[j].start_date.split("T")[1].split(":");
@@ -979,7 +959,7 @@ function fillInstrcutorTurns (i) {
 			let end_date = timeArray[0] + ":" + timeArray[1];
 		
 			let hourOfStart = parseFloat(turns[j].start_date.split("T")[1].split(":")[0]) + parseFloat(turns[j].start_date.split("T")[1].split(":")[1]/60);
-			let allSibilings = document.querySelectorAll('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+ "-T div");
+			let allSibilings = document.querySelectorAll('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+ "-T div");
 			let sibilingsHeight = 0;
 			for(let j = 0; j < allSibilings.length; j++){
 				sibilingsHeight += allSibilings[j].offsetHeight;
@@ -993,7 +973,7 @@ function fillInstrcutorTurns (i) {
 			turn.id = "instructor-turn-box";
 			turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
 
-			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-T").appendChild(turn);
+			document.querySelector('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+"-T").appendChild(turn);
 		}
 	}
 }
