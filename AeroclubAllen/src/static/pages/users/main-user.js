@@ -529,7 +529,6 @@ if (user.role == "admin" || user.role == "secretary"){
 			newListItem.appendChild(enableUser);
 		}
 	}
-	
 }
 
 //  =================  My Turns  =================
@@ -575,6 +574,16 @@ for(let i = 0; i < fleet.length; i++){
 	document.querySelector("#request-turn-form-airplane").appendChild(option);
 }
 
+//  ===========   Request a Turn   ===========
+document.getElementById('request-turn-form-start-date').addEventListener('change', function() {
+	let startDate = new Date(document.getElementById('request-turn-form-start-date').value);
+	startDate.setHours(startDate.getHours() + localTime);
+
+	document.getElementById('request-turn-form-end-date').min = startDate.toISOString().substring(0,16);
+
+	startDate.setHours(startDate.getHours() + 1);
+	document.getElementById('request-turn-form-end-date').value = startDate.toISOString().substring(0,16);
+});
 // Register a turn POST
 document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -696,10 +705,12 @@ for(let i = 0; i < (fleet.length); i++){
 const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
 
 // Inicial day 																								<============ Change to today day when finish
-let selecctedDay = "2022-12-12";
+document.querySelector("#all-turns-date-input").value = new Date().toISOString().substring(0,10);
+document.querySelector("#all-turns-date-input").min = new Date().toISOString().substring(0,10);
+let selecctedDay = document.querySelector("#all-turns-date-input").value;
 
 // If somebody press the button to update the turns
-document.querySelector("#update-date-turns").addEventListener("click", ()=> {
+document.querySelector("#all-turns-date-input").addEventListener("change", ()=> {
 	selecctedDay = document.querySelector("#all-turns-date-input").value;
 	let turnLoaded = document.querySelectorAll("#turn-box");
 	turnLoaded.forEach((t)=>{
@@ -720,20 +731,23 @@ function fillAllTurns() {
 		
 			timeArray = allTurns[i].end_date.split("T")[1].split(":");
 			let end_date = timeArray[0] + ":" + timeArray[1];
-		
+
+			
 			let hourOfStart = parseFloat(allTurns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[i].start_date.split("T")[1].split(":")[1]/60);
 			let allSibilings = document.querySelectorAll('#'+allTurns[i].airplane_plate + " div");
 			let sibilingsHeight = 0;
 			for(let j = 0; j < allSibilings.length; j++){
 				sibilingsHeight += allSibilings[j].offsetHeight;
 			}
-	
+			
 			let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
-	
+			
 			let turn = document.createElement("div");
 			turn.textContent = start_date + " - " + end_date;
 			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			turn.id = "turn-box";
+			turn.textContent += "\r\n" + allTurns[i].requester_name + " " + allTurns[i].requester_surname;
+
 			document.querySelector('#'+allTurns[i].airplane_plate).appendChild(turn);
 		}
 	}
@@ -781,11 +795,13 @@ for(let i = 0; i < (instructors.length); i++){
 // Defines the height of the table
 const tableInstructorHeight = document.querySelector("#table-instructors-hours").offsetHeight;
 
-// Inicial day 																								<============ Change to today day when finish
-let selecctedInstructorsDay = "2022-12-14";
+// Inicial day 																							
+document.querySelector("#all-instructors-date-input").value = new Date().toISOString().substring(0,10);
+document.querySelector("#all-instructors-date-input").min = new Date().toISOString().substring(0,10);
+let selecctedInstructorsDay = document.querySelector("#all-instructors-date-input").value;
 
 // If somebody press the button to update the turns
-document.querySelector("#update-date-instructors").addEventListener("click", ()=> {
+document.querySelector("#all-instructors-date-input").addEventListener("change", ()=> {
 	selecctedInstructorsDay = document.querySelector("#all-instructors-date-input").value;
 	let turnLoaded = document.querySelectorAll("#instructor-box");
 	turnLoaded.forEach((t)=>{
@@ -856,6 +872,8 @@ function fillInstrcutorTurns (i) {
 			turn.textContent = start_date + " - " + end_date;
 			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			turn.id = "instructor-turn-box";
+			turn.textContent += "\r\n" + allTurns[i].requester_name + " " + allTurns[i].requester_surname;
+
 			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-T").appendChild(turn);
 		}
 	}
