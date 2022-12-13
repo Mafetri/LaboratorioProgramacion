@@ -34,6 +34,15 @@ users.getDisabledUsers = async () => {
 	}
 }
 
+users.getInstructors = async () => {
+	try {
+		const [instructors] = await pool.query("SELECT dni, name, surname FROM users WHERE role = 'instructor'");
+		return instructors;
+	} catch (error) {
+		throw error;
+	}
+}
+
 users.createUser = async (dni, role) => {
 	try {
 		await pool.query("INSERT INTO users (dni, role, password, enabled) VALUES (?,?,?, true)", [dni, role, "newuser"]);

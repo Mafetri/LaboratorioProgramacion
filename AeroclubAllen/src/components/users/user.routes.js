@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isLoggedIn, isAdmin } from "../../lib/auth.js";
-import { getUsers, createUser, deleteUser, updateUser, getUserLoggedin, getDisabledUsers } from "./users.controller.js";
+import { getUsers, createUser, deleteUser, updateUser, getUserLoggedin, getDisabledUsers, getInstructors } from "./users.controller.js";
 
 const router = Router();
 
@@ -12,6 +12,9 @@ router.get("/userLoggedin", getUserLoggedin);
 
 // Get Disabled Users
 router.get("/disabledUsers", isLoggedIn, getDisabledUsers);
+
+// Get Instructor Users
+router.get("/usersInstructors", isLoggedIn, getInstructors);
 
 // Create User
 router.post("/user", isLoggedIn, isAdmin, createUser);

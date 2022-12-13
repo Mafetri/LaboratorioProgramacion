@@ -77,7 +77,7 @@ section {
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
 	margin: 1em auto;
-	width: 80%;
+	width: 70%;
 	background-color: rgb(245, 241, 243);
     padding-bottom: 0.2em;
 }
@@ -177,20 +177,23 @@ th {
 	padding: 0.2em;
 }	
 
-#table-turns {
+#table-turns, #table-instructors{
 	display: flex; 
-	justify-content: space-between;
+	justify-content: space-evenly;
 	padding: 0em 1em;
 	overflow-x: scroll;
 	white-space: nowrap;
 	gap: 1em;
 }
-#table-turns p {
+#table-turns p, #table-instructors p {
 	padding-bottom: 0.2em;
 	font-size: 1.5em;
 	font-weight: 400;
 }
 
+.table-header-title {
+	border-bottom: 1px dashed var(--secundarioOscuro);
+}
 
 #hour-box {
 	border-bottom: 1px dashed var(--secundarioOscuro);
@@ -199,25 +202,37 @@ th {
 	margin-right: 1em;
 }
 
-#turn-box {
+#turn-box, #instructor-turn-box{
 	background-color: var(--secundarioOscuro); 
 	color: white;
 	padding: 0.3em;
 	border-radius: var(--radius);
 }
 
-#date-selection-all-turns-div {
+#instructor-box {
+	background-color: rgb(76, 9, 114); 
+	color: white;
+	padding: 0.3em;
+	border-radius: var(--radius);
+}
+
+#date-selection-all-turns-div, #date-selection-all-instructors-div {
 	display: flex;
 	justify-content: center;
 	background-color: var(--gris);
 	padding: 0.5em;
 }
-#date-selection-all-turns-div .boton-sec-oscuro{
+#date-selection-all-turns-div .boton-sec-oscuro, #date-selection-all-instructors-div .boton-sec-oscuro{
 	width: 10em;
 	margin: auto 1em;
 	box-shadow: none;
 }
-#all-turns-date-input {
+#all-turns-date-input, #all-instructors-date-input{
 	padding: 1em;
 	width: 20%;
+}
+
+#instrcutor-div {
+	display: flex;
+	gap: 1em;
 }

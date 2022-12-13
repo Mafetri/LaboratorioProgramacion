@@ -1,6 +1,17 @@
+// All the users needed info
 const user = await (await fetch("/api/userLoggedin")).json();
-const localTime = -3;
+const instructorsAviability = await (await fetch("/api/instructors")).json();
+const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
+const allTurns = await(await fetch("/api/turns?approved=true")).json();
+const instructors = await(await fetch("/api/usersInstructors")).json();
 
+// To local time
+const localTime = -3;
+turnsToLocalTime(myTurns);
+turnsToLocalTime(allTurns);
+turnsToLocalTime(instructorsAviability);
+
+// User Card Info
 fillUserInfo();
 function fillUserInfo() {
 	const userCard = document.querySelector("#user-card-info");
@@ -107,7 +118,6 @@ if (user.role == "admin" || user.role == "editor") {
 // Fills the table depending the role, if it is a instructor it will fill it with his aviabilities
 // and a button to submit more, if it is an admin, it will show all isntructors aviabilities
 if(user.role == "admin" || user.role == "secretary") {
-	const instructorsAviability = await (await fetch("/api/instructors")).json();
 	instructorAviabilityTable(instructorsAviability);
 } else if (user.role == "instructor") {
 	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
@@ -603,9 +613,6 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 });
 
 //  ===========   My Turns   ===========
-const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
-turnsToLocalTime(myTurns);
-
 const table = document.querySelector("#my-turns-table");
 for (let i = 0; i < myTurns.length; i++) {
 	let newListItem = document.createElement("tr");
@@ -663,6 +670,7 @@ for (let i = 0; i < myTurns.length; i++) {
 const oneHourHeight = 55;
 const start_hour = 6;
 const end_hour = 21;
+
 // Creates the hours on the left
 for(let i = 0; i < end_hour-start_hour; i++){
 	let hour = document.createElement("div");
@@ -671,25 +679,25 @@ for(let i = 0; i < end_hour-start_hour; i++){
 	hour.textContent = (i+start_hour)+" hs ";
 	document.querySelector("#table-turns-hours").appendChild(hour);
 }
+
 // Creates the header row with the names of the airplanes
 for(let i = 0; i < (fleet.length); i++){
 	let airplane = document.createElement("div");
-	let airplaneName = document.createElement("p");
-	
-	airplaneName.textContent = fleet[i].plate;
 	airplane.id = fleet[i].plate;
-	
-	airplane.appendChild(airplaneName);
 	document.querySelector("#table-turns").appendChild(airplane);
+	
+	let airplaneName = document.createElement("p");
+	airplaneName.textContent = fleet[i].plate;
+	airplaneName.classList.add("table-header-title");
+	airplane.appendChild(airplaneName);
 }
-// Request all the turns
-const allTurns = await(await fetch("/api/turns?approved=true")).json();
-// Modify the UTC hour of the turns
-turnsToLocalTime(allTurns);
+
 // Defines the height of the table
 const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
+
 // Inicial day 																								<============ Change to today day when finish
 let selecctedDay = "2022-12-12";
+
 // If somebody press the button to update the turns
 document.querySelector("#update-date-turns").addEventListener("click", ()=> {
 	selecctedDay = document.querySelector("#all-turns-date-input").value;
@@ -699,6 +707,8 @@ document.querySelector("#update-date-turns").addEventListener("click", ()=> {
 	})	
 	fillAllTurns();
 })
+
+// Fills the turns table
 fillAllTurns();
 function fillAllTurns() {
 	for(let i = 0; i < allTurns.length; i++){
@@ -728,6 +738,129 @@ function fillAllTurns() {
 		}
 	}
 }
+
+// ===========   Instructor Aviability   ===========
+// Creates the hours on the left
+for(let i = 0; i < end_hour-start_hour; i++){
+	let hour = document.createElement("div");
+	hour.style = "height: "+oneHourHeight+"px;"; 
+	hour.id = "hour-box";
+	hour.textContent = (i+start_hour)+" hs ";
+	document.querySelector("#table-instructors-hours").appendChild(hour);
+}
+
+// Creates the header row with the names of the instructors
+for(let i = 0; i < (instructors.length); i++){
+	// Div for instructor
+	let instructor = document.createElement("div");
+	instructor.id = instructors[i].name + instructors[i].surname.charAt(0);
+
+	let instructorName = document.createElement("p");
+	instructorName.textContent = instructors[i].name + " " + instructors[i].surname.charAt(0);
+	instructorName.classList.add("table-header-title");
+	
+	instructor.appendChild(instructorName);
+	document.querySelector("#table-instructors").appendChild(instructor);
+	
+	// Div for times
+	let instrcutorDiv = document.createElement("div");
+	instrcutorDiv.id = "instrcutor-div";
+	instructor.appendChild(instrcutorDiv);
+	
+	// Div for instructor aviability
+	let instructorAviability = document.createElement("div");
+	instructorAviability.id = instructors[i].name + instructors[i].surname.charAt(0) + "-A";
+	instrcutorDiv.appendChild(instructorAviability);
+
+	// Div for instructor turns
+	let instructorTurns = document.createElement("div");
+	instructorTurns.id = instructors[i].name + instructors[i].surname.charAt(0) + "-T";
+	instrcutorDiv.appendChild(instructorTurns);
+}
+
+// Defines the height of the table
+const tableInstructorHeight = document.querySelector("#table-instructors-hours").offsetHeight;
+
+// Inicial day 																								<============ Change to today day when finish
+let selecctedInstructorsDay = "2022-12-14";
+
+// If somebody press the button to update the turns
+document.querySelector("#update-date-instructors").addEventListener("click", ()=> {
+	selecctedInstructorsDay = document.querySelector("#all-instructors-date-input").value;
+	let turnLoaded = document.querySelectorAll("#instructor-box");
+	turnLoaded.forEach((t)=>{
+		t.remove();
+	})
+	let isntructorTurns = document.querySelectorAll("#instructor-turn-box");
+	isntructorTurns.forEach((t)=>{
+		t.remove();
+	})
+	fillAllInstructors();
+})
+
+// Fills the instructor table
+fillAllInstructors();
+function fillAllInstructors() {
+	for(let i = 0; i < instructorsAviability.length; i++){
+		// Fills the table with the aviabiltiy of the instructor
+		if(selecctedInstructorsDay == instructorsAviability[i].start_date.split("T")[0]) {
+			let insctructionLength = (new Date(instructorsAviability[i].end_date).getTime() - new Date(instructorsAviability[i].start_date).getTime())/1000/60/60;
+	
+			let timeArray = instructorsAviability[i].start_date.split("T")[1].split(":");
+			let start_date = timeArray[0] + ":" + timeArray[1];
+		
+			timeArray = instructorsAviability[i].end_date.split("T")[1].split(":");
+			let end_date = timeArray[0] + ":" + timeArray[1];
+		
+			let hourOfStart = parseFloat(instructorsAviability[i].start_date.split("T")[1].split(":")[0]) + parseFloat(instructorsAviability[i].start_date.split("T")[1].split(":")[1]/60);
+			let allSibilings = document.querySelectorAll('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+ "-A div");
+			let sibilingsHeight = 0;
+			for(let j = 0; j < allSibilings.length; j++){
+				sibilingsHeight += allSibilings[j].offsetHeight;
+			}
+	
+			let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
+	
+			let instruction = document.createElement("div");
+			instruction.textContent = start_date + " - " + end_date;
+			instruction.style = "height: " + insctructionLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
+			instruction.id = "instructor-box";
+			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-A").appendChild(instruction);
+
+			// Now fills  the turns of i instructor
+			fillInstrcutorTurns (i)
+		}
+	}
+}
+function fillInstrcutorTurns (i) {
+	for(let j = 0; j < allTurns.length; j++){
+		if(selecctedInstructorsDay == allTurns[j].start_date.split("T")[0] && allTurns[j].instructor_dni == instructorsAviability[i].instructor_dni){
+			const turnLength = (new Date(allTurns[j].end_date).getTime() - new Date(allTurns[j].start_date).getTime())/1000/60/60;
+	
+			let timeArray = allTurns[j].start_date.split("T")[1].split(":");
+			let start_date = timeArray[0] + ":" + timeArray[1];
+		
+			timeArray = allTurns[j].end_date.split("T")[1].split(":");
+			let end_date = timeArray[0] + ":" + timeArray[1];
+		
+			let hourOfStart = parseFloat(allTurns[j].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[j].start_date.split("T")[1].split(":")[1]/60);
+			let allSibilings = document.querySelectorAll('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+ "-T div");
+			let sibilingsHeight = 0;
+			for(let j = 0; j < allSibilings.length; j++){
+				sibilingsHeight += allSibilings[j].offsetHeight;
+			}
+	
+			let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
+	
+			let turn = document.createElement("div");
+			turn.textContent = start_date + " - " + end_date;
+			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
+			turn.id = "instructor-turn-box";
+			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-T").appendChild(turn);
+		}
+	}
+}
+
 
 function turnsToLocalTime (turns){
 	for(let i = 0; i < turns.length; i++){

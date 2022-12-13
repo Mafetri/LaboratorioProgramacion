@@ -21,7 +21,17 @@ export const getDisabledUsers = async (req, res) => {
 		const rows = await users.getDisabledUsers();
 		res.json(rows);
 	} catch (error) {
-		somethingWentWrong500(error);
+		somethingWentWrong500(error, res);
+	}
+}
+
+// Get Instructors
+export const getInstructors = async (req, res) => {
+	try {
+		const rows = await users.getInstructors();
+		res.json(rows);
+	} catch (error) {
+		somethingWentWrong500(error, res);
 	}
 }
 
