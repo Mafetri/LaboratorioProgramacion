@@ -675,7 +675,7 @@ for (let i = 0; i < myTurns.length; i++) {
 	newListItem.appendChild(cancelButton);
 }
 
-// ===========   All Turns   ===========
+//  ===========   All Turns   ===========
 const oneHourHeight = 55;
 const start_hour = 6;
 const end_hour = 21;
@@ -704,7 +704,7 @@ for(let i = 0; i < (fleet.length); i++){
 // Defines the height of the table
 const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
 
-// Inicial day 																								<============ Change to today day when finish
+// Inicial day 																								
 document.querySelector("#all-turns-date-input").value = new Date().toISOString().substring(0,10);
 document.querySelector("#all-turns-date-input").min = new Date().toISOString().substring(0,10);
 let selecctedDay = document.querySelector("#all-turns-date-input").value;
@@ -719,36 +719,91 @@ document.querySelector("#all-turns-date-input").addEventListener("change", ()=> 
 	fillAllTurns();
 })
 
+// Divide long turns from allTurns into smaller ones from the start_hour to end_hour 
+let turns = [];
+allTurns.forEach((t)=>{
+	let newTurn = JSON.parse(JSON.stringify(t));
+	const startDate = new Date(t.start_date);
+	const endDate = new Date(t.end_date);
+
+	let flagStartDate = new Date(t.start_date);
+	flagStartDate.setHours(start_hour);
+	flagStartDate.setMinutes(0);
+
+	let flagEndDate = new Date(t.start_date);
+	flagEndDate.setHours(end_hour);
+	flagEndDate.setMinutes(0);
+
+	if(flagStartDate > startDate){
+		newTurn.start_date = new Date(flagStartDate);
+	} else {
+		newTurn.start_date = new Date(startDate);
+	}
+	flagStartDate.setDate(flagStartDate.getDate() + 1);
+
+	if(flagEndDate < endDate && endDate > flagStartDate){
+		let utcEndFlag = new Date(flagEndDate);
+		utcEndFlag.setHours(utcEndFlag.getHours() + localTime);
+		newTurn.end_date = utcEndFlag.toISOString();
+	} else {
+		newTurn.end_date = new Date(endDate);
+	}
+
+	turns.push(JSON.parse(JSON.stringify(newTurn)));
+
+	flagEndDate.setDate(flagEndDate.getDate() + 1);
+
+	while(flagStartDate < endDate){
+		// Sets the start time at the start time of the day
+		let utcStart = new Date(flagStartDate);
+		utcStart.setHours(utcStart.getHours() + localTime);
+		newTurn.start_date = utcStart.toISOString();
+
+		// If the end_date of the turn finishes after the finish hour of that day
+		if(flagEndDate < endDate){
+			newTurn.end_date = new Date(flagEndDate).toISOString();
+		} else {
+			newTurn.end_date = new Date(endDate).toISOString();
+			turns.push(JSON.parse(JSON.stringify(newTurn)));
+			break;
+		}
+		turns.push(JSON.parse(JSON.stringify(newTurn)));
+		flagStartDate.setDate(flagStartDate.getDate() + 1);
+		flagEndDate.setDate(flagEndDate.getDate() + 1);
+	}
+})
+
 // Fills the turns table
 fillAllTurns();
 function fillAllTurns() {
-	for(let i = 0; i < allTurns.length; i++){
-		if(selecctedDay == allTurns[i].start_date.split("T")[0]){
-			const turnLength = (new Date(allTurns[i].end_date).getTime() - new Date(allTurns[i].start_date).getTime())/1000/60/60;
+	for(let i = 0; i < turns.length; i++){
+		if(selecctedDay == turns[i].start_date.split("T")[0]){
+			const turnLength = (new Date(turns[i].end_date).getTime() - new Date(turns[i].start_date).getTime())/1000/60/60;
 	
-			let timeArray = allTurns[i].start_date.split("T")[1].split(":");
+			let timeArray = turns[i].start_date.split("T")[1].split(":");
 			let start_date = timeArray[0] + ":" + timeArray[1];
 		
-			timeArray = allTurns[i].end_date.split("T")[1].split(":");
+			timeArray = turns[i].end_date.split("T")[1].split(":");
 			let end_date = timeArray[0] + ":" + timeArray[1];
 
 			
-			let hourOfStart = parseFloat(allTurns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[i].start_date.split("T")[1].split(":")[1]/60);
-			let allSibilings = document.querySelectorAll('#'+allTurns[i].airplane_plate + " div");
+			let hourOfStart = parseFloat(turns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(turns[i].start_date.split("T")[1].split(":")[1]/60);
+			let allSibilings = document.querySelectorAll('#'+turns[i].airplane_plate + " div");
 			let sibilingsHeight = 0;
 			for(let j = 0; j < allSibilings.length; j++){
 				sibilingsHeight += allSibilings[j].offsetHeight;
 			}
 			
 			let pxOffset = ((hourOfStart - start_hour) * oneHourHeight) - sibilingsHeight;
-			
+			let pxHeight = turnLength*oneHourHeight;
+
 			let turn = document.createElement("div");
 			turn.textContent = start_date + " - " + end_date;
-			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
+			turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px;";
 			turn.id = "turn-box";
-			turn.textContent += "\r\n" + allTurns[i].requester_name + " " + allTurns[i].requester_surname;
+			turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
 
-			document.querySelector('#'+allTurns[i].airplane_plate).appendChild(turn);
+			document.querySelector('#'+turns[i].airplane_plate).appendChild(turn);
 		}
 	}
 }
@@ -814,22 +869,86 @@ document.querySelector("#all-instructors-date-input").addEventListener("change",
 	fillAllInstructors();
 })
 
+// If some block of instructorsAviability excedes the start_hour or end_hour it crop it and save it as diferent turns
+let aviabilities = [];
+instructorsAviability.forEach((t)=>{
+	let newTurn = JSON.parse(JSON.stringify(t));
+	const startDate = new Date(t.start_date);
+	const endDate = new Date(t.end_date);
+
+	let flagStartDate = new Date(t.start_date);
+	flagStartDate.setHours(start_hour);
+	flagStartDate.setMinutes(0);
+
+	let flagEndDate = new Date(t.start_date);
+	flagEndDate.setHours(end_hour);
+	flagEndDate.setMinutes(0);
+
+	if(flagStartDate > startDate){
+		newTurn.start_date = new Date(flagStartDate);
+	} else {
+		newTurn.start_date = new Date(startDate);
+	}
+	flagStartDate.setDate(flagStartDate.getDate() + 1);
+
+	if(t.id == 3){
+		console.log(flagEndDate);
+		console.log(t.end_date);
+		console.log(flagStartDate);
+		console.log(flagEndDate < t.end_date);
+	}
+	if(flagEndDate < endDate && endDate > flagStartDate){
+		let utcEndFlag = new Date(flagEndDate);
+		utcEndFlag.setHours(utcEndFlag.getHours() + localTime);
+		newTurn.end_date = utcEndFlag.toISOString();
+	} else {
+		newTurn.end_date = new Date(endDate);
+		if(newTurn.id == 3){
+
+			console.log(newTurn.end_date);
+		}
+	}
+
+	aviabilities.push(JSON.parse(JSON.stringify(newTurn)));
+
+	flagEndDate.setDate(flagEndDate.getDate() + 1);
+
+	while(flagStartDate < endDate){
+		// Sets the start time at the start time of the day
+		let utcStart = new Date(flagStartDate);
+		utcStart.setHours(utcStart.getHours() + localTime);
+		newTurn.start_date = utcStart.toISOString();
+
+		// If the end_date of the turn finishes after the finish hour of that day
+		if(flagEndDate < endDate){
+			newTurn.end_date = new Date(flagEndDate).toISOString();
+		} else {
+			newTurn.end_date = new Date(endDate).toISOString();
+			aviabilities.push(JSON.parse(JSON.stringify(newTurn)));
+			break;
+		}
+		aviabilities.push(JSON.parse(JSON.stringify(newTurn)));
+		flagStartDate.setDate(flagStartDate.getDate() + 1);
+		flagEndDate.setDate(flagEndDate.getDate() + 1);
+	}
+})
+
 // Fills the instructor table
 fillAllInstructors();
 function fillAllInstructors() {
-	for(let i = 0; i < instructorsAviability.length; i++){
+	for(let i = 0; i < aviabilities.length; i++){
 		// Fills the table with the aviabiltiy of the instructor
-		if(selecctedInstructorsDay == instructorsAviability[i].start_date.split("T")[0]) {
-			let insctructionLength = (new Date(instructorsAviability[i].end_date).getTime() - new Date(instructorsAviability[i].start_date).getTime())/1000/60/60;
+		if(selecctedInstructorsDay == aviabilities[i].start_date.split("T")[0]) {
+			let insctructionLength = (new Date(aviabilities[i].end_date).getTime() - new Date(aviabilities[i].start_date).getTime())/1000/60/60;
 	
-			let timeArray = instructorsAviability[i].start_date.split("T")[1].split(":");
+			let timeArray = aviabilities[i].start_date.split("T")[1].split(":");
 			let start_date = timeArray[0] + ":" + timeArray[1];
 		
-			timeArray = instructorsAviability[i].end_date.split("T")[1].split(":");
+			timeArray = aviabilities[i].end_date.split("T")[1].split(":");
 			let end_date = timeArray[0] + ":" + timeArray[1];
 		
-			let hourOfStart = parseFloat(instructorsAviability[i].start_date.split("T")[1].split(":")[0]) + parseFloat(instructorsAviability[i].start_date.split("T")[1].split(":")[1]/60);
-			let allSibilings = document.querySelectorAll('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+ "-A div");
+			let hourOfStart = parseFloat(aviabilities[i].start_date.split("T")[1].split(":")[0]) + parseFloat(aviabilities[i].start_date.split("T")[1].split(":")[1]/60);
+			let allSibilings = document.querySelectorAll('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+ "-A div");
 			let sibilingsHeight = 0;
 			for(let j = 0; j < allSibilings.length; j++){
 				sibilingsHeight += allSibilings[j].offsetHeight;
@@ -841,7 +960,7 @@ function fillAllInstructors() {
 			instruction.textContent = start_date + " - " + end_date;
 			instruction.style = "height: " + insctructionLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			instruction.id = "instructor-box";
-			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-A").appendChild(instruction);
+			document.querySelector('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+"-A").appendChild(instruction);
 
 			// Now fills  the turns of i instructor
 			fillInstrcutorTurns (i)
@@ -849,17 +968,17 @@ function fillAllInstructors() {
 	}
 }
 function fillInstrcutorTurns (i) {
-	for(let j = 0; j < allTurns.length; j++){
-		if(selecctedInstructorsDay == allTurns[j].start_date.split("T")[0] && allTurns[j].instructor_dni == instructorsAviability[i].instructor_dni){
-			const turnLength = (new Date(allTurns[j].end_date).getTime() - new Date(allTurns[j].start_date).getTime())/1000/60/60;
+	for(let j = 0; j < turns.length; j++){
+		if(selecctedInstructorsDay == turns[j].start_date.split("T")[0] && turns[j].instructor_dni == instructorsAviability[i].instructor_dni){
+			const turnLength = (new Date(turns[j].end_date).getTime() - new Date(turns[j].start_date).getTime())/1000/60/60;
 	
-			let timeArray = allTurns[j].start_date.split("T")[1].split(":");
+			let timeArray = turns[j].start_date.split("T")[1].split(":");
 			let start_date = timeArray[0] + ":" + timeArray[1];
 		
-			timeArray = allTurns[j].end_date.split("T")[1].split(":");
+			timeArray = turns[j].end_date.split("T")[1].split(":");
 			let end_date = timeArray[0] + ":" + timeArray[1];
 		
-			let hourOfStart = parseFloat(allTurns[j].start_date.split("T")[1].split(":")[0]) + parseFloat(allTurns[j].start_date.split("T")[1].split(":")[1]/60);
+			let hourOfStart = parseFloat(turns[j].start_date.split("T")[1].split(":")[0]) + parseFloat(turns[j].start_date.split("T")[1].split(":")[1]/60);
 			let allSibilings = document.querySelectorAll('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+ "-T div");
 			let sibilingsHeight = 0;
 			for(let j = 0; j < allSibilings.length; j++){
@@ -872,7 +991,7 @@ function fillInstrcutorTurns (i) {
 			turn.textContent = start_date + " - " + end_date;
 			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			turn.id = "instructor-turn-box";
-			turn.textContent += "\r\n" + allTurns[i].requester_name + " " + allTurns[i].requester_surname;
+			turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
 
 			document.querySelector('#'+instructorsAviability[i].name+instructorsAviability[i].surname.charAt(0)+"-T").appendChild(turn);
 		}
