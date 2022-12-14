@@ -534,6 +534,14 @@ if (user.role == "admin" || user.role == "secretary"){
 //  =================  My Turns  =================
 // Turns Form conditions
 const instructor = document.querySelector("#request-turn-form-instructor");
+if( user.role != "admin"){
+	document.querySelectorAll("#request-turn-form-purpose option").forEach(option => {
+		switch (option.value){
+			case "workshop": option.disabled = true; break;
+			case "baptism": option.disabled = true; break;
+		}
+	});;
+}
 if(user.role == "student"){
 	instructor.checked = true;
 	instructor.disabled = true;
@@ -709,7 +717,7 @@ document.querySelector("#all-turns-date-input").value = new Date().toISOString()
 document.querySelector("#all-turns-date-input").min = new Date().toISOString().substring(0,10);
 let selecctedDay = document.querySelector("#all-turns-date-input").value;
 
-// If somebody press the button to update the turns
+// If somebody changes the time of the input of all turns
 document.querySelector("#all-turns-date-input").addEventListener("change", ()=> {
 	selecctedDay = document.querySelector("#all-turns-date-input").value;
 	let turnLoaded = document.querySelectorAll("#turn-box");
@@ -781,7 +789,6 @@ function fillAllTurns() {
 			timeArray = turns[i].end_date.split("T")[1].split(":");
 			let end_date = timeArray[0] + ":" + timeArray[1];
 
-			
 			let hourOfStart = parseFloat(turns[i].start_date.split("T")[1].split(":")[0]) + parseFloat(turns[i].start_date.split("T")[1].split(":")[1]/60);
 			let allSibilings = document.querySelectorAll('#'+turns[i].airplane_plate + " div");
 			let sibilingsHeight = 0;
@@ -794,9 +801,17 @@ function fillAllTurns() {
 
 			let turn = document.createElement("div");
 			turn.textContent = start_date + " - " + end_date;
-			turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px;";
 			turn.id = "turn-box";
-			turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
+			if(turns[i].purpose == "workshop"){
+				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: orange";
+				turn.textContent += "\r\nTaller";
+			} else if(turns[i].purpose == "baptism"){
+				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: crimson";
+				turn.textContent += "\r\nBautismo";
+			} else {
+				turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
+				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px;";
+			}
 
 			document.querySelector('#'+turns[i].airplane_plate).appendChild(turn);
 		}
@@ -850,7 +865,7 @@ document.querySelector("#all-instructors-date-input").value = new Date().toISOSt
 document.querySelector("#all-instructors-date-input").min = new Date().toISOString().substring(0,10);
 let selecctedInstructorsDay = document.querySelector("#all-instructors-date-input").value;
 
-// If somebody press the button to update the turns
+// If somebody changes the time of the input of all instructors
 document.querySelector("#all-instructors-date-input").addEventListener("change", ()=> {
 	selecctedInstructorsDay = document.querySelector("#all-instructors-date-input").value;
 	let turnLoaded = document.querySelectorAll("#instructor-box");
@@ -971,7 +986,7 @@ function fillInstrcutorTurns (i) {
 			turn.textContent = start_date + " - " + end_date;
 			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			turn.id = "instructor-turn-box";
-			turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
+			turn.textContent += "\r\n" + turns[j].requester_name + " " + turns[j].requester_surname;
 
 			document.querySelector('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+"-T").appendChild(turn);
 		}

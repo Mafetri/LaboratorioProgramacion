@@ -48,9 +48,9 @@ turns.setResult = async (id, result) => {
     }
 }
 
-turns.reserveTurn = async (user_dni, startDate, endDate, airplane, instructor, purpose) => {
+turns.reserveTurn = async (user_dni, startDate, endDate, airplane, instructor, purpose, approved) => {
     try {
-        const [dbRes] = await pool.query("INSERT INTO turns VALUE (NULL, NOW(), ?, ?, ?, ?, ?, ?, NULL);", [user_dni, startDate, endDate, airplane, purpose, instructor]);
+        const [dbRes] = await pool.query("INSERT INTO turns VALUE (NULL, NOW(), ?, ?, ?, ?, ?, ?, ?);", [user_dni, startDate, endDate, airplane, purpose, instructor, approved]);
         return dbRes;
     } catch (error) {
         throw error;

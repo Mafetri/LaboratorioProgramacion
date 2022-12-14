@@ -51,61 +51,73 @@ export const createTurn = async (req, res) => {
 	const { startDate, endDate, airplane, instructor, purpose } = req.body;
 	let responseText = "";
 	try {
-		if(req.user.enabled == true){
-			const acceptedTurns = await turns.getTurns("true");
-			let instructorDni = 0;
+		if(req.user.role == "admin" && purpose == "workshop" || purpose == "baptism"){
+			// Gets the turns that overlaps the workshop or baptismrange and delete it
+			const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
+			for( let i = 0; i < turnsOverlaped.length; i++){
+				await turns.deleteTurn(turnsOverlaped[i].id);
+			}
+
+			const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose, true);
+			res.send("success");
+		} else {
+			if(req.user.enabled == true){
+				const acceptedTurns = await turns.getTurns("true");
+				let instructorDni = 0;
+		
+				if(instructor == true) {
+					// instructorsAvailable has all the instructors avialable
+					let instructorsAvailable = await instructors.getInstructorsAvailable(startDate, endDate);
 	
-			if(instructor == true) {
-				// instructorsAvailable has all the instructors avialable
-				let instructorsAvailable = await instructors.getInstructorsAvailable(startDate, endDate);
-
-				if( instructorsAvailable.length > 0 ){
-					// instructorsOrdered has all instructors ordered by ammount of turns
-					const instructorsOrdered = await instructors.orderByAmountOfTurns();
-
-					// instructorDni now has the first instructorOrdered that appears on the available ones
-					for(let i = 0; i < instructorsOrdered.length; i++){
-						for(let j = 0; j < instructorsAvailable.length; j++){
-							if(instructorsAvailable[j].instructor_dni == instructorsOrdered[i].instructor_dni){
-								instructorDni = instructorsOrdered[i].instructor_dni;
-								break;
+					if( instructorsAvailable.length > 0 ){
+						// instructorsOrdered has all instructors ordered by ammount of turns
+						const instructorsOrdered = await instructors.orderByAmountOfTurns();
+	
+						// instructorDni now has the first instructorOrdered that appears on the available ones
+						for(let i = 0; i < instructorsOrdered.length; i++){
+							for(let j = 0; j < instructorsAvailable.length; j++){
+								if(instructorsAvailable[j].instructor_dni == instructorsOrdered[i].instructor_dni){
+									instructorDni = instructorsOrdered[i].instructor_dni;
+									break;
+								}
 							}
 						}
 					}
 				}
-			}
-	
-			// If an airplane was requested
-			if( airplane != undefined ) {
-				// Gets the turns that has the same airplane that overlaps the requested turn
-				const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
-	
-				// If there is no airplane turn overlaps
-				if(turnsOverlaped.length == 0 && instructor == false){
-					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose);
-					res.send("success");
-				} else if (turnsOverlaped.length == 0 && instructor == true){
-					if(instructorDni != 0){
-						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+		
+				// If an airplane was requested
+				if( airplane != undefined ) {
+					// Gets the turns that has the same airplane that overlaps the requested turn
+					const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
+		
+					// If there is no airplane turn overlaps
+					if(turnsOverlaped.length == 0 && instructor == false){
+						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose);
 						res.send("success");
+					} else if (turnsOverlaped.length == 0 && instructor == true){
+						if(instructorDni != 0){
+							const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+							res.send("success");
+						} else {
+							res.send("no-instructor");
+						}
 					} else {
-						res.send("no-instructor");
+						res.send("airplane-overlaps");
 					}
 				} else {
-					res.send("airplane-overlaps");
+					// If no airplane were requested, we are talking about an student
+					if(instructorDni == 0) {
+						res.send("no-instructor");
+					} else {
+						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+						res.send("success");
+					}
 				}
 			} else {
-				// If no airplane were requested, we are talking about an student
-				if(instructorDni == 0) {
-					res.send("no-instructor");
-				} else {
-					const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
-					res.send("success");
-				}
+				res.send("user-disabled");
 			}
-		} else {
-			res.send("user-disabled");
 		}
+		
 	} catch (e) {
 		console.log(e);
 		somethingWentWrong500(e, res);
