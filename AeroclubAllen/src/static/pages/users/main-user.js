@@ -199,83 +199,74 @@ function fillTurnsTable(uncheckedTurns, tableName){
 	sectionTitle.textContent = "Turnos";
 	sectionTitle.classList.add("section-title");
 	sectionTitle.classList.add("margin-auto");
-
-	// Table
-	let table = document.createElement("table");
-	table.classList.add("table-user-section");
-
-	// Head
-	let tHead = document.createElement("thead");
-	let th1 = document.createElement("th");
-	th1.textContent = "Fecha Pedido";
-	let th2 = document.createElement("th");
-	th2.textContent = "Persona";
-	let th3 = document.createElement("th");
-	th3.textContent = "Fecha Inicio";
-	let th4 = document.createElement("th");
-	th3.textContent = "Fecha Fin";
-	let th5 = document.createElement("th");
-	th4.textContent = "Avion";
-	let th6 = document.createElement("th");
-	th3.textContent = "Finalidad";
-	let th7 = document.createElement("th");
-	th5.textContent = "Instructor";
-	let th8 = document.createElement("th");
-	th6.textContent = "Opciones";
-	tHead.appendChild(th1);
-	tHead.appendChild(th2);
-	tHead.appendChild(th3);
-	tHead.appendChild(th4);
-	tHead.appendChild(th5);
-	tHead.appendChild(th6);
-	tHead.appendChild(th7);
-	tHead.appendChild(th8);
-
-	let tBody = document.createElement("tbody");
-	tBody.id = "unchecked-turns-table";
-
-	tableName.appendChild(sectionTitle);
-	tableName.appendChild(table);
-	table.appendChild(tHead);
-	table.appendChild(tBody);
+	tableName.prepend(sectionTitle);
 
 	for(let i = 0; i < uncheckedTurns.length; i++){
-		let newListItem = document.createElement("tr");
+		let newListItem = document.createElement("article");
+		newListItem.classList.add("turns-grid-card");
 	
-		let reqDate = document.createElement("td");
+		let divInfo = document.createElement("div");
+		divInfo.classList.add("turns-grid-card");
+
+		let reqDateTitle = document.createElement("h2");
+		reqDateTitle.textContent = "Fecha de Solicitud";
+		let reqDate = document.createElement("p");
 		let reqDateArray = uncheckedTurns[i].request_date.split("T")[0].split("-");
 		let reqTimeArray = uncheckedTurns[i].request_date.split("T")[1].split(":");
 		reqDate.textContent = reqDateArray[2] + "/" + reqDateArray[1] + "/" + reqDateArray[0] + " " + reqTimeArray[0] + ":" + reqTimeArray[1] + " UTC";
 	
+		let personTitle = document.createElement("h2");
+		personTitle.textContent = "Socio:";
 		let person = document.createElement("td");
 		person.textContent = uncheckedTurns[i].requester_name + " " + uncheckedTurns[i].requester_surname;
-	
-		let start_date = document.createElement("td");
+
+		let instructorTitle = document.createElement("h2");
+		instructorTitle.textContent = "Instructor:";
+		let instructorName = document.createElement("p");
+		if(uncheckedTurns[i].instructor_name == null){
+			instructorName.textContent = "Sin Instructor";
+		} else {
+			instructorName.textContent = uncheckedTurns[i].instructor_name + " " + uncheckedTurns[i].instructor_surname;
+		}
+
+		let startDateTitle = document.createElement("h2");
+		startDateTitle.textContent = "Salida:";
+		let start_date = document.createElement("p");
 		let dateArray = uncheckedTurns[i].start_date.split("T")[0].split("-");
 		let timeArray = uncheckedTurns[i].start_date.split("T")[1].split(":");
 		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
 
-		let end_date = document.createElement("td");
+		let endDateTitle = document.createElement("h2");
+		endDateTitle.textContent = "Llegada:";
+		let end_date = document.createElement("p");
 		dateArray = uncheckedTurns[i].end_date.split("T")[0].split("-");
 		timeArray = uncheckedTurns[i].end_date.split("T")[1].split(":");
 		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
-	
-		let purpose = document.createElement("td");
-		purpose.textContent = uncheckedTurns[i].purpose;
 
-		let aiplante = document.createElement("td");
-		aiplante.textContent = uncheckedTurns[i].airplane_plate;
-	
-		let instructor = document.createElement("td");
-		if(uncheckedTurns[i].instructor_name != null){
-			instructor.textContent = uncheckedTurns[i].instructor_name  + " " + uncheckedTurns[i].instructor_surname;
-		} else {
-			instructor.textContent = "Sin Instructor";
+		let statusTitle = document.createElement("h2");
+		statusTitle.textContent = "Estado:";
+
+		let airplanePlateTitle = document.createElement("h2");
+		airplanePlateTitle.textContent = "Avion:";
+		let airplanePlate = document.createElement("p");
+		airplanePlate.textContent = uncheckedTurns[i].airplane_plate;
+
+		let purposeTitle = document.createElement("h2");
+		purposeTitle.textContent = "Proposito:";
+		let purpose = document.createElement("p");
+		switch(uncheckedTurns[i].purpose){
+			case "local": purpose.textContent = "Local";
+			case "readaptation": purpose.textContent = "Readaptación"; break;
+			case "adaptation": purpose.textContent = "Adaptación"; break;
+			case "navigation": purpose.textContent = "Navegación"; break;
+			case "navigation": purpose.textContent = "Navegación"; break;
+			case "instruction": purpose.textContent = "Instrucción"; break;
 		}
 	
-		let state = document.createElement("td");
+		let state = document.createElement("div");
 		let acceptButton = document.createElement("button");
 		acceptButton.textContent = "Aceptar";
+		acceptButton.classList.add("ok-button");
 		acceptButton.addEventListener("click", async () => {
 			if (window.confirm("Seguro que desea aceptar el turno? ")) {
 				const res = await fetch("/api/turns/" + uncheckedTurns[i].id + "?result=true", {
@@ -284,9 +275,9 @@ function fillTurnsTable(uncheckedTurns, tableName){
 				window.location.reload();
 			}
 		});
-
 		let denyButton = document.createElement("button");
 		denyButton.textContent = "Rechazar";
+		denyButton.classList.add("delete-button");
 		denyButton.addEventListener("click", async () => {
 			if (window.confirm("Seguro que desea denegar el turno? ")) {
 				const res = await fetch("/api/turns/" + uncheckedTurns[i].id, {
@@ -297,17 +288,25 @@ function fillTurnsTable(uncheckedTurns, tableName){
 			}
 		});
 	
-		tBody.appendChild(newListItem);
-		newListItem.appendChild(reqDate);
-		newListItem.appendChild(person);
-		newListItem.appendChild(start_date);
-		newListItem.appendChild(end_date);
-		newListItem.appendChild(purpose);
-		newListItem.appendChild(aiplante);
-		newListItem.appendChild(instructor);
+		document.querySelector("#unchecked-turns-grid").appendChild(newListItem);
+		newListItem.appendChild(divInfo);
+		divInfo.appendChild(reqDateTitle);
+		divInfo.appendChild(reqDate);
+		divInfo.appendChild(personTitle);
+		divInfo.appendChild(person);
+		divInfo.appendChild(startDateTitle);
+		divInfo.appendChild(start_date);
+		divInfo.appendChild(endDateTitle);
+		divInfo.appendChild(end_date);
+		divInfo.appendChild(purposeTitle);
+		divInfo.appendChild(purpose);
+		divInfo.appendChild(airplanePlateTitle);
+		divInfo.appendChild(airplanePlate);
+		divInfo.appendChild(instructorTitle);
+		divInfo.appendChild(instructorName);
+		newListItem.appendChild(state);
 		state.appendChild(acceptButton);
 		state.appendChild(denyButton);
-		newListItem.appendChild(state);
 	}
 }
 
@@ -632,33 +631,51 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 //  ===========   My Turns   ===========
 const table = document.querySelector("#my-turns-table");
 for (let i = 0; i < myTurns.length; i++) {
-	let newListItem = document.createElement("tr");
+	let newListItem = document.createElement("article");
+	newListItem.classList.add("turns-grid-card");
 
-	let completeName = document.createElement("td");
+	let divInfo = document.createElement("div");
+	divInfo.classList.add("turns-grid-card");
+
+	let nameTitle = document.createElement("h2");
+	nameTitle.textContent = "Instructor:";
+	let completeName = document.createElement("p");
 	if(myTurns[i].name == null){
 		completeName.textContent = "Sin Instructor";
 	} else {
 		completeName.textContent = myTurns[i].name + " " + myTurns[i].surname;
 	}
 
-	let start_date = document.createElement("td");
+	let startDateTitle = document.createElement("h2");
+	startDateTitle.textContent = "Salida:";
+
+	let start_date = document.createElement("p");
 	let dateArray = myTurns[i].start_date.split("T")[0].split("-");
 	let timeArray = myTurns[i].start_date.split("T")[1].split(":");
 	start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
 
-	let end_date = document.createElement("td");
+	let endDateTitle = document.createElement("h2");
+	endDateTitle.textContent = "Llegada:";
+
+	let end_date = document.createElement("p");
 	dateArray = myTurns[i].end_date.split("T")[0].split("-");
 	timeArray = myTurns[i].end_date.split("T")[1].split(":");
 	end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
 
-	let status = document.createElement("td");
+	let statusTitle = document.createElement("h2");
+	statusTitle.textContent = "Estado:";
+	
+	let status = document.createElement("p");
 	switch(myTurns[i].approved){
 		case 1: status.textContent = "Aprobado"; break;
 		case 0: status.textContent = "Rechazado"; break;
 		default: status.textContent = "En Espera"; break;
 	}
 
-	let airplanePlate = document.createElement("td");
+	let airplanePlateTitle = document.createElement("h2");
+	airplanePlateTitle.textContent = "Avion:";
+
+	let airplanePlate = document.createElement("p");
 	airplanePlate.textContent = myTurns[i].airplane_plate;
 
 	// Cancel Button
@@ -675,11 +692,17 @@ for (let i = 0; i < myTurns.length; i++) {
 	});
 
 	table.appendChild(newListItem);
-	newListItem.appendChild(start_date);
-	newListItem.appendChild(end_date);
-	newListItem.appendChild(airplanePlate);
-	newListItem.appendChild(completeName);
-	newListItem.appendChild(status);
+	newListItem.appendChild(divInfo);
+	divInfo.appendChild(startDateTitle);
+	divInfo.appendChild(start_date);
+	divInfo.appendChild(endDateTitle);
+	divInfo.appendChild(end_date);
+	divInfo.appendChild(airplanePlateTitle);
+	divInfo.appendChild(airplanePlate);
+	divInfo.appendChild(nameTitle);
+	divInfo.appendChild(completeName);
+	divInfo.appendChild(statusTitle);
+	divInfo.appendChild(status);
 	newListItem.appendChild(cancelButton);
 }
 

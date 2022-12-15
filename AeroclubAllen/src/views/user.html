@@ -163,8 +163,50 @@
 
 			<!-- Role Options -->
 			<section id = "role-options">
+				<!-- Disable User -->
+				<section class="section-for-user" id="disable-user">
+					<h2 class = "section-title margin-auto">Deshabilitar/Habilitar Socio</h2>
+					<form class = "margin-auto" id = "disable-user-form">
+						<fieldset>
+							<div class="fields-container">
+								<div class="field margin-bottom-0">
+									<input class="input-text" type="text" name="toggle-user-enabled" id="toggle-user-enabled-dni" placeholder = "DNI" required/>
+								</div>							
+									<input onclick="" class="gray-button height-fit border-radius" type="submit" value="Deshabilitar" name="submit" id="submit" />
+								</div>
+							</div>
+						</fieldset>
+					</form>
+					<table class = "table-user-section">
+						<thead>
+							<th>DNI</th>
+							<th>Nombre</th>
+						</thead>
+						<tbody  id = "disabled-users-table">
+							
+						</tbody>
+					</table>
+				</section>
+
 				<!-- Turns Unchecked -->
-				<section class="section-for-user" id="unchecked-turns"></section>
+				<section class="section-for-user" id = "unchecked-turns">
+					<div class = "turns-grid" id = "unchecked-turns-grid"></div>
+				</section>
+
+				<!-- Instructor Availability -->
+				<section class = "section-for-user" id = "instructor-availability">
+					<h2 class = "section-title margin-auto" id = "instructor-availability-title">Disponibilidad de Instructores</h2>
+					<table class = "table-user-section">
+						<thead>
+							<th>Instructor</th>
+							<th>Fecha Inicio</th>
+							<th>Fecha Fin</th>
+						</thead>
+						<tbody  id = "instructor-availability-table">
+							
+						</tbody>
+					</table>
+				</section>
 
 				<!-- Users -->
 				<section class = "section-for-user" id = "users-section">
@@ -195,46 +237,6 @@
 						</thead>
 						<tbody  id = "auditlog-table">
 			
-						</tbody>
-					</table>
-				</section>
-
-				<!-- Instructor Availability -->
-				<section class = "section-for-user" id = "instructor-availability">
-					<h2 class = "section-title margin-auto" id = "instructor-availability-title">Disponibilidad de Instructores</h2>
-					<table class = "table-user-section">
-						<thead>
-							<th>Instructor</th>
-							<th>Fecha Inicio</th>
-							<th>Fecha Fin</th>
-						</thead>
-						<tbody  id = "instructor-availability-table">
-							
-						</tbody>
-					</table>
-				</section>
-
-				<!-- Disable User -->
-				<section class="section-for-user" id="disable-user">
-					<h2 class = "section-title margin-auto">Deshabilitar/Habilitar Socio</h2>
-					<form class = "margin-auto" id = "disable-user-form">
-						<fieldset>
-							<div class="fields-container">
-								<div class="field margin-bottom-0">
-									<input class="input-text" type="text" name="toggle-user-enabled" id="toggle-user-enabled-dni" placeholder = "DNI" required/>
-								</div>							
-									<input onclick="" class="gray-button height-fit border-radius" type="submit" value="Deshabilitar" name="submit" id="submit" />
-								</div>
-							</div>
-						</fieldset>
-					</form>
-					<table class = "table-user-section">
-						<thead>
-							<th>DNI</th>
-							<th>Nombre</th>
-						</thead>
-						<tbody  id = "disabled-users-table">
-							
 						</tbody>
 					</table>
 				</section>
@@ -293,23 +295,14 @@
 				</table>
 			</section> -->
 
-			<!-- User Turns -->
+			<!-- My Turns -->
 			<section class="section-for-user" id="airplane-turns">
 				<h2 class="section-title margin-auto">Mis Turnos</h2>
 				<a class="register-button center" href="#request-turn-form-popup">
 					<button class="gray-button">Agendar Turno</button>
 				</a>
-				<table class="table-user-section">
-					<thead>
-						<th>Fecha Salida</th>
-						<th>Fecha Llegada</th>
-						<th>Avion</th>
-						<th>Instructor</th>
-						<th>Estado</th>
-					</thead>
-					<tbody id="my-turns-table">
-					</tbody>
-				</table>
+				<div class = "turns-grid" id = "my-turns-table">
+				</div>
 			</section>
 
 			<!--  Turn Request  -->

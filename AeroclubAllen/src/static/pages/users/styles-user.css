@@ -77,7 +77,7 @@ section {
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
 	margin: 1em auto;
-	width: 70%;
+	width: 60%;
 	background-color: rgb(245, 241, 243);
     padding-bottom: 0.2em;
 }
@@ -99,6 +99,13 @@ section {
 #role-options.show {
 	display: block;
 	opacity: 1;
+}
+
+#disable-user-form fieldset{
+	padding: 0.5em;
+}
+#disable-user-form div div input{
+	height: 100%;
 }
 
 /* Users */
@@ -140,6 +147,8 @@ th {
 	border: 2px solid black;
 }
 
+
+/* Gray Button  */
 .gray-button {
     background-color: var(--gris);
 	color: var(--secundarioOscuro);
@@ -166,24 +175,33 @@ th {
 	}
 }
 
+#unchecked-turns-grid .delete-button {
+	width: 50%;
+	border-radius: 0 0 var(--radius) 0;
+}
+
+#unchecked-turns-grid .ok-button {
+	width: 50%;
+	border-radius: 0 0 0 var(--radius);
+	padding: 0.2em;
+}
+
+
 #disable-user-form {
 	margin-top: 0.5em !important;
 	box-shadow: none !important;
 }
 
-#my-turns-table .delete-button { 
-	border-radius: 0;
-	font-size: 1em;
-	padding: 0.2em;
-}	
-
 #table-turns, #table-instructors{
 	display: flex; 
-	justify-content: space-evenly;
+	justify-content: space-between;
 	padding: 0em 1em;
 	overflow-x: scroll;
 	white-space: nowrap;
 	gap: 1em;
+}
+#table-instructors {
+	justify-content: space-evenly;
 }
 #table-turns p, #table-instructors p {
 	padding-bottom: 0.2em;
@@ -236,4 +254,49 @@ th {
 #instrcutor-div {
 	display: flex;
 	gap: 1em;
+}
+
+/* My Turns */
+.turns-grid {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5em;
+	padding: 0.5em;
+	overflow: auto;
+	white-space: nowrap;
+	justify-content: start;
+}
+.turns-gird-card-info{
+	padding: 1em;
+}
+.turns-grid-card .delete-button{
+	font-size: 1em;
+	padding: 0.2em;
+	border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.turns-grid-card {
+	display: flex;  
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.2em;
+	background-color: var(--secundarioOscuro);
+	color: white;
+	min-width: 12em;
+	height: fit-content;
+	justify-content: center;
+	text-align: center;
+	border-radius: var(--radius);
+	padding-top: 0.3em;
+}
+.turns-grid-card p, h2{
+	color: white;
+}
+.turns-grid-card p, h2{
+	margin: 0;
+	font-size: 1em;
+}
+.turns-grid-card p{
+	margin-bottom: 0.3em;
+	font-size: 1em;
 }
