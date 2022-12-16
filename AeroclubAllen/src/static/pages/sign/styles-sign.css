@@ -53,6 +53,12 @@
 	padding-top: 20vh;
 	padding-bottom: 5em;
 }
+@media (max-width: 768px) {
+	.data-input {
+		padding-top: 2em;
+	}
+}
+
 
 #sign-card{
 	display: flex;

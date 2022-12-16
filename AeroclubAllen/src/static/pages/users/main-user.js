@@ -186,6 +186,79 @@ document.querySelector("#instructor-availability-form").addEventListener("submit
 	xhr.send(JSON.stringify(newData));
 });
 
+//  ====> Instructor Turns Assigned Submit
+if (user.role == "instructor") {
+	for(let i = 0; i < allTurns.length; i++){
+		if(allTurns[i].instructor_dni == user.dni){
+			let newListItem = document.createElement("article");
+			newListItem.classList.add("turns-grid-card");
+
+			let divInfo = document.createElement("div");
+			divInfo.classList.add("turns-grid-card");
+
+			let nameTitle = document.createElement("h2");
+			nameTitle.textContent = "Socio:"
+			let completeName = document.createElement("p");
+			completeName.textContent = allTurns[i].requester_name + " " + allTurns[i].requester_surname;
+
+			let startDateTitle = document.createElement("h2");
+			startDateTitle.textContent = "Salida:";
+			let start_date = document.createElement("p");
+			let dateArray = allTurns[i].start_date.split("T")[0].split("-");
+			let timeArray = allTurns[i].start_date.split("T")[1].split(":");
+			start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+
+			let endDateTitle = document.createElement("h2");
+			endDateTitle.textContent = "Llegada:";
+			let end_date = document.createElement("p");
+			dateArray = allTurns[i].end_date.split("T")[0].split("-");
+			timeArray = allTurns[i].end_date.split("T")[1].split(":");
+			end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+
+			let statusTitle = document.createElement("h2");
+			statusTitle.textContent = "Estado:";
+			let status = document.createElement("p");
+			switch(allTurns[i].approved){
+				case 1: status.textContent = "Aprobado"; break;
+				case 0: status.textContent = "Rechazado"; break;
+				default: status.textContent = "En Espera"; break;
+			}
+
+			let airplanePlateTitle = document.createElement("h2");
+			airplanePlateTitle.textContent = "Avion:";
+			let airplanePlate = document.createElement("p");
+			airplanePlate.textContent = allTurns[i].airplane_plate;
+
+			// Cancel Button
+			let cancelButton = document.createElement("button");
+			cancelButton.textContent = "Reasignar";
+			cancelButton.classList.add("delete-button");
+			cancelButton.addEventListener("click", async () => {
+				if (window.confirm("Seguro que quiere asignar a otro instructor el turno?")) {
+					alert("Proximamente");
+					window.location.reload();
+				}
+			});
+
+			document.querySelector("#instructor-assigned-turns-table").appendChild(newListItem);
+			newListItem.appendChild(divInfo);
+			divInfo.appendChild(startDateTitle);
+			divInfo.appendChild(start_date);
+			divInfo.appendChild(endDateTitle);
+			divInfo.appendChild(end_date);
+			divInfo.appendChild(airplanePlateTitle);
+			divInfo.appendChild(airplanePlate);
+			divInfo.appendChild(nameTitle);
+			divInfo.appendChild(completeName);
+			divInfo.appendChild(statusTitle);
+			divInfo.appendChild(status);
+			newListItem.appendChild(cancelButton);
+		}
+	}
+} else {
+	document.querySelector("#instructor-assigned-turns").remove();
+}
+
 //  ====> Unchecked Turns
 if (user.role == "secretary" || user.role == "admin"){
 	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
@@ -528,6 +601,8 @@ if (user.role == "admin" || user.role == "secretary"){
 			newListItem.appendChild(enableUser);
 		}
 	}
+} else {
+	document.querySelector("#disable-user").remove();
 }
 
 //  =================  My Turns  =================
@@ -1058,6 +1133,12 @@ function descriptionTranslation(description, tableName, key) {
 		case "deletion":
 			descriptionTranslated = "eliminó";
 			break;
+		case "approved":
+			descriptionTranslated = "aprovó";
+			break;
+		case "rejected":
+			descriptionTranslated = "rechazó";
+			break;
 	}
 	switch (tableName) {
 		case "fleet":
@@ -1068,6 +1149,9 @@ function descriptionTranslation(description, tableName, key) {
 			break;
 		case "users":
 			descriptionTranslated += " el usuario";
+			break;
+		case "turns":
+			descriptionTranslated += " el turno";
 			break;
 	}
 	descriptionTranslated += ": " + key;

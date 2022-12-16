@@ -9,7 +9,7 @@ export function isNotLoggedIn (req, res, next){
     if(!req.isAuthenticated()){
         return next();
     }
-    return res.redirect('/dashboard');
+    return res.redirect('/userPage');
 }
 
 export function isAdmin (req, res, next){

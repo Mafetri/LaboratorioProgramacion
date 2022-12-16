@@ -38,7 +38,11 @@ export const setStatus = async (req, res) => {
 				message: "Turn not found",
 			});
 		} else {
-			await auditlog.createLog(req.user.dni, "approved", "turns", id);
+			if(result == "true"){
+				await auditlog.createLog(req.user.dni, "approved", "turns", id);
+			} else {
+				await auditlog.createLog(req.user.dni, "rejected", "turns", id);
+			}
 			res.send("success");
 		}
 	} catch (e) {
