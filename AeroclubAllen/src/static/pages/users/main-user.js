@@ -2,7 +2,7 @@
 const user = await (await fetch("/api/userLoggedin")).json();
 const instructorsAviability = await (await fetch("/api/instructors")).json();
 const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
-const allTurns = await(await fetch("/api/turns?approved=true")).json();
+const allTurns = await(await fetch("/api/turns")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
 
 // To local time
@@ -129,8 +129,8 @@ if(user.role == "admin" || user.role == "secretary") {
 	addAviabilityA.appendChild(addAviability)
 	document.querySelector("#instructor-availability").insertBefore(addAviabilityA, document.querySelector("#instructor-availability-title").nextSibling.nextSibling);
 
-	let instructorAviability = await (await fetch("/api/instructors/" + user.dni)).json();
-	instructorAviabilityTable(instructorAviability);
+	const myAvailability = instructorsAviability.filter((i)=> i.instructor_dni == user.dni);
+	instructorAviabilityTable(myAvailability);
 } else {
 	document.querySelector("#instructor-availability").remove();
 }
@@ -328,7 +328,7 @@ function fillTurnsTable(uncheckedTurns, tableName){
 		purposeTitle.textContent = "Proposito:";
 		let purpose = document.createElement("p");
 		switch(uncheckedTurns[i].purpose){
-			case "local": purpose.textContent = "Local";
+			case "local": purpose.textContent = "Local"; break;
 			case "readaptation": purpose.textContent = "Readaptación"; break;
 			case "adaptation": purpose.textContent = "Adaptación"; break;
 			case "navigation": purpose.textContent = "Navegación"; break;
@@ -904,11 +904,15 @@ function fillAllTurns() {
 				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: orange";
 				turn.textContent += "\r\nTaller";
 			} else if(turns[i].purpose == "baptism"){
-				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: crimson";
+				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: darkcyan";
 				turn.textContent += "\r\nBautismo";
 			} else {
 				turn.textContent += "\r\n" + turns[i].requester_name + " " + turns[i].requester_surname;
 				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px;";
+			}
+
+			if(turns[i].approved === null){
+				turn.style = "height: " + pxHeight + "px; translate: 0px " + pxOffset + "px; background-color: crimson;";
 			}
 
 			document.querySelector('#'+turns[i].airplane_plate).appendChild(turn);
@@ -1085,6 +1089,9 @@ function fillInstrcutorTurns (i) {
 			turn.style = "height: " + turnLength*oneHourHeight + "px; translate: 0px "+pxOffset+"px;";
 			turn.id = "instructor-turn-box";
 			turn.textContent += "\r\n" + turns[j].requester_name + " " + turns[j].requester_surname;
+			if(turns[j].approved === null){
+				turn.style = "background-color: crimson;";
+			}
 
 			document.querySelector('#'+aviabilities[i].name+aviabilities[i].surname.charAt(0)+"-T").appendChild(turn);
 		}
