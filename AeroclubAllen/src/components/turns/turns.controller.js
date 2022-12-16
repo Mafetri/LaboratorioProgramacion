@@ -68,24 +68,19 @@ export const createTurn = async (req, res) => {
 			if(req.user.enabled == true){
 				const acceptedTurns = await turns.getTurns("true");
 				let instructorDni = 0;
+				let approved = null;
+
+				if((new Date(endDate).getTime() - new Date(startDate).getTime()) / 1000 / 60 / 60 < 1.5){
+					approved = true;
+				}
 		
 				if(instructor == true) {
-					// instructorsAvailable has all the instructors avialable
-					let instructorsAvailable = await instructors.getInstructorsAvailable(startDate, endDate);
+					// instructorsAvailableOrdered has all the instructors avialable (that doesnt have a turn, that is not rejected
+					// assigned that overlaps and in the lapse of time requested he has loaded that he is available) ordered by the amount of turns assigned
+					let instructorsAvailableOrdered = await instructors.getInstructorsAvailableOrdered(startDate, endDate);
 	
-					if( instructorsAvailable.length > 0 ){
-						// instructorsOrdered has all instructors ordered by ammount of turns
-						const instructorsOrdered = await instructors.orderByAmountOfTurns();
-	
-						// instructorDni now has the first instructorOrdered that appears on the available ones
-						for(let i = 0; i < instructorsOrdered.length; i++){
-							for(let j = 0; j < instructorsAvailable.length; j++){
-								if(instructorsAvailable[j].instructor_dni == instructorsOrdered[i].instructor_dni){
-									instructorDni = instructorsOrdered[i].instructor_dni;
-									break;
-								}
-							}
-						}
+					if( instructorsAvailableOrdered.length > 0 ){
+						instructorDni = instructorsAvailableOrdered[0].instructor_dni;
 					}
 				}
 		
@@ -96,11 +91,11 @@ export const createTurn = async (req, res) => {
 		
 					// If there is no airplane turn overlaps
 					if(turnsOverlaped.length == 0 && instructor == false){
-						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose);
+						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose, approved);
 						res.send("success");
 					} else if (turnsOverlaped.length == 0 && instructor == true){
 						if(instructorDni != 0){
-							const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+							const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose, approved);
 							res.send("success");
 						} else {
 							res.send("no-instructor");
@@ -113,7 +108,7 @@ export const createTurn = async (req, res) => {
 					if(instructorDni == 0) {
 						res.send("no-instructor");
 					} else {
-						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose);
+						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose, approved);
 						res.send("success");
 					}
 				}

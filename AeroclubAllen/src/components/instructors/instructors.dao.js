@@ -40,7 +40,7 @@ instructors.addAviability = async (startDate, endDate, dni) => {
 
 instructors.getInstructorsAvailable = async (startDate, endDate) => {
 	try {
-		const [rows] = await pool.query ("SELECT * FROM instructors_availability WHERE instructors_availability.start_date <= ? AND instructors_availability.end_date >= ? AND NOT EXISTS(SELECT * FROM turns WHERE turns.approved = 1 AND turns.instructor_dni = instructors_availability.instructor_dni AND ? < turns.end_date AND ? > turns.start_date)", [startDate, endDate, startDate, endDate]);
+		const [rows] = await pool.query ("SELECT * FROM instructors_availability WHERE instructors_availability.start_date <= ? AND instructors_availability.end_date >= ? AND NOT EXISTS(SELECT * FROM turns WHERE turns.approved <> 0 AND turns.instructor_dni = instructors_availability.instructor_dni AND ? < turns.end_date AND ? > turns.start_date)", [startDate, endDate, startDate, endDate]);
 		return rows;
 	} catch (error) {
 		throw error;
@@ -49,7 +49,16 @@ instructors.getInstructorsAvailable = async (startDate, endDate) => {
 
 instructors.orderByAmountOfTurns = async () => {
 	try {
-		const [rows] = await pool.query ("SELECT instructor_dni, COUNT(*) AS amount FROM turns GROUP BY instructor_dni ORDER BY amount ASC;");
+		const [rows] = await pool.query ("SELECT instructor_dni, COUNT(*) AS amount FROM turns WHERE turns.approved <> 0 GROUP BY instructor_dni ORDER BY amount ASC;");
+		return rows;
+	} catch (error) {
+		throw error;
+	}
+}
+
+instructors.getInstructorsAvailableOrdered = async (startDate, endDate) => {
+	try {
+		const [rows] = await pool.query("SELECT instructors_availability.instructor_dni, COUNT(turns.instructor_dni) AS amount FROM instructors_availability LEFT JOIN turns ON turns.instructor_dni = instructors_availability.instructor_dni WHERE instructors_availability.start_date <= ? AND instructors_availability.end_date >= ? AND NOT EXISTS(SELECT * FROM turns WHERE turns.approved <> 0 AND turns.instructor_dni = instructors_availability.instructor_dni AND ? < turns.end_date AND ? > turns.start_date) GROUP BY instructors_availability.instructor_dni ORDER BY amount ASC;", [startDate, endDate, startDate, endDate]);
 		return rows;
 	} catch (error) {
 		throw error;
