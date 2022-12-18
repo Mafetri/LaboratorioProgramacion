@@ -132,10 +132,8 @@ h3.id {
 
 /*  =============  Forms  =============  */
 form {
-	margin: 1em;
 	background-color: var(--secundarioOscuro);
-	border-radius: var(--radius);
-	box-shadow: var(--shadow);
+	border-radius: 0 0 var(--radius) var(--radius);
 }
 fieldset {
 	border-width: 0;
@@ -222,8 +220,8 @@ form legend {
 	position: relative;
 	top: 20%;
 	left: 35%;
-	width: 30%;
-	height: 48%;
+	width: fit-content;
+	height: fit-content;
 }
 .container-pop-up:target {
 	visibility: visible;
@@ -234,16 +232,21 @@ form legend {
 }
 .close-button {
 	padding: 0 0.6em 0 0.6em;
-	color: black;
+	color: var(--secundarioOscuro);
 	font-size: 1.8em;
-	background-color: white;
-	border-radius: var(--radius);
-	position: absolute;
-	right: 0%;
-	top: -30px;
+	background-color: var(--white);
+	border-radius: var(--radius) var(--radius) 0 0;
+	font-family: var(--fuentePrincipal);
+	cursor: pointer;
+	text-align: center;
+    width: 100%;
+	border-color: transparent;
+	font-weight: 400;
+    font-size: 1.2em;
 }
 .close-button:hover {
-	background-color: rgb(255, 98, 98);
+	background-color: rgb(160, 17, 17);
+	color: white;
 }
 
 /*  =============  Fleet  =============  */

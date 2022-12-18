@@ -1,284 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../pages/fleet/styles-fleet.css" />
-		<link rel="stylesheet" href="../pages/news/styles-news.css" />
-		<link rel="stylesheet" href="../pages/contact/styles-contact.css" />
-		<link rel="stylesheet" href="../pages/dashboard/styles-dashboard.css" />
-		<link rel="stylesheet" href="../styles-global.css" />
-		<link rel="stylesheet" href="../pages/users/styles-user.css" />
-		<title>Aeroclub Allen</title>
-		<link rel="icon" href="../../assets/logo.png" />
-	</head>
 
-	<body class="darkened-clouds">
-		<section id="user">
-			<!-- User Card -->
-			<section class = "user-card-container">
-				<div class="user-card" id="user-card">
-					<div class="center margin-1">
-						<img id="sign-logo" src="../../assets/logo.png" alt="logo" />
-					</div>
-					<div id="user-card-info"></div>
-				</div>
-				<div class = "user-card-buttons" id = "user-card-buttons">
-					<a href = "/logout"> <button class="boton-sec-oscuro" id ="logout-button">Desconectarse</button> </a>
-				</div>
-			</section>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="../pages/fleet/styles-fleet.css" />
+	<link rel="stylesheet" href="../pages/news/styles-news.css" />
+	<link rel="stylesheet" href="../pages/contact/styles-contact.css" />
+	<link rel="stylesheet" href="../pages/dashboard/styles-dashboard.css" />
+	<link rel="stylesheet" href="../styles-global.css" />
+	<link rel="stylesheet" href="../pages/users/styles-user.css" />
+	<title>Aeroclub Allen</title>
+	<link rel="icon" href="../../assets/logo.png" />
+</head>
 
-			<!--  Modify Self User  -->
-			<div class = "container-pop-up" id = "modify-self-user-form-popup">
-				<div class = "pop-up">
-					<a href = "#" class = "close-button"> Cerrar </a>
-					<form id = "modify-self-user-form">
+<body class="darkened-clouds">
+	<section id="user">
+		<!-- User Card -->
+		<section class="user-card-container">
+			<div class="user-card" id="user-card">
+				<div class="center margin-1">
+					<img id="sign-logo" src="../../assets/logo.png" alt="logo" />
+				</div>
+				<div id="user-card-info"></div>
+			</div>
+			<div class="user-card-buttons" id="user-card-buttons">
+				<a href="/logout"> <button class="boton-sec-oscuro" id="logout-button">Desconectarse</button> </a>
+			</div>
+		</section>
+
+		<!--  Modify Self User  -->
+		<div class="container-pop-up" id="modify-self-user-form-popup">
+			<div class="pop-up">
+				<div class="box-shadow border-radius">
+					<a href="#"><button class="close-button">Cerrar</button></a>
+					<form id="modify-self-user-form">
 						<fieldset>
-							<legend id = "modify-self-user-form-dni"></legend>
+							<legend id="modify-self-user-form-dni"></legend>
 							<div class="fields-container">
 								<!-- Name -->
 								<div class="field">
 									<label for="name">Nombre</label>
-									<input class="input-text" type="text" name="name" id="modify-self-user-form-name" placeholder="Nombre" required/>
+									<input class="input-text" type="text" name="name" id="modify-self-user-form-name"
+										placeholder="Nombre" required />
 								</div>
-	
+
 								<!-- Surname -->
 								<div class="field">
 									<label for="surname">Apellido</label>
-									<input class="input-text" type="text" name="surname" id="modify-self-user-form-surname" placeholder="Apellido" required/>
+									<input class="input-text" type="text" name="surname"
+										id="modify-self-user-form-surname" placeholder="Apellido" required />
 								</div>
-	
+
 								<!-- Email -->
 								<div class="field">
 									<label for="email">Email</label>
-									<input class="input-text" type="email" name="email" id="modify-self-user-form-email" placeholder="Email" required/>
+									<input class="input-text" type="email" name="email" id="modify-self-user-form-email"
+										placeholder="Email" required />
 								</div>
-	
+
 								<!-- Phone -->
 								<div class="field">
 									<label for="phone">Telefono</label>
-									<input class="input-text" type="text" name="phone" id="modify-self-user-form-phone" placeholder="Telefono" required/>
+									<input class="input-text" type="text" name="phone" id="modify-self-user-form-phone"
+										placeholder="Telefono" required />
 								</div>
 
 								<!-- Submit Button -->
 								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar"
+										name="submit" id="submit" />
 								</div>
 						</fieldset>
 					</form>
 				</div>
 			</div>
+		</div>
 
-			<!--  Create User  -->
-			<div class = "container-pop-up" id = "create-user-form-popup">
-				<div class = "pop-up">
-					<a href= "#user" class = "close-button"> Cerrar </a>
-					<form id = "create-user-form">
-						<fieldset>
-							<legend>Agregar Usuario</legend>
-							<div class="fields-container">
-								<!-- DNI -->
-								<div class="field">
-									<label for="dni">DNI</label>
-									<input class="input-text" type="number" name="dni" id="create-user-form-dni" placeholder="DNI" required/>
-								</div>
-	
-								<!-- Role -->
-								<div class="field">
-									<label for="role">Rol</label>
-									<select name = "role" id="create-user-form-role" required>
-										<option value = "admin">Administrador</option>
-										<option value = "secretary">Secretaria</option>
-										<option value = "instructor">Instructor</option>
-										<option value = "editor">Editor</option>
-										<option value = "pilot">Piloto</option>
-										<option value = "student">Alumno</option>
-									</select>
-								</div>
-	
-								<!-- Submit Button -->
-								<div class="submit-button">
-									<input onclick = "window.location.href = '#news'" class="boton-sec-oscuro" type="submit" value="Agregar" name="submit"
-									id = "create-news-form-submit" />
-								</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-			
-			<!--  Modify User  -->
-			<div class = "container-pop-up" id = "modify-user-form-popup">
-				<div class = "pop-up">
-					<a href = "#users" class = "close-button"> Cerrar </a>
-					<form id = "modify-user-form">
-						<fieldset>
-							<legend id = "modify-user-form-dni"></legend>
-							<div class="fields-container">
-								<!-- Name -->
-								<div class="field">
-									<label for="name">Nombre</label>
-									<input class="input-text" type="text" name="name" id="modify-user-form-name" placeholder="Nombre" required/>
-								</div>
-	
-								<!-- Surname -->
-								<div class="field">
-									<label for="surname">Apellido</label>
-									<input class="input-text" type="text" name="surname" id="modify-user-form-surname" placeholder="Apellido" required/>
-								</div>
-	
-								<!-- Email -->
-								<div class="field">
-									<label for="email">Email</label>
-									<input class="input-text" type="email" name="email" id="modify-user-form-email" placeholder="Email" required/>
-								</div>
-	
-								<!-- Phone -->
-								<div class="field">
-									<label for="phone">Telefono</label>
-									<input class="input-text" type="text" name="phone" id="modify-user-form-phone" placeholder="Telefono" required/>
-								</div>
-	
-								<!-- Role -->
-								<div class="field">
-									<label for="role">Rol</label>
-									<select name = "role" id="modify-user-form-role" required>
-										<option value = "admin">Administrador</option>
-										<option value = "secretary">Secretaria</option>
-										<option value = "instructor">Instructor</option>
-										<option value = "editor">Editor</option>
-										<option value = "pilot">Piloto</option>
-										<option value = "student">Alumno</option>
-									</select>
-								</div>
-			
-								<!-- Submit Button -->
-								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit" id="submit" />
-								</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-
-			<!-- Role Options -->
-			<section id = "role-options">
-				<!-- Disable User -->
-				<section class="section-for-user" id="disable-user">
-					<h2 class = "section-title margin-auto">Deshabilitar/Habilitar Socio</h2>
-					<form class = "margin-auto" id = "disable-user-form">
-						<fieldset>
-							<div class="fields-container">
-								<div class="field margin-bottom-0">
-									<input class="input-text" type="text" name="toggle-user-enabled" id="toggle-user-enabled-dni" placeholder = "DNI" required/>
-								</div>							
-									<input onclick="" class="gray-button height-fit border-radius" type="submit" value="Deshabilitar" name="submit" id="submit" />
-								</div>
+		<!--  Create User  -->
+		<div class="container-pop-up" id="create-user-form-popup">
+			<div class="pop-up">
+				<div class = "box-shadow border-radius">
+					<a href = "#"><button class = "close-button">Cerrar</button></a>
+				<form id="create-user-form">
+					<fieldset>
+						<legend>Agregar Usuario</legend>
+						<div class="fields-container">
+							<!-- DNI -->
+							<div class="field">
+								<label for="dni">DNI</label>
+								<input class="input-text" type="number" name="dni" id="create-user-form-dni"
+									placeholder="DNI" required />
 							</div>
-						</fieldset>
-					</form>
-					<table class = "table-user-section">
-						<thead>
-							<th>DNI</th>
-							<th>Nombre</th>
-						</thead>
-						<tbody  id = "disabled-users-table">
-							
-						</tbody>
-					</table>
-				</section>
 
-				<!-- Turns Unchecked -->
-				<section class="section-for-user" id = "unchecked-turns">
-					<div class = "turns-grid" id = "unchecked-turns-grid"></div>
-				</section>
+							<!-- Role -->
+							<div class="field">
+								<label for="role">Rol</label>
+								<select name="role" id="create-user-form-role" required>
+									<option value="admin">Administrador</option>
+									<option value="secretary">Secretaria</option>
+									<option value="instructor">Instructor</option>
+									<option value="editor">Editor</option>
+									<option value="pilot">Piloto</option>
+									<option value="student">Alumno</option>
+								</select>
+							</div>
 
-				<!-- Instructor Availability -->
-				<section class = "section-for-user" id = "instructor-availability">
-					<h2 class = "section-title margin-auto" id = "instructor-availability-title">Disponibilidad de Instructores</h2>
-					<table class = "table-user-section">
-						<thead>
-							<th>Instructor</th>
-							<th>Fecha Inicio</th>
-							<th>Fecha Fin</th>
-						</thead>
-						<tbody  id = "instructor-availability-table">
-							
-						</tbody>
-					</table>
-				</section>
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="window.location.href = '#news'" class="boton-sec-oscuro" type="submit"
+									value="Agregar" name="submit" id="create-news-form-submit" />
+							</div>
+					</fieldset>
+				</form>
+			</div>
+			</div>
+		</div>
 
-				<!-- Instructor Assigned Turns -->
-				<section class="section-for-user" id="instructor-assigned-turns">
-					<h2 class="section-title margin-auto">Mis Alumnos</h2>
-					<div class = "turns-grid" id = "instructor-assigned-turns-table">
-					</div>
-				</section>
+		<!--  Modify User  -->
+		<div class="container-pop-up" id="modify-user-form-popup">
+			<div class="pop-up">
+				<div class = "box-shadow border-radius">
+					<a href = "#"><button class = "close-button">Cerrar</button></a>
+				<form id="modify-user-form">
+					<fieldset>
+						<legend id="modify-user-form-dni"></legend>
+						<div class="fields-container">
+							<!-- Name -->
+							<div class="field">
+								<label for="name">Nombre</label>
+								<input class="input-text" type="text" name="name" id="modify-user-form-name"
+									placeholder="Nombre" required />
+							</div>
 
-				<!-- Users -->
-				<section class = "section-for-user" id = "users-section">
-					<h2 class = "section-title margin-auto"> Usuarios </h2>
-					<a href="#create-user-form-popup"><button class = "gray-button">Crear Usuario</button></a>
-					<!--  Table of Users  -->
-					<table class = "table-user-section">
-						<thead>
-							<th>DNI</th>
-							<th>Nombre</th>
-							<th>Rol Actual</th>
-						</thead>
-						<tbody  id = "users-table">
-							
-						</tbody>
-					</table>
-					<!-- Load More Users -->
-					<button class = "gray-button" id = "load-all-users">Mostrar Todos</button>
-				</section>
+							<!-- Surname -->
+							<div class="field">
+								<label for="surname">Apellido</label>
+								<input class="input-text" type="text" name="surname" id="modify-user-form-surname"
+									placeholder="Apellido" required />
+							</div>
 
-				<!--  Auditlog  -->
-				<section class = "section-for-user" id = "audit-log">
-					<h2 class = "section-title margin-auto">Registro de Auditoria</h2>
-					<table class = "table-user-section">
-						<thead>
-							<th>Fecha</th>
-							<th>Descripcion</th>
-						</thead>
-						<tbody  id = "auditlog-table">
-			
-						</tbody>
-					</table>
-				</section>
-			</section>
+							<!-- Email -->
+							<div class="field">
+								<label for="email">Email</label>
+								<input class="input-text" type="email" name="email" id="modify-user-form-email"
+									placeholder="Email" required />
+							</div>
 
-			<!--  Instructor Aviability Form -->
-			<div class = "container-pop-up" id = "instructor-availability-form-popup">
-				<div class = "pop-up">
-					<a href = "#" class = "close-button"> Cerrar </a>
-					<form id = "instructor-availability-form">
-						<fieldset>
-							<div class="fields-container">
-								<!-- Date and Time Start -->
-								<div class="field">
-									<label for="start-date">Desde:</label>
-									<input class="input-text" type="datetime-local" name="start-date" id="instructor-availability-form-start-date" required/>
-								</div>
+							<!-- Phone -->
+							<div class="field">
+								<label for="phone">Telefono</label>
+								<input class="input-text" type="text" name="phone" id="modify-user-form-phone"
+									placeholder="Telefono" required />
+							</div>
 
-								<!-- Date and Time End -->
-								<div class="field">
-									<label for="end-date">Hasta:</label>
-									<input class="input-text" type="datetime-local" name="end-date" id="instructor-availability-form-end-date" required/>
-								</div>
-			
-								<!-- Submit Button -->
-								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit" id="submit" />
-								</div>
-						</fieldset>
-					</form>
+							<!-- Role -->
+							<div class="field">
+								<label for="role">Rol</label>
+								<select name="role" id="modify-user-form-role" required>
+									<option value="admin">Administrador</option>
+									<option value="secretary">Secretaria</option>
+									<option value="instructor">Instructor</option>
+									<option value="editor">Editor</option>
+									<option value="pilot">Piloto</option>
+									<option value="student">Alumno</option>
+								</select>
+							</div>
+
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit"
+									id="submit" />
+							</div>
+					</fieldset>
+				</form>
 				</div>
 			</div>
+		</div>
 
-			<!-- User Flight Register -->
-			<!-- <section class="section-for-user" id="flights-register">
+		<!-- Role Options -->
+		<section id="role-options">
+			<!-- Disable User -->
+			<section class="section-for-user" id="disable-user">
+				<h2 class="section-title margin-auto">Deshabilitar/Habilitar Socio</h2>
+				<form class="margin-auto" id="disable-user-form">
+					<fieldset>
+						<div class="fields-container">
+							<div class="field margin-bottom-0">
+								<input class="input-text" type="text" name="toggle-user-enabled"
+									id="toggle-user-enabled-dni" placeholder="DNI" required />
+							</div>
+							<input onclick="" class="gray-button height-fit border-radius" type="submit"
+								value="Deshabilitar" name="submit" id="submit" />
+						</div>
+						</div>
+					</fieldset>
+				</form>
+				<table class="table-user-section">
+					<thead>
+						<th>DNI</th>
+						<th>Nombre</th>
+					</thead>
+					<tbody id="disabled-users-table">
+
+					</tbody>
+				</table>
+			</section>
+
+			<!-- Turns Unchecked -->
+			<section class="section-for-user" id="unchecked-turns">
+				<div class="turns-grid" id="unchecked-turns-grid"></div>
+			</section>
+
+			<!-- Instructor Availability -->
+			<section class="section-for-user" id="instructor-availability">
+				<h2 class="section-title margin-auto" id="instructor-availability-title">Disponibilidad de Instructores
+				</h2>
+				<table class="table-user-section">
+					<thead>
+						<th>Instructor</th>
+						<th>Fecha Inicio</th>
+						<th>Fecha Fin</th>
+					</thead>
+					<tbody id="instructor-availability-table">
+
+					</tbody>
+				</table>
+			</section>
+
+			<!-- Instructor Assigned Turns -->
+			<section class="section-for-user" id="instructor-assigned-turns">
+				<h2 class="section-title margin-auto">Mis Alumnos</h2>
+				<div class="turns-grid" id="instructor-assigned-turns-table">
+				</div>
+			</section>
+
+			<!-- Users -->
+			<section class="section-for-user" id="users-section">
+				<h2 class="section-title margin-auto"> Usuarios </h2>
+				<a href="#create-user-form-popup"><button class="gray-button">Crear Usuario</button></a>
+				<!--  Table of Users  -->
+				<table class="table-user-section">
+					<thead>
+						<th>DNI</th>
+						<th>Nombre</th>
+						<th>Rol Actual</th>
+					</thead>
+					<tbody id="users-table">
+
+					</tbody>
+				</table>
+				<!-- Load More Users -->
+				<button class="gray-button" id="load-all-users">Mostrar Todos</button>
+			</section>
+
+			<!--  Auditlog  -->
+			<section class="section-for-user" id="audit-log">
+				<h2 class="section-title margin-auto">Registro de Auditoria</h2>
+				<table class="table-user-section">
+					<thead>
+						<th>Fecha</th>
+						<th>Descripcion</th>
+					</thead>
+					<tbody id="auditlog-table">
+
+					</tbody>
+				</table>
+			</section>
+		</section>
+
+		<!--  Instructor Aviability Form -->
+		<div class="container-pop-up" id="instructor-availability-form-popup">
+			<div class="pop-up">
+				<div class = "box-shadow border-radius">
+					<a href = "#"><button class = "close-button">Cerrar</button></a>
+				<form id="instructor-availability-form">
+					<fieldset>
+						<div class="fields-container">
+							<!-- Date and Time Start -->
+							<div class="field">
+								<label for="start-date">Desde:</label>
+								<input class="input-text" type="datetime-local" name="start-date"
+									id="instructor-availability-form-start-date" required />
+							</div>
+
+							<!-- Date and Time End -->
+							<div class="field">
+								<label for="end-date">Hasta:</label>
+								<input class="input-text" type="datetime-local" name="end-date"
+									id="instructor-availability-form-end-date" required />
+							</div>
+
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit"
+									id="submit" />
+							</div>
+					</fieldset>
+				</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- User Flight Register -->
+		<!-- <section class="section-for-user" id="flights-register">
 				<h2 class="section-title margin-auto">Ultimos Vuelos</h2>
 				<a class="register-button center" href="">
 					<button class="gray-button">Registrar Vuelo</button>
@@ -302,98 +328,106 @@
 				</table>
 			</section> -->
 
-			<!-- My Turns -->
-			<section class="section-for-user" id="airplane-turns">
-				<h2 class="section-title margin-auto">Mis Turnos</h2>
-				<a class="register-button center" href="#request-turn-form-popup">
-					<button class="gray-button">Agendar Turno</button>
-				</a>
-				<div class = "turns-grid" id = "my-turns-table">
-				</div>
-			</section>
+		<!-- My Turns -->
+		<section class="section-for-user" id="airplane-turns">
+			<h2 class="section-title margin-auto">Mis Turnos</h2>
+			<a class="register-button center" href="#request-turn-form-popup">
+				<button class="gray-button">Agendar Turno</button>
+			</a>
+			<div class="turns-grid" id="my-turns-table">
+			</div>
+		</section>
 
-			<!--  Turn Request  -->
-			<div class = "container-pop-up" id = "request-turn-form-popup">
-				<div class = "pop-up">
-					<a href = "#" class = "close-button"> Cerrar </a>
-					<form id = "request-turn-form">
+		<!--  Turn Request  -->
+		<div class="container-pop-up" id="request-turn-form-popup">
+			<div class="pop-up">
+				<div class="box-shadow border-radius">
+					<a href="#"><button class="close-button">Cerrar</button></a>
+					<form id="request-turn-form" class="margin-0">
 						<fieldset>
 							<div class="fields-container">
 								<!-- Date and Time Start -->
 								<div class="field">
 									<label for="date">Desde:</label>
-									<input class="input-text" type="datetime-local" name="date" id="request-turn-form-start-date" required/>
+									<input class="input-text" type="datetime-local" name="date"
+										id="request-turn-form-start-date" required />
 								</div>
 
 								<!-- Date and Time End -->
 								<div class="field">
 									<label for="date">Hasta:</label>
-									<input class="input-text" type="datetime-local" name="date" id="request-turn-form-end-date" required/>
+									<input class="input-text" type="datetime-local" name="date"
+										id="request-turn-form-end-date" required />
 								</div>
 
 								<!-- Purpose -->
 								<div class="field">
 									<label for="purpose">Finalidad:</label>
-									<select name = "purpose" id="request-turn-form-purpose" required>
+									<select name="purpose" id="request-turn-form-purpose" required>
 										<option hidden disabled selected value>- Seleccionar -</option>
-										<option value = "instruction">Instruccion</option>
-										<option value = "navigation">Navegacion</option>
-										<option value = "local">Vuelo Local</option>
-										<option value = "readaptation">Readaptacion</option>
-										<option value = "adaptation">Adaptacion</option>
-										<option value = "workshop">Taller</option>
-										<option value = "baptism">Bautismo</option>
+										<option value="instruction">Instruccion</option>
+										<option value="navigation">Navegacion</option>
+										<option value="local">Vuelo Local</option>
+										<option value="readaptation">Readaptacion</option>
+										<option value="adaptation">Adaptacion</option>
+										<option value="workshop">Taller</option>
+										<option value="baptism">Bautismo</option>
 									</select>
 								</div>
-	
+
 								<!-- Airplane -->
 								<div class="field">
 									<label for="airplane">Avion</label>
-									<select name = "airplane" id="request-turn-form-airplane" required>
+									<select name="airplane" id="request-turn-form-airplane" required>
 										<option hidden disabled selected value>- Seleccionar -</option>
 									</select>
 								</div>
 
 								<!-- Instructor -->
 								<div class="field">
-									<label for="instructor">Con instructor: <input type="checkbox" name="instructor" id="request-turn-form-instructor"/></label>
+									<label for="instructor">Con instructor: <input type="checkbox" name="instructor"
+											id="request-turn-form-instructor" /></label>
 								</div>
-			
+
 								<!-- Submit Button -->
 								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit" id="submit" />
+									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar"
+										name="submit" id="submit" />
 								</div>
 						</fieldset>
 					</form>
 				</div>
+
 			</div>
+		</div>
 
-			<!-- Visual All Turns -->
-			<section class="section-for-user" id="all-turns-calendar">
-				<h2 class="section-title margin-auto">Turnos</h2>
-				<div id = "date-selection-all-turns-div">
-					<input class="input-text" type="date" name="date" id="all-turns-date-input" required/>
+		<!-- Visual All Turns -->
+		<section class="section-for-user" id="all-turns-calendar">
+			<h2 class="section-title margin-auto">Turnos</h2>
+			<div id="date-selection-all-turns-div">
+				<input class="input-text" type="date" name="date" id="all-turns-date-input" required />
+			</div>
+			<div id="table-turns">
+				<div id="table-turns-hours">
+					<p>Horas</p>
 				</div>
-				<div id = "table-turns">
-					<div id = "table-turns-hours">
-						<p>Horas</p>
-					</div>
-				</div>
-			</section>
-			<!-- Visual All Instructors -->
-			<section class="section-for-user" id="all-instructors-calendar">
-				<h2 class="section-title margin-auto">Instructores</h2>
-				<div id = "date-selection-all-instructors-div">
-					<input class="input-text" type="date" name="date" id="all-instructors-date-input" required/>
-				</div>
-				<div id = "table-instructors">
-					<div id = "table-instructors-hours">
-						<p>Horas</p>
-					</div>
-				</div>
-			</section>
+			</div>
 		</section>
+		<!-- Visual All Instructors -->
+		<section class="section-for-user" id="all-instructors-calendar">
+			<h2 class="section-title margin-auto">Instructores</h2>
+			<div id="date-selection-all-instructors-div">
+				<input class="input-text" type="date" name="date" id="all-instructors-date-input" required />
+			</div>
+			<div id="table-instructors">
+				<div id="table-instructors-hours">
+					<p>Horas</p>
+				</div>
+			</div>
+		</section>
+	</section>
 
-		<script type="module" src="../pages/users/main-user.js"></script>
-	</body>
+	<script type="module" src="../pages/users/main-user.js"></script>
+</body>
+
 </html>
