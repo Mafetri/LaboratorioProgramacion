@@ -16,73 +16,121 @@
 </head>
 
 <body class="darkened-clouds">
-	<section id="user">
-		<!-- User Card -->
-		<section class="user-card-container">
-			<div class="user-card" id="user-card">
-				<div class="center margin-1">
-					<img id="sign-logo" src="../../assets/logo.png" alt="logo" />
-				</div>
-				<div id="user-card-info"></div>
-			</div>
-			<div class="user-card-buttons" id="user-card-buttons">
-				<a href="/logout"> <button class="boton-sec-oscuro" id="logout-button">Desconectarse</button> </a>
-			</div>
-		</section>
+	<!--  Modify Self User  -->
+	<div class="container-pop-up" id="modify-self-user-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
+				<form id="modify-self-user-form">
+					<fieldset>
+						<legend id="modify-self-user-form-dni"></legend>
+						<div class="fields-container">
+							<!-- Name -->
+							<div class="field">
+								<label for="name">Nombre</label>
+								<input class="input-text" type="text" name="name" id="modify-self-user-form-name"
+									placeholder="Nombre" required />
+							</div>
 
-		<!--  Modify Self User  -->
-		<div class="container-pop-up" id="modify-self-user-form-popup">
-			<div class="pop-up">
-				<div class="box-shadow border-radius">
-					<a href="#"><button class="close-button">Cerrar</button></a>
-					<form id="modify-self-user-form">
-						<fieldset>
-							<legend id="modify-self-user-form-dni"></legend>
-							<div class="fields-container">
-								<!-- Name -->
-								<div class="field">
-									<label for="name">Nombre</label>
-									<input class="input-text" type="text" name="name" id="modify-self-user-form-name"
-										placeholder="Nombre" required />
-								</div>
+							<!-- Surname -->
+							<div class="field">
+								<label for="surname">Apellido</label>
+								<input class="input-text" type="text" name="surname"
+									id="modify-self-user-form-surname" placeholder="Apellido" required />
+							</div>
 
-								<!-- Surname -->
-								<div class="field">
-									<label for="surname">Apellido</label>
-									<input class="input-text" type="text" name="surname"
-										id="modify-self-user-form-surname" placeholder="Apellido" required />
-								</div>
+							<!-- Email -->
+							<div class="field">
+								<label for="email">Email</label>
+								<input class="input-text" type="email" name="email" id="modify-self-user-form-email"
+									placeholder="Email" required />
+							</div>
 
-								<!-- Email -->
-								<div class="field">
-									<label for="email">Email</label>
-									<input class="input-text" type="email" name="email" id="modify-self-user-form-email"
-										placeholder="Email" required />
-								</div>
+							<!-- Phone -->
+							<div class="field">
+								<label for="phone">Telefono</label>
+								<input class="input-text" type="text" name="phone" id="modify-self-user-form-phone"
+									placeholder="Telefono" required />
+							</div>
 
-								<!-- Phone -->
-								<div class="field">
-									<label for="phone">Telefono</label>
-									<input class="input-text" type="text" name="phone" id="modify-self-user-form-phone"
-										placeholder="Telefono" required />
-								</div>
-
-								<!-- Submit Button -->
-								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar"
-										name="submit" id="submit" />
-								</div>
-						</fieldset>
-					</form>
-				</div>
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar"
+									name="submit" id="submit" />
+							</div>
+					</fieldset>
+				</form>
 			</div>
 		</div>
+	</div>
 
-		<!--  Create User  -->
-		<div class="container-pop-up" id="create-user-form-popup">
-			<div class="pop-up">
-				<div class = "box-shadow border-radius">
-					<a href = "#"><button class = "close-button">Cerrar</button></a>
+	<!--  Turn Request  -->
+	<div class="container-pop-up" id="request-turn-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
+				<form id="request-turn-form" class="margin-0">
+					<fieldset>
+						<div class="fields-container">
+							<!-- Date and Time Start -->
+							<div class="field">
+								<label for="date">Desde:</label>
+								<input class="input-text" type="datetime-local" name="date"
+									id="request-turn-form-start-date" required />
+							</div>
+
+							<!-- Date and Time End -->
+							<div class="field">
+								<label for="date">Hasta:</label>
+								<input class="input-text" type="datetime-local" name="date"
+									id="request-turn-form-end-date" required />
+							</div>
+
+							<!-- Purpose -->
+							<div class="field">
+								<label for="purpose">Finalidad:</label>
+								<select name="purpose" id="request-turn-form-purpose" required>
+									<option hidden disabled selected value>- Seleccionar -</option>
+									<option value="instruction">Instruccion</option>
+									<option value="navigation">Navegacion</option>
+									<option value="local">Vuelo Local</option>
+									<option value="readaptation">Readaptacion</option>
+									<option value="adaptation">Adaptacion</option>
+									<option value="workshop">Taller</option>
+									<option value="baptism">Bautismo</option>
+								</select>
+							</div>
+
+							<!-- Airplane -->
+							<div class="field">
+								<label for="airplane">Avion</label>
+								<select name="airplane" id="request-turn-form-airplane" required>
+									<option hidden disabled selected value>- Seleccionar -</option>
+								</select>
+							</div>
+
+							<!-- Instructor -->
+							<div class="field">
+								<label for="instructor">Con instructor: <input type="checkbox" name="instructor"
+										id="request-turn-form-instructor" /></label>
+							</div>
+
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar"
+									name="submit" id="submit" />
+							</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--  Create User  -->
+	<div class="container-pop-up" id="create-user-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
 				<form id="create-user-form">
 					<fieldset>
 						<legend>Agregar Usuario</legend>
@@ -109,20 +157,20 @@
 
 							<!-- Submit Button -->
 							<div class="submit-button">
-								<input onclick="window.location.href = '#news'" class="boton-sec-oscuro" type="submit"
-									value="Agregar" name="submit" id="create-news-form-submit" />
+								<input onclick="window.location.href = '#news'" class="boton-sec-oscuro"
+									type="submit" value="Agregar" name="submit" id="create-news-form-submit" />
 							</div>
 					</fieldset>
 				</form>
 			</div>
-			</div>
 		</div>
+	</div>
 
-		<!--  Modify User  -->
-		<div class="container-pop-up" id="modify-user-form-popup">
-			<div class="pop-up">
-				<div class = "box-shadow border-radius">
-					<a href = "#"><button class = "close-button">Cerrar</button></a>
+	<!--  Modify User  -->
+	<div class="container-pop-up" id="modify-user-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
 				<form id="modify-user-form">
 					<fieldset>
 						<legend id="modify-user-form-dni"></legend>
@@ -170,14 +218,61 @@
 
 							<!-- Submit Button -->
 							<div class="submit-button">
-								<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar" name="submit"
-									id="submit" />
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Aplicar"
+									name="submit" id="submit" />
 							</div>
 					</fieldset>
 				</form>
-				</div>
 			</div>
 		</div>
+	</div>
+
+	<!--  Instructor Aviability Form -->
+	<div class="container-pop-up" id="instructor-availability-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
+				<form id="instructor-availability-form">
+					<fieldset>
+						<div class="fields-container">
+							<!-- Date and Time Start -->
+							<div class="field">
+								<label for="start-date">Desde:</label>
+								<input class="input-text" type="datetime-local" name="start-date"
+									id="instructor-availability-form-start-date" required />
+							</div>
+
+							<!-- Date and Time End -->
+							<div class="field">
+								<label for="end-date">Hasta:</label>
+								<input class="input-text" type="datetime-local" name="end-date"
+									id="instructor-availability-form-end-date" required />
+							</div>
+
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar"
+									name="submit" id="submit" />
+							</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<section id="user">
+		<!-- User Card -->
+		<section class="user-card-container">
+			<div class="user-card" id="user-card">
+				<div class="center margin-1">
+					<img id="sign-logo" src="../../assets/logo.png" alt="logo" />
+				</div>
+				<div id="user-card-info"></div>
+			</div>
+			<div class="user-card-buttons" id="user-card-buttons">
+				<a href="/logout"> <button class="boton-sec-oscuro" id="logout-button">Desconectarse</button> </a>
+			</div>
+		</section>
 
 		<!-- Role Options -->
 		<section id="role-options">
@@ -270,39 +365,6 @@
 			</section>
 		</section>
 
-		<!--  Instructor Aviability Form -->
-		<div class="container-pop-up" id="instructor-availability-form-popup">
-			<div class="pop-up">
-				<div class = "box-shadow border-radius">
-					<a href = "#"><button class = "close-button">Cerrar</button></a>
-				<form id="instructor-availability-form">
-					<fieldset>
-						<div class="fields-container">
-							<!-- Date and Time Start -->
-							<div class="field">
-								<label for="start-date">Desde:</label>
-								<input class="input-text" type="datetime-local" name="start-date"
-									id="instructor-availability-form-start-date" required />
-							</div>
-
-							<!-- Date and Time End -->
-							<div class="field">
-								<label for="end-date">Hasta:</label>
-								<input class="input-text" type="datetime-local" name="end-date"
-									id="instructor-availability-form-end-date" required />
-							</div>
-
-							<!-- Submit Button -->
-							<div class="submit-button">
-								<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar" name="submit"
-									id="submit" />
-							</div>
-					</fieldset>
-				</form>
-				</div>
-			</div>
-		</div>
-
 		<!-- User Flight Register -->
 		<!-- <section class="section-for-user" id="flights-register">
 				<h2 class="section-title margin-auto">Ultimos Vuelos</h2>
@@ -338,69 +400,6 @@
 			</div>
 		</section>
 
-		<!--  Turn Request  -->
-		<div class="container-pop-up" id="request-turn-form-popup">
-			<div class="pop-up">
-				<div class="box-shadow border-radius">
-					<a href="#"><button class="close-button">Cerrar</button></a>
-					<form id="request-turn-form" class="margin-0">
-						<fieldset>
-							<div class="fields-container">
-								<!-- Date and Time Start -->
-								<div class="field">
-									<label for="date">Desde:</label>
-									<input class="input-text" type="datetime-local" name="date"
-										id="request-turn-form-start-date" required />
-								</div>
-
-								<!-- Date and Time End -->
-								<div class="field">
-									<label for="date">Hasta:</label>
-									<input class="input-text" type="datetime-local" name="date"
-										id="request-turn-form-end-date" required />
-								</div>
-
-								<!-- Purpose -->
-								<div class="field">
-									<label for="purpose">Finalidad:</label>
-									<select name="purpose" id="request-turn-form-purpose" required>
-										<option hidden disabled selected value>- Seleccionar -</option>
-										<option value="instruction">Instruccion</option>
-										<option value="navigation">Navegacion</option>
-										<option value="local">Vuelo Local</option>
-										<option value="readaptation">Readaptacion</option>
-										<option value="adaptation">Adaptacion</option>
-										<option value="workshop">Taller</option>
-										<option value="baptism">Bautismo</option>
-									</select>
-								</div>
-
-								<!-- Airplane -->
-								<div class="field">
-									<label for="airplane">Avion</label>
-									<select name="airplane" id="request-turn-form-airplane" required>
-										<option hidden disabled selected value>- Seleccionar -</option>
-									</select>
-								</div>
-
-								<!-- Instructor -->
-								<div class="field">
-									<label for="instructor">Con instructor: <input type="checkbox" name="instructor"
-											id="request-turn-form-instructor" /></label>
-								</div>
-
-								<!-- Submit Button -->
-								<div class="submit-button">
-									<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar"
-										name="submit" id="submit" />
-								</div>
-						</fieldset>
-					</form>
-				</div>
-
-			</div>
-		</div>
-
 		<!-- Visual All Turns -->
 		<section class="section-for-user" id="all-turns-calendar">
 			<h2 class="section-title margin-auto">Turnos</h2>
@@ -413,6 +412,7 @@
 				</div>
 			</div>
 		</section>
+
 		<!-- Visual All Instructors -->
 		<section class="section-for-user" id="all-instructors-calendar">
 			<h2 class="section-title margin-auto">Instructores</h2>

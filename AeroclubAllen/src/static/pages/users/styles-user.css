@@ -3,6 +3,7 @@ section {
 }
 
 #user {
+	margin: 1em;
 	padding-top: 2em;
 	display: flex;
 	flex-direction: column;
@@ -324,4 +325,10 @@ th {
 .turns-grid-card p{
 	margin-bottom: 0.3em;
 	font-size: 1em;
+}
+
+
+#request-turn-form fieldset div .field:nth-child(3),
+#request-turn-form fieldset div .field:nth-child(4) {
+	grid-column: auto;
 }
