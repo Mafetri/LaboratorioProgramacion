@@ -27,7 +27,7 @@ instructors.getInstructorAviability = async (dni) => {
 
 instructors.addAviability = async (startDate, endDate, dni) => {
 	try {
-		const [rows] = await pool.query("INSERT INTO instructors_availability VALUE (NULL, ?, ?, ?)", [
+		const [rows] = await pool.query("INSERT INTO instructors_availability VALUES (NULL, ?, ?, ?)", [
 			dni,
 			startDate,
 			endDate,

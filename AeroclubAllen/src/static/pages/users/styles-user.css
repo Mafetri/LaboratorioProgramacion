@@ -123,6 +123,9 @@ section {
 	opacity: 1;
 }
 
+#disable-user-form {
+	border-radius: var(--radius);
+}
 #disable-user-form fieldset{
 	padding: 0.5em;
 }
@@ -291,6 +294,13 @@ th {
 	overflow: auto;
 	white-space: nowrap;
 	justify-content: start;
+}
+.turns-grid h3 {
+	text-align: center;
+    width: 100%;
+    color: var(--secundarioOscuro);
+    font-weight: 200;
+	font-size: 1.5em;
 }
 .turns-gird-card-info{
 	padding: 1em;

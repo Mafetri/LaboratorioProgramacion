@@ -24,7 +24,7 @@ turns.getTurns = async (approved) => {
 
 turns.getTurnsUser = async (dni) => {
     try {
-        const [rows] = await pool.query("SELECT turns.*, users.name, users.surname FROM turns LEFT JOIN users ON turns.instructor_dni = users.dni WHERE turns.user_dni = ? ORDER BY turns.start_date ASC", [dni]);
+        const [rows] = await pool.query("SELECT turns.*, users.name, users.surname FROM turns LEFT JOIN users ON turns.instructor_dni = users.dni WHERE turns.user_dni = ? AND purpose <> 'workshop' AND purpose <> 'baptism' ORDER BY turns.start_date ASC", [dni]);
         return rows;
     } catch (error) {
         throw error;
@@ -54,7 +54,7 @@ turns.setResult = async (id, result) => {
 
 turns.reserveTurn = async (user_dni, startDate, endDate, airplane, instructor, purpose, approved) => {
     try {
-        const [dbRes] = await pool.query("INSERT INTO turns VALUE (NULL, NOW(), ?, ?, ?, ?, ?, ?, ?);", [user_dni, startDate, endDate, airplane, purpose, instructor, approved]);
+        const [dbRes] = await pool.query("INSERT INTO turns VALUES (NULL, NOW(), ?, ?, ?, ?, ?, ?, ?);", [user_dni, startDate, endDate, airplane, purpose, instructor, approved]);
         return dbRes;
     } catch (error) {
         throw error;
