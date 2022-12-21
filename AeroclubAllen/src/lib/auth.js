@@ -9,7 +9,7 @@ export function isNotLoggedIn (req, res, next){
     if(!req.isAuthenticated()){
         return next();
     }
-    return res.redirect('/dashboard');
+    return res.redirect('/userPage');
 }
 
 export function isAdmin (req, res, next){
@@ -27,6 +27,24 @@ export function isEditor (req, res, next){
     }
     return res.status(400).json({
         message: "User is not an editor"
+    }); 
+}
+
+export function isSecretary (req, res, next){
+    if(req.user.role == "secretary"){
+        return next();
+    }
+    return res.status(400).json({
+        message: "User is not a secretary"
+    }); 
+}
+
+export function canGetAuditlog (req, res, next){
+    if(req.user.role == "secretary" || req.user.role == "admin" ){
+        return next();
+    }
+    return res.status(400).json({
+        message: "User can not get the auditlog"
     }); 
 }
 

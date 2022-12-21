@@ -2,7 +2,6 @@
 import users from "./users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 import auditlog from "../auditlog/auditlog.dao.js";
-import { isAdmin } from "../../lib/auth.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
@@ -15,6 +14,26 @@ export const getUsers = async (req, res) => {
 		somethingWentWrong500(e, res);
 	}
 };
+
+// Get Disabled Users
+export const getDisabledUsers = async (req, res) => {
+	try {
+		const rows = await users.getDisabledUsers();
+		res.json(rows);
+	} catch (error) {
+		somethingWentWrong500(error, res);
+	}
+}
+
+// Get Instructors
+export const getInstructors = async (req, res) => {
+	try {
+		const rows = await users.getInstructors();
+		res.json(rows);
+	} catch (error) {
+		somethingWentWrong500(error, res);
+	}
+}
 
 // Create User
 export const createUser = async (req, res) => {
@@ -46,11 +65,11 @@ export const createUser = async (req, res) => {
 // Update User
 export const updateUser = async (req, res) => {
 	const { dni } = req.params;
-	const { name, surname, role, phone, email } = req.body;
+	const { name, surname, role, phone, email, enabled } = req.body;
 
-	if(dni == req.user.dni || req.user.role == "admin"){
+	if(dni == req.user.dni || req.user.role == "admin" || req.user.role == "secretary"){
 		try {
-			const dbRes = await users.updateUser(name, surname, role, phone, email, dni);
+			const dbRes = await users.updateUser(name, surname, role, phone, email, enabled, dni);
 	
 			if (dbRes.affectedRows === 0) {
 				return res.status(404).json({

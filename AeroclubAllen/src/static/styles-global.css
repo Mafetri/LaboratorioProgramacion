@@ -20,6 +20,7 @@
   --azulOscuro: #0c3b5a;
   --azulOscuroSecundario: #000519;
   --shadow: 0 2px 8px #000;
+  --white: rgb(245, 241, 243);
 }
 
 html {
@@ -226,12 +227,20 @@ header.sticky {
   margin: 1em;
 }
 
+.margin-0 {
+  margin: 0;
+}
+
 .margin-auto {
   margin: auto !important;
 }
 
 .width-50 {
   width: 50%;
+}
+
+.box-shadow {
+  box-shadow: var(--shadow);
 }
 
 .darkened-clouds {
@@ -313,6 +322,18 @@ header.sticky {
     width: auto;
     min-height: 3em;
   }
+}
+
+.height-fit {
+  height: fit-content !important;
+}
+
+.border-radius {
+  border-radius: var(--radius) !important;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
 }
 
 /* ==================== News Card ==================== */

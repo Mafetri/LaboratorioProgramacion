@@ -35,7 +35,7 @@ create table fleet(
     speed INT(12),
     consumption INT(12),
     img VARCHAR(255)
-)
+);
 INSERT INTO fleet VALUES
     ('LV-FVA','Petrel','Rotex 912i','Petrel','P912','60','14','/assets/fleet/Petrel/petrel-3.jpg'),
     ('LV-IDE','C150','Continental O-200-A','Cessna','C150','80','22','/assets/fleet/C150/c150-2.jpeg'),
@@ -47,7 +47,7 @@ INSERT INTO fleet VALUES
 
 CREATE TABLE courses (
     class VARCHAR(20) NOT NULL PRIMARY KEY,
-    age INT(12),
+    age VARCHAR(255),
     duration VARCHAR(255),
     hours INT(12) ,
     studies VARCHAR(255),
@@ -88,7 +88,9 @@ CREATE TABLE users (
     name VARCHAR(255),
     surname VARCHAR(255),
     email VARCHAR(255),
-    role VARCHAR(255)
+    role VARCHAR(255),
+    phone VARCHAR(255),
+    enabled BOOLEAN NOT NULL
 )
 
 
@@ -98,5 +100,29 @@ CREATE TABLE auditlog (
     user_dni INT(255) NOT NULL,
     description VARCHAR(255),
     table_name VARCHAR(255),
-    primary_key_changed VARCHAR(255),
+    primary_key_changed VARCHAR(255)
+)
+
+
+CREATE TABLE turns (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    request_date DATETIME NOT NULL,
+    user_dni INT(255) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    airplane_plate VARCHAR(255),
+    purpose VARCHAR(255) NOT NULL,
+    instructor_dni INT(255),
+    approved BOOLEAN
+)
+
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);
+INSERT INTO turns VALUE (NULL, now(), 42910846, now(), now(), "LV-FVA", "adaptation", 10660264, NULL);
+
+
+CREATE TABLE instructors_availability  (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    instructor_dni INT(255) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL
 )

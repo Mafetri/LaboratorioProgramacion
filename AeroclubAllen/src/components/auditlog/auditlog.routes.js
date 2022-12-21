@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { getAuditlog } from "./aditlog.controller.js";
-import { isLoggedIn, isAdmin } from "../../lib/auth.js";
+import { isLoggedIn, isAdmin, canGetAuditlog } from "../../lib/auth.js";
 
 const router = Router();
 
-router.get('/auditlog', isLoggedIn, isAdmin, getAuditlog);
+router.get('/auditlog', isLoggedIn, canGetAuditlog, getAuditlog);
 
 export default router;
 
