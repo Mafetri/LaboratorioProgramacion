@@ -13,7 +13,7 @@ rates.getCurrentRates = async (date) => {
 
 rates.getFutureRates = async (date) => {
     try {
-        const [rows]  = await pool.query("SELECT * FROM rates WHERE start_date > ?;", [date]);
+        const [rows]  = await pool.query("SELECT * FROM rates WHERE start_date > ? ORDER BY start_date ASC;", [date]);
         return rows;
     } catch (e){
         throw e;

@@ -5,8 +5,7 @@ const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
 const allTurns = await(await fetch("/api/turns")).json();
 const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
-const rates = await(await fetch("/api/rates?current=true&date=" + (new Date).toISOString().split("T")[0])).json();
-const futureRates = await(await fetch("/api/rates?current=false&date=" + (new Date).toISOString().split("T")[0])).json();
+let rates = await(await fetch("/api/rates?&date=" + (new Date).toISOString().split("T")[0])).json();
 
 // To local time
 const localTime = -3;
@@ -619,27 +618,46 @@ if(user.role != "admin" && user.role != "secretary"){
 	document.querySelector('#add-rate').remove();
 }
 
-fillRateTable(document.querySelector("#rates-table"), rates);
-fillRateTable(document.querySelector("#future-rates-table"), futureRates);
-function fillRateTable(table, rates){
-	for(let i = 0; i < rates.length; i++){
+rates = Object.values(rates);
+fillRatesTables();
+function fillRatesTables(){
+	rates.forEach(rate => {
 		let newListItem = document.createElement("tr");
-	
+
 		let airplane = document.createElement("td");
-		airplane.textContent = rates[i].airplane_plate;
+		airplane.textContent = rate.airplane_plate;
 	
-		let rate = document.createElement("td");
-		rate.textContent = "$" + parseFloat(rates[i].rate).toLocaleString();
+		let price = document.createElement("td");
+		price.textContent = "$" + parseFloat(rate.rates[0].rate).toLocaleString();
 	
 		let start_date = document.createElement("td");
-		let dateArray = rates[i].start_date.split("T")[0].split("-");
+		let dateArray = rate.rates[0].start_date.split("T")[0].split("-");
 		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
 	
-		table.appendChild(newListItem);
+		document.querySelector("#rates-table").appendChild(newListItem);
 		newListItem.appendChild(airplane);
 		newListItem.appendChild(start_date);
-		newListItem.appendChild(rate);
-	}
+		newListItem.appendChild(price);
+
+		for (let j = 1; j < rate.rates.length; j ++){
+			let newListItem = document.createElement("tr");
+	
+			let airplane = document.createElement("td");
+			airplane.textContent = rate.airplane_plate;
+		
+			let price = document.createElement("td");
+			price.textContent = "$" + parseFloat(rate.rates[j].rate).toLocaleString();
+		
+			let start_date = document.createElement("td");
+			let dateArray = rate.rates[j].start_date.split("T")[0].split("-");
+			start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+		
+			document.querySelector("#future-rates-table").appendChild(newListItem);
+			newListItem.appendChild(airplane);
+			newListItem.appendChild(start_date);
+			newListItem.appendChild(price);
+		}
+	})
 }
 
 
@@ -741,6 +759,22 @@ document.getElementById('request-turn-form-start-date').addEventListener('change
 	startDate.setHours(startDate.getHours() + 1);
 	document.getElementById('request-turn-form-end-date').value = startDate.toISOString().substring(0,16);
 });
+document.getElementById("request-turn-form-end-date").addEventListener('change', () => {
+	let airplane = document.getElementById('request-turn-form-airplane');
+	let startTime = new Date(document.getElementById('request-turn-form-start-date').value);
+	let endTime = new Date(document.getElementById('request-turn-form-end-date').value);
+	let hours = (endTime.getTime() - startTime.getTime())/1000/60/60;
+
+	let airplaneRate = futureRates.filter(airplane_plate => airplane_plate == airplane);
+	if(airplaneRate > 0) {
+		
+	}
+	console.log(airplaneRate);
+	console.log(futureRates);
+
+	document.querySelector("#request-turn-form-price").value = time * rates
+	
+})
 // Register a turn POST
 document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	e.preventDefault();
