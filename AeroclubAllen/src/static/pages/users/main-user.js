@@ -3,7 +3,9 @@ const user = await (await fetch("/api/userLoggedin")).json();
 const instructorsAviability = await (await fetch("/api/instructors")).json();
 const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
 const allTurns = await(await fetch("/api/turns")).json();
+const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
+const rates = await(await fetch("/api/rates?startDate=" + (new Date).toISOString())).json();
 
 // To local time
 const localTime = -3;
@@ -606,6 +608,28 @@ if (user.role == "admin" || user.role == "secretary"){
 	document.querySelector("#disable-user").remove();
 }
 
+
+//  =================  Rates  =================
+const rateTable = document.querySelector("#rates-table");
+for(let i = 0; i < rates.length; i++){
+	let newListItem = document.createElement("tr");
+
+	let airplane = document.createElement("td");
+	airplane.textContent = rates[i].airplane_plate;
+
+	let rate = document.createElement("td");
+	rate.textContent = "$" + parseFloat(rates[i].rate).toLocaleString();
+
+	let start_date = document.createElement("td");
+	let dateArray = rates[i].start_date.split("T")[0].split("-");
+	start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+
+	rateTable.appendChild(newListItem);
+	newListItem.appendChild(airplane);
+	newListItem.appendChild(start_date);
+	newListItem.appendChild(rate);
+}
+
 //  =================  My Turns  =================
 // Turns Form conditions
 const instructor = document.querySelector("#request-turn-form-instructor");
@@ -649,7 +673,6 @@ if(user.role == "student"){
 }
 
 // Airplanes Options
-const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 for(let i = 0; i < fleet.length; i++){
 	let option = document.createElement("option");
 	option.value = fleet[i].plate;
@@ -657,7 +680,7 @@ for(let i = 0; i < fleet.length; i++){
 	document.querySelector("#request-turn-form-airplane").appendChild(option);
 }
 
-//  ===========   Request a Turn   ===========
+//  ======>   Request a Turn
 document.getElementById('request-turn-form-start-date').addEventListener('change', function() {
 	let startDate = new Date(document.getElementById('request-turn-form-start-date').value);
 	startDate.setHours(startDate.getHours() + localTime);
@@ -704,7 +727,7 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	xhr.send(JSON.stringify(newData));
 });
 
-//  ===========   My Turns   ===========
+//  =====>   My Turns Table
 const table = document.querySelector("#my-turns-table");
 if(myTurns.length > 0){
 	for (let i = 0; i < myTurns.length; i++) {
