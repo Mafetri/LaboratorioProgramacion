@@ -5,7 +5,8 @@ const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
 const allTurns = await(await fetch("/api/turns")).json();
 const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
-const rates = await(await fetch("/api/rates?startDate=" + (new Date).toISOString())).json();
+const rates = await(await fetch("/api/rates?current=true&date=" + (new Date).toISOString().split("T")[0])).json();
+const futureRates = await(await fetch("/api/rates?current=false&date=" + (new Date).toISOString().split("T")[0])).json();
 
 // To local time
 const localTime = -3;
@@ -617,25 +618,30 @@ if (user.role == "admin" || user.role == "secretary"){
 if(user.role != "admin" && user.role != "secretary"){
 	document.querySelector('#add-rate').remove();
 }
-const rateTable = document.querySelector("#rates-table");
-for(let i = 0; i < rates.length; i++){
-	let newListItem = document.createElement("tr");
 
-	let airplane = document.createElement("td");
-	airplane.textContent = rates[i].airplane_plate;
-
-	let rate = document.createElement("td");
-	rate.textContent = "$" + parseFloat(rates[i].rate).toLocaleString();
-
-	let start_date = document.createElement("td");
-	let dateArray = rates[i].start_date.split("T")[0].split("-");
-	start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
-
-	rateTable.appendChild(newListItem);
-	newListItem.appendChild(airplane);
-	newListItem.appendChild(start_date);
-	newListItem.appendChild(rate);
+fillRateTable(document.querySelector("#rates-table"), rates);
+fillRateTable(document.querySelector("#future-rates-table"), futureRates);
+function fillRateTable(table, rates){
+	for(let i = 0; i < rates.length; i++){
+		let newListItem = document.createElement("tr");
+	
+		let airplane = document.createElement("td");
+		airplane.textContent = rates[i].airplane_plate;
+	
+		let rate = document.createElement("td");
+		rate.textContent = "$" + parseFloat(rates[i].rate).toLocaleString();
+	
+		let start_date = document.createElement("td");
+		let dateArray = rates[i].start_date.split("T")[0].split("-");
+		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+	
+		table.appendChild(newListItem);
+		newListItem.appendChild(airplane);
+		newListItem.appendChild(start_date);
+		newListItem.appendChild(rate);
+	}
 }
+
 
 // 	====> Rates Form Airplanes
 for(let i = 0; i < fleet.length; i++) {

@@ -5,9 +5,14 @@ import auditlog from "../auditlog/auditlog.dao.js";
 
 // Get Rates
 export const getRates = async (req, res) => {
-    const {startDate, plate} = req.query;
+    const { current, date } = req.query;
 	try {
-		const rows = await rates.getRates(startDate, plate);
+		let rows = null;
+		if(current == "true"){
+			rows = await rates.getCurrentRates(date);
+		} else {
+			rows = await rates.getFutureRates(date);
+		}
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);

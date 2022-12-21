@@ -2,18 +2,23 @@ import { pool } from "../../db.js";
 
 const rates = {};
 
-rates.getRates = async (startDate, plate) => {
+rates.getCurrentRates = async (date) => {
     try {
-        if(plate == undefined){
-            const [rows] = await pool.query("SELECT * FROM rates WHERE start_date <= ? ORDER BY start_date DESC", [startDate]);
-            return rows;
-        }
-        const [rows] = await pool.query("SELECT * FROM rates WHERE airplane_plate = ? AND start_date <= ? ORDER BY start_date DESC LIMIT 1", [plate, startDate]);
+        const [rows]  = await pool.query("SELECT * FROM rates WHERE start_date = (SELECT MAX(start_date) FROM rates r2 WHERE r2.airplane_plate = rates.airplane_plate AND start_date <= ?) ORDER BY airplane_plate;", [date]);
         return rows;
-	} catch (error) {
-		throw error;
-	}
-};
+    } catch (e){
+        throw e;
+    }
+}
+
+rates.getFutureRates = async (date) => {
+    try {
+        const [rows]  = await pool.query("SELECT * FROM rates WHERE start_date > ?;", [date]);
+        return rows;
+    } catch (e){
+        throw e;
+    }
+}
 
 rates.addRate = async (airplane, rate, date) => {
     try {

@@ -442,15 +442,32 @@
 			<a class="center" href="#add-rate-form-popup" id = "add-rate">
 				<button class="gray-button">Agregar Tarifa</button>
 			</a>
-			<table class="table-user-section">
-				<thead>
-					<th>Avion</th>
-					<th>Desde</th>
-					<th>Precio ($/hs)</th>
-				</thead>
-				<tbody id="rates-table">
-				</tbody>
-			</table>
+			<div class = "table-card">
+				<h2 class = "margin-auto">Vigentes</h2>
+				<table class="table-user-section">
+					<thead>
+						<tr>
+							<th>Avion</th>
+							<th>Desde</th>
+							<th>Precio ($/hs)</th>
+						</tr>
+					</thead>
+					<tbody id="rates-table">
+					</tbody>
+				</table>
+			</div>
+			<div class = "table-card">
+				<h2 class = "margin-auto">Futuras</h2>
+				<table class="table-user-section">
+					<thead>
+						<th>Avion</th>
+						<th>Desde</th>
+						<th>Precio ($/hs)</th>
+					</thead>
+					<tbody id="future-rates-table">
+					</tbody>
+				</table>
+			</div>
 		</section>
 
 		<!-- My Turns -->
