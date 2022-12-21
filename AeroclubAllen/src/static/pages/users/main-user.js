@@ -625,7 +625,14 @@ function fillRatesTables(){
 		let newListItem = document.createElement("tr");
 
 		let airplane = document.createElement("td");
-		airplane.textContent = rate.airplane_plate;
+		switch(rate.airplane_plate){
+			case 'instruction': airplane.textContent = "Instrucción"; break;
+			case 'inscription': airplane.textContent = "Inscripción"; break;
+			case 'membership-fee': airplane.textContent = "Cuota Social"; break;
+			case 'theory': airplane.textContent = "Clases"; break;
+			default: airplane.textContent = rate.airplane_plate;
+		}
+		
 	
 		let price = document.createElement("td");
 		price.textContent = "$" + parseFloat(rate.rates[0].rate).toLocaleString();
@@ -741,7 +748,7 @@ if(user.role == "student"){
 	});
 }
 
-// Airplanes Options
+// ======> Airplanes Options
 for(let i = 0; i < fleet.length; i++){
 	let option = document.createElement("option");
 	option.value = fleet[i].plate;
@@ -759,22 +766,46 @@ document.getElementById('request-turn-form-start-date').addEventListener('change
 	startDate.setHours(startDate.getHours() + 1);
 	document.getElementById('request-turn-form-end-date').value = startDate.toISOString().substring(0,16);
 });
-document.getElementById("request-turn-form-end-date").addEventListener('change', () => {
-	let airplane = document.getElementById('request-turn-form-airplane');
+
+//  ======>   Request a Turn Price
+document.getElementById("request-turn-form-start-date").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-end-date").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-airplane").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-instructor").addEventListener('change', () => setTurnPrice());
+function setTurnPrice () {
+	let airplane = document.getElementById('request-turn-form-airplane').value;
 	let startTime = new Date(document.getElementById('request-turn-form-start-date').value);
 	let endTime = new Date(document.getElementById('request-turn-form-end-date').value);
 	let hours = (endTime.getTime() - startTime.getTime())/1000/60/60;
+	let index = rates.findIndex((item) => item.airplane_plate === airplane);
+	let price = 0;
 
-	let airplaneRate = futureRates.filter(airplane_plate => airplane_plate == airplane);
-	if(airplaneRate > 0) {
-		
-	}
-	console.log(airplaneRate);
-	console.log(futureRates);
+	if( index != -1 ){
+		let airplaneRates = rates[index].rates;
 
-	document.querySelector("#request-turn-form-price").value = time * rates
+		let i = 0;
+		while(airplaneRates.length > 1 && startTime.getTime() > new Date(airplaneRates[i+1].start_date).getTime()){
+			i++;
+		}
+		price = airplaneRates[i].rate * hours;
 	
-})
+		// If the instructor was seleccted
+		if(document.getElementById("request-turn-form-instructor").checked) {
+			let index = rates.findIndex((item) => item.airplane_plate === "instruction");
+			let instructorRates = rates[index].rates;
+
+			let i = 0;
+			while(instructorRates.length > 1 && startTime.getTime() > new Date(instructorRates[i+1].start_date).getTime()){
+				i++
+			}
+
+			price += instructorRates[i].rate * hours;
+		}
+	}
+
+	document.querySelector("#request-turn-form-price").value = price;
+}
+
 // Register a turn POST
 document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	e.preventDefault();
