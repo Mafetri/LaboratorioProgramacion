@@ -15,4 +15,13 @@ rates.getRates = async (startDate, plate) => {
 	}
 };
 
+rates.addRate = async (airplane, rate, date) => {
+    try {
+        const [rows] = await pool.query("INSERT INTO rates VALUES (NULL, ?, ?, ?)", [date, rate, airplane]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default rates;

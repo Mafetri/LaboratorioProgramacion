@@ -13,3 +13,14 @@ export const getRates = async (req, res) => {
 		somethingWentWrong500(e, res);
 	}
 };
+
+// Add Rate
+export const addRate = async (req, res) => {
+	const {airplane, rate, startDate} = req.body;
+	try {
+		const rows = await rates.addRate(airplane, rate, startDate);
+		res.send("success");
+	} catch (error) {
+		somethingWentWrong500(error, res);
+	}
+}

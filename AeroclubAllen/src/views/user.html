@@ -260,6 +260,51 @@
 		</div>
 	</div>
 
+	<!--  Add Rate -->
+	<div class="container-pop-up" id="add-rate-form-popup">
+		<div class="pop-up">
+			<div class="box-shadow border-radius">
+				<a href="#"><button class="close-button">Cerrar</button></a>
+				<form id="add-rate-form">
+					<fieldset>
+						<div class="fields-container">
+							<!-- Ariplane -->
+							<div class="field">
+								<label for="rate">Avion:</label>
+								<select name="airplane" id="add-rate-form-airplane" required>
+									<option hidden disabled selected value>- Seleccionar -</option>
+									<option value="instruction">Instruccion</option>
+									<option value="inscription">Inscripcion</option>
+									<option value="membership-fee">Cuota Social</option>
+									<option value="theory">Teoria</option>
+								</select>
+							</div>
+
+							<!-- Date Start -->
+							<div class="field">
+								<label for="start-date">Desde:</label>
+								<input class="input-text" type="date" name="start-date"
+									id="add-rate-form-start-date" required />
+							</div>
+
+							<!-- Rate -->
+							<div class="field">
+								<label for="rate">Tarifa:</label>
+								<input class="input-text" type="number" name="rate"
+									id="add-rate-form-rate" required />
+							</div>
+
+							<!-- Submit Button -->
+							<div class="submit-button">
+								<input onclick="" class="boton-sec-oscuro" type="submit" value="Enviar"
+									name="submit" id="submit" />
+							</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<section id="user">
 		<!-- User Card -->
 		<section class="user-card-container">
@@ -394,9 +439,9 @@
 		<!-- Rates -->
 		<section class="section-for-user" id="rates">
 			<h2 class="section-title margin-auto">Tarifas</h2>
-			<!-- <a class="register-button center" href="#request-turn-form-popup">
-				<button class="gray-button">Agendar Turno</button>
-			</a> -->
+			<a class="center" href="#add-rate-form-popup" id = "add-rate">
+				<button class="gray-button">Agregar Tarifa</button>
+			</a>
 			<table class="table-user-section">
 				<thead>
 					<th>Avion</th>

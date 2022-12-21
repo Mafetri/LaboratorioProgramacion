@@ -609,7 +609,14 @@ if (user.role == "admin" || user.role == "secretary"){
 }
 
 
+
+
+
 //  =================  Rates  =================
+// 	====> Rates Table
+if(user.role != "admin" && user.role != "secretary"){
+	document.querySelector('#add-rate').remove();
+}
 const rateTable = document.querySelector("#rates-table");
 for(let i = 0; i < rates.length; i++){
 	let newListItem = document.createElement("tr");
@@ -629,6 +636,44 @@ for(let i = 0; i < rates.length; i++){
 	newListItem.appendChild(start_date);
 	newListItem.appendChild(rate);
 }
+
+// 	====> Rates Form Airplanes
+for(let i = 0; i < fleet.length; i++) {
+	let option = document.createElement("option");
+	option.value = fleet[i].plate;
+	option.textContent = fleet[i].name + " ("+  fleet[i].plate + ")";
+	document.querySelector("#add-rate-form-airplane").appendChild(option);
+}
+
+// 	====> Rates Form Send
+document.querySelector("#add-rate-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+	let newData = {
+		airplane: document.querySelector("#add-rate-form-airplane").value,
+		rate: document.querySelector("#add-rate-form-rate").value,
+		startDate: document.querySelector("#add-rate-form-start-date").value
+	};
+
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/rates");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "success") {
+			alert("Tarifa Cargada!");
+			window.location.reload();
+		} else {
+			alert("Error en la carga");
+			window.location.reload();
+		}
+	};
+
+	xhr.send(JSON.stringify(newData));
+});
+
+
 
 //  =================  My Turns  =================
 // Turns Form conditions
