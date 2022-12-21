@@ -126,3 +126,13 @@ CREATE TABLE instructors_availability  (
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL
 )
+
+
+CREATE TABLE rates (
+    id INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    start_date DATE NOT NULL,
+    rate DECIMAL(10, 2) UNSIGNED,
+    airplane_plate VARCHAR(255) 
+) 
+
+INSERT INTO rates VALUE (NULL, NOW(), 15000.12, 'LV-FVA')

@@ -173,7 +173,7 @@ th {
 }
 @media (max-width: 768px) {
 	.table-user-section tbody tr td, th{
-		font-size: 0.8em;
+		font-size: 0.7em;
 	}
 }
 
@@ -341,4 +341,24 @@ th {
 #request-turn-form fieldset div .field:nth-child(3),
 #request-turn-form fieldset div .field:nth-child(4) {
 	grid-column: auto;
+}
+
+
+.table-card {
+	width: fit-content;
+	margin: auto;
+	margin-top: 1em;
+}
+.table-card h2 {
+	background-color: white;
+	color: var(--secundarioOscuro);
+	border-radius: var(--radius) var(--radius) 0 0;
+	font-size: 1.3em;
+	border-style: solid solid none solid;
+	border-width: 1px;
+	border-color: black;
+}
+.table-card table{
+	border-radius: 0 0 var(--radius) var(--radius);
+	margin-top: 0;
 }
