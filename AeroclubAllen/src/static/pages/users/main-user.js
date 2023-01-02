@@ -1313,3 +1313,11 @@ function descriptionTranslation(description, tableName, key) {
 	descriptionTranslated += ": " + key;
 	return descriptionTranslated;
 }
+
+setTimeout(function () {
+	document.querySelector("#plain").classList.add("plain-out");
+	setTimeout(function () {
+		document.querySelector(".loading-page").style.visibility = "hidden";
+		document.querySelector(".loading-page").style.opacity = 0;
+	}, 500)
+}, 1000)

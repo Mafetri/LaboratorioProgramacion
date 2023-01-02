@@ -436,3 +436,105 @@ header.sticky {
 .margin-0{
   margin: 0;
 }
+
+.loading-page{
+  display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	transition: all 0.4s;
+	z-index: 3;
+	background-color: rgba(206, 206, 206, 0.8);
+}
+.loading-page.darkened-clouds {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.loading-page section div {
+  width: 50vh;
+  height: 30%;
+  position: relative;
+  overflow:hidden;
+  aspect-ratio: 1/1;
+}
+  
+#plain {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.plain-out {
+  transition: all 1s;
+  transform: translate(20em) !important;
+}
+  
+#cloud1,#cloud2,#cloud3,#cloud4,#cloud5 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+}
+#cloud1 path, #cloud2 path, #cloud3 path, #cloud4 path, #cloud5 path {
+  fill: white;
+}
+  
+#cloud1 {
+  top: 20%;
+  right: -50px;
+  animation:  cloudAnim  3s
+    ease infinite 0.5s;
+}
+#cloud2 {
+  top: 40%;
+  right: -50px;
+  animation:  cloudAnim  3s
+      ease infinite 2s;
+}
+#cloud3 {
+  top: 50%;
+  right: -50px;
+  animation: cloudAnim  
+    3s ease infinite 1s;
+}
+#cloud4 {
+  top: 50%;
+  right: -50px;
+  animation: cloudAnim  
+    3s ease infinite 1.5s;
+}
+#cloud5 {
+  top: 50%;
+  right: -50px;
+  animation: cloudAnim  
+    3s ease infinite 2.5s;
+}
+
+
+#plain {
+  width: 100px;
+  height: 80px;
+  animation: airplain 1s linear infinite alternate;
+}
+
+  
+@keyframes cloudAnim {
+  from {
+    right: -30em;
+  }
+  to {
+    right: 30em;
+  }
+}
+  
+@keyframes airplain {
+  from {
+    top: 70%;
+  }
+  to {
+    top: 20%
+  }
+}
