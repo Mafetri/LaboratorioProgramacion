@@ -13,6 +13,13 @@ turnsToLocalTime(myTurns);
 turnsToLocalTime(allTurns);
 turnsToLocalTime(instructorsAviability);
 
+// Mobile
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+if(!isMobile){
+	document.querySelector(".mobile-bar").style = "display: none";
+}
+
 // User Card Info
 fillUserInfo();
 function fillUserInfo() {
@@ -82,24 +89,33 @@ document.querySelector("#modify-self-user-form").addEventListener("submit", (e) 
 
 //  =================  Role Options  =================
 //  ====> Role Option Button
+let statusHidden = true;
 if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
-	const userButtons = document.querySelector("#user-card-buttons");
+	if(!isMobile){
+		const userButtons = document.querySelector("#user-card-buttons");
 
-	let roleButton = document.createElement("button");
-	roleButton.classList.add("gray-button");
-	roleButton.textContent = "Opciones de Rol";
-	let statusHidden = true;
-	document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
-	roleButton.addEventListener("click", () => {
-		document.querySelector("#role-options").classList.toggle("show");
-		document.querySelector("#role-options").style.transform = "translateY(-25px)";
-		setTimeout(function () {
-			document.querySelector("#role-options").style.transform = "translateY(0px)";
-		}, 0);
-		statusHidden = false;
-	});
+		let roleButton = document.createElement("button");
+		roleButton.classList.add("gray-button");
+		roleButton.textContent = "Opciones de Rol";
+		document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
+		roleButton.addEventListener("click", () => showRoleOptions());
 
-	userButtons.prepend(roleButton);
+		userButtons.prepend(roleButton);
+
+	} else {
+		let roleMobileButton = document.querySelector("#mobile-bar-container-role");
+		roleMobileButton.addEventListener("click", () => showRoleOptions());
+	}
+} else {
+	document.querySelector("#mobile-bar-container-role").remove();
+}
+function showRoleOptions(){
+	document.querySelector("#role-options").classList.toggle("show");
+	document.querySelector("#role-options").style.transform = "translateY(-25px)";
+	setTimeout(function () {
+		document.querySelector("#role-options").style.transform = "translateY(0px)";
+	}, 0);
+	statusHidden = false;
 }
 
 //  ====> Dashboard Button
@@ -114,6 +130,8 @@ if (user.role == "admin" || user.role == "editor") {
 
 	dashboardButtonA.append(dashboardButton);
 	userButtons.prepend(dashboardButtonA);
+} else {
+	document.querySelector("#mobile-bar-container-dashboard").remove();
 }
 
 //  ====> Instructor Disponibility
@@ -196,7 +214,7 @@ if (user.role == "instructor") {
 			newListItem.classList.add("turns-grid-card");
 
 			let divInfo = document.createElement("div");
-			divInfo.classList.add("turns-grid-card");
+			divInfo.classList.add("turns-grid-card-info");
 
 			let nameTitle = document.createElement("h2");
 			nameTitle.textContent = "Socio:"
@@ -282,7 +300,7 @@ function fillTurnsTable(uncheckedTurns){
 		newListItem.classList.add("turns-grid-card");
 	
 		let divInfo = document.createElement("div");
-		divInfo.classList.add("turns-grid-card");
+		divInfo.classList.add("turns-grid-card-info");
 
 		let reqDateTitle = document.createElement("h2");
 		reqDateTitle.textContent = "Fecha de Solicitud";
@@ -851,7 +869,7 @@ if(myTurns.length > 0){
 		newListItem.classList.add("turns-grid-card");
 	
 		let divInfo = document.createElement("div");
-		divInfo.classList.add("turns-grid-card");
+		divInfo.classList.add("turns-grid-card-info");
 	
 		let nameTitle = document.createElement("h2");
 		nameTitle.textContent = "Instructor:";
@@ -930,7 +948,10 @@ if(myTurns.length > 0){
 
 
 //  ===========   All Turns   ===========
-const oneHourHeight = 55;
+let oneHourHeight = 55;
+if(window.matchMedia("(max-width: 768px)").matches){
+	oneHourHeight = 40;
+}
 const start_hour = 6;
 const end_hour = 21;
 
@@ -1320,4 +1341,4 @@ setTimeout(function () {
 		document.querySelector(".loading-page").style.visibility = "hidden";
 		document.querySelector(".loading-page").style.opacity = 0;
 	}, 500)
-}, 1000)
+}, 0)

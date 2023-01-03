@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500&family=Open+Sans:wght@300&display=swap');
 
 :root {
   --primario: #effbff;
@@ -13,6 +14,7 @@
   --headerPegajoso: rgba(236, 236, 236, 0.842);
   --fuentePrincipal: "Montserrat", sans-serif;
   --fuenteSecundaria: "Open Sans", sans-serif;
+  --usersFont: 'Inter', sans-serif;
   --gris: rgb(230, 227, 227);
   --grisClaro: rgb(240, 240, 240);
   --grisOscuro: rgb(156, 156, 156);

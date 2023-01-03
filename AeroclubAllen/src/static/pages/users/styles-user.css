@@ -1,3 +1,8 @@
+h1, h2, h3, p {
+	font-family: var(--usersFont) !important;
+	font-weight: 400;
+}
+
 section {
 	margin: 1em;
 }
@@ -302,39 +307,53 @@ th {
     font-weight: 200;
 	font-size: 1.5em;
 }
-.turns-gird-card-info{
-	padding: 1em;
+
+.turns-grid-card .ok-button{
+	background-color: rgb(245, 241, 243);
+	color: white;
 }
 .turns-grid-card .delete-button{
 	font-size: 1em;
 	padding: 0.2em;
 	border-radius: 0 0 var(--radius) var(--radius);
+	background-color: rgb(245, 241, 243);
+}
+.turns-grid-card .delete-button:hover {
+	background-color: rgb(160, 17, 17);
+	color: white;
 }
 
 .turns-grid-card {
 	display: flex;  
-	justify-content: center;
 	flex-direction: column;
+	justify-content: center;
+	border-radius: var(--radius);
+	box-shadow:   0 1px 5px #000;
+}
+.turns-grid-card-info {
+	display: flex;  
+	flex-direction: column;
+	justify-content: center;
 	gap: 0.2em;
-	background-color: var(--secundarioOscuro);
-	color: white;
+	background-color: white;
 	min-width: 12em;
 	height: fit-content;
 	justify-content: center;
 	text-align: center;
 	border-radius: var(--radius);
-	padding-top: 0.3em;
+	padding-top: 0.7em;
 }
-.turns-grid-card p, h2{
-	color: white;
-}
-.turns-grid-card p, h2{
+.turns-grid-card-info p, h2{
 	margin: 0;
 	font-size: 1em;
+	color: var(--secundarioOscuro);
 }
-.turns-grid-card p{
-	margin-bottom: 0.3em;
-	font-size: 1em;
+.turns-grid-card-info p{
+	margin-bottom: 0.5em;
+}
+.turns-grid-card-info h2{
+	font-weight: 500;
+	line-height: 10px;
 }
 
 
@@ -361,4 +380,22 @@ th {
 .table-card table{
 	border-radius: 0 0 var(--radius) var(--radius);
 	margin-top: 0;
+}
+
+
+.mobile-bar{
+	display: none;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	background-color: rgb(245, 241, 243);
+	padding: 0.5em;
+	box-shadow: var(--shadow);
+	position: sticky;
+	bottom: 0;
+}
+.mobile-bar-container img{
+	height: 2em;
+	width: auto;
+	aspect-ratio: 1/1;
 }
