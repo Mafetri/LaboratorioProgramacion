@@ -357,8 +357,8 @@
 				</div>
 				<div id="user-card-info"></div>
 			</div>
-			<div class="user-card-buttons" id="user-card-buttons">
-				<a href="/logout"> <button class="boton-sec-oscuro" id="logout-button">Desconectarse</button> </a>
+			<div>
+				<a href="#modify-self-user-form-popup"> <button class="modify-button">Modificar</button> </a>
 			</div>
 		</section>
 
@@ -499,7 +499,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class = "table-card">
+			<div class = "table-card" id = "future-rates">
 				<h2 class = "margin-auto">Futuras</h2>
 				<table class="table-user-section">
 					<thead>
@@ -550,28 +550,45 @@
 		</section>
 	</section>
 
-	<div class = "mobile-bar">
-		<div class = "mobile-bar-container">
+	<footer>
+		<div class = "developer">
+			<p>Desarrollado y mantenido por <a target="_blank" href = "https://github.com/Mafetri">Manuel Triñanes</a></p>
+		</div>
+		<div class = "mobile-bar">
 			<a href = "#request-turn-form-popup">
-				<img src="../../assets/icons/book-turn.png" alt="Agendar Turno" />
+				<div class = "mobile-bar-container">
+					<img src="../../assets/icons/book-turn.png" alt="Agendar Turno" />
+					<p>Turno</p>
+				</div>
 			</a>
-		</div>
-		<div class = "mobile-bar-container" id = "mobile-bar-container-role">
-			<a>
-				<img id="" src="../../assets/icons/role.png" alt="Opciones de Rol" />
+	
+			<a id = "mobile-bar-container-role">
+				<div class = "mobile-bar-container">
+					<img id="" src="../../assets/icons/role.png" alt="Opciones de Rol" />
+					<p>Opciones</p>
+	
+				</div>
 			</a>
-		</div>
-		<div class = "mobile-bar-container" id = "mobile-bar-container-dashboard">
-			<a href = "/dashboard">
-				<img id="mobile-bar-dashboard" src="../../assets/icons/dashboard.png" alt="Dashboard" />
+	
+			<a href = "/dashboard" id = "mobile-bar-container-dashboard">
+				<div class = "mobile-bar-container">
+					<img id="mobile-bar-dashboard" src="../../assets/icons/dashboard.png" alt="Dashboard" />
+					<p>Dashboard</p>
+				</div>
 			</a>
-		</div>
-		<div class = "mobile-bar-container">
+	
+	
 			<a href = "/logout">
-				<img src="../../assets/icons/logout.png" alt="Desconectarse" />
+				<div class = "mobile-bar-container">
+					<img src="../../assets/icons/logout.png" alt="Desconectarse" />
+					<p>Logout</p>
+				</div>
 			</a>
 		</div>
-	</div>
+
+		
+	</footer>
+	
 
 	<script type="module" src="../pages/users/main-user.js"></script>
 </body>

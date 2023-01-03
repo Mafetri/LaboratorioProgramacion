@@ -28,7 +28,7 @@ section {
 	display: flex;
 	background-color: rgb(245, 241, 243);
 	border-radius: var(--radius) var(--radius) 0 0;
-	padding: 2em;
+	padding: 1.5em;
 	margin: auto;
 }
 #user-card-info {
@@ -45,12 +45,11 @@ section {
 
 .user-card img {
 	border-radius: 100%;
-	height: 10em;
-	width: 100%;
+	height: auto;
+	width: 10em;
 	box-shadow: var(--shadow);
 	margin-right: 3em;
-	translate: 0px 1em;
-	/* z-index: 0; */
+	aspect-ratio: 1/1;
 }
 
 @media (max-width: 768px) {
@@ -58,40 +57,31 @@ section {
 		font-size: 1em;
 	}
 	.user-card {
-		padding: 0.8em;
+		flex-direction: column;
 	}
 	#user-card-info h2 {
 		font-size: 1em;
 	}
 	.user-card img {
-		height: 8em;
+		margin-bottom: 1em;
+		margin-right: 0;
 	}
 }
 
-#logout-button {
-	background-color: rgb(206, 100, 100);
-	color: rgb(83, 5, 5);
+.user-card-container .modify-button{
 	border-radius: 0 0 var(--radius) var(--radius);
     width: 100%;
     box-shadow: none;
 }
-#logout-button:hover {
-	background-color: rgb(160, 17, 17) !important;
-	color: white;
-}
 
-/* ======== Modify User Data ======== */
-#user-card-info .modify-button {
-	border-radius: var(--radius);
-	margin-top: 0.6em;
-	box-shadow: var(--shadow);
-}
+/* ======== Register Button ======== */
 .register-button {
 	margin: auto;
 	width: 100%;
 	box-shadow: none;
 }
 
+/* ======== Table Section ======== */
 .table-user-section {
 	width: auto !important;
 }
@@ -382,17 +372,40 @@ th {
 	margin-top: 0;
 }
 
-
+footer {
+	position: sticky;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	box-shadow: var(--shadow);
+	background-color: rgb(245, 241, 243);
+	justify-content: center;
+	z-index: 3;
+}
+.developer p {
+	text-align: center;
+	color: var(--gris);
+	background-color: var(--grisOscuro);
+}
+.developer a  {
+	color: white;
+}
 .mobile-bar{
-	display: none;
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
-	background-color: rgb(245, 241, 243);
 	padding: 0.5em;
-	box-shadow: var(--shadow);
-	position: sticky;
-	bottom: 0;
+	gap: 1em;
+}
+.mobile-bar-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.mobile-bar-container p{
+	color: black;
+	text-align: center;
 }
 .mobile-bar-container img{
 	height: 2em;

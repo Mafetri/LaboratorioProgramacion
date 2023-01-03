@@ -16,10 +16,6 @@ turnsToLocalTime(instructorsAviability);
 // Mobile
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-if(!isMobile){
-	document.querySelector(".mobile-bar").style = "display: none";
-}
-
 // User Card Info
 fillUserInfo();
 function fillUserInfo() {
@@ -43,19 +39,12 @@ function fillUserInfo() {
 	phone.textContent = "Telefono: " + user.phone;
 	document.querySelector("#modify-self-user-form-phone").value = user.phone;
 
-	let moddifyButtonA = document.createElement("a");
-	moddifyButtonA.href = "#modify-self-user-form-popup";
-	let modifyButton = document.createElement("button");
-	modifyButton.classList.add("modify-button");
-	modifyButton.textContent = "Modificar";
-	moddifyButtonA.appendChild(modifyButton);
 
 	userCard.append(dni);
 	userCard.append(name);
 	userCard.append(email);
 	userCard.append(role);
 	userCard.append(phone);
-	userCard.append(moddifyButtonA);
 }
 
 // Update User info
@@ -91,21 +80,8 @@ document.querySelector("#modify-self-user-form").addEventListener("submit", (e) 
 //  ====> Role Option Button
 let statusHidden = true;
 if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
-	if(!isMobile){
-		const userButtons = document.querySelector("#user-card-buttons");
-
-		let roleButton = document.createElement("button");
-		roleButton.classList.add("gray-button");
-		roleButton.textContent = "Opciones de Rol";
-		document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
-		roleButton.addEventListener("click", () => showRoleOptions());
-
-		userButtons.prepend(roleButton);
-
-	} else {
-		let roleMobileButton = document.querySelector("#mobile-bar-container-role");
-		roleMobileButton.addEventListener("click", () => showRoleOptions());
-	}
+	let roleMobileButton = document.querySelector("#mobile-bar-container-role");
+	roleMobileButton.addEventListener("click", () => showRoleOptions());
 } else {
 	document.querySelector("#mobile-bar-container-role").remove();
 }
@@ -120,16 +96,7 @@ function showRoleOptions(){
 
 //  ====> Dashboard Button
 if (user.role == "admin" || user.role == "editor") {
-	const userButtons = document.querySelector("#user-card-buttons");
-
-	let dashboardButtonA = document.createElement("a");
-	dashboardButtonA.href = "/dashboard";
-	let dashboardButton = document.createElement("button");
-	dashboardButton.classList.add("gray-button");
-	dashboardButton.textContent = "Dashboard";
-
-	dashboardButtonA.append(dashboardButton);
-	userButtons.prepend(dashboardButtonA);
+	
 } else {
 	document.querySelector("#mobile-bar-container-dashboard").remove();
 }
@@ -683,6 +650,9 @@ function fillRatesTables(){
 			newListItem.appendChild(price);
 		}
 	})
+	if(document.querySelector("#future-rates-table").childElementCount < 1){
+		document.querySelector("#future-rates").remove();
+	} 
 }
 
 
