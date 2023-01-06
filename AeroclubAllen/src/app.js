@@ -32,14 +32,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(validator());
-
-
-// Views EJS
-import path from "path";
-import { fileURLToPath } from "url";
 app.set('view engine', 'ejs');
-app.set('views', path.join(fileURLToPath(import.meta.url), "../../src/views"));
-
 
 // APIs
 app.use(auth);
@@ -54,10 +47,6 @@ app.use("/api", auditlog);
 app.use("/api", turnsRoutes);
 app.use("/api", instructors);
 app.use("/api", rates);
-
-app.get("/hola", function(req, res){
-    res.render("email-templates/welcome.ejs", {name: req.user.name, surname: req.user.surname, email: req.user.email, phone: req.user.phone, role: req.user.role});
-})
 
 // Static webpage
 app.use(express.static('src/static'));
