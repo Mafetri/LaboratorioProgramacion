@@ -40,6 +40,17 @@ export const setStatus = async (req, res) => {
 				message: "Turn not found",
 			});
 		} else {
+			// Sends email to the user of the turn
+			const turnRevised = await turns.getTurn(id);
+			const user = (await users.getUser(turnRevised.user_dni))[0];
+			let instructor = null;
+			if(turnRevised.instructor_dni != null){
+				instructor = await users.getUser(turnRevised.instructor_dni);
+				turnReservedEmail(user.name, user.email, turnRevised.start_date, turnRevised.end_date, turnRevised.airplane_plate, instructor.name + " " + instructor.surname, turnRevised.purpose, turnRevised.approved);
+			} else {
+				turnReservedEmail(user.name, user.email, turnRevised.start_date, turnRevised.end_date, turnRevised.airplane_plate, null, turnRevised.purpose, turnRevised.approved);
+			}
+
 			if(result == "true"){
 				await auditlog.createLog(req.user.dni, "approved", "turns", id);
 			} else {

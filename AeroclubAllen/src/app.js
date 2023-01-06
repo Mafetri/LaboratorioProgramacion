@@ -4,6 +4,7 @@ import flash from "connect-flash";
 import passport from "./lib/passport.js";
 import session from "express-session";
 //import validator from "express-validator";
+import { sendWelcomeEmail } from "./emails/email.js";
 
 // Routes
 import newsRoutes from "./components/news/news.routes.js";
