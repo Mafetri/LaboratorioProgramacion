@@ -56,13 +56,16 @@ export const setStatus = async (req, res) => {
 export const createTurn = async (req, res) => {
 	const { startDate, endDate, airplane, instructor, purpose } = req.body;
 	let responseText = "";
+
 	try {
 		if(req.user.role == "admin" && purpose == "workshop" || purpose == "baptism"){
 			// Gets the turns that overlaps the workshop or baptismrange and delete it
 			const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
 			for( let i = 0; i < turnsOverlaped.length; i++){
-				// let userTurnOvelaped = await users.getUser(turnsOverlaped[i].user_dni);
-				// res.render('email-templates/canceledTurn.ejs', {name: userTurnOvelaped.name, turn_start_date: startDate, turn_end_date: endDate, start_date: turnsOverlaped[i].start_date, airplane_plate: airplane, reason: purpose});
+				// Gets the affected user and sends him an email
+				let userTurnOvelaped = (await users.getUser(turnsOverlaped[i].user_dni))[0];
+				canceledTurnEmail(userTurnOvelaped.name, userTurnOvelaped.email, startDate, endDate, turnsOverlaped[i].start_date, turnsOverlaped[i].end_date, airplane, purpose);
+				
 				await turns.deleteTurn(turnsOverlaped[i].id);
 			}
 
