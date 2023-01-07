@@ -1,7 +1,9 @@
 import turns from "./turns.dao.js";
+import users from "../users/users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 import auditlog from "../auditlog/auditlog.dao.js";
 import instructors from "../instructors/instructors.dao.js";
+import { canceledTurnEmail, turnReservedEmail } from "../../emails/email.js";
 
 // Get Turns
 export const getTurns = async (req, res) => {
@@ -38,6 +40,17 @@ export const setStatus = async (req, res) => {
 				message: "Turn not found",
 			});
 		} else {
+			// Sends email to the user of the turn
+			const turnRevised = await turns.getTurn(id);
+			const user = (await users.getUser(turnRevised.user_dni))[0];
+			let instructor = null;
+			if(turnRevised.instructor_dni != null){
+				instructor = await users.getUser(turnRevised.instructor_dni);
+				turnReservedEmail(user.name, user.email, turnRevised.start_date, turnRevised.end_date, turnRevised.airplane_plate, instructor.name + " " + instructor.surname, turnRevised.purpose, turnRevised.approved);
+			} else {
+				turnReservedEmail(user.name, user.email, turnRevised.start_date, turnRevised.end_date, turnRevised.airplane_plate, null, turnRevised.purpose, turnRevised.approved);
+			}
+
 			if(result == "true"){
 				await auditlog.createLog(req.user.dni, "approved", "turns", id);
 			} else {
@@ -54,11 +67,16 @@ export const setStatus = async (req, res) => {
 export const createTurn = async (req, res) => {
 	const { startDate, endDate, airplane, instructor, purpose } = req.body;
 	let responseText = "";
+
 	try {
 		if(req.user.role == "admin" && purpose == "workshop" || purpose == "baptism"){
 			// Gets the turns that overlaps the workshop or baptismrange and delete it
 			const turnsOverlaped = await turns.getTurnsOverlaped(airplane, startDate, endDate);
 			for( let i = 0; i < turnsOverlaped.length; i++){
+				// Gets the affected user and sends him an email
+				let userTurnOvelaped = (await users.getUser(turnsOverlaped[i].user_dni))[0];
+				canceledTurnEmail(userTurnOvelaped.name, userTurnOvelaped.email, startDate, endDate, turnsOverlaped[i].start_date, turnsOverlaped[i].end_date, airplane, purpose);
+				
 				await turns.deleteTurn(turnsOverlaped[i].id);
 			}
 
@@ -92,10 +110,13 @@ export const createTurn = async (req, res) => {
 					// If there is no airplane turn overlaps
 					if(turnsOverlaped.length == 0 && instructor == false){
 						const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, null, purpose, approved);
+						turnReservedEmail(req.user.name, req.user.email, startDate, endDate, airplane, null, purpose, approved);
 						res.send("success");
 					} else if (turnsOverlaped.length == 0 && instructor == true){
 						if(instructorDni != 0){
 							const dbRes = await turns.reserveTurn(req.user.dni, startDate, endDate, airplane, instructorDni, purpose, approved);
+							const instructorName = await users.getUser(instructorDni).name;
+							turnReservedEmail(req.user.name, req.user.email, startDate, endDate, airplane, instructorName, purpose, approved);
 							res.send("success");
 						} else {
 							res.send("no-instructor");

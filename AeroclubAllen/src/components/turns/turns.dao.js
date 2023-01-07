@@ -22,6 +22,15 @@ turns.getTurns = async (approved) => {
 	}
 };
 
+turns.getTurn = async (id) => {
+    try {
+        const [rows] = await pool.query("SELECT * FROM turns WHERE id = ?", [id]);
+        return rows[0];
+    } catch (error) {
+        throw error;
+    }
+}
+
 turns.getTurnsUser = async (dni) => {
     try {
         const [rows] = await pool.query("SELECT turns.*, users.name, users.surname FROM turns LEFT JOIN users ON turns.instructor_dni = users.dni WHERE turns.user_dni = ? AND purpose <> 'workshop' AND purpose <> 'baptism' ORDER BY turns.start_date ASC", [dni]);
