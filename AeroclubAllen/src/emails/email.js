@@ -46,6 +46,17 @@ export const sendWelcomeEmail = (name, surname, email, phone, role, dni) => {
     })
 }
 
+// Send Disabled User Email
+export const disabledUserEmail = (name, userName, email, enabled) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/disabledUser.ejs"), {name, userName, enabled}, (err, data) => {
+        if(err){
+            console.log(err);
+        } else {
+            sendEmail('avisos@aerocluballen.com.ar', email, 'Cuenta ' + (enabled ? "Habilitada" : "Deshabilitada"), data);
+        };
+    })
+}
+
 // Send Email
 // Sends an email from a email given, to the given email with the given subject and data
 function sendEmail(fromEmail, toEmail, subject, data) {
