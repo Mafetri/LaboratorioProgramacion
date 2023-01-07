@@ -49,6 +49,15 @@ app.use("/api", turnsRoutes);
 app.use("/api", instructors);
 app.use("/api", rates);
 
+import turns from "./components/turns/turns.dao.js";
+app.use("/borrar", () => {
+    turns.deletePastTurns();
+})
+import instructorsA from "./components/instructors/instructors.dao.js";
+app.use("/borrar2", () => {
+    instructorsA.deletePastAviability();
+})
+
 // Static webpage
 app.use(express.static('src/static'));
 

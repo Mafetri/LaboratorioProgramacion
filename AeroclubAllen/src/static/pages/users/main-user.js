@@ -1,8 +1,8 @@
 // All the users needed info
 const user = await (await fetch("/api/userLoggedin")).json();
-const instructorsAviability = await (await fetch("/api/instructors")).json();
-const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
-const allTurns = await(await fetch("/api/turns")).json();
+const instructorsAviability = await (await fetch("/api/instructors?future=true")).json();
+const myTurns = await(await fetch("/api/turns?future=false/"+user.dni)).json();
+const allTurns = await(await fetch("/api/turns?future=true")).json();
 const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
 let rates = await(await fetch("/api/rates?&date=" + (new Date).toISOString().split("T")[0])).json();
@@ -95,9 +95,7 @@ function showRoleOptions(){
 }
 
 //  ====> Dashboard Button
-if (user.role == "admin" || user.role == "editor") {
-	
-} else {
+if (user.role != "admin" || user.role != "editor") {
 	document.querySelector("#mobile-bar-container-dashboard").remove();
 }
 
