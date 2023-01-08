@@ -49,7 +49,7 @@
                 case "instruction": %> instrucción <%; break;
             }
         %>ha sido <%switch(approved) { 
-			case true: %> confirmado con exito por <% if (reqUser != null) { %><%=reqUser%><% }%><%; break; 
+			case true: %> confirmado con exito<% if (reqUser != null) { %> por <%=reqUser%><% }%><%; break; 
 			case false: %> rechazado por <%=reqUser%><%; break; 
 			default: %> reservado, pero a la espera de confirmacion de la secretaria<%; break; 	
 		}%>.
