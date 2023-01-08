@@ -49,7 +49,6 @@ notifier.canceledTurn = async (turn, userName) => {
 }
 
 // Canceled Turn By Other Turn
-// Call email to render the canceled turn email template and sends it to the given email
 notifier.canceledTurnsOverlapped = async (turnsOverlaped, startDate, endDate, reason) => {
     try {
         turnsOverlaped.forEach(async(turn) => {
@@ -62,28 +61,21 @@ notifier.canceledTurnsOverlapped = async (turnsOverlaped, startDate, endDate, re
     }
 }
 
-// // Send Welcome Email
-// // Renders the welcome email template and sends it to the given email
-// export const sendWelcomeEmail = (name, surname, email, phone, role, dni) => {
-//     ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/welcome.ejs"), {name, surname, email, phone, role, dni}, (err, data) => {
-//         if(err){
-//             console.log(err);
-//         } else {
-//             sendEmail('avisos@aerocluballen.com.ar', email, 'Bienvenido al Aeroclub de Allen', data);
-//         };
-//     })
-// }
+// Send Welcome Email
+notifier.welcome = (name, surname, email, phone, role, dni) => {
+    try {
+        sendWelcomeEmail(name, surname, email, phone, role, dni);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-// // Send Disabled User Email
-// export const disabledUserEmail = (name, userName, email, enabled) => {
-//     ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/disabledUser.ejs"), {name, userName, enabled}, (err, data) => {
-//         if(err){
-//             console.log(err);
-//         } else {
-//             sendEmail('avisos@aerocluballen.com.ar', email, 'Cuenta ' + (enabled ? "Habilitada" : "Deshabilitada"), data);
-//         };
-//     })
-// }
+// Send Disabled User Email
+notifier.enabled = async (dni, reqDni, enabled) => {
+    const affectedUser = (await users.getUser(dni))[0];
+	const reqUser = (await users.getUser(reqDni))[0];
+	disabledUserEmail(affectedUser.name, reqUser.name + " " + reqUser.surname, affectedUser.email, enabled);
+}
 
 // Get Date
 // Returns a string formed by a date on isostring into a string of hour and localdate

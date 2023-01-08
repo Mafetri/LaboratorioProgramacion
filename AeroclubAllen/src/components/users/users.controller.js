@@ -3,6 +3,7 @@ import users from "./users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 import auditlog from "../auditlog/auditlog.dao.js";
 import { disabledUserEmail } from "../../emails/email.js";
+import notifier from "../../emails/notifier.js";
 
 // Get Users
 export const getUsers = async (req, res) => {
@@ -77,15 +78,13 @@ export const updateUser = async (req, res) => {
 					message: "User not found",
 				});
 			} else {
-				if(enabled != undefined){
-					const affectedUser = (await users.getUser(dni))[0];
-					const reqUser = (await users.getUser(req.user.dni))[0];
-					disabledUserEmail(affectedUser.name, reqUser.name + " " + reqUser.surname, affectedUser.email, enabled == 'true');
-				}
-
 				await auditlog.createLog(req.user.dni, "modification", "users", dni);
-	
+				
 				res.send("success");
+				
+				if(enabled != undefined){
+					notifier.enabled(dni, req.user.dni, enabled == "true");
+				}
 			}
 		} catch (e) {
 			console.log(e);
