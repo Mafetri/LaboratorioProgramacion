@@ -451,7 +451,7 @@ function fillTurnsTable(uncheckedTurns){
 				const res = await fetch("/api/turns/" + uncheckedTurns[i].id + "?result=true", {
 					method: "PATCH",
 				});
-				window.location.reload();
+				updateTurnsFunctions();
 			}
 		});
 		let denyButton = document.createElement("button");
@@ -463,7 +463,7 @@ function fillTurnsTable(uncheckedTurns){
 					method: "PATCH",
 					search: new URLSearchParams().append('result','false'),
 				});
-				window.location.reload();
+				updateTurnsFunctions();
 			}
 		});
 	
