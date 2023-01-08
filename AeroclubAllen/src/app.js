@@ -1,8 +1,10 @@
 import express from "express";
+import ejs from "ejs";
 import flash from "connect-flash";
 import passport from "./lib/passport.js";
 import session from "express-session";
 //import validator from "express-validator";
+import { sendWelcomeEmail } from "./emails/email.js";
 
 // Routes
 import newsRoutes from "./components/news/news.routes.js";
@@ -16,7 +18,7 @@ import users from "./components/users/user.routes.js";
 import auditlog from "./components/auditlog/auditlog.routes.js";
 import turnsRoutes from "./components/turns/turns.routes.js";
 import instructors from "./components/instructors/instructors.routes.js";
-
+import rates from "./components/rates/rates.routes.js";
 
 const app = express();
 
@@ -31,6 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(validator());
+app.set('view engine', 'ejs');
 
 // APIs
 app.use(auth);
@@ -44,6 +47,16 @@ app.use("/api", users);
 app.use("/api", auditlog);
 app.use("/api", turnsRoutes);
 app.use("/api", instructors);
+app.use("/api", rates);
+
+import turns from "./components/turns/turns.dao.js";
+app.use("/borrar", () => {
+    turns.deletePastTurns();
+})
+import instructorsA from "./components/instructors/instructors.dao.js";
+app.use("/borrar2", () => {
+    instructorsA.deletePastAviability();
+})
 
 // Static webpage
 app.use(express.static('src/static'));

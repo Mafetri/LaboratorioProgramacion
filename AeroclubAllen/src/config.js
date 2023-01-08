@@ -11,4 +11,6 @@ export const DB_NAME = process.env.DB_NAME
 export const METAR_API_KEY = process.env.METAR_API_KEY
 export const NEWS_IMG_ROUTE = process.env.NEWS_IMG_ROUTE
 export const AIRPLANE_IMG_ROUTE = process.env.AIRPLANE_IMG_ROUTE
+export const LOCAL_TIME = process.env.LOCAL_TIME
+export const DAYS_UNTIL_CLEAN = process.env.DAYS_UNTIL_CLEAN
 

@@ -1,15 +1,20 @@
 // All the users needed info
 const user = await (await fetch("/api/userLoggedin")).json();
-const instructorsAviability = await (await fetch("/api/instructors")).json();
-const myTurns = await(await fetch("/api/turns/"+user.dni)).json();
-const allTurns = await(await fetch("/api/turns")).json();
+const instructorsAviability = await (await fetch("/api/instructors?future=true")).json();
+const myTurns = await(await fetch("/api/turns?future=false/"+user.dni)).json();
+const allTurns = await(await fetch("/api/turns?future=true")).json();
+const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
+let rates = await(await fetch("/api/rates?&date=" + (new Date).toISOString().split("T")[0])).json();
 
 // To local time
 const localTime = -3;
 turnsToLocalTime(myTurns);
 turnsToLocalTime(allTurns);
 turnsToLocalTime(instructorsAviability);
+
+// Mobile
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
 // User Card Info
 fillUserInfo();
@@ -34,19 +39,12 @@ function fillUserInfo() {
 	phone.textContent = "Telefono: " + user.phone;
 	document.querySelector("#modify-self-user-form-phone").value = user.phone;
 
-	let moddifyButtonA = document.createElement("a");
-	moddifyButtonA.href = "#modify-self-user-form-popup";
-	let modifyButton = document.createElement("button");
-	modifyButton.classList.add("modify-button");
-	modifyButton.textContent = "Modificar";
-	moddifyButtonA.appendChild(modifyButton);
 
 	userCard.append(dni);
 	userCard.append(name);
 	userCard.append(email);
 	userCard.append(role);
 	userCard.append(phone);
-	userCard.append(moddifyButtonA);
 }
 
 // Update User info
@@ -80,38 +78,25 @@ document.querySelector("#modify-self-user-form").addEventListener("submit", (e) 
 
 //  =================  Role Options  =================
 //  ====> Role Option Button
+let statusHidden = true;
 if (user.role != "pilot" && user.role != "student" && user.role != "editor") {
-	const userButtons = document.querySelector("#user-card-buttons");
-
-	let roleButton = document.createElement("button");
-	roleButton.classList.add("gray-button");
-	roleButton.textContent = "Opciones de Rol";
-	let statusHidden = true;
-	document.querySelector("#role-options").style.transition = "transform ease-in-out 0.3s";
-	roleButton.addEventListener("click", () => {
-		document.querySelector("#role-options").classList.toggle("show");
-		document.querySelector("#role-options").style.transform = "translateY(-25px)";
-		setTimeout(function () {
-			document.querySelector("#role-options").style.transform = "translateY(0px)";
-		}, 0);
-		statusHidden = false;
-	});
-
-	userButtons.prepend(roleButton);
+	let roleMobileButton = document.querySelector("#mobile-bar-container-role");
+	roleMobileButton.addEventListener("click", () => showRoleOptions());
+} else {
+	document.querySelector("#mobile-bar-container-role").remove();
+}
+function showRoleOptions(){
+	document.querySelector("#role-options").classList.toggle("show");
+	document.querySelector("#role-options").style.transform = "translateY(-25px)";
+	setTimeout(function () {
+		document.querySelector("#role-options").style.transform = "translateY(0px)";
+	}, 0);
+	statusHidden = false;
 }
 
 //  ====> Dashboard Button
-if (user.role == "admin" || user.role == "editor") {
-	const userButtons = document.querySelector("#user-card-buttons");
-
-	let dashboardButtonA = document.createElement("a");
-	dashboardButtonA.href = "/dashboard";
-	let dashboardButton = document.createElement("button");
-	dashboardButton.classList.add("gray-button");
-	dashboardButton.textContent = "Dashboard";
-
-	dashboardButtonA.append(dashboardButton);
-	userButtons.prepend(dashboardButtonA);
+if (user.role != "admin" || user.role != "editor") {
+	document.querySelector("#mobile-bar-container-dashboard").remove();
 }
 
 //  ====> Instructor Disponibility
@@ -194,7 +179,7 @@ if (user.role == "instructor") {
 			newListItem.classList.add("turns-grid-card");
 
 			let divInfo = document.createElement("div");
-			divInfo.classList.add("turns-grid-card");
+			divInfo.classList.add("turns-grid-card-info");
 
 			let nameTitle = document.createElement("h2");
 			nameTitle.textContent = "Socio:"
@@ -280,7 +265,7 @@ function fillTurnsTable(uncheckedTurns){
 		newListItem.classList.add("turns-grid-card");
 	
 		let divInfo = document.createElement("div");
-		divInfo.classList.add("turns-grid-card");
+		divInfo.classList.add("turns-grid-card-info");
 
 		let reqDateTitle = document.createElement("h2");
 		reqDateTitle.textContent = "Fecha de Solicitud";
@@ -606,6 +591,107 @@ if (user.role == "admin" || user.role == "secretary"){
 	document.querySelector("#disable-user").remove();
 }
 
+
+
+
+
+//  =================  Rates  =================
+// 	====> Rates Table
+if(user.role != "admin" && user.role != "secretary"){
+	document.querySelector('#add-rate').remove();
+}
+
+rates = Object.values(rates);
+fillRatesTables();
+function fillRatesTables(){
+	rates.forEach(rate => {
+		let newListItem = document.createElement("tr");
+
+		let airplane = document.createElement("td");
+		switch(rate.airplane_plate){
+			case 'instruction': airplane.textContent = "Instrucción"; break;
+			case 'inscription': airplane.textContent = "Inscripción"; break;
+			case 'membership-fee': airplane.textContent = "Cuota Social"; break;
+			case 'theory': airplane.textContent = "Clases"; break;
+			default: airplane.textContent = rate.airplane_plate;
+		}
+		
+	
+		let price = document.createElement("td");
+		price.textContent = "$" + parseFloat(rate.rates[0].rate).toLocaleString();
+	
+		let start_date = document.createElement("td");
+		let dateArray = rate.rates[0].start_date.split("T")[0].split("-");
+		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+	
+		document.querySelector("#rates-table").appendChild(newListItem);
+		newListItem.appendChild(airplane);
+		newListItem.appendChild(start_date);
+		newListItem.appendChild(price);
+
+		for (let j = 1; j < rate.rates.length; j ++){
+			let newListItem = document.createElement("tr");
+	
+			let airplane = document.createElement("td");
+			airplane.textContent = rate.airplane_plate;
+		
+			let price = document.createElement("td");
+			price.textContent = "$" + parseFloat(rate.rates[j].rate).toLocaleString();
+		
+			let start_date = document.createElement("td");
+			let dateArray = rate.rates[j].start_date.split("T")[0].split("-");
+			start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+		
+			document.querySelector("#future-rates-table").appendChild(newListItem);
+			newListItem.appendChild(airplane);
+			newListItem.appendChild(start_date);
+			newListItem.appendChild(price);
+		}
+	})
+	if(document.querySelector("#future-rates-table").childElementCount < 1){
+		document.querySelector("#future-rates").remove();
+	} 
+}
+
+
+// 	====> Rates Form Airplanes
+for(let i = 0; i < fleet.length; i++) {
+	let option = document.createElement("option");
+	option.value = fleet[i].plate;
+	option.textContent = fleet[i].name + " ("+  fleet[i].plate + ")";
+	document.querySelector("#add-rate-form-airplane").appendChild(option);
+}
+
+// 	====> Rates Form Send
+document.querySelector("#add-rate-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+
+	let newData = {
+		airplane: document.querySelector("#add-rate-form-airplane").value,
+		rate: document.querySelector("#add-rate-form-rate").value,
+		startDate: document.querySelector("#add-rate-form-start-date").value
+	};
+
+	// Uses XHR to post the form data
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/rates");
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.onload = function () {
+		// If the server sends a success
+		if (xhr.responseText == "success") {
+			alert("Tarifa Cargada!");
+			window.location.reload();
+		} else {
+			alert("Error en la carga");
+			window.location.reload();
+		}
+	};
+
+	xhr.send(JSON.stringify(newData));
+});
+
+
+
 //  =================  My Turns  =================
 // Turns Form conditions
 const instructor = document.querySelector("#request-turn-form-instructor");
@@ -648,8 +734,7 @@ if(user.role == "student"){
 	});
 }
 
-// Airplanes Options
-const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
+// ======> Airplanes Options
 for(let i = 0; i < fleet.length; i++){
 	let option = document.createElement("option");
 	option.value = fleet[i].plate;
@@ -657,7 +742,7 @@ for(let i = 0; i < fleet.length; i++){
 	document.querySelector("#request-turn-form-airplane").appendChild(option);
 }
 
-//  ===========   Request a Turn   ===========
+//  ======>   Request a Turn
 document.getElementById('request-turn-form-start-date').addEventListener('change', function() {
 	let startDate = new Date(document.getElementById('request-turn-form-start-date').value);
 	startDate.setHours(startDate.getHours() + localTime);
@@ -667,6 +752,46 @@ document.getElementById('request-turn-form-start-date').addEventListener('change
 	startDate.setHours(startDate.getHours() + 1);
 	document.getElementById('request-turn-form-end-date').value = startDate.toISOString().substring(0,16);
 });
+
+//  ======>   Request a Turn Price
+document.getElementById("request-turn-form-start-date").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-end-date").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-airplane").addEventListener('change', () => setTurnPrice());
+document.getElementById("request-turn-form-instructor").addEventListener('change', () => setTurnPrice());
+function setTurnPrice () {
+	let airplane = document.getElementById('request-turn-form-airplane').value;
+	let startTime = new Date(document.getElementById('request-turn-form-start-date').value);
+	let endTime = new Date(document.getElementById('request-turn-form-end-date').value);
+	let hours = (endTime.getTime() - startTime.getTime())/1000/60/60;
+	let index = rates.findIndex((item) => item.airplane_plate === airplane);
+	let price = 0;
+
+	if( index != -1 ){
+		let airplaneRates = rates[index].rates;
+
+		let i = 0;
+		while(airplaneRates.length > 1 && startTime.getTime() > new Date(airplaneRates[i+1].start_date).getTime()){
+			i++;
+		}
+		price = airplaneRates[i].rate * hours;
+	
+		// If the instructor was seleccted
+		if(document.getElementById("request-turn-form-instructor").checked) {
+			let index = rates.findIndex((item) => item.airplane_plate === "instruction");
+			let instructorRates = rates[index].rates;
+
+			let i = 0;
+			while(instructorRates.length > 1 && startTime.getTime() > new Date(instructorRates[i+1].start_date).getTime()){
+				i++
+			}
+
+			price += instructorRates[i].rate * hours;
+		}
+	}
+
+	document.querySelector("#request-turn-form-price").value = price;
+}
+
 // Register a turn POST
 document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -704,7 +829,7 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	xhr.send(JSON.stringify(newData));
 });
 
-//  ===========   My Turns   ===========
+//  =====>   My Turns Table
 const table = document.querySelector("#my-turns-table");
 if(myTurns.length > 0){
 	for (let i = 0; i < myTurns.length; i++) {
@@ -712,7 +837,7 @@ if(myTurns.length > 0){
 		newListItem.classList.add("turns-grid-card");
 	
 		let divInfo = document.createElement("div");
-		divInfo.classList.add("turns-grid-card");
+		divInfo.classList.add("turns-grid-card-info");
 	
 		let nameTitle = document.createElement("h2");
 		nameTitle.textContent = "Instructor:";
@@ -791,7 +916,10 @@ if(myTurns.length > 0){
 
 
 //  ===========   All Turns   ===========
-const oneHourHeight = 55;
+let oneHourHeight = 55;
+if(window.matchMedia("(max-width: 768px)").matches){
+	oneHourHeight = 40;
+}
 const start_hour = 6;
 const end_hour = 21;
 
@@ -1174,3 +1302,11 @@ function descriptionTranslation(description, tableName, key) {
 	descriptionTranslated += ": " + key;
 	return descriptionTranslated;
 }
+
+setTimeout(function () {
+	document.querySelector("#plain").classList.add("plain-out");
+	setTimeout(function () {
+		document.querySelector(".loading-page").style.visibility = "hidden";
+		document.querySelector(".loading-page").style.opacity = 0;
+	}, 500)
+}, 0)

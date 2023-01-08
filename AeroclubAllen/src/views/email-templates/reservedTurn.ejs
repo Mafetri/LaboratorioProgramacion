@@ -1,0 +1,61 @@
+<style type="text/css">
+	@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+	.turn h1,
+	p {
+		font-family: "Montserrat", sans-serif;
+		text-align: left;
+	}
+
+	.turn h1 {
+		font-size: 2em;
+	}
+
+	.turn p {
+		font-size: 1em;
+	}
+
+	.turn {
+		max-width: 50em;
+		width: 100%;
+		margin: auto;
+	}
+
+	@media (max-width: 768px) {
+		.turn h1 {
+			font-size: 1.5em;
+		}
+		.turn p {
+			font-size: 0.5em;
+		}
+	}
+</style>
+
+<%- include('./header.ejs') %>
+
+<div class="turn">
+	<h1>Buen día, <%= userName %>!</h1>
+	<p>
+		Su turno para el <%=airplane_plate%> desde las <%=startDate%> hasta las <%=endDate%>, 
+        <% if(instructor == null) {
+            %>sin instructor<% } 
+        else { %>con el instructor <%=instructor%><% 
+        }%>, con el proposito de <% 
+            switch(purpose){
+                case "local": %> vuelo local <%; break;
+                case "readaptation": %> readaptación <%; break;
+                case "adaptation": %> adaptación <%; break;
+                case "navigation": %> navegación <%; break;
+                case "instruction": %> instrucción <%; break;
+            }
+        %>ha sido reservado con exito<% if(approved == null) {
+            %>, pero a la espera de confirmacion de la secretaria<% 
+        }%>.
+	</p>
+	<p>
+		Si tiene alguna idea o propuesta de mejora del sistema, háganosla saber para lograr entre todos un mejor sistema.
+	</p>
+	<p>Saludos!</p>
+</div>
+
+<%- include('./footer.ejs') %>

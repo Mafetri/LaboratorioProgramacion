@@ -48,6 +48,15 @@ export function canGetAuditlog (req, res, next){
     }); 
 }
 
+export function isAdminOrSecretary (req, res, next){
+    if(req.user.role == "secretary" || req.user.role == "admin" ){
+        return next();
+    }
+    return res.status(400).json({
+        message: "User is not secretary or admin to do that."
+    }); 
+}
+
 export function canEnterDashboard (req, res, next){
     if(req.user.role == "admin" || req.user.role == "editor"){
         return next();
