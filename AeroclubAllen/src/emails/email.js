@@ -11,12 +11,22 @@ let transporter = nodemailer.createTransport({
 
 // Turn Reserved Email
 // Renders the reserved turn email template and sends it to the given email
-export const turnReservedEmail = (userName, email, startDate, endDate, airplane_plate, instructor, purpose, approved) => {  
-    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/reservedTurn.ejs"), {userName, startDate, endDate, airplane_plate, instructor, purpose, approved}, (err, data) => {
+export const turnReservedEmail = (userName, email, startDate, endDate, airplane_plate, instructor, purpose, approved, reqUser) => {  
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/reservedTurn.ejs"), {userName, startDate, endDate, airplane_plate, instructor, purpose, approved, reqUser}, (err, data) => {
         if(err){
             console.log(err);
         } else {
-            sendEmail('avisos@aerocluballen.com.ar', email, approved == null ? 'Turno Reservado sin confirmar' : 'Turno Confirmado', data);
+            let subject;
+
+            if(approved) {
+                subject = 'Turno Confirmado';
+            } else if (approved == null){
+                subject = 'Turno Reservado, pendiente de aprobación';
+            } else {
+                subject = 'Turno Rechazado';
+            }
+            
+            sendEmail('avisos@aerocluballen.com.ar', email, subject, data);
         };
     })
 }

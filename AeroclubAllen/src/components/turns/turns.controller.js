@@ -51,14 +51,14 @@ export const setStatus = async (req, res) => {
 				message: "Turn not found",
 			});
 		} else {
-			notifier.turnReserved(turnId);
-
 			if(result == "true"){
 				await auditlog.createLog(req.user.dni, "approved", "turns", id);
 			} else {
 				await auditlog.createLog(req.user.dni, "rejected", "turns", id);
 			}
 			res.send("success");
+
+			notifier.turnRevised(id, req.user.name + " " + req.user.surname);
 		}
 	} catch (e) {
 		somethingWentWrong500(e, res);

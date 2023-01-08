@@ -20,23 +20,24 @@ notifier.turnReserved = async (userName, email, startDate, endDate, airplane_pla
     }
 }
 
-// notifier.turnRevised = async (id) => {
-//     try {
-//         // Sends email to the user of the turn
-//         const turnRevised = await turns.getTurn(id);
-//         const user = (await users.getUser(turnRevised.user_dni))[0];
-//         let instructor = null;
-//         if(turnRevised.instructor_dni != null){
-//             instructor = await users.getUser(turnRevised.instructor_dni);
-//             turnReservedEmail(user.name, user.email, getDate(turnRevised.start_date), getDate(turnRevised.end_date), turnRevised.airplane_plate, instructor.name + " " + instructor.surname, turnRevised.purpose, turnRevised.approved);
-//         } else {
-//             turnReservedEmail(user.name, user.email, getDate(turnRevised.start_date), getDate(turnRevised.end_date), turnRevised.airplane_plate, null, turnRevised.purpose, turnRevised.approved);
-//         }
-//     } catch (error) {
-//         console.log(error);
-//     }
+notifier.turnRevised = async (id, reqUser) => {
+    try {
+        // Sends email to the user of the turn
+        const turnRevised = await turns.getTurn(id);
+        const user = (await users.getUser(turnRevised.user_dni))[0];
+
+        let instructor = null;
+        if(turnRevised.instructor_dni != null){
+            instructor = (await users.getUser(turnRevised.instructor_dni))[0];
+            instructor = instructor.name + " " + instructor.surname;
+        } 
+
+        turnReservedEmail(user.name, user.email, getDate(turnRevised.start_date), getDate(turnRevised.end_date), turnRevised.airplane_plate, instructor, turnRevised.purpose, turnRevised.approved == 1, reqUser);
+    } catch (error) {
+        console.log(error);
+    }
     
-// }
+}
 
 // Canceled Turn by Admin or Secretary
 notifier.canceledTurn = async (turn, userName) => {
