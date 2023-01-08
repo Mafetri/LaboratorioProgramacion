@@ -3,7 +3,7 @@ import users from "../users/users.dao.js";
 import { somethingWentWrong500 } from "../../error/error.handler.js";
 import auditlog from "../auditlog/auditlog.dao.js";
 import instructors from "../instructors/instructors.dao.js";
-import { canceledTurnEmail, turnReservedEmail } from "../../emails/email.js";
+import { canceledTurnEmail, turnReservedEmail, canceledTurnOverlappedEmail } from "../../emails/email.js";
 
 // Get Turns
 export const getTurns = async (req, res) => {
@@ -86,7 +86,7 @@ export const createTurn = async (req, res) => {
 			for( let i = 0; i < turnsOverlaped.length; i++){
 				// Gets the affected user and sends him an email
 				let userTurnOvelaped = (await users.getUser(turnsOverlaped[i].user_dni))[0];
-				canceledTurnEmail(userTurnOvelaped.name, userTurnOvelaped.email, startDate, endDate, turnsOverlaped[i].start_date, turnsOverlaped[i].end_date, airplane, purpose);
+				canceledTurnOverlappedEmail(userTurnOvelaped.name, userTurnOvelaped.email, startDate, endDate, turnsOverlaped[i].start_date, turnsOverlaped[i].end_date, airplane, purpose);
 				
 				await turns.deleteTurn(turnsOverlaped[i].id);
 			}
@@ -160,8 +160,11 @@ export const deleteTurn = async (req, res) => {
 	const { id } = req.params;
 
 	try {
+		const turn = await turns.getTurn(id);
+		const userTurn = (await users.getUser(turn.user_dni))[0];
+		canceledTurnEmail(userTurn.name, userTurn.email, req.user.name + " " + req.user.surname, turn.start_date, turn.end_date, turn.airplane_plate);
+		
 		const dbRes = await turns.deleteTurn(id);
-
 		if (dbRes.affectedRows === 0) {
 			return res.status(404).json({
 				message: "Turn not found",

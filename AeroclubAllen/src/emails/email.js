@@ -22,10 +22,21 @@ export const turnReservedEmail = (userName, email, startDate, endDate, airplane_
     })
 }
 
-// Canceled Turn Email
+// Canceled Turn by Admin or Secretary
+export const canceledTurnEmail = (name, email, userName, turnStartDate, turnEndDate, airplane) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/canceledTurn.ejs"), {name, turnStartDate: getDate(turnStartDate), turnEndDate: getDate(turnEndDate), userName, airplane}, (err, data) => {
+        if(err){
+            console.log(err);
+        } else {
+            sendEmail('avisos@aerocluballen.com.ar', email, 'Turno Cancelado', data);
+        };
+    })
+}
+
+// Canceled Turn By Other Turn
 // Renders the canceled turn email template and sends it to the given email
-export const canceledTurnEmail = (name, email, newTurnStartDate, newTurnEndDate, turnStartDate, turnEndDate, airplane, reason) => {
-    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/canceledTurn.ejs"), {name, turnStartDate: getDate(turnStartDate), turnEndDate: getDate(turnEndDate), newTurnStartDate: getDate(newTurnStartDate), newTurnEndDate: getDate(newTurnEndDate), airplane, reason}, (err, data) => {
+export const canceledTurnOverlappedEmail = (name, email, newTurnStartDate, newTurnEndDate, turnStartDate, turnEndDate, airplane, reason) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/overlappedTurn.ejs"), {name, turnStartDate: getDate(turnStartDate), turnEndDate: getDate(turnEndDate), newTurnStartDate: getDate(newTurnStartDate), newTurnEndDate: getDate(newTurnEndDate), airplane, reason}, (err, data) => {
         if(err){
             console.log(err);
         } else {
@@ -80,7 +91,7 @@ function getDate(date) {
     day = day[2] + "/" + day[1] + "/" + day[0];
     let hour = date.split("T")[1].split(":");
 
-    hour = parseInt(hour[0]) + parseInt(LOCAL_TIME) + ":" + hour[1] + "hs hora local (UTC-3)";
+    hour = ((parseInt(hour[0]) + parseInt(LOCAL_TIME)) % 24 + 24) % 24 + ":" + hour[1] + "hs hora local (UTC-3)";
 
     return hour + " del día " + day;
 }

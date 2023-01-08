@@ -36,7 +36,12 @@
 <div class="turn">
 	<h1>Buen día, <%= name %>!</h1>
 	<p>
-		Su turno para el <%=airplane%> con salida el día <%=turnStartDate%> y llegada el día <%=turnEndDate%>, ha sido cancelado por <%= userName %>. Para mas información, comuniquese con algun administrador o la secretaria.
+		Su turno para el <%=airplane%> con salida el día <%=turnStartDate%> y llegada el día <%=turnEndDate%>, ha sido cancelado porqué dicho avión
+		<% switch(reason) {
+			case "workshop": %>entra en taller<% break; 
+			case "baptism": %>tiene un vuelo de bautismo<% break; 
+			}
+		%> desde <%=newTurnStartDate%> hasta el <%=newTurnEndDate%>.
 	</p>
 	<p>
 		Si tiene alguna idea o propuesta de mejora del sistema, háganosla saber para lograr entre todos un mejor sistema.
