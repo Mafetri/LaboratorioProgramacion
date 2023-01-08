@@ -1,8 +1,8 @@
 // All the users needed info
 const user = await (await fetch("/api/userLoggedin")).json();
 const instructorsAviability = await (await fetch("/api/instructors?future=true")).json();
-const myTurns = await(await fetch("/api/turns?future=true/"+user.dni)).json();
-const allTurns = await(await fetch("/api/turns?future=true")).json();
+let myTurns = await(await fetch("/api/turns/"+user.dni+"?future=true")).json();
+let allTurns = await(await fetch("/api/turns?future=true")).json();
 const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
 let rates = await(await fetch("/api/rates?&date=" + (new Date).toISOString().split("T")[0])).json();
@@ -104,7 +104,6 @@ if (user.role != "admin" || user.role != "editor") {
 // and a button to submit more, if it is an admin, it will show all isntructors aviabilities
 if(user.role == "admin" || user.role == "secretary") {
 	instructorAviabilityTable(instructorsAviability);
-	allTurnsTable(allTurns);
 } else if (user.role == "instructor") {
 	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
 	let addAviabilityA = document.createElement("a");
@@ -148,11 +147,13 @@ function instructorAviabilityTable (instructorsAviability) {
 
 //  ====> All Turns Table
 if(user.role == "admin" || user.role == "secretary") {
-	allTurnsTable(allTurns);
+	fillAllTurnsTable(allTurns);
 } else {
 	document.querySelector("#all-turns-section").remove();
 }
-function allTurnsTable (allTurns){
+
+// Fills all turns table
+function fillAllTurnsTable (allTurns){
 	const table = document.querySelector("#all-turns-table");
 	if(allTurns.length > 0){
 		allTurns.forEach(t => {
@@ -244,7 +245,7 @@ function allTurnsTable (allTurns){
 					const res = await fetch("/api/turns/" + t.id, {
 						method: "DELETE",
 					});
-					window.location.reload();
+					updateTurnsFunctions();
 				}
 			});
 
@@ -256,6 +257,14 @@ function allTurnsTable (allTurns){
 		
 		table.appendChild(noTurns);
 	}
+}
+
+// Updates the table with all the turns
+async function updateAllTurnsTable(){
+	allTurns = await(await fetch("/api/turns?future=true")).json();
+	turnsToLocalTime(allTurns);
+	document.querySelector("#all-turns-table").innerHTML = "";
+	fillAllTurnsTable(allTurns);
 }
 
 //  ====> Instructor Disponibility Submit
@@ -853,7 +862,7 @@ for(let i = 0; i < fleet.length; i++){
 	document.querySelector("#request-turn-form-airplane").appendChild(option);
 }
 
-//  ======>   Request a Turn
+//  ======>   Request a Turn Recommended End Date
 document.getElementById('request-turn-form-start-date').addEventListener('change', function() {
 	let startDate = new Date(document.getElementById('request-turn-form-start-date').value);
 	startDate.setHours(startDate.getHours() + localTime);
@@ -925,6 +934,7 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 	xhr.onload = function () {
 		// If the server sends a success
 		if (xhr.responseText == "success") {
+			updateTurnsFunctions();
 			alert("Turno reservado con exito!");
 		} else if (xhr.responseText == "user-disabled") {
 			alert("No está habilitado para solicitar turnos, comunicarse con la secretaria");
@@ -935,95 +945,102 @@ document.querySelector("#request-turn-form").addEventListener("submit", (e) => {
 		} else {
 			alert("Hubo un error en la reserva del turno, revise los datos o comuniquese con un administrador");
 		}
-		window.location.reload();
 	};
 	xhr.send(JSON.stringify(newData));
 });
 
 //  =====>   My Turns Table
 const table = document.querySelector("#my-turns-table");
-if(myTurns.length > 0){
-	for (let i = 0; i < myTurns.length; i++) {
-		let newListItem = document.createElement("article");
-		newListItem.classList.add("turns-grid-card");
-	
-		let divInfo = document.createElement("div");
-		divInfo.classList.add("turns-grid-card-info");
-	
-		let instructorTitle = document.createElement("h2");
-		instructorTitle.textContent = "Instructor:";
-		let instructor = document.createElement("p");
-		if(myTurns[i].instructor_name == null){
-			instructor.textContent = "Sin Instructor";
-		} else {
-			instructor.textContent = myTurns[i].instructor_name + " " + myTurns[i].instructor_surname;
-		}
-	
-		let startDateTitle = document.createElement("h2");
-		startDateTitle.textContent = "Salida:";
-	
-		let start_date = document.createElement("p");
-		let dateArray = myTurns[i].start_date.split("T")[0].split("-");
-		let timeArray = myTurns[i].start_date.split("T")[1].split(":");
-		start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
-	
-		let endDateTitle = document.createElement("h2");
-		endDateTitle.textContent = "Llegada:";
-	
-		let end_date = document.createElement("p");
-		dateArray = myTurns[i].end_date.split("T")[0].split("-");
-		timeArray = myTurns[i].end_date.split("T")[1].split(":");
-		end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
-	
-		let statusTitle = document.createElement("h2");
-		statusTitle.textContent = "Estado:";
-		
-		let status = document.createElement("p");
-		switch(myTurns[i].approved){
-			case 1: status.textContent = "Aprobado"; break;
-			case 0: status.textContent = "Rechazado"; break;
-			default: status.textContent = "En Espera"; break;
-		}
-	
-		let airplanePlateTitle = document.createElement("h2");
-		airplanePlateTitle.textContent = "Avion:";
-	
-		let airplanePlate = document.createElement("p");
-		airplanePlate.textContent = myTurns[i].airplane_plate;
-	
-		// Cancel Button
-		let cancelButton = document.createElement("button");
-		cancelButton.textContent = "Cancelar";
-		cancelButton.classList.add("delete-button");
-		cancelButton.addEventListener("click", async () => {
-			if (window.confirm("Seguro que quiere cancelar el turno?")) {
-				const res = await fetch("/api/turns/" + myTurns[i].id, {
-					method: "DELETE",
-				});
-				window.location.reload();
-			}
-		});
-	
-		table.appendChild(newListItem);
-		newListItem.appendChild(divInfo);
-		divInfo.appendChild(startDateTitle);
-		divInfo.appendChild(start_date);
-		divInfo.appendChild(endDateTitle);
-		divInfo.appendChild(end_date);
-		divInfo.appendChild(airplanePlateTitle);
-		divInfo.appendChild(airplanePlate);
-		divInfo.appendChild(instructorTitle);
-		divInfo.appendChild(instructor);
-		divInfo.appendChild(statusTitle);
-		divInfo.appendChild(status);
-		newListItem.appendChild(cancelButton);
-	}
-} else {
-	let noTurns = document.createElement("h3");
-	noTurns.textContent = "No hay turnos agendados";
-	
-	table.appendChild(noTurns);
+fillMyTurnsTable();
+async function updateMyTurns (){
+	table.innerHTML = "";
+	fillMyTurnsTable();
 }
+function fillMyTurnsTable(){
+	if(myTurns.length > 0){
+		for (let i = 0; i < myTurns.length; i++) {
+			let newListItem = document.createElement("article");
+			newListItem.classList.add("turns-grid-card");
+		
+			let divInfo = document.createElement("div");
+			divInfo.classList.add("turns-grid-card-info");
+		
+			let instructorTitle = document.createElement("h2");
+			instructorTitle.textContent = "Instructor:";
+			let instructor = document.createElement("p");
+			if(myTurns[i].instructor_name == null){
+				instructor.textContent = "Sin Instructor";
+			} else {
+				instructor.textContent = myTurns[i].instructor_name + " " + myTurns[i].instructor_surname;
+			}
+		
+			let startDateTitle = document.createElement("h2");
+			startDateTitle.textContent = "Salida:";
+		
+			let start_date = document.createElement("p");
+			let dateArray = myTurns[i].start_date.split("T")[0].split("-");
+			let timeArray = myTurns[i].start_date.split("T")[1].split(":");
+			start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+		
+			let endDateTitle = document.createElement("h2");
+			endDateTitle.textContent = "Llegada:";
+		
+			let end_date = document.createElement("p");
+			dateArray = myTurns[i].end_date.split("T")[0].split("-");
+			timeArray = myTurns[i].end_date.split("T")[1].split(":");
+			end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+		
+			let statusTitle = document.createElement("h2");
+			statusTitle.textContent = "Estado:";
+			
+			let status = document.createElement("p");
+			switch(myTurns[i].approved){
+				case 1: status.textContent = "Aprobado"; break;
+				case 0: status.textContent = "Rechazado"; break;
+				default: status.textContent = "En Espera"; break;
+			}
+		
+			let airplanePlateTitle = document.createElement("h2");
+			airplanePlateTitle.textContent = "Avion:";
+		
+			let airplanePlate = document.createElement("p");
+			airplanePlate.textContent = myTurns[i].airplane_plate;
+		
+			// Cancel Button
+			let cancelButton = document.createElement("button");
+			cancelButton.textContent = "Cancelar";
+			cancelButton.classList.add("delete-button");
+			cancelButton.addEventListener("click", async () => {
+				if (window.confirm("Seguro que quiere cancelar el turno?")) {
+					const res = await fetch("/api/turns/" + myTurns[i].id, {
+						method: "DELETE",
+					});
+					updateTurnsFunctions();
+				}
+			});
+		
+			table.appendChild(newListItem);
+			newListItem.appendChild(divInfo);
+			divInfo.appendChild(startDateTitle);
+			divInfo.appendChild(start_date);
+			divInfo.appendChild(endDateTitle);
+			divInfo.appendChild(end_date);
+			divInfo.appendChild(airplanePlateTitle);
+			divInfo.appendChild(airplanePlate);
+			divInfo.appendChild(instructorTitle);
+			divInfo.appendChild(instructor);
+			divInfo.appendChild(statusTitle);
+			divInfo.appendChild(status);
+			newListItem.appendChild(cancelButton);
+		}
+	} else {
+		let noTurns = document.createElement("h3");
+		noTurns.textContent = "No hay turnos agendados";
+		
+		table.appendChild(noTurns);
+	}
+}
+
 
 
 //  ===========   All Turns   ===========
@@ -1061,70 +1078,66 @@ const tableHeight = document.querySelector("#table-turns-hours").offsetHeight;
 // Inicial day 																								
 document.querySelector("#all-turns-date-input").value = new Date().toISOString().substring(0,10);
 document.querySelector("#all-turns-date-input").min = new Date().toISOString().substring(0,10);
+
+// Seleccted Day, the one that will be showned
 let selecctedDay = document.querySelector("#all-turns-date-input").value;
 
-// If somebody changes the time of the input of all turns
-document.querySelector("#all-turns-date-input").addEventListener("change", ()=> {
-	selecctedDay = document.querySelector("#all-turns-date-input").value;
-	let turnLoaded = document.querySelectorAll("#turn-box");
-	turnLoaded.forEach((t)=>{
-		t.remove();
-	})	
-	fillAllTurns();
-})
-
-// Divide long turns from allTurns into smaller ones from the start_hour to end_hour 
+// All turns divided if exceed the hours
 let turns = [];
-allTurns.forEach((t)=>{
-	let newTurn = JSON.parse(JSON.stringify(t));
-	const startDate = new Date(t.start_date);
-	let endDate = new Date(t.end_date);
+divideTurns(turns);
+function divideTurns (turns) {
+	// Divide long turns from allTurns into smaller ones from the start_hour to end_hour
+	allTurns.forEach((t)=>{
+		let newTurn = JSON.parse(JSON.stringify(t));
+		const startDate = new Date(t.start_date);
+		let endDate = new Date(t.end_date);
 
-	let flagStartDate = new Date(t.start_date);
-	flagStartDate.setHours(start_hour + localTime);
-	flagStartDate.setMinutes(0);
+		let flagStartDate = new Date(t.start_date);
+		flagStartDate.setHours(start_hour + localTime);
+		flagStartDate.setMinutes(0);
 
-	let flagEndDate = new Date(t.start_date);
-	flagEndDate.setHours(end_hour + localTime);
-	flagEndDate.setMinutes(0);
+		let flagEndDate = new Date(t.start_date);
+		flagEndDate.setHours(end_hour + localTime);
+		flagEndDate.setMinutes(0);
 
-	if(flagStartDate.toISOString() > startDate.toISOString()){
-		newTurn.start_date = new Date(flagStartDate);
-	} else {
-		newTurn.start_date = new Date(startDate);
-	}
-	flagStartDate.setDate(flagStartDate.getDate() + 1);
+		if(flagStartDate.toISOString() > startDate.toISOString()){
+			newTurn.start_date = new Date(flagStartDate);
+		} else {
+			newTurn.start_date = new Date(startDate);
+		}
+		flagStartDate.setDate(flagStartDate.getDate() + 1);
 
-	if(flagEndDate.toISOString() < endDate.toISOString()){
-		newTurn.end_date = new Date(flagEndDate).toISOString();
-	} else {
-		newTurn.end_date = new Date(endDate).toISOString();
-	}
-	flagEndDate.setDate(flagEndDate.getDate() + 1);
-
-	turns.push(JSON.parse(JSON.stringify(newTurn)));
-
-	while(flagStartDate.toISOString() < endDate.toISOString()){
-		// Sets the start time at the start time of the day
-		newTurn.start_date = new Date(flagStartDate).toISOString();
-
-		// If the end_date of the turn finishes after the finish hour of that day
 		if(flagEndDate.toISOString() < endDate.toISOString()){
 			newTurn.end_date = new Date(flagEndDate).toISOString();
 		} else {
 			newTurn.end_date = new Date(endDate).toISOString();
-			turns.push(JSON.parse(JSON.stringify(newTurn)));
-			break;
 		}
-		turns.push(JSON.parse(JSON.stringify(newTurn)));
-		flagStartDate.setDate(flagStartDate.getDate() + 1);
 		flagEndDate.setDate(flagEndDate.getDate() + 1);
-	}
-})
 
-// Fills the turns table
-fillAllTurns();
-function fillAllTurns() {
+		turns.push(JSON.parse(JSON.stringify(newTurn)));
+
+		while(flagStartDate.toISOString() < endDate.toISOString()){
+			// Sets the start time at the start time of the day
+			newTurn.start_date = new Date(flagStartDate).toISOString();
+
+			// If the end_date of the turn finishes after the finish hour of that day
+			if(flagEndDate.toISOString() < endDate.toISOString()){
+				newTurn.end_date = new Date(flagEndDate).toISOString();
+			} else {
+				newTurn.end_date = new Date(endDate).toISOString();
+				turns.push(JSON.parse(JSON.stringify(newTurn)));
+				break;
+			}
+			turns.push(JSON.parse(JSON.stringify(newTurn)));
+			flagStartDate.setDate(flagStartDate.getDate() + 1);
+			flagEndDate.setDate(flagEndDate.getDate() + 1);
+		}
+	})
+}
+
+// Fills the turn table
+fillAllTurns(turns);
+function fillAllTurns(turns) {
 	for(let i = 0; i < turns.length; i++){
 		if(selecctedDay == turns[i].start_date.split("T")[0]){
 			const turnLength = (new Date(turns[i].end_date).getTime() - new Date(turns[i].start_date).getTime())/1000/60/60;
@@ -1165,6 +1178,47 @@ function fillAllTurns() {
 
 			document.querySelector('#'+turns[i].airplane_plate).appendChild(turn);
 		}
+	}
+}
+
+function emptyAllTurnsTable() {
+	(document.querySelectorAll('#table-turns [id^="LV-"] #turn-box')).forEach((turn)=>{
+		turn.remove();
+	});
+}
+
+// If somebody changes the time of the input of all turns
+document.querySelector("#all-turns-date-input").addEventListener("change", ()=> {
+	selecctedDay = document.querySelector("#all-turns-date-input").value;
+	emptyAllTurnsTable();
+	fillAllTurns(turns);
+})
+
+// Updates the turns when needed
+async function updateAllTurns (){
+	// Divides the turns by day
+	let turns = [];
+	divideTurns(turns);
+	// Empty the table
+	emptyAllTurnsTable();
+	// Fill the table
+	fillAllTurns(turns);
+}
+
+async function updateTurnsFunctions(){
+	// Gets all turns again
+	allTurns = await(await fetch("/api/turns?future=true")).json();
+	turnsToLocalTime(allTurns);
+
+	// Gets all user turns again
+	myTurns = await(await fetch("/api/turns/"+user.dni+"?future=true")).json();
+	turnsToLocalTime(myTurns);
+
+	// Calls each function
+	updateAllTurns();
+	updateMyTurns();
+	if(user.role == "admin" || user.role == "secretary"){
+		updateAllTurnsTable();
 	}
 }
 

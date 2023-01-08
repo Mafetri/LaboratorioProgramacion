@@ -8,8 +8,8 @@ import { canceledTurnEmail, turnReservedEmail } from "../../emails/email.js";
 // Get Turns
 export const getTurns = async (req, res) => {
 	const { approved, future } = req.query;
-	let rows;
 	try {
+		let rows;
 		if(future == "true"){
 			rows = await turns.getFutureTurns(approved);
 		} else {
@@ -22,7 +22,9 @@ export const getTurns = async (req, res) => {
 };
 
 export const getTurnsUser = async (req, res) => {
-	const { dni, future } = req.params;
+	const { dni } = req.params;
+	const { future } = req.query;
+
 	try {
 		let rows;
 		if(future == "true"){
