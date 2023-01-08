@@ -145,6 +145,13 @@ function instructorAviabilityTable (instructorsAviability) {
 		newListItem.appendChild(end_date);
 	}
 }
+
+//  ====> All Turns Table
+if(user.role == "admin" || user.role == "secretary") {
+	allTurnsTable(allTurns);
+} else {
+	document.querySelector("#all-turns-section").remove();
+}
 function allTurnsTable (allTurns){
 	const table = document.querySelector("#all-turns-table");
 	if(allTurns.length > 0){
@@ -158,7 +165,7 @@ function allTurnsTable (allTurns){
 			let memberNameTitle = document.createElement("h2");
 			memberNameTitle.textContent = "Socio:"
 			let memberName = document.createElement("p");
-			memberName.textContent = t.requester_name + " " + t.requester_surname;
+			memberName.textContent = t.requester_name + " " + t.requester_surname + "\r\n(" + t.user_dni + ")";
 
 			let purposeTitle = document.createElement("h2");
 			purposeTitle.textContent = "Proposito:";
@@ -345,6 +352,11 @@ if (user.role == "instructor") {
 			divInfo.appendChild(status);
 			newListItem.appendChild(cancelButton);
 		}
+	}
+	if (document.querySelector("#instructor-assigned-turns-table").children.length == 0) {
+		let noTurns = document.createElement("h3");
+		noTurns.textContent = "No hay turnos asignados";
+		document.querySelector('#instructor-assigned-turns-table').appendChild(noTurns);
 	}
 } else {
 	document.querySelector("#instructor-assigned-turns").remove();
