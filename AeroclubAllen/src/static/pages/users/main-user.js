@@ -1,7 +1,7 @@
 // All the users needed info
 const user = await (await fetch("/api/userLoggedin")).json();
 const instructorsAviability = await (await fetch("/api/instructors?future=true")).json();
-const myTurns = await(await fetch("/api/turns?future=false/"+user.dni)).json();
+const myTurns = await(await fetch("/api/turns?future=true/"+user.dni)).json();
 const allTurns = await(await fetch("/api/turns?future=true")).json();
 const fleet = await (await fetch("/api/fleet?x0=0&n=200")).json();
 const instructors = await(await fetch("/api/usersInstructors")).json();
@@ -104,6 +104,7 @@ if (user.role != "admin" || user.role != "editor") {
 // and a button to submit more, if it is an admin, it will show all isntructors aviabilities
 if(user.role == "admin" || user.role == "secretary") {
 	instructorAviabilityTable(instructorsAviability);
+	allTurnsTable(allTurns);
 } else if (user.role == "instructor") {
 	document.querySelector("#instructor-availability-title").textContent = "Mi Disponibilidad";
 	let addAviabilityA = document.createElement("a");
@@ -142,6 +143,111 @@ function instructorAviabilityTable (instructorsAviability) {
 		newListItem.appendChild(completeName);
 		newListItem.appendChild(start_date);
 		newListItem.appendChild(end_date);
+	}
+}
+function allTurnsTable (allTurns){
+	const table = document.querySelector("#all-turns-table");
+	if(allTurns.length > 0){
+		allTurns.forEach(t => {
+			let newListItem = document.createElement("article");
+			newListItem.classList.add("turns-grid-card");
+		
+			let divInfo = document.createElement("div");
+			divInfo.classList.add("turns-grid-card-info");
+		
+			let memberNameTitle = document.createElement("h2");
+			memberNameTitle.textContent = "Socio:"
+			let memberName = document.createElement("p");
+			memberName.textContent = t.requester_name + " " + t.requester_surname;
+
+			let purposeTitle = document.createElement("h2");
+			purposeTitle.textContent = "Proposito:";
+			let purpose = document.createElement("p");
+			purpose.textContent = purposeTranslation(t.purpose);
+		
+			let startDateTitle = document.createElement("h2");
+			startDateTitle.textContent = "Salida:";
+		
+			let start_date = document.createElement("p");
+			let dateArray = t.start_date.split("T")[0].split("-");
+			let timeArray = t.start_date.split("T")[1].split(":");
+			start_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+		
+			let endDateTitle = document.createElement("h2");
+			endDateTitle.textContent = "Llegada:";
+		
+			let end_date = document.createElement("p");
+			dateArray = t.end_date.split("T")[0].split("-");
+			timeArray = t.end_date.split("T")[1].split(":");
+			end_date.textContent = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0] + " " + timeArray[0] + ":" + timeArray[1];
+		
+			let airplanePlateTitle = document.createElement("h2");
+			airplanePlateTitle.textContent = "Avion:";
+			let airplanePlate = document.createElement("p");
+			airplanePlate.textContent = t.airplane_plate;
+
+			table.appendChild(newListItem);
+			newListItem.appendChild(divInfo);
+			divInfo.appendChild(memberNameTitle);
+			divInfo.appendChild(memberName);
+			divInfo.appendChild(purposeTitle);
+			divInfo.appendChild(purpose);
+			divInfo.appendChild(startDateTitle);
+			divInfo.appendChild(start_date);
+			divInfo.appendChild(endDateTitle);
+			divInfo.appendChild(end_date);
+			divInfo.appendChild(airplanePlateTitle);
+			divInfo.appendChild(airplanePlate);
+
+			if(t.purpose == "workshop" || t.purpose == "baptism"){
+				startDateTitle.textContent = "Desde:";
+				endDateTitle.textContent = "Hasta:";
+			} else {
+				let instructorTitle = document.createElement("h2");
+				instructorTitle.textContent = "Instructor:";
+				let instructor = document.createElement("p");
+				if(t.instructor_name == null){
+					instructor.textContent = "Sin Instructor";
+				} else {
+					instructor.textContent = t.instructor_name + " " + t.instructor_surname;
+				}
+
+				let statusTitle = document.createElement("h2");
+				statusTitle.textContent = "Estado:";
+				
+				let status = document.createElement("p");
+				switch(t.approved){
+					case 1: status.textContent = "Aprobado"; break;
+					case 0: status.textContent = "Rechazado"; break;
+					default: status.textContent = "En Espera"; break;
+				}
+
+				divInfo.appendChild(instructorTitle);
+				divInfo.appendChild(instructor);
+				divInfo.appendChild(statusTitle);
+				divInfo.appendChild(status);
+			}
+		
+			// Cancel Button
+			let cancelButton = document.createElement("button");
+			cancelButton.textContent = "Cancelar";
+			cancelButton.classList.add("delete-button");
+			cancelButton.addEventListener("click", async () => {
+				if (window.confirm("Seguro que quiere cancelar el turno?")) {
+					const res = await fetch("/api/turns/" + t.id, {
+						method: "DELETE",
+					});
+					window.location.reload();
+				}
+			});
+
+			newListItem.appendChild(cancelButton);
+		})
+	} else {
+		let noTurns = document.createElement("h3");
+		noTurns.textContent = "No hay turnos agendados";
+		
+		table.appendChild(noTurns);
 	}
 }
 
@@ -313,14 +419,7 @@ function fillTurnsTable(uncheckedTurns){
 		let purposeTitle = document.createElement("h2");
 		purposeTitle.textContent = "Proposito:";
 		let purpose = document.createElement("p");
-		switch(uncheckedTurns[i].purpose){
-			case "local": purpose.textContent = "Local"; break;
-			case "readaptation": purpose.textContent = "Readaptación"; break;
-			case "adaptation": purpose.textContent = "Adaptación"; break;
-			case "navigation": purpose.textContent = "Navegación"; break;
-			case "navigation": purpose.textContent = "Navegación"; break;
-			case "instruction": purpose.textContent = "Instrucción"; break;
-		}
+		purpose.textContent = purposeTranslation(uncheckedTurns[i].purpose);
 	
 		let state = document.createElement("div");
 		let acceptButton = document.createElement("button");
@@ -839,13 +938,13 @@ if(myTurns.length > 0){
 		let divInfo = document.createElement("div");
 		divInfo.classList.add("turns-grid-card-info");
 	
-		let nameTitle = document.createElement("h2");
-		nameTitle.textContent = "Instructor:";
-		let completeName = document.createElement("p");
-		if(myTurns[i].name == null){
-			completeName.textContent = "Sin Instructor";
+		let instructorTitle = document.createElement("h2");
+		instructorTitle.textContent = "Instructor:";
+		let instructor = document.createElement("p");
+		if(myTurns[i].instructor_name == null){
+			instructor.textContent = "Sin Instructor";
 		} else {
-			completeName.textContent = myTurns[i].name + " " + myTurns[i].surname;
+			instructor.textContent = myTurns[i].instructor_name + " " + myTurns[i].instructor_surname;
 		}
 	
 		let startDateTitle = document.createElement("h2");
@@ -901,8 +1000,8 @@ if(myTurns.length > 0){
 		divInfo.appendChild(end_date);
 		divInfo.appendChild(airplanePlateTitle);
 		divInfo.appendChild(airplanePlate);
-		divInfo.appendChild(nameTitle);
-		divInfo.appendChild(completeName);
+		divInfo.appendChild(instructorTitle);
+		divInfo.appendChild(instructor);
 		divInfo.appendChild(statusTitle);
 		divInfo.appendChild(status);
 		newListItem.appendChild(cancelButton);
@@ -1263,6 +1362,19 @@ function roleTranslation(role) {
 			return "Instructor";
 		case "secretary":
 			return "Secretaria";
+	}
+}
+
+function purposeTranslation(purpose){
+	switch(purpose){
+		case "local": return "Local";
+		case "readaptation": return "Readaptación";
+		case "adaptation": return "Adaptación";
+		case "navigation": return "Navegación";
+		case "navigation": return "Navegación";
+		case "instruction": return "Instrucción";
+		case "workshop": return "Taller";
+		case "baptism": return "Bautismo";
 	}
 }
 
