@@ -377,7 +377,7 @@ if (user.role == "secretary" || user.role == "admin"){
 	turnsToLocalTime(uncheckedTurns);
 
 	if(uncheckedTurns.length > 0){
-		fillTurnsTable(uncheckedTurns);
+		fillUncheckedTurnsTable(uncheckedTurns);
 	} else {
 		let noTurns = document.createElement("h3");
 		noTurns.textContent = "No hay turnos a revisar";
@@ -386,7 +386,8 @@ if (user.role == "secretary" || user.role == "admin"){
 } else {
 	document.querySelector("#unchecked-turns").remove();
 }
-function fillTurnsTable(uncheckedTurns){
+
+function fillUncheckedTurnsTable(uncheckedTurns){
 	for(let i = 0; i < uncheckedTurns.length; i++){
 		let newListItem = document.createElement("article");
 		newListItem.classList.add("turns-grid-card");
@@ -403,7 +404,7 @@ function fillTurnsTable(uncheckedTurns){
 	
 		let personTitle = document.createElement("h2");
 		personTitle.textContent = "Socio:";
-		let person = document.createElement("td");
+		let person = document.createElement("p");
 		person.textContent = uncheckedTurns[i].requester_name + " " + uncheckedTurns[i].requester_surname;
 
 		let instructorTitle = document.createElement("h2");
@@ -487,6 +488,18 @@ function fillTurnsTable(uncheckedTurns){
 		state.appendChild(acceptButton);
 		state.appendChild(denyButton);
 	}
+}
+async function updateUncheckedTurns() {
+	let uncheckedTurns = await (await fetch("/api/turns?approved=unchecked")).json();
+	turnsToLocalTime(uncheckedTurns);
+
+	document.querySelector("#unchecked-turns-grid").innerHTML = "";
+
+	if(uncheckedTurns.length == 0){
+		document.querySelector("#unchecked-turns-grid").innerHTML = "<h3>No hay turnos pendientes</h3>";
+	}
+
+	fillUncheckedTurnsTable(uncheckedTurns);
 }
 
 //  =====> Users Table
@@ -1219,6 +1232,7 @@ async function updateTurnsFunctions(){
 	updateMyTurns();
 	if(user.role == "admin" || user.role == "secretary"){
 		updateAllTurnsTable();
+		updateUncheckedTurns();
 	}
 }
 

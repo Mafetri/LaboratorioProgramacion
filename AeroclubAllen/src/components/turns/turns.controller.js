@@ -163,7 +163,9 @@ export const deleteTurn = async (req, res) => {
 			res.send("success");
 		}
 
-		notifier.canceledTurn(turn, req.user.name + " " + req.user.surname);
+		if(turn.purpose != "workshop" && turn.purpose != "baptism"){
+			notifier.canceledTurn(turn, req.user.name + " " + req.user.surname);
+		}
 	} catch (e) {
 		somethingWentWrong500(e, res);
 	}
