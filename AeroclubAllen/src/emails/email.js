@@ -2,7 +2,6 @@ import ejs from "ejs";
 import nodemailer from "nodemailer";
 import path from "path";
 import { fileURLToPath } from "url";
-import { LOCAL_TIME } from "../config.js";
 
 let transporter = nodemailer.createTransport({
     host: 'localhost',
@@ -13,7 +12,7 @@ let transporter = nodemailer.createTransport({
 // Turn Reserved Email
 // Renders the reserved turn email template and sends it to the given email
 export const turnReservedEmail = (userName, email, startDate, endDate, airplane_plate, instructor, purpose, approved) => {  
-    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/reservedTurn.ejs"), {userName, startDate: getDate(startDate), endDate: getDate(endDate), airplane_plate, instructor, purpose, approved}, (err, data) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/reservedTurn.ejs"), {userName, startDate, endDate, airplane_plate, instructor, purpose, approved}, (err, data) => {
         if(err){
             console.log(err);
         } else {
@@ -24,7 +23,7 @@ export const turnReservedEmail = (userName, email, startDate, endDate, airplane_
 
 // Canceled Turn by Admin or Secretary
 export const canceledTurnEmail = (name, email, userName, turnStartDate, turnEndDate, airplane) => {
-    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/canceledTurn.ejs"), {name, turnStartDate: getDate(turnStartDate), turnEndDate: getDate(turnEndDate), userName, airplane}, (err, data) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/canceledTurn.ejs"), {name, turnStartDate, turnEndDate, userName, airplane}, (err, data) => {
         if(err){
             console.log(err);
         } else {
@@ -36,7 +35,7 @@ export const canceledTurnEmail = (name, email, userName, turnStartDate, turnEndD
 // Canceled Turn By Other Turn
 // Renders the canceled turn email template and sends it to the given email
 export const canceledTurnOverlappedEmail = (name, email, newTurnStartDate, newTurnEndDate, turnStartDate, turnEndDate, airplane, reason) => {
-    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/overlappedTurn.ejs"), {name, turnStartDate: getDate(turnStartDate), turnEndDate: getDate(turnEndDate), newTurnStartDate: getDate(newTurnStartDate), newTurnEndDate: getDate(newTurnEndDate), airplane, reason}, (err, data) => {
+    ejs.renderFile(path.join(fileURLToPath(import.meta.url),"../../views/email-templates/overlappedTurn.ejs"), {name, turnStartDate, turnEndDate, newTurnStartDate, newTurnEndDate, airplane, reason}, (err, data) => {
         if(err){
             console.log(err);
         } else {
@@ -83,15 +82,3 @@ function sendEmail(fromEmail, toEmail, subject, data) {
     });
 }
 
-// Get Date
-// Returns a string formed by a date on isostring into a string of hour and localdate
-function getDate(date) {
-    date = new Date(date).toISOString();
-    let day = date.split("T")[0].split("-");
-    day = day[2] + "/" + day[1] + "/" + day[0];
-    let hour = date.split("T")[1].split(":");
-
-    hour = ((parseInt(hour[0]) + parseInt(LOCAL_TIME)) % 24 + 24) % 24 + ":" + hour[1] + "hs hora local (UTC-3)";
-
-    return hour + " del día " + day;
-}
