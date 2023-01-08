@@ -48,9 +48,11 @@
                 case "navigation": %> navegación <%; break;
                 case "instruction": %> instrucción <%; break;
             }
-        %>ha sido reservado con exito<% if(approved == null) {
-            %>, pero a la espera de confirmacion de la secretaria<% 
-        }%>.
+        %>ha sido <%switch(approved) { 
+			case true: %> confirmado con exito<% if (reqUser != null) { %> por <%=reqUser%><% }%><%; break; 
+			case false: %> rechazado por <%=reqUser%><%; break; 
+			default: %> reservado, pero a la espera de confirmacion de la secretaria<%; break; 	
+		}%>.
 	</p>
 	<p>
 		Si tiene alguna idea o propuesta de mejora del sistema, háganosla saber para lograr entre todos un mejor sistema.

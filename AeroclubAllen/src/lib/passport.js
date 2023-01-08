@@ -2,7 +2,7 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import { pool } from "../db.js";
 import helpers from "./helpers.js";
-import { sendWelcomeEmail } from "../emails/email.js";
+import notifier from "../emails/notifier.js";
 
 passport.use('local.signup',
 	new LocalStrategy.Strategy(
@@ -25,8 +25,8 @@ passport.use('local.signup',
 					// Saves on DB
 					await pool.query("UPDATE users SET name = ?, surname = ?, email = ?, password = ?, phone = ? WHERE dni = ?", [ name, surname, email, password, phone, dni]);
 
-					// Sends an email to the new user
-					sendWelcomeEmail(name, surname, email, phone, existingUser[0].role, existingUser[0].dni);
+					// Sends a notification to the new user
+					notifier.welcome(name, surname, email, phone, existingUser[0].role, existingUser[0].dni);
 					
 					return done(null, {dni, name, surname, phone, email, password});
 				} else {
