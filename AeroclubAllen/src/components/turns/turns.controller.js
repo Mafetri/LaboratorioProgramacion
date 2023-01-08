@@ -7,9 +7,14 @@ import { canceledTurnEmail, turnReservedEmail } from "../../emails/email.js";
 
 // Get Turns
 export const getTurns = async (req, res) => {
-	const { approved } = req.query;
+	const { approved, future } = req.query;
 	try {
-		const rows = await turns.getTurns(approved);
+		let rows;
+		if(future == "true"){
+			rows = await turns.getFutureTurns(approved);
+		} else {
+			rows = await turns.getTurns(approved);
+		}
 		res.json(rows);
 	} catch (e) {
 		somethingWentWrong500(e, res);
@@ -18,9 +23,15 @@ export const getTurns = async (req, res) => {
 
 export const getTurnsUser = async (req, res) => {
 	const { dni } = req.params;
+	const { future } = req.query;
 
 	try {
-		const rows = await turns.getTurnsUser(dni);
+		let rows;
+		if(future == "true"){
+			rows = await turns.getFutureTurnsUser(dni);
+		} else {
+			rows = await turns.getTurnsUser(dni);
+		}
 		res.json(rows);
 	} catch (error) {
 		somethingWentWrong500(error, res);

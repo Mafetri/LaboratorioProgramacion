@@ -1,4 +1,5 @@
 import { pool } from "../../db.js";
+import {DAYS_UNTIL_CLEAN} from "../../config.js";
 
 const auditlog = {};
 
@@ -15,7 +16,6 @@ auditlog.getAuditlog = async (x0, n) => {
 	}
 }
 
-
 // Create a log
 auditlog.createLog = async (user_dni, description, table_name, primary_key_changed) => {
 	try {
@@ -27,5 +27,15 @@ auditlog.createLog = async (user_dni, description, table_name, primary_key_chang
 		throw e;
 	}
 };
+
+// Delete Past Logs
+auditlog.deletePastLogs = async () => {
+	try {
+		const [rows] = await pool.query("DELETE FROM auditlog WHERE end_date < DATE_SUB(CURDATE(), INTERVAL ? DAYS)", [DAYS_UNTIL_CLEAN]);
+		return rows;
+	} catch (error) {
+		throw error;
+	}
+}
 
 export default auditlog;

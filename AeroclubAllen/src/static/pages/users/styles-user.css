@@ -250,6 +250,7 @@ th {
 	padding: 0.3em;
 	border-radius: var(--radius);
 	white-space: pre;
+	overflow: scroll;
 }
 
 #instructor-box {
@@ -294,7 +295,6 @@ th {
 	text-align: center;
     width: 100%;
     color: var(--secundarioOscuro);
-    font-weight: 200;
 	font-size: 1.5em;
 }
 
@@ -323,15 +323,14 @@ th {
 .turns-grid-card-info {
 	display: flex;  
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	gap: 0.2em;
 	background-color: white;
 	min-width: 12em;
-	height: fit-content;
-	justify-content: center;
 	text-align: center;
 	border-radius: var(--radius);
 	padding-top: 0.7em;
+	height: 100%;
 }
 .turns-grid-card-info p, h2{
 	margin: 0;
@@ -340,6 +339,7 @@ th {
 }
 .turns-grid-card-info p{
 	margin-bottom: 0.5em;
+	white-space: pre;
 }
 .turns-grid-card-info h2{
 	font-weight: 500;

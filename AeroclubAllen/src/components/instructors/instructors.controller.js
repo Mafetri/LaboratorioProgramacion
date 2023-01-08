@@ -3,8 +3,14 @@ import instructors from "./instructors.dao.js";
 
 // Get Instructors Aviability
 export const getInstructorsAviability = async (req, res) => {
+    const {future} = req.query;
     try {
-        const rows = await instructors.getInstructorsAviability();
+        let rows;
+        if (future == "true") {
+            rows = await instructors.getFutureInstructorsAviability();
+        } else {
+            rows = await instructors.getInstructorsAviability();
+        }
         res.json(rows);
     } catch (error) {
         somethingWentWrong500(error, res);
@@ -14,9 +20,15 @@ export const getInstructorsAviability = async (req, res) => {
 // Get Instructor Aviability
 export const getInstructorAviability = async (req, res) => {
     const { dni } = req.params;
+    const { future } = req.query;
 
     try {
-        const rows = await instructors.getInstructorAviability(dni);
+        let rows;
+        if(future == "true"){
+            rows = await instructors.getFutureInstructorAviability(dni);
+        } else {
+            rows = await instructors.getInstructorAviability(dni);
+        }
         res.json(rows);
     } catch (error) {
         somethingWentWrong500(error, res);
